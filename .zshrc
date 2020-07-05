@@ -98,6 +98,9 @@ preexec_functions=($preexec_functions tabtitle_preexec)
 if [ -f ~/.zsh_aliases ]; then
    . ~/.zsh_aliases
 fi
+if [ -f ~/.zsh_local ]; then
+   . ~/.zsh_local
+fi
 
 # 初回シェル時のみ tmux実行
 if [ $SHLVL = 1 ]; then
