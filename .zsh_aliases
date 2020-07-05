@@ -1,0 +1,16 @@
+alias here="explorer.exe ."
+export "LIBGL_ALWAYS_INDIRECT=1"
+PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH:/home/takuto/myCommands
+export INFOPATH=$INFOPATH:/usr/local/texlive/2020/texmf-dist/doc/info
+export MANPATH=$MANPATH:/usr/local/texlive/2020/texmf-dist/doc/man
+
+alias python="python3"
+alias pip="pip3"
+alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
+venv() {
+	python -m venv "$@";
+	cd "$@";
+	source bin/activate;
+	pip install wheel;
+}
+# alias setdns="echo \"nameserver `python3 ~/set_configs.py windowsgateway`\" | sudo tee /etc/resolv.conf"
