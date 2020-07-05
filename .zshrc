@@ -52,12 +52,6 @@ zstyle ':completion:*' group-name ''
 
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
 export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-alias ls='ls --color'
-alias ll='ls -ltr'
-alias c='clear'
-
-alias vm='vim ~/.vimrc'
-alias vz='vim ~/.zshrc'
 
 bindkey -M viins '^j' vi-cmd-mode
 
@@ -101,11 +95,11 @@ preexec_functions=($preexec_functions tabtitle_preexec)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 if [ -f ~/.zsh_aliases ]; then
    . ~/.zsh_aliases
+fi
+
+# 初回シェル時のみ tmux実行
+if [ $SHLVL = 1 ]; then
+  tmux a
 fi

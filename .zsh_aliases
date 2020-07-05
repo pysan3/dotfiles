@@ -1,3 +1,12 @@
+alias ll='ls -alF'alias ls='ls --color'
+alias ll='ls -ltr'
+alias c='clear'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias vm='vim ~/.vimrc'
+alias vz='vim ~/.zshrc'
+
 alias here="explorer.exe ."
 export "LIBGL_ALWAYS_INDIRECT=1"
 PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH:/home/takuto/myCommands
