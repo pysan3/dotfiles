@@ -101,8 +101,3 @@ fi
 if [ -f ~/.zsh_local ]; then
    . ~/.zsh_local
 fi
-
-# 初回シェル時のみ tmux実行
-if [ $SHLVL = 1 ]; then
-  tmux a
-fi
