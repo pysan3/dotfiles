@@ -8,8 +8,7 @@ alias vm='vim ~/.vimrc'
 alias vz='vim ~/.zshrc'
 
 alias here="explorer.exe ."
-export "LIBGL_ALWAYS_INDIRECT=1"
-PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH:/home/takuto/myCommands
+export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH:/home/takuto/myCommands
 export INFOPATH=$INFOPATH:/usr/local/texlive/2020/texmf-dist/doc/info
 export MANPATH=$MANPATH:/usr/local/texlive/2020/texmf-dist/doc/man
 

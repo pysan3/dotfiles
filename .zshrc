@@ -39,7 +39,7 @@ local RED=$'%{^[[1;31m%}'$
 local YELLOW=$'%{^[[1;33m%}'$
 
 zstyle ':completion:*:default' menu select=2 # 補完後、メニュー選択モードになり左右キーで移動が出来る
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完で大文字にもマッチ
+# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完で大文字にもマッチ
 zstyle ':completion:*' verbose true # 補完を詳細に表示
 zstyle ':completion:*' use-cache true # キャッシュによる補完の高速化
 zstyle ':completion:*' completer _expand _complete _history _prefix # 補完の出し方
