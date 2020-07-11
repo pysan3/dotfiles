@@ -95,14 +95,15 @@ preexec_functions=($preexec_functions tabtitle_preexec)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ -f ~/.zsh_aliases ]; then
-   . ~/.zsh_aliases
-fi
 if [ -f ~/.zsh_local ]; then
    . ~/.zsh_local
+fi
+if [ -f ~/.zsh_aliases ]; then
+   . ~/.zsh_aliases
 fi
 
 # expansion: =mv -> /bin/mv
 unsetopt equals
 
+# backspaceが認識されない問題を解決
 stty erase ""

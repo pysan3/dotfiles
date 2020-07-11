@@ -14,6 +14,15 @@ export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH:/home/takuto/myComman
 export INFOPATH=$INFOPATH:/usr/local/texlive/2020/texmf-dist/doc/info
 export MANPATH=$MANPATH:/usr/local/texlive/2020/texmf-dist/doc/man
 
+# run peco with C-r
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tac  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
+
 alias python="python3"
 alias pip="pip3"
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
