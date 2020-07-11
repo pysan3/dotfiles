@@ -101,3 +101,6 @@ fi
 if [ -f ~/.zsh_local ]; then
    . ~/.zsh_local
 fi
+
+# expansion: =mv -> /bin/mv
+unsetopt equals

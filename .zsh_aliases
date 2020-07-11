@@ -6,6 +6,8 @@ alias l='ls -CF'
 
 alias vm='vim ~/.vimrc'
 alias vz='vim ~/.zshrc'
+alias va='vim ~/.zsh_aliases'
+alias vl='vim ~/.zsh_local'
 
 alias here="explorer.exe ."
 export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH:/home/takuto/myCommands
@@ -16,9 +18,9 @@ alias python="python3"
 alias pip="pip3"
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
 venv() {
-	python -m venv "$@";
+	python3 -m venv "$@";
 	cd "$@";
 	source bin/activate;
-	pip install wheel;
+	pip3 install wheel;
 }
 # alias setdns="echo \"nameserver `python3 ~/set_configs.py windowsgateway`\" | sudo tee /etc/resolv.conf"

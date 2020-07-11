@@ -110,3 +110,4 @@ endif
 
 " 設定読み込み
 call map(sort(split(globpath(&runtimepath, '_config/*.vim'))), {->[execute('exec "so" v:val')]})
+
