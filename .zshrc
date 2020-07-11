@@ -104,3 +104,5 @@ fi
 
 # expansion: =mv -> /bin/mv
 unsetopt equals
+
+stty erase ""
