@@ -26,10 +26,17 @@ bindkey '^R' peco-history-selection
 alias python="python3"
 alias pip="pip3"
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
+alias act="source bin/activate"
 venv() {
 	python3 -m venv "$@";
 	cd "$@";
 	source bin/activate;
 	pip3 install wheel;
+}
+cinit() {
+    rm -rf build;
+    mkdir build;
+    cd build;
+    cmake ..;
 }
 # alias setdns="echo \"nameserver `python3 ~/set_configs.py windowsgateway`\" | sudo tee /etc/resolv.conf"
