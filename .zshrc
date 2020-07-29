@@ -1,3 +1,5 @@
+[ -z "$PS1" ] && return
+
 export LANG=ja_JP.UTF-8
 
 # ${fg[blue]}等で色が利用できるようにする
