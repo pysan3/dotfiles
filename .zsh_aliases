@@ -14,6 +14,8 @@ export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH:/home/takuto/myComman
 export INFOPATH=$INFOPATH:/usr/local/texlive/2020/texmf-dist/doc/info
 export MANPATH=$MANPATH:/usr/local/texlive/2020/texmf-dist/doc/man
 
+export CLICOLOR=1
+export HISTCONTROL=ignoreboth
 # run peco with C-r
 function peco-history-selection() {
     BUFFER=`history -n 1 | tac  | awk '!a[$0]++' | peco`
