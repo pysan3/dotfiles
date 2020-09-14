@@ -1,4 +1,5 @@
-alias ll='ls -alF'alias ls='ls --color'
+alias ll='ls -alF'
+alias ls='ls --color'
 alias ll='ls -ltr'
 alias c='clear'
 alias la='ls -A'
@@ -8,6 +9,9 @@ alias vm='vim ~/dotfiles/.vimrc'
 alias vz='vim ~/dotfiles/.zshrc'
 alias va='vim ~/dotfiles/.zsh_aliases'
 alias vl='vim ~/.zsh_local'
+
+alias ga='git add'
+alias gc='git commit -m'
 
 alias here="explorer.exe ."
 export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH:/home/takuto/myCommands
