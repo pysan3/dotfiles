@@ -29,10 +29,10 @@ function peco-history-selection() {
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
 
-if [ x"$MYENV" == x ]; then
+if [ x"$MYENV" = 'x' ]; then
     export MYENV='undefined';
 fi
-if [ x"$PCNAME" == x ]; then
+if [ x"$PCNAME" = 'x' ]; then
     export PCNAME='undefined';
 fi
 
