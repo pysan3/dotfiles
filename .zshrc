@@ -109,3 +109,4 @@ unsetopt equals
 
 # backspaceが認識されない問題を解決
 stty erase ""
+

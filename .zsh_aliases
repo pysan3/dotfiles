@@ -38,6 +38,7 @@ venv() {
 	cd "$@";
 	source bin/activate;
 	pip3 install wheel;
+    piplist;
 }
 cinit() {
     rm -rf build;
@@ -45,4 +46,13 @@ cinit() {
     cd build;
     cmake ..;
 }
+update_dotfiles() {
+    cd ~/dotfiles;
+    git pull origin master;
+    ga .
+    gc "updated from $PCNAME";
+    git push origin master;
+    ./setup.sh;
+}
+
 # alias setdns="echo \"nameserver `python3 ~/set_configs.py windowsgateway`\" | sudo tee /etc/resolv.conf"
