@@ -61,6 +61,7 @@ update_dotfiles() {
     gc "updated from $PCNAME";
     git push origin master;
     ./setup.sh;
+    source ~/.zshrc;
 }
 
 # alias setdns="echo \"nameserver `python3 ~/set_configs.py windowsgateway`\" | sudo tee /etc/resolv.conf"
