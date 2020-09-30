@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $1 = "install" ]; then
-    duso apt update
+    sudo apt update
     sudo apt install nodejs -y
     sudo apt install npm
 
