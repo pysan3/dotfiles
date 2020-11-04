@@ -39,7 +39,7 @@ fi
 alias python="python3"
 alias pip="pip3"
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
-alias act="source bin/activate"
+alias act="source ~/.zshrc; source bin/activate"
 venv() {
 	python3 -m venv "$@";
 	cd "$@";
