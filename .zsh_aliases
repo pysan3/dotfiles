@@ -14,10 +14,15 @@ alias ga='git add'
 alias gc='git commit -m'
 
 alias here="explorer.exe ."
-export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH:/home/takuto/myCommands
+export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH
+export PATH=$PATH:$(python3 -m site --user-base)/bin:$(python3 -m site --user-base)/share/virtualenvs
+export PATH=$PATH:/home/takuto/myCommands
 export INFOPATH=$INFOPATH:/usr/local/texlive/2020/texmf-dist/doc/info
 export MANPATH=$MANPATH:/usr/local/texlive/2020/texmf-dist/doc/man
 
+export PIPENV_VENV_IN_PROJECT=1 
+export PIPENV_NO_INHERIT=1
+export PIPENV_IGNORE_VIRTUALENVS=1
 export CLICOLOR=1
 export HISTCONTROL=ignoreboth
 # run peco with C-r
@@ -36,6 +41,8 @@ if [ x"$PCNAME" = 'x' ]; then
     export PCNAME='undefined';
 fi
 
+alias docker="sudo docker"
+alias dc="sudo docker-compose"
 alias python="python3"
 alias pip="pip3"
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
