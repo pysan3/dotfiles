@@ -59,7 +59,7 @@ venv() {
 pinit() {
     pipenv install;
     act;
-    pip install attrdict;
+    pipenv install attrdict;
     curl "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore
 }
 cinit() {
