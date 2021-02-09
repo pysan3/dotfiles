@@ -9,6 +9,7 @@ alias vm='vim ~/dotfiles/.vimrc'
 alias vz='vim ~/dotfiles/.zshrc'
 alias va='vim ~/dotfiles/.zsh_aliases'
 alias vl='vim ~/.zsh_local'
+alias vh='sudo vim ~/.zsh_history'
 
 alias ga='git add'
 alias gc='git commit -m'
@@ -40,6 +41,15 @@ fi
 if [ x"$PCNAME" = 'x' ]; then
     export PCNAME='undefined';
 fi
+
+alias whichsh='ps -h -o comm -p $$'
+checkyes() {
+    if [[ x`whichsh` = x'bash' ]]; then
+        read -p "$@ [y/N]: " yn; case "$yn" in [yY]*) return 0;; *) return 1;; esac
+    elif [[ x`whichsh` = x'zsh' ]]; then
+        printf "$@ [y/N]: "; if read -q; then; return 0; else return 1; fi
+    fi
+}
 
 alias docker="sudo docker"
 alias dc="sudo docker-compose"
@@ -79,4 +89,19 @@ update_dotfiles() {
 }
 pforward() {
     ssh -fNT -L 127.0.0.1:$2:127.0.0.1:$2 $1
+}
+img2eps () {
+    if ! command -v 'convert' &> /dev/null; then
+        sudo apt install imagemagick
+    fi
+    for filename in $@; do
+        echo "$filename"
+        name=$(echo $filename | cut -f 1 -d '.')
+        convert $filename eps2:$name.eps
+    done
+}
+cpp () {
+    for lst in "$@"; do :; done
+    mkdir -p $lst
+    cp $@
 }
