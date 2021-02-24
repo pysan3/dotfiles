@@ -24,7 +24,9 @@ alias vh='sudo vim ~/.zsh_history'
 function dot() {
     cd ~/dotfiles
     eval $@
-    cd -
+    if [ $# -ne 0 ]; then
+        cd -
+    fi
 }
 
 alias ga='git add'
