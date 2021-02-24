@@ -5,11 +5,27 @@ alias c='clear'
 alias la='ls -A'
 alias l='ls -CF'
 
+function upvim() {
+    cd ~/vim
+    git pull
+    checkyes 'run make install?'
+    if [ $? -eq 0 ]; then
+        ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-xi; 
+        make
+        sudo make install
+    fi
+    cd -
+}
 alias vm='vim ~/dotfiles/.vimrc'
 alias vz='vim ~/dotfiles/.zshrc'
 alias va='vim ~/dotfiles/.zsh_aliases'
 alias vl='vim ~/.zsh_local'
 alias vh='sudo vim ~/.zsh_history'
+function dot() {
+    cd ~/dotfiles
+    eval $@
+    cd -
+}
 
 alias ga='git add'
 alias gc='git commit -m'
@@ -43,7 +59,7 @@ if [ x"$PCNAME" = 'x' ]; then
 fi
 
 alias whichsh='ps -h -o comm -p $$'
-checkyes() {
+function checkyes() {
     if [[ x`whichsh` = x'bash' ]]; then
         read -p "$@ [y/N]: " yn; case "$yn" in [yY]*) return 0;; *) return 1;; esac
     elif [[ x`whichsh` = x'zsh' ]]; then
@@ -57,7 +73,7 @@ alias python="python3"
 alias pip="pip3"
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
 alias act="source ~/.zshrc; [ -f 'bin/activate' ] && source bin/activate || source .venv/bin/activate"
-venv() {
+function venv() {
 	python3 -m venv "$@";
 	cd "$@";
 	source bin/activate;
@@ -66,19 +82,19 @@ venv() {
     piplist;
     curl "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore
 }
-pinit() {
+function pinit() {
     pipenv install;
     act;
     pipenv install attrdict rich;
     curl "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore
 }
-cinit() {
+function cinit() {
     rm -rf build;
     mkdir build;
     cd build;
     cmake ..;
 }
-update_dotfiles() {
+function update_dotfiles() {
     cd ~/dotfiles;
     git pull origin master;
     ga .
@@ -87,10 +103,10 @@ update_dotfiles() {
     ./setup.sh;
     source ~/.zshrc;
 }
-pforward() {
+function pforward() {
     ssh -fNT -L 127.0.0.1:$2:127.0.0.1:$2 $1
 }
-img2eps () {
+function img2eps () {
     if ! command -v 'convert' &> /dev/null; then
         sudo apt install imagemagick
     fi
@@ -100,7 +116,7 @@ img2eps () {
         convert $filename eps2:$name.eps
     done
 }
-cpp () {
+function cpp () {
     for lst in "$@"; do :; done
     mkdir -p $lst
     cp $@
