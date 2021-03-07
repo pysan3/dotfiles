@@ -7,7 +7,6 @@ scriptencoding utf-8
 " ↑2行目はVim Script内でマルチバイトを使う場合の設定
 " Vim scritptにvimrcも含まれるので、日本語でコメントを書く場合は先頭にこの設定が必要になる
 
-
 autocmd VimEnter * silent exec "! echo -ne '\e[1 q'"
 autocmd VimLeave * silent exec "! echo -ne '\e[5 q'"
 
@@ -50,6 +49,8 @@ NeoBundle 'suy/vim-ctrlp-commandline'
 NeoBundle 'rking/ag.vim'
 " プロジェクトに入ってるESLintを読み込む
 NeoBundle 'pmsorhaindo/syntastic-local-eslint.vim'
+" 範囲拡大を使う
+NeoBundle 'terryma/vim-expand-region'
 
 " vimのlua機能が使える時だけ以下のVimプラグインをインストールする
 if has('lua')
@@ -113,6 +114,20 @@ set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
 
 "----------------------------------------------------------
+" Set Leader to <Space>
+"----------------------------------------------------------
+let mapleader = "\<Space>"
+nnoremap <Leader>o o<Esc>
+nnoremap <Leader>O O<Esc>
+nnoremap <Leader>w :w<CR>
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+"----------------------------------------------------------
 " タブ・インデント
 "----------------------------------------------------------
 set expandtab " タブ入力を複数の空白入力に置き換える
@@ -150,6 +165,13 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <down> gj
 nnoremap <up> gk
+set showbreak=↪
+
+" 入力モードでのカーソル移動
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
 
 set backspace=indent,eol,start
 
@@ -158,6 +180,9 @@ set backspace=indent,eol,start
 "----------------------------------------------------------
 inoremap <silent> jj <ESC>
 
+" 日本語入力で”っj”と入力してもEnterキーで確定させればインサートモードを抜ける
+inoremap <silent> っj <ESC>
+
 "----------------------------------------------------------
 " カッコ・タグの対応
 "----------------------------------------------------------
@@ -165,9 +190,19 @@ set showmatch " 括弧の対応関係を一瞬表示する
 source $VIMRUNTIME/macros/matchit.vim " Vimの「%」を拡張する
 
 "----------------------------------------------------------
+" vim-expand-region用スニペット
+"----------------------------------------------------------
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+"----------------------------------------------------------
 " クリップボードからのペースト
 "----------------------------------------------------------
 set clipboard=unnamed,autoselect
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+noremap gV `[v`]
 
 "----------------------------------------------------------
 " neocomplete・neosnippetの設定
@@ -231,3 +266,14 @@ if executable('ag')
   let g:ctrlp_use_caching=0 " CtrlPのキャッシュを使わない
   let g:ctrlp_user_command='ag %s -i --hidden -g ""' " 「ag」の検索設定
 endif
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
