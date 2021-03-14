@@ -34,6 +34,7 @@ function dot() {
 function dup() {
     WDIR=$PWD
     dot
+    git pull
     ga .
     if [ $# -ne 0 ]; then
         gc "$@"
