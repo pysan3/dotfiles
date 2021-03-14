@@ -41,7 +41,9 @@ function dup() {
         gc "updated from $PCNAME";
     fi
     git push
-    bash $DOTFILES/setup.sh;
+    for f in `ls -ap | grep -v /`; do
+        ln -sf $DOTFILES/$f $HOME/$f
+    done
     source ~/.zshrc;
     cd "$WDIR"
 }
