@@ -6,7 +6,7 @@ alias l='ls -CF'
 alias ga='git add'
 alias gc='git commit -m'
 
-export DOTFILES='~/dotfiles'
+export DOTFILES=$HOME/dotfiles
 
 function upvim() {
     cd ~/vim

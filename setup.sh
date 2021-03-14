@@ -1,12 +1,14 @@
-#!/bin/zsh
+#!/bin/bash
 
-DOTFILES=$(ls -ApI '~/dotfiles/setup.sh' | grep -v /)
+if [[ x$DOTFILES = x ]]; then
+    DOTFILES=$HOME/dotfiles
+fi
+FILES=$(ls -ap $DOTFILES/ | grep -v /)
 if [ $# -ge 1 ]; then
-    DOTFILES=$@
+    FILES=$@
 fi
 
-echo $DOTFILES
-return
-echo $DOTFILES | while read f; do
-    ln -sf $HOME/dotfiles/$f $HOME/$f
+for f in "$FILES"; do
+    # ln -sf $HOME/FILES/$f $HOME/$f
+    echo "$f"
 done
