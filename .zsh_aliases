@@ -8,6 +8,8 @@ alias l='ls -CF'
 alias ga='git add'
 alias gc='git commit -m'
 
+export DOTFILES='~/dotfiles'
+
 function upvim() {
     cd ~/vim
     git pull
@@ -19,11 +21,11 @@ function upvim() {
     fi
     cd -
 }
-alias vm='vim ~/dotfiles/.vimrc'
-alias vz='vim ~/dotfiles/.zshrc'
-alias va='vim ~/dotfiles/.zsh_aliases'
-alias vl='vim ~/.zsh_local'
-alias vh='sudo vim ~/.zsh_history'
+alias vm="vim $DOTFILES/.vimrc"
+alias vz="vim $DOTFILES/.zshrc"
+alias va="vim $DOTFILES/.zsh_aliases"
+alias vl="vim ~/.zsh_local"
+alias vh="sudo vim ~/.zsh_history"
 function dot() {
     cd ~/dotfiles
     eval $@
@@ -41,7 +43,7 @@ function dup() {
         gc "updated from $PCNAME";
     fi
     git push
-    ~/setup.sh;
+    $DOTFILES/setup.sh;
     source ~/.zshrc;
     cd "$WDIR"
 }
