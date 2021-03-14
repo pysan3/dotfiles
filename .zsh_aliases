@@ -1,12 +1,12 @@
 alias ls='ls --color'
-alias ll='ls -lAFtr'
+alias ll='ls -Al'
 alias la='ls -A'
 alias l='ls -CF'
 
+export DOTFILES=$HOME/dotfiles
+
 alias ga='git add'
 alias gc='git commit -m'
-
-export DOTFILES=$HOME/dotfiles
 
 function upvim() {
     cd ~/vim
@@ -42,7 +42,7 @@ function dup() {
         gc "updated from $PCNAME";
     fi
     git push
-    for f in `ls -ap | grep -v /`; do
+    for f in `ls -ap --color=never | grep -v /`; do
         echo "$DOTFILES/$f"
         ln -sf $DOTFILES/$f $HOME/$f
     done
