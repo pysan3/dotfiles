@@ -9,6 +9,5 @@ if [ $# -ge 1 ]; then
 fi
 
 for f in "$FILES"; do
-    # ln -sf $HOME/FILES/$f $HOME/$f
-    echo "$f"
+    ln -sf $DOTFILES/$f $HOME/$f
 done
