@@ -42,6 +42,7 @@ function dup() {
     fi
     git push
     for f in `ls -ap | grep -v /`; do
+        echo "$DOTFILES/$f"
         ln -sf $DOTFILES/$f $HOME/$f
     done
     source ~/.zshrc;

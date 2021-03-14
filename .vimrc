@@ -183,7 +183,6 @@ inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
 set backspace=indent,eol,start
-set t_kb=^?
 
 "----------------------------------------------------------
 " jjで挿入モードから抜ける
