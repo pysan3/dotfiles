@@ -1,7 +1,5 @@
-alias ll='ls -alF'
 alias ls='ls --color'
-alias ll='ls -ltr'
-alias c='clear'
+alias ll='ls -lAFtr'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -27,7 +25,7 @@ alias va="vim $DOTFILES/.zsh_aliases"
 alias vl="vim ~/.zsh_local"
 alias vh="sudo vim ~/.zsh_history"
 function dot() {
-    cd ~/dotfiles
+    cd $DOTFILES
     eval $@
     if [ $# -ne 0 ]; then
         cd -
@@ -83,6 +81,7 @@ function checkyes() {
         read -p "$@ [y/N]: " yn; case "$yn" in [yY]*) return 0;; *) return 1;; esac
     elif [[ x`whichsh` = x'zsh' ]]; then
         printf "$@ [y/N]: "; if read -q; then; return 0; else return 1; fi
+        echo
     fi
 }
 
