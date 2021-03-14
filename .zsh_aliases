@@ -42,7 +42,7 @@ function dup() {
         gc "updated from $PCNAME";
     fi
     git push
-    for f in `ls -ap --color=never | grep -v /`; do
+    for f in `command ls -ap | grep -v /`; do
         echo "$DOTFILES/$f"
         ln -sf $DOTFILES/$f $HOME/$f
     done
