@@ -35,8 +35,14 @@ function dup() {
     WDIR=$PWD
     dot
     ga .
-    gc "$@"
+    if [ $# -ne 0 ]; then
+        gc "$@"
+    else
+        gc "updated from $PCNAME";
+    fi
     git push
+    ~/setup.sh;
+    source ~/.zshrc;
     cd "$WDIR"
 }
 
@@ -112,15 +118,6 @@ function cinit() {
     mkdir build;
     cd build;
     cmake ..;
-}
-function update_dotfiles() {
-    cd ~/dotfiles;
-    git pull origin master;
-    ga .
-    gc "updated from $PCNAME";
-    git push origin master;
-    ./setup.sh;
-    source ~/.zshrc;
 }
 function pforward() {
     ssh -fNT -L 127.0.0.1:$2:127.0.0.1:$2 $1

@@ -9,6 +9,8 @@ scriptencoding utf-8
 
 autocmd VimEnter * silent exec "! echo -ne '\e[1 q'"
 autocmd VimLeave * silent exec "! echo -ne '\e[5 q'"
+autocmd InsertEnter * silent execute "!echo -en '\e[5 q'"
+autocmd InsertLeave * silent execute "!echo -en '\e[1 q'"
 
 "----------------------------------------------------------
 " NeoBundle
@@ -51,6 +53,12 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'pmsorhaindo/syntastic-local-eslint.vim'
 " 範囲拡大を使う
 NeoBundle 'terryma/vim-expand-region'
+" parenthesis auto pairs
+NeoBundle 'tmsvg/pear-tree'
+" select whole indent
+NeoBundle 'michaeljsmith/vim-indent-object'
+" コメントアウト
+NeoBundle 'tpope/vim-commentary'
 
 " vimのlua機能が使える時だけ以下のVimプラグインをインストールする
 if has('lua')
@@ -65,7 +73,7 @@ endif
 call neobundle#end()
 
 " ファイルタイプ別のVimプラグイン/インデントを有効にする
-filetype plugin indent on
+" filetype plugin indent on
 
 " 未インストールのVimプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
 NeoBundleCheck
@@ -84,7 +92,7 @@ syntax enable " 構文に色を付ける
 " 文字
 "----------------------------------------------------------
 set fileencoding=utf-8 " 保存時の文字コード
-set fileencodings=ucs-boms,utf-8,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
+set fileencodings=utf-8,ucs-boms,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
 set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
 set ambiwidth=double " □や○文字が崩れる問題を解決
 
@@ -120,12 +128,6 @@ let mapleader = "\<Space>"
 nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
 nnoremap <Leader>w :w<CR>
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
 
 "----------------------------------------------------------
 " タブ・インデント
@@ -138,6 +140,11 @@ set smartindent " 改行時に前の行の構文をチェックし次の行の�
 set shiftwidth=4 " smartindentで増減する幅
 
 "----------------------------------------------------------
+" 括弧の補完
+"----------------------------------------------------------
+imap <C-c> <Esc>
+
+"----------------------------------------------------------
 " 文字列検索
 "----------------------------------------------------------
 set incsearch " インクリメンタルサーチ. １文字入力毎に検索を行う
@@ -145,6 +152,9 @@ set ignorecase " 検索パターンに大文字小文字を区別しない
 set smartcase " 検索パターンに大文字を含んでいたら大文字小文字を区別する
 set hlsearch " 検索結果をハイライト
 nnoremap <ESC><ESC> :nohlsearch<CR>
+
+" // で選択中のテキストを検索
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 "検索語が画面の真ん中に来るようにする
 nmap n nzz
@@ -157,7 +167,6 @@ nmap g* g*zz
 " カーソル
 "----------------------------------------------------------
 set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
-set number " 行番号を表示
 set cursorline " カーソルラインをハイライト
 
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
@@ -179,7 +188,6 @@ set backspace=indent,eol,start
 " jjで挿入モードから抜ける
 "----------------------------------------------------------
 inoremap <silent> jj <ESC>
-
 " 日本語入力で”っj”と入力してもEnterキーで確定させればインサートモードを抜ける
 inoremap <silent> っj <ESC>
 
@@ -188,6 +196,13 @@ inoremap <silent> っj <ESC>
 "----------------------------------------------------------
 set showmatch " 括弧の対応関係を一瞬表示する
 source $VIMRUNTIME/macros/matchit.vim " Vimの「%」を拡張する
+
+
+"----------------------------------------------------------
+" コメントアウトのデフォルト値を設定
+"----------------------------------------------------------
+autocmd FileType vimrc setlocal commentstring=\"\ %s
+autocmd FileType python setlocal commentstring=#\ %s
 
 "----------------------------------------------------------
 " vim-expand-region用スニペット
@@ -198,11 +213,18 @@ vmap <C-v> <Plug>(expand_region_shrink)
 "----------------------------------------------------------
 " クリップボードからのペースト
 "----------------------------------------------------------
-set clipboard=unnamed,autoselect
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
-nnoremap <silent> p p`]
+nnoremap <silent> P P`]
 noremap gV `[v`]
+nmap <Leader>p "*p
+nmap <Leader>P "*P
+
+"----------------------------------------------------------
+" ノーマルモードのときにxキー、sキーで削除した文字をヤンクしない
+"----------------------------------------------------------
+nnoremap x "_x
+nnoremap s "_s
 
 "----------------------------------------------------------
 " neocomplete・neosnippetの設定
