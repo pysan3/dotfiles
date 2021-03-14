@@ -43,7 +43,7 @@ function dup() {
         gc "updated from $PCNAME";
     fi
     git push
-    $DOTFILES/setup.sh;
+    bash $DOTFILES/setup.sh;
     source ~/.zshrc;
     cd "$WDIR"
 }
