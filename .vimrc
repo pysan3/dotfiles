@@ -122,6 +122,11 @@ set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
 
 "----------------------------------------------------------
+" Tree
+"----------------------------------------------------------
+nnoremap <Leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+
+"----------------------------------------------------------
 " Set Leader to <Space>
 "----------------------------------------------------------
 let mapleader = "\<Space>"
@@ -182,6 +187,10 @@ inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
+" 選択モードで上下に移動
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 set backspace=indent,eol,start
 
 "----------------------------------------------------------
@@ -196,7 +205,6 @@ inoremap <silent> っj <ESC>
 "----------------------------------------------------------
 set showmatch " 括弧の対応関係を一瞬表示する
 source $VIMRUNTIME/macros/matchit.vim " Vimの「%」を拡張する
-
 
 "----------------------------------------------------------
 " コメントアウトのデフォルト値を設定
