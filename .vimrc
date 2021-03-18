@@ -1,4 +1,4 @@
-" Copied from
+
 " https://qiita.com/ahiruman5/items/4f3c845500c172a02935
 
 set encoding=utf-8
@@ -150,6 +150,14 @@ set shiftwidth=4 " smartindentで増減する幅
 imap <C-c> <Esc>
 
 "----------------------------------------------------------
+" 対応括弧
+"----------------------------------------------------------
+nnoremap { {zz
+nnoremap } }zz
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+"----------------------------------------------------------
 " 文字列検索
 "----------------------------------------------------------
 set incsearch " インクリメンタルサーチ. １文字入力毎に検索を行う
@@ -162,11 +170,11 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 "検索語が画面の真ん中に来るようにする
-nmap n nzz
-nmap N Nzz
-nmap * *zz
-nmap # #zz
-nmap g* g*zz
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
 
 "----------------------------------------------------------
 " カーソル
@@ -225,14 +233,30 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> P P`]
 noremap gV `[v`]
-nmap <Leader>p "*p
-nmap <Leader>P "*P
+nnoremap <Leader>p "*p
+nnoremap <Leader>P "*P
 
 "----------------------------------------------------------
 " ノーマルモードのときにxキー、sキーで削除した文字をヤンクしない
 "----------------------------------------------------------
 nnoremap x "_x
 nnoremap s "_s
+
+"----------------------------------------------------------
+" Terminal
+"----------------------------------------------------------
+set splitbelow
+set termwinsize=10x0
+function! TermOpen()
+    if empty(term_list())
+        execute "terminal"
+    else
+        normal! <Ctrl+w>j
+    endif
+endfunction
+nnoremap <C-w>` :call TermOpen()<CR>
+tnoremap <C-w>` <C-w>k
+tnoremap <silent> <Esc> <C-\><C-n>:q!<CR>
 
 "----------------------------------------------------------
 " neocomplete・neosnippetの設定

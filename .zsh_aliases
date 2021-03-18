@@ -7,6 +7,13 @@ export DOTFILES=$HOME/dotfiles
 
 alias ga='git add'
 alias gc='git commit -m'
+function happ() {
+    trap "echo terminated; git remote rm heroku; return" 1 2 3 15
+    heroku git:remote --app $(basename -s .git `git remote get-url origin`)
+    eval "heroku $@"
+    echo "delete"
+    git remote rm heroku
+}
 
 function upvim() {
     cd ~/vim
