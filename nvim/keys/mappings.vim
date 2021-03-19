@@ -7,14 +7,18 @@ inoremap <silent> jk <Esc>
 inoremap <silent> kj <Esc>
 inoremap <silent> jj <Esc>
 
+" save undos on every space
+inoremap <space> <space><C-g>u
+inoremap <CR> <CR><C-g>u
+
 " Easy CAPS
 inoremap <c-u> <ESC>viwUi
 nnoremap <c-u> viwU<Esc>
 
 " TAB in general mode will move to text buffer
-nnoremap <TAB> :bnext<CR>
+nnoremap <F2> :bnext<CR>
 " SHIFT-TAB will go back
-nnoremap <S-TAB> :bprevious<CR>
+nnoremap <F3> :bprevious<CR>
 
 " Alternate way to save
 nnoremap <C-s> :w<CR>
@@ -93,4 +97,13 @@ nnoremap s "_s
 
 " Trailing Spaces
 :command T FixWhitespace
+
+" Terminal
+nnoremap <A-t> :call TermToggle(12)<CR>
+inoremap <A-t> <Esc>:call TermToggle(12)<CR>
+tnoremap <A-t> <C-\><C-n>:call TermToggle(12)<CR>
+
+" Terminal go back to normal mode
+tnoremap <Esc> <C-\><C-n>
+tnoremap :q! <C-\><C-n>:q!<CR>
 

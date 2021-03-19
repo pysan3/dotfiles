@@ -67,6 +67,7 @@ set smartindent " 改行時に前の行の構文をチェックし次の行の�
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 set shiftwidth=4 " smartindentで増減する幅
 set showtabline=2                       " Always show tabs
+set formatoptions-=cro                  " Stop newline continution of comments
 
 "----------------------------------------------------------
 " Trailing Spaces
