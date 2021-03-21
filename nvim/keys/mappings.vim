@@ -15,10 +15,9 @@ inoremap <CR> <CR><C-g>u
 inoremap <c-u> <ESC>viwUi
 nnoremap <c-u> viwU<Esc>
 
-" TAB in general mode will move to text buffer
-nnoremap <F2> :bnext<CR>
-" SHIFT-TAB will go back
+" move to next / previous buffer
 nnoremap <F3> :bprevious<CR>
+nnoremap <F3> :bnext<CR>
 
 " Alternate way to save
 nnoremap <C-s> :w<CR>
