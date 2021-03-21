@@ -13,7 +13,7 @@ badd +63 term://.//11287:/usr/bin/zsh
 badd +1 nvim/myplug/autosave-session.vim
 badd +1 nvim/after/ftplugin/html.vim
 badd +75 nvim/general/settings.vim
-badd +0 nvim/keys/mappings.vim
+badd +1 nvim/keys/mappings.vim
 argglobal
 %argdel
 edit nvim/keys/mappings.vim
@@ -38,7 +38,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 20
-normal! 0
+normal! 012|
 lcd ~/dotfiles
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
