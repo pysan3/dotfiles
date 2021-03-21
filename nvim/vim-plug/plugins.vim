@@ -17,9 +17,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " 末尾の全角半角空白文字を赤くハイライト
     Plug 'bronson/vim-trailing-whitespace'
     " インデントの可視化
-    NeoBundle 'Yggdroot/indentLine'
+    Plug 'Yggdroot/indentLine'
     " 範囲拡大を使う
-    NeoBundle 'terryma/vim-expand-region'
+    Plug 'terryma/vim-expand-region'
     " Stable version of coc
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " Keeping up to date with master
@@ -44,4 +44,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'junegunn/gv.vim'
     " vim-which-key
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    " vim sneak
+    Plug 'justinmk/vim-sneak'
+    " Snippets
+    Plug 'honza/vim-snippets'
 call plug#end()

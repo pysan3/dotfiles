@@ -1,5 +1,9 @@
 fu! SaveSess()
-    execute 'mksession! ' . getcwd() . '/.session.vim'
+    let sessionpath = expand(getcwd() . '/.session.vim ')
+    execute 'mksession! ' . sessionpath
+    if !filereadable(expand(g:startify_session_dir) . sessionpath)
+        execute '! ln ' . sessionpath . ' ' . expand(g:startify_session_dir)
+    endif
 endfunction
 
 fu! RestoreSess()

@@ -25,7 +25,7 @@ nnoremap <C-s> :w<CR>
 " Alternate way to quit
 nnoremap <C-Q> :wq!<CR>
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q!<CR>
+nnoremap <Leader>q :bd!<CR>
 " Use control-c instead of escape
 nnoremap <C-c> <Esc>
 inoremap <C-c> <Esc>
