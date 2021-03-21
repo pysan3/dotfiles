@@ -7,11 +7,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 nvim/myplug/autosave-session.vim
-badd +16 nvim/plug-config/start-screen.vim
+badd +1 nvim/init.vim
 argglobal
 %argdel
-edit \[coc-explorer]-1
+edit nvim/init.vim
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -26,14 +25,14 @@ setlocal fdi=#
 setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
-setlocal nofen
+setlocal fen
 silent! normal! zE
-let s:l = 16 - ((15 * winheight(0) + 33) / 66)
+let s:l = 1 - ((0 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-16
-normal! 05|
+1
+normal! 0
 lcd ~/dotfiles
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

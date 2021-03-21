@@ -1,8 +1,14 @@
+fu! GetCurrentDirName()
+    echo system('basename ' . getcwd())
+endfunction
+
 fu! SaveSess()
     let sessionpath = expand(getcwd() . '/.session.vim ')
+    let dirname = system('basename ' . getcwd())
     execute 'mksession! ' . sessionpath
-    if !filereadable(expand(g:startify_session_dir) . sessionpath)
-        execute '! ln ' . sessionpath . ' ' . expand(g:startify_session_dir)
+    echo 'Saved session as: ' . expand(g:startify_session_dir) . '/' .dirname
+    if empty(glob(expand(g:startify_session_dir)) . '/' . dirname)
+        execute '! ln ' . sessionpath . ' ' . expand(g:startify_session_dir) . '/' . dirname
     endif
 endfunction
 
