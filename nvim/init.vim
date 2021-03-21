@@ -12,3 +12,4 @@ source $HOME/.config/nvim/myplug/terminal-as-vscode.vim
 
 source $HOME/.config/nvim/plug-config/start-screen.vim
 source $HOME/.config/nvim/keys/mappings.vim
+source $HOME/.config/nvim/keys/which-key.vim

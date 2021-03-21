@@ -8,9 +8,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +1 nvim/init.vim
+badd +0 ~/.config/nvim/vim-plug/plugins.vim
 argglobal
 %argdel
-edit nvim/init.vim
+edit ~/.config/nvim/vim-plug/plugins.vim
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -27,12 +28,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 19) / 39)
+let s:l = 46 - ((33 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 0
+46
+normal! 05|
 lcd ~/dotfiles
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

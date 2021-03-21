@@ -43,7 +43,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'tpope/vim-rhubarb'
     Plug 'junegunn/gv.vim'
     " vim-which-key
-    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    Plug 'liuchengxu/vim-which-key'
     " vim sneak
     Plug 'justinmk/vim-sneak'
     " Snippets

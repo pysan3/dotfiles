@@ -8,6 +8,11 @@ set t_Co=256                            " Set color sceme work properly
 syntax enable                           " Enables syntax highlighing
 
 "----------------------------------------------------------
+" Extentions
+"----------------------------------------------------------
+filetype plugin on
+
+"----------------------------------------------------------
 " 文字
 "----------------------------------------------------------
 set encoding=utf-8                      " The encoding displayed
@@ -67,7 +72,7 @@ set smartindent " 改行時に前の行の構文をチェックし次の行の�
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 set shiftwidth=4 " smartindentで増減する幅
 set showtabline=2                       " Always show tabs
-set formatoptions-=cro                  " Stop newline continution of comments
+set formatoptions-=cro
 
 "----------------------------------------------------------
 " Trailing Spaces
