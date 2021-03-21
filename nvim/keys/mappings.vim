@@ -16,8 +16,8 @@ inoremap <c-u> <ESC>viwUi
 nnoremap <c-u> viwU<Esc>
 
 " move to next / previous buffer
-nnoremap <F3> :bprevious<CR>
-nnoremap <F2> :bnext<CR>
+nnoremap <F2> :bprevious<CR>
+nnoremap <F3> :bnext<CR>
 
 " Alternate way to save
 nnoremap <C-s> :w<CR>
