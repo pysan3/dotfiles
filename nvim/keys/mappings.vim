@@ -6,6 +6,9 @@ inoremap <expr> <c-k> ("\<C-p>")
 inoremap <silent> jk <Esc>
 inoremap <silent> kj <Esc>
 inoremap <silent> jj <Esc>
+tmap <silent> jk <Esc>
+tmap <silent> kj <Esc>
+tmap <silent> jj <Esc>
 
 " save undos on every space
 inoremap <space> <space><C-g>u
@@ -22,8 +25,9 @@ nnoremap <F3> :bnext<CR>
 " Alternate way to save
 nnoremap <C-s> :w<CR>
 " Alternate way to quit
-nnoremap <C-Q> :wq!<CR>
-nnoremap <Leader>w :w<CR>
+nnoremap <C-Q> :wq<CR>
+inoremap <C-Q> <Esc>:wq<CR>
+nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>q :bd!<CR>
 " Use control-c instead of escape
 nnoremap <C-c> <Esc>
