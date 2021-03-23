@@ -35,6 +35,7 @@ set nu rnu
 set mouse=a                             " Enable your mouse
 set showbreak=↪
 set iskeyword+=-                      	" treat dash separated words as a word text object"
+set scrolloff=8
 
 "----------------------------------------------------------
 " Window

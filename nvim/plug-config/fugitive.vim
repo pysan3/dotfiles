@@ -1,4 +1,4 @@
-let $FZF_DEFAULT_OPTS = '--reverse'
+let $FZF_DEFAULT_OPTS='--reverse'
 
 nnoremap [fugitive] <Nop>
 
