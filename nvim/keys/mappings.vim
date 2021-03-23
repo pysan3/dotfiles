@@ -14,6 +14,9 @@ tmap <silent> jj <Esc>
 inoremap <space> <space><C-g>u
 inoremap <CR> <CR><C-g>u
 
+" new line in insert mode
+imap <C-o> <Esc>o
+
 " Easy CAPS
 inoremap <c-u> <ESC>viwUi
 nnoremap <c-u> viwU<Esc>
