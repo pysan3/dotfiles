@@ -4,6 +4,7 @@ source $HOME/.config/nvim/autoload/plug.vim
 source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
 source $HOME/.config/nvim/plug-config/signify.vim
+source $HOME/.config/nvim/plug-config/fugitive.vim
 source $HOME/.config/nvim/plug-config/sneak.vim
 source $HOME/.config/nvim/themes/elly.vim
 source $HOME/.config/nvim/themes/airline.vim

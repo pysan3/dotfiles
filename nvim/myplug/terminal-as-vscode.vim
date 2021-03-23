@@ -44,3 +44,13 @@ if has('nvim')
   " ウィンドウ分割なしでターミナル表示(Extended Terminal)
   command! Eterminal :call s:termopen_wrapper('s:onTermExit') | startinsert
 endif
+
+" Terminal
+nnoremap <A-t> :Hterminal<CR>
+inoremap <A-t> <Esc>:Hterminal<CR>
+tmap <A-t> <Esc><Leader>q<CR>
+
+" Terminal go back to normal mode
+tnoremap <Esc> <C-\><C-n>
+tnoremap :q! <C-\><C-n>:q!<CR>
+

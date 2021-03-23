@@ -97,14 +97,5 @@ nnoremap s "_s
 " Trailing Spaces
 :command T FixWhitespace
 
-" Terminal
-nnoremap <A-t> :Hterminal<CR>
-inoremap <A-t> <Esc>:Hterminal<CR>
-tmap <A-t> <Esc><Leader>q<CR>
-
-" Terminal go back to normal mode
-tnoremap <Esc> <C-\><C-n>
-tnoremap :q! <C-\><C-n>:q!<CR>
-
 " Python Docs
 nnoremap <Leader>ss :Docstring<CR>
