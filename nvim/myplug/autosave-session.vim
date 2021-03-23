@@ -2,11 +2,30 @@ fu! GetCurrentDirName()
     echo system('basename ' . getcwd())
 endfunction
 
-fu! SaveSess()
+fun! Confirm(msg, ans, value)
+    echo a:msg . ' '
+    let l:answer = nr2char(getchar())
+
+    if l:answer ==? a:ans
+        return a:value
+    elseif l:answer ==? 'n'
+        return 0
+    elseif l:answer ==? 'y'
+        return 1
+    else
+        return ! a:value
+    endif
+endfun
+
+fu! SaveSess(...)
     let sessionpath = expand(getcwd() . '/.session.vim ')
-    let dirname = expand(g:startify_session_dir) . '/' . system('basename ' . getcwd())
+    let dirname = expand(g:startify_session_dir) . '/' . trim(system('basename ' . getcwd()))
+    let yes = a:0 && a:1
+    if (!yes) && empty(glob(dirname)) && (Confirm('Save current session to ' . dirname . '? [y/N]: ', 'y', 1) == 0)
+        echo 'Not saving a new session.'
+        return 0
+    endif
     execute 'mksession! ' . sessionpath
-    echo 'sessionpath to: ' . sessionpath
     if empty(glob(dirname))
         execute '! ln ' . sessionpath . ' ' . dirname
     endif
@@ -26,6 +45,6 @@ if filereadable(getcwd() . '/.session.vim')
 endif
 endfunction
 
-" autocmd VimLeave * call SaveSess()
-command! WQ call SaveSess() | wq
+autocmd VimLeave * call SaveSess()
+command! WQ call SaveSess(1) | wq
 autocmd VimEnter * nested call RestoreSess()

@@ -33,14 +33,14 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Fzf
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    Plug 'stsewd/fzf-checkout.vim'
-    Plug 'airblade/vim-rooter'
     " Startify
     Plug 'mhinz/vim-startify'
     " git stuff
     Plug 'mhinz/vim-signify'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-rhubarb'
+    Plug 'stsewd/fzf-checkout.vim'
+    Plug 'airblade/vim-rooter'
     Plug 'junegunn/gv.vim'
     " vim-which-key
     Plug 'liuchengxu/vim-which-key'
