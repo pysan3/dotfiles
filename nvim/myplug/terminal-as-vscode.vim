@@ -50,6 +50,11 @@ nnoremap <A-t> :Hterminal<CR>
 inoremap <A-t> <Esc>:Hterminal<CR>
 tmap <A-t> <Esc><Leader>q<CR>
 
+" Terminal vertical split
+nnoremap <A-y> :Vterminal<CR>
+inoremap <A-y> <Esc>:Vterminal<CR>
+tmap <A-y> <Esc><Leader>q<CR>
+
 " Terminal go back to normal mode
 tnoremap <Esc> <C-\><C-n>
 tnoremap :q! <C-\><C-n>:q!<CR>
