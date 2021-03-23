@@ -20,6 +20,7 @@ for f in `command ls -ap | grep -v /`; do
 done
 if [ -d ./nvim ]; then
     mkdir -p "$HOME/.config/nvim/session"
+    mkdir -p "$HOME/.config/nvim/undodir"
     cp -rs "$DIR/nvim" "$HOME/.config"
 fi
 
