@@ -98,9 +98,9 @@ nnoremap s "_s
 :command T FixWhitespace
 
 " Terminal
-nnoremap <A-t> :call TermToggle(12)<CR>
-inoremap <A-t> <Esc>:call TermToggle(12)<CR>
-tnoremap <A-t> <C-\><C-n>:call TermToggle(12)<CR>
+nnoremap <A-t> :Hterminal<CR>
+inoremap <A-t> <Esc>:Hterminal<CR>
+tmap <A-t> <Esc><Leader>q<CR>
 
 " Terminal go back to normal mode
 tnoremap <Esc> <C-\><C-n>

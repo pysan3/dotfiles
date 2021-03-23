@@ -30,8 +30,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Airline
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    " Ctrl P
-    Plug 'kien/ctrlp.vim'
     " Fzf
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
@@ -49,9 +47,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'justinmk/vim-sneak'
     " Snippets
     Plug 'honza/vim-snippets'
-
-
-
 
     " language specific
     Plug 'pixelneo/vim-python-docstring'
