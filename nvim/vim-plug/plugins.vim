@@ -25,7 +25,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Keeping up to date with master
     Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
     " color theme
-    Plug 'joshdick/onedark.vim'
+    " Plug 'joshdick/onedark.vim'
+    Plug 'ulwlu/elly.vim'
     " Airline
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
@@ -48,4 +49,10 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'justinmk/vim-sneak'
     " Snippets
     Plug 'honza/vim-snippets'
+
+
+
+
+    " language specific
+    Plug 'pixelneo/vim-python-docstring'
 call plug#end()

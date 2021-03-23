@@ -4,11 +4,12 @@ endfunction
 
 fu! SaveSess()
     let sessionpath = expand(getcwd() . '/.session.vim ')
-    let dirname = system('basename ' . getcwd())
+    let dirname = expand(g:startify_session_dir) . '/' . system('basename ' . getcwd())
+    echo 'sessionpath to: ' . sessionpath
     execute 'mksession! ' . sessionpath
-    echo 'Saved session as: ' . expand(g:startify_session_dir) . '/' .dirname
-    if empty(glob(expand(g:startify_session_dir)) . '/' . dirname)
-        execute '! ln ' . sessionpath . ' ' . expand(g:startify_session_dir) . '/' . dirname
+    echo 'Saved session as: ' . dirname
+    if empty(dirname)
+        execute '! ln ' . sessionpath . ' ' . dirname
     endif
 endfunction
 
@@ -25,5 +26,5 @@ if filereadable(getcwd() . '/.session.vim')
 endif
 endfunction
 
-autocmd VimLeave * call SaveSess()
+autocmd VimLeavePre * call SaveSess()
 autocmd VimEnter * nested call RestoreSess()

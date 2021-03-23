@@ -1,10 +1,24 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "javascript", "graphql", "html", "yaml",  "json", "python"],
+    "coc.preferences.formatOnSaveFiletypes": [
+        "css",
+        "markdown",
+        "javascript",
+        "vue",
+        "graphql",
+        "html",
+        "yaml",
+        "json",
+        "python"
+    ],
 
     "explorer.file.showHiddenFiles": true,
     // python config
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}"
+    ],
+    "python.jediEnabled": false,
 
     "snippets.ultisnips.directories": [
         "UltiSnips",
@@ -18,5 +32,8 @@
     "explorer.keyMappings.global": {
         "<cr>": ["expandable?", "expand", "open"],
         "v": "open:vsplit"
-    }
+    },
+    "diagnostic.checkCurrentLine": true,
+    "prettier.eslintIntegration": true,
+    "eslint.autoFixOnSave": true
 }
