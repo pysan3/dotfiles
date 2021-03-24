@@ -8,7 +8,8 @@ inoremap <silent> kj <Esc>
 inoremap <silent> jj <Esc>
 tmap <silent> jk <Esc>
 tmap <silent> kj <Esc>
-tmap <silent> jj <Esc>
+vnoremap <silent> jk <Esc>
+vnoremap <silent> kj <Esc>
 
 " save undos on every space
 inoremap <space> <space><C-g>u
@@ -102,6 +103,9 @@ nnoremap s "_s
 
 " Trailing Spaces
 :command T FixWhitespace
+
+" Turn off comment (since this could be done with basic commands)
+nnoremap <Leader>T Ixx
 
 " Python Docs
 nnoremap <Leader>ss :Docstring<CR>

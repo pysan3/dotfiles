@@ -2,7 +2,7 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-if [[ xdotfiles != x$(basename $DIR) ]]; then
+if [[ 'xdotfiles' != x$(basename $DIR) ]]; then
     echo "install.sh might not be placed in the right place."
     echo "Try running it inside dotfile directory."
     exit
@@ -22,6 +22,25 @@ if [ -d ./nvim ]; then
     mkdir -p "$HOME/.config/nvim/session"
     mkdir -p "$HOME/.config/nvim/undodir"
     cp -rs "$DIR/nvim" "$HOME/.config"
+    if ! command -v nvim &> /dev/null; then
+        echo -n 'It seems neovim is not installed. Install? '
+        result=0
+        if [[ $SHELL == *'bash'* ]]; then
+            read -n1 -p "[Y/n] " yn; if [[ $yn =~ n|N ]]; then result=1; fi
+        elif [[ $SHELL == *'zsh'* ]]; then
+            if read -q; then :; else result=1; fi
+        else
+            echo 'Could not detect which shell you are using. Please install manually.'
+            echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
+            result=1
+        fi
+        echo
+        if [ $result -eq 0 ]; then
+            sudo apt install neovim
+            sudo apt install python-neovim
+            sudo apt install python3-neovim
+        fi
+    fi
 fi
 
 cd $WORKDIR
