@@ -15,9 +15,10 @@ endfunction
 
 " Commit all at once
 function! GitSendCommit(...)
-    let msg = join(a:000, ' ')
-    let branch = system("! git branch | awk '{print $2}'")
-    echo branch
+    let msg = substitute(join(a:000, ' '), '"', '\\\"', 'g')
+    echo msg
+    sleep 1000m
+    let branch = trim(system("! git branch | awk '{print $2}'"))
     if (branch == 'master') || (branch == 'main')
         echo 'It seems you are on an important branch. "' . branch . '"'
         if Confirm('Continue anyways? [Y/n] ', 'n', 0) == 0
@@ -29,8 +30,6 @@ function! GitSendCommit(...)
         \ git add .;
         \ git commit -m "' . msg . '";
         \ git push -q origin ' . branch . ';'
-    echo command
-    sleep 10000m
     let output = system(command)
     echo output
 endfunction
