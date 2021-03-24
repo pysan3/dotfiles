@@ -4,12 +4,8 @@ inoremap <expr> <c-k> ("\<C-p>")
 
 " I hate escape more than anything else
 inoremap <silent> jk <Esc>
-inoremap <silent> kj <Esc>
-inoremap <silent> jj <Esc>
 tmap <silent> jk <Esc>
-tmap <silent> kj <Esc>
 vnoremap <silent> jk <Esc>
-vnoremap <silent> kj <Esc>
 
 " save undos on every space
 inoremap <space> <space><C-g>u

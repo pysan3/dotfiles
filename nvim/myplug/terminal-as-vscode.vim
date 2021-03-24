@@ -35,27 +35,33 @@ if has('nvim')
       vertical botright new | Eterminal
       execute 'vertical resize ' . size
     endif
+    normal a
   endfun
 
   " 水平ウィンドウ分割してターミナル表示 引数はwindowの行数指定(Horizontal terminal)
-  command! -count=12 Hterminal :call TermHelper('h', <count>)
+  command! -count=12 Hterminal let g:v_term_count = 1 | :call TermHelper('h', <count>)
   " 垂直ウィンドウ分割してターミナル表示 引数はwindowの行数指定(Vertical terminal)
-  command! -count=80 Vterminal :call TermHelper('v', <count>)
+  command! -count=80 Vterminal let g:h_term_count = 1 | :call TermHelper('v', <count>)
   " ウィンドウ分割なしでターミナル表示(Extended Terminal)
   command! Eterminal :call s:termopen_wrapper('s:onTermExit') | startinsert
 endif
 
+let g:v_term_count = 0
+let g:h_term_count = 0
+
 " Terminal
-nnoremap <A-t> :Hterminal<CR>
-inoremap <A-t> <Esc>:Hterminal<CR>
-tmap <A-t> <Esc><Leader>q<CR>
+nnoremap <expr> <A-t> g:v_term_count ? '<C-w>100j \| a' : ':Hterminal<CR>'
+nnoremap <A-T> :Hterminal<CR>
+imap <A-t> <Esc><A-t>
+tmap <A-t> <Esc><C-w>100k
+tmap <A-T> <Esc><Leader>q<CR> | let g:v_term_count = 0
 
 " Terminal vertical split
-nnoremap <A-y> :Vterminal<CR>
-inoremap <A-y> <Esc>:Vterminal<CR>
-tmap <A-y> <Esc><Leader>q<CR>
+nnoremap <expr> <A-y> g:h_term_count ? '<C-w>100l \| a' : ':Vterminal<CR>'
+nnoremap <A-Y> :Vterminal<CR>
+imap <A-y> <Esc><A-y>
+tmap <C-h> <Esc><C-w>h<C-w>k
 
 " Terminal go back to normal mode
 tnoremap <Esc> <C-\><C-n>
-tnoremap :q! <C-\><C-n>:q!<CR>
-
+command! Q :execute "normal! \<C-w>\<C-o>" | :q
