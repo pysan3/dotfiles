@@ -11,6 +11,7 @@ source $HOME/.config/nvim/themes/elly.vim
 source $HOME/.config/nvim/themes/airline.vim
 source $HOME/.config/nvim/myplug/autosave-session.vim
 source $HOME/.config/nvim/myplug/terminal-as-vscode.vim
+source $HOME/.config/nvim/myplug/easy-commit.vim
 source $HOME/.config/nvim/plug-config/start-screen.vim
 source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/keys/which-key.vim
