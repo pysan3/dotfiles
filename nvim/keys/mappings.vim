@@ -36,7 +36,7 @@ nnoremap <silent> <Leader>q :bd!<CR>
 nnoremap <C-c> <Esc>
 inoremap <C-c> <Esc>
 " <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Better tabbing
 vnoremap < <gv
@@ -69,7 +69,6 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <down> gj
 nnoremap <up> gk
-set showbreak=↪
 
 " 選択モードで上下に移動
 vnoremap J :m '>+1<CR>gv=gv
