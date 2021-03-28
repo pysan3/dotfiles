@@ -10,10 +10,14 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
     " Better Syntax Support
     Plug 'sheerun/vim-polyglot'
+    " show how many occurance found
+    Plug 'google/vim-searchindex'
     " Undo Tree
     Plug 'mbbill/undotree'
     " Auto pairs for '(' '[' '{'
     Plug 'jiangmiao/auto-pairs'
+    " Better Comments
+    Plug 'jbgutierrez/vim-better-comments'
     " 末尾の全角半角空白文字を赤くハイライト
     Plug 'bronson/vim-trailing-whitespace'
     " インデントの可視化
@@ -51,4 +55,5 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
     " language specific
     Plug 'pixelneo/vim-python-docstring'
+    Plug 'uarun/vim-protobuf'
 call plug#end()

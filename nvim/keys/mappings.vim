@@ -32,8 +32,6 @@ nnoremap <silent> <Leader>q :bd!<CR>
 " Use control-c instead of escape
 nnoremap <C-c> <Esc>
 inoremap <C-c> <Esc>
-" <TAB>: completion.
-" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Better tabbing
 vnoremap < <gv

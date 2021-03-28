@@ -54,7 +54,7 @@ nnoremap <expr> <A-t> g:v_term_count ? '<C-w>100j \| a' : ':Hterminal<CR>'
 nnoremap <A-T> :Hterminal<CR>
 imap <A-t> <Esc><A-t>
 tmap <A-t> <Esc><C-w>100k
-tmap <A-T> <Esc><Leader>q<CR> | let g:v_term_count = 0
+tmap <A-T> <Esc><Leader>q<CR>|:let g:v_term_count = 0
 
 " Terminal vertical split
 nnoremap <expr> <A-y> g:h_term_count ? '<C-w>100l \| a' : ':Vterminal<CR>'
