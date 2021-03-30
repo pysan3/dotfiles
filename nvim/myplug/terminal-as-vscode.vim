@@ -35,7 +35,6 @@ if has('nvim')
       vertical botright new | Eterminal
       execute 'vertical resize ' . size
     endif
-    normal a
   endfun
 
   " 水平ウィンドウ分割してターミナル表示 引数はwindowの行数指定(Horizontal terminal)
@@ -45,6 +44,7 @@ if has('nvim')
   " ウィンドウ分割なしでターミナル表示(Extended Terminal)
   command! Eterminal :call s:termopen_wrapper('s:onTermExit') | startinsert
 endif
+autocmd TermOpen * startinsert
 
 let g:v_term_count = 0
 let g:h_term_count = 0
