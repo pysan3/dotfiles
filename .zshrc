@@ -24,6 +24,14 @@ _comp_options+=(globdots)		# Include hidden files.
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'left' vi-backward-char
+bindkey -M menuselect 'down' vi-down-line-or-history
+bindkey -M menuselect 'up' vi-up-line-or-history
+bindkey -M menuselect 'right' vi-forward-char
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -111,28 +119,6 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
-# hyper用設定
-title() { export TITLE_OVERRIDDEN=1; echo -en "\e]0;$*\a"}
-autotitle() { export TITLE_OVERRIDDEN=0 }; autotitle
-overridden() { [[ $TITLE_OVERRIDDEN == 1 ]]; }
-gitDirty() { [[ $(git status 2> /dev/null | grep -o '\w\+' | tail -n1) != ("clean"|"") ]] && echo "*" }
-
-tabtitle_precmd() {
-   if overridden; then return; fi
-   pwd=$(pwd) # Store full path as variable
-   cwd=${pwd##*/} # Extract current working dir only
-   print -Pn "\e]0;$cwd$(gitDirty)\a" # Replace with $pwd to show full path
-}
-[[ -z $precmd_functions ]] && precmd_functions=()
-precmd_functions=($precmd_functions tabtitle_precmd)
-
-tabtitle_preexec() {
-   if overridden; then return; fi
-   printf "\033]0;%s\a" "${1%% *} | $cwd$(gitDirty)" # Omit construct from $1 to show args
-}
-[[ -z $preexec_functions ]] && preexec_functions=()
-preexec_functions=($preexec_functions tabtitle_preexec)
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -f ~/.zsh_local ]; then
@@ -147,4 +133,5 @@ unsetopt equals
 
 # backspaceが認識されない問題を解決
 stty erase ""
+bindkey "^?" backward-delete-char
 
