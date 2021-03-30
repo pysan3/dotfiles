@@ -16,7 +16,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'mbbill/undotree'
     " Auto pairs for '(' '[' '{'
     Plug 'jiangmiao/auto-pairs'
-    " Better Comments
+    " Comments
+    Plug 'tpope/vim-commentary'
     Plug 'jbgutierrez/vim-better-comments'
     " 末尾の全角半角空白文字を赤くハイライト
     Plug 'bronson/vim-trailing-whitespace'
