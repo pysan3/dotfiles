@@ -7,8 +7,10 @@ source $HOME/.config/nvim/plug-config/signify.vim
 source $HOME/.config/nvim/plug-config/fugitive.vim
 source $HOME/.config/nvim/plug-config/sneak.vim
 source $HOME/.config/nvim/plug-config/undotree.vim
+
 " source $HOME/.config/nvim/themes/elly.vim
 source $HOME/.config/nvim/themes/codedark.vim
+
 source $HOME/.config/nvim/themes/airline.vim
 source $HOME/.config/nvim/myplug/autosave-session.vim
 source $HOME/.config/nvim/myplug/terminal-as-vscode.vim
