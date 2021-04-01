@@ -32,6 +32,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " color theme
     " Plug 'joshdick/onedark.vim'
     Plug 'ulwlu/elly.vim'
+    Plug 'tomasiser/vim-code-dark'
     " Airline
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'

@@ -1,9 +1,9 @@
 let g:solarized_termcolors=256
 syntax on
-colorscheme elly
+colorscheme codedark
 
 " Switch to your current theme
-let g:airline_theme = 'elly'
+let g:airline_theme = 'codedark'
 
 " checks if your terminal has 24-bit color support
 if (has("termguicolors"))
