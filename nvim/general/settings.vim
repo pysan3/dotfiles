@@ -105,6 +105,13 @@ set history=5000 " 保存するコマンド履歴の数
 "----------------------------------------------------------
 autocmd TermOpen * setlocal nonumber norelativenumber
 
+"----------------------------------------------------------
+" Command mode
+"----------------------------------------------------------
+nnoremap <F6> :set spell! spelllang=en_us,cjk<CR>
+nnoremap <F7> :set nospell!<CR>
+nnoremap zg zg]s
+
 " else
 au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC
 let g:loaded_python_provider = 0

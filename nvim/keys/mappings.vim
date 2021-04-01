@@ -5,7 +5,6 @@ inoremap <expr> <c-k> ("\<C-p>")
 " I hate escape more than anything else
 inoremap <silent> jk <Esc>
 tmap <silent> jk <Esc>
-vnoremap <silent> jk <Esc>
 
 " save undos on every space
 inoremap <space> <space><C-g>u
@@ -39,6 +38,7 @@ vnoremap > >gv
 
 " Searching
 nnoremap <ESC><ESC> :nohlsearch<CR>
+vnoremap <C-f> "1y/\V<C-r>1<CR>Nzz
 " // で選択中のテキストを検索
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 "検索語が画面の真ん中に来るようにする
@@ -88,6 +88,7 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> P P`]
 noremap gV `[v`]
+noremap <Leader>y "*y
 noremap <Leader>p "*p
 noremap <Leader>P "*P
 
