@@ -30,9 +30,10 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Keeping up to date with master
     Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
     " color theme
-    " Plug 'joshdick/onedark.vim'
+    Plug 'joshdick/onedark.vim'
     Plug 'ulwlu/elly.vim'
     Plug 'tomasiser/vim-code-dark'
+    Plug 'arcticicestudio/nord-vim'
     " Airline
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
