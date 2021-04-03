@@ -38,7 +38,6 @@ vnoremap > >gv
 
 " Searching
 nnoremap <ESC><ESC> :nohlsearch<CR>
-vnoremap <C-f> "1y/\V<C-r>1<CR>Nzz
 " // で選択中のテキストを検索
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 "検索語が画面の真ん中に来るようにする

@@ -12,6 +12,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'sheerun/vim-polyglot'
     " show how many occurance found
     Plug 'google/vim-searchindex'
+    " Use * in visual mode
+    Plug 'inkarkat/vim-ingo-library'
+    Plug 'inkarkat/vim-SearchHighlighting'
     " Undo Tree
     Plug 'mbbill/undotree'
     " Auto pairs for '(' '[' '{'
