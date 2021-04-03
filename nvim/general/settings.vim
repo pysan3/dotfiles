@@ -106,7 +106,7 @@ set history=5000 " 保存するコマンド履歴の数
 autocmd TermOpen * setlocal nonumber norelativenumber
 
 "----------------------------------------------------------
-" Command mode
+" Toggle spell check
 "----------------------------------------------------------
 nnoremap <F6> :set spell! spelllang=en_us,cjk<CR>
 nnoremap <F7> :set nospell!<CR>

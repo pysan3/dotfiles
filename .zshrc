@@ -14,6 +14,7 @@ export LANG=ja_JP.UTF-8
 
 # ${fg[blue]}等で色が利用できるようにする
 autoload -Uz colors
+export TERM=screen-256color
 colors
 # 補完を利用
 plugins=(… zsh-completions)
@@ -94,6 +95,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付
 export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 bindkey -M viins '^j' vi-cmd-mode
+export EDITOR='vim'
 
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
 autoload -Uz zmv

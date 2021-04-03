@@ -18,10 +18,14 @@ for f in `command ls -ap | grep -v /`; do
         ln -s "$DIR/$f" "$HOME/$f"
     fi
 done
+if [ -z "$XDG_CONFIG_HOME" ]; then
+    echo 'setting $XDG_CONFIG_HOME to '"$HOME/.config"
+    XDG_CONFIG_HOME="$HOME/.config"
+fi
 if [ -d ./nvim ]; then
-    mkdir -p "$HOME/.config/nvim/session"
-    mkdir -p "$HOME/.config/nvim/undodir"
-    cp -rs "$DIR/nvim" "$HOME/.config"
+    mkdir -p "$XDG_CONFIG_HOME/nvim/session"
+    mkdir -p "$XDG_CONFIG_HOME/nvim/undodir"
+    cp -rs "$DIR/nvim" "$XDG_CONFIG_HOME"
     if ! command -v nvim &> /dev/null; then
         echo -n 'It seems neovim is not installed. Install? '
         result=0
