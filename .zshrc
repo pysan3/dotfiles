@@ -96,6 +96,7 @@ export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46
 
 bindkey -M viins '^j' vi-cmd-mode
 export EDITOR='vim'
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
 autoload -Uz zmv
