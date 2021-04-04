@@ -56,6 +56,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
+HISTCONTROL=ignoreboth
 
 setopt auto_param_slash # ディレクトリ名の補完で末尾に / を付加
 setopt magic_equal_subst # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる

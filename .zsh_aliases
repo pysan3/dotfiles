@@ -3,6 +3,11 @@ alias ll='ls -Al'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias rm='echo "Im not going to let you delete me XD"; false'
+alias tp='trash-put'
+alias tl='trash-list'
+alias tr='trash-restore'
+
 export DOTFILES=$HOME/dotfiles
 
 alias ga='git add'
