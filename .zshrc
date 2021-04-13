@@ -48,7 +48,7 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 
 # Edit line in vim with ctrl-o:
 autoload edit-command-line; zle -N edit-command-line
-bindkey '^o' edit-command-line
+bindkey '^i' edit-command-line
 
 setopt share_history # 他ターミナルとヒストリを共有
 setopt histignorealldups # ヒストリを重複表示しない
