@@ -1,4 +1,4 @@
-if ! $VIM_COLOR
-    let $VIM_COLOR = 'elly'
+if ! $NVIM_COLOR
+    let $NVIM_COLOR = 'elly'
 endif
-source $HOME/.config/nvim/themes/$VIM_COLOR.vim
+source $HOME/.config/nvim/themes/$NVIM_COLOR.vim
