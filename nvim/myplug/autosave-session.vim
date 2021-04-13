@@ -17,9 +17,13 @@ function! Confirm(msg, ans, value)
     endif
 endfun
 
+function SessionName()
+    return trim(trim(system('basename ' . getcwd())), '.')
+endfunction
+
 function! SaveSess(...)
     let sessionpath = expand(getcwd() . '/.session.vim ')
-    let dirname = expand(g:startify_session_dir) . '/' . trim(system('basename ' . getcwd()))
+    let dirname = expand(g:startify_session_dir) . '/' . SessionName()
     let yes = a:0 && a:1
     if (!yes) && empty(glob(dirname)) && (Confirm('Save current session to ' . dirname . '? [y/N]: ', 'y', 1) == 0)
         echo 'Not saving a new session.'
@@ -48,7 +52,7 @@ endfunction
 function! DeleteSess()
     let session_list = split(globpath(expand(g:startify_session_dir), '[^_]*'), '\n')
     let current = -1
-    let current_session = trim(system('basename ' . getcwd()))
+    let current_session = SessionName()
     if len(session_list) == 0
         echo 'No sessions to delete!'
         echo 'Nice and clean :D'
@@ -82,6 +86,7 @@ endfunction
 
 autocmd VimLeave * call SaveSess()
 command! WQ call SaveSess(1) | wq
+command! Q call SaveSess(0) | noa q
 autocmd VimEnter * nested call RestoreSess()
 
 command! SessSave call SaveSess()
