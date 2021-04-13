@@ -87,9 +87,9 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> P P`]
 noremap gV `[v`]
-noremap <Leader>y "*y
-noremap <Leader>p "*p
-noremap <Leader>P "*P
+noremap <Leader>y "+y
+noremap <Leader>p "+p
+noremap <Leader>P "+P
 
 " ノーマルモードのときにxキー、sキーで削除した文字をヤンクしない
 nnoremap x "_x
