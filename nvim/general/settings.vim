@@ -75,6 +75,7 @@ set smarttab                            " Makes tabbing smarter will realize you
 set shiftwidth=4 " smartindentで増減する幅
 set showtabline=2                       " Always show tabs
 set formatoptions-=cro
+set colorcolumn=120
 
 "----------------------------------------------------------
 " Trailing Spaces
