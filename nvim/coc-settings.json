@@ -1,5 +1,11 @@
 {
-    "diagnostic.displayByAle":true,
+    "diagnostic-languageserver.enable": true,
+    "diagnostic-languageserver.mergeConfig": true,
+    "diagnostic.checkCurrentLine": true,
+    "diagnostic.virtualText": true,
+    "diagnostic.virtualTextCurrentLineOnly": false,
+    "diagnostic.messageTarget": "echo",
+
     "coc.preferences.formatOnSaveFiletypes": [
         "css",
         "markdown",
@@ -12,15 +18,7 @@
         "python"
     ],
 
-    "explorer.file.showHiddenFiles": true,
-    // python config
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": true,
-    "python.autoComplete.extraPaths": [
-        "${workspaceFolder}"
-    ],
-    "python.jediEnabled": false,
-
+    "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",
     "snippets.ultisnips.directories": [
         "UltiSnips",
         "~/.config/nvim/utils/snips"
@@ -34,7 +32,38 @@
         "<cr>": ["expandable?", "expand", "open"],
         "v": "open:vsplit"
     },
-    "diagnostic.checkCurrentLine": true,
+    "explorer.file.showHiddenFiles": true,
+
+    // python config
+    "python.pythonPath": "${workspaceFolder}/.venv/bin/python3",
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}"
+    ],
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}"
+    ],
+    "python.venvPath": "${workspaceFolder}/..",
+    "python.venvFolders": [
+        "${workspaceFolder}/..",
+        "${workspaceFolder}"
+    ],
+    "python.jediEnabled": false,
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.lintOnSave": true,
+    "python.linting.pylintPath": "${workspaceFolder}/.venv/bin/pylint",
+    "python.linting.pylintArgs": [
+        "--init-hook='./'",
+        "--max-line-length=120"
+    ],
+    "python.formatting.provider": "autopep8",
+    "python.formatting.autopep8Args": [
+        "--max-line-length=120",
+        "--aggressive", "--aggressive"
+    ],
+    "python.pipenvPath": "/usr/local/bin/pipenv",
+
+    // js config
     "prettier.eslintIntegration": true,
     "eslint.autoFixOnSave": true
 }

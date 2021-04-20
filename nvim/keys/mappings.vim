@@ -38,8 +38,6 @@ vnoremap > >gv
 
 " Searching
 nnoremap <ESC><ESC> :nohlsearch<CR>
-" // で選択中のテキストを検索
-vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 "検索語が画面の真ん中に来るようにする
 nnoremap n nzz
 nnoremap N Nzz
@@ -97,9 +95,6 @@ nnoremap s "_s
 
 " Trailing Spaces
 :command T FixWhitespace
-
-" Turn off comment (since this could be done with basic commands)
-nnoremap <Leader>T Ixx
 
 " Python Docs
 nnoremap <Leader>ss :Docstring<CR>
