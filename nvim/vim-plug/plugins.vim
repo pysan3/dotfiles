@@ -28,6 +28,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'Yggdroot/indentLine'
     " 範囲拡大を使う
     Plug 'terryma/vim-expand-region'
+    " better scroll
+    Plug 'yuttie/comfortable-motion.vim'
     " Stable version of coc
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " Keeping up to date with master
@@ -53,7 +55,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'airblade/vim-rooter'
     Plug 'junegunn/gv.vim'
     " vim-which-key
-    Plug 'liuchengxu/vim-which-key'
+    " Plug 'liuchengxu/vim-which-key'
     " vim sneak
     Plug 'justinmk/vim-sneak'
     " Snippets
