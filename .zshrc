@@ -131,7 +131,7 @@ unsetopt equals
 stty erase ""
 bindkey "^?" backward-delete-char
 
-if [ ! -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
-  sudo git clone git://github.com/zsh-users/zsh-syntax-highlighting.git /usr/share/zsh/plugins/zsh-syntax-highlighting
+if [ ! -f ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/zsh-syntax-highlighting
 fi
-source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

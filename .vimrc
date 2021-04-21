@@ -246,7 +246,7 @@ nnoremap s "_s
 " Terminal
 "----------------------------------------------------------
 set splitbelow
-set termwinsize=10x0
+" set termwinsize=10x0
 function! TermOpen()
     if empty(term_list())
         execute "terminal"
