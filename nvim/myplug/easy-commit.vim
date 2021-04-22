@@ -36,3 +36,7 @@ endfunction
 
 command! -nargs=+ Send :call GitSendCommit(<f-args>)
 nnoremap <Leader>gc :Send
+
+" this config heavily depends on Floaterm
+" Plug 'voldikss/vim-floaterm'
+nnoremap <Leader>gz :FloatermNew --cmd="git cz"

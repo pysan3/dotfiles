@@ -29,7 +29,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " 範囲拡大を使う
     Plug 'terryma/vim-expand-region'
     " better scroll
-    Plug 'yuttie/comfortable-motion.vim'
+    " Plug 'yuttie/comfortable-motion.vim'
     " Stable version of coc
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " Keeping up to date with master
@@ -60,6 +60,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'justinmk/vim-sneak'
     " Snippets
     Plug 'honza/vim-snippets'
+    " Floaterm
+    Plug 'voldikss/vim-floaterm'
 
     " language specific
     Plug 'pixelneo/vim-python-docstring'
