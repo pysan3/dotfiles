@@ -113,7 +113,8 @@ set ruler " ステータスラインの右側にカーソルの位置を表示�
 "----------------------------------------------------------
 " Trailing Spaces
 "----------------------------------------------------------
-:command T FixWhitespace
+" specified at mapping.vim
+" :command T FixWhitespace
 
 "----------------------------------------------------------
 " コマンドモード
@@ -332,3 +333,4 @@ function! s:Repl()
 endfunction
 vmap <silent> <expr> p <sid>Repl()
 
+source ~/.config/nvim/keys/mappings.vim

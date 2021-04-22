@@ -48,14 +48,6 @@ set splitright                          " Vertical splits will automatically be 
 set background=dark                     " tell vim what the background color looks like
 
 "----------------------------------------------------------
-" Status line
-"----------------------------------------------------------
-set laststatus=2 " ステータスラインを常に表示
-set showmode " 現在のモードを表示
-set showcmd " 打ったコマンドをステータスラインの下に表示
-set ruler " ステータスラインの右側にカーソルの位置を表示する
-
-"----------------------------------------------------------
 " Search
 "----------------------------------------------------------
 set incsearch " インクリメンタルサーチ. １文字入力毎に検索を行う
@@ -93,7 +85,7 @@ set nowritebackup                       " This is recommended by coc
 "----------------------------------------------------------
 set updatetime=300                      " Faster completion
 set timeoutlen=500                      " By default timeoutlen is 1000 ms
-"set autochdir                           " Your working directory will always be the same as your working directory
+" set autochdir                           " Your working directory will always be the same as your working directory
 
 "----------------------------------------------------------
 " Command mode
