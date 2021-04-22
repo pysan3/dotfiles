@@ -10,8 +10,8 @@ alias tr='trash-restore'
 
 export DOTFILES=$HOME/dotfiles
 
-alias ga='git add'
-alias gc='git commit -m'
+alias g='git'
+alias gconfig='curl https://gist.github.com/3a982b2eb27a8a2843fb6d8dd381a2e1.git >> ~/.gitconfig'
 function happ() {
     trap "echo terminated; git remote rm heroku; return" 1 2 3 15
     heroku git:remote --app $(basename -s .git `git remote get-url origin`)
@@ -131,6 +131,7 @@ function pinit() {
     eval $cmd
     act;
     pipenv install attrdict rich;
+    pipenv install --dev isort pylint autopep8
     curl "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore
 }
 function cinit() {
