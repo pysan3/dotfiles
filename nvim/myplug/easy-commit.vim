@@ -39,4 +39,4 @@ nnoremap <Leader>gc :Send
 
 " this config heavily depends on Floaterm
 " Plug 'voldikss/vim-floaterm'
-nnoremap <Leader>gz :FloatermNew --cmd="git cz"
+nnoremap <Leader>gz :FloatermNew git cz<CR>
