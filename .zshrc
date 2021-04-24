@@ -141,3 +141,4 @@ if [ ! -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
   git clone git://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
 fi
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
