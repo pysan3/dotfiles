@@ -19,6 +19,17 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'mbbill/undotree'
     " Auto pairs for '(' '[' '{'
     Plug 'jiangmiao/auto-pairs'
+    " calculate sum, average, max, min in selected area
+    Plug 'nixon/vim-vmath'
+    " drag things selected visually
+    Plug 'joshukraine/dragvisuals'
+    " title case
+    Plug 'christoomey/vim-titlecase'
+    " sort selected places (just like diw, daw)
+    Plug 'christoomey/vim-sort-motion'
+    " quick search in Google and put link in selected letter
+    Plug 'mattn/webapi-vim'
+    Plug 'christoomey/vim-quicklink'
     " Comments
     Plug 'tpope/vim-commentary'
     Plug 'jbgutierrez/vim-better-comments'

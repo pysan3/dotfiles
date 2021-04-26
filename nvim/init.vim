@@ -15,3 +15,5 @@ source $HOME/.config/nvim/plug-config/fugitive.vim
 source $HOME/.config/nvim/plug-config/sneak.vim
 source $HOME/.config/nvim/plug-config/undotree.vim
 source $HOME/.config/nvim/plug-config/start-screen.vim
+source $HOME/.config/nvim/plug-config/vim-math.vim
+source $HOME/.config/nvim/plug-config/dragvisuals.vim
