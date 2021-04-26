@@ -133,13 +133,13 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Mappings for CoCList
 " Show all diagnostics.
 nnoremap <nowait> <Leader>ca  :<C-u>CocList diagnostics<cr>
-Manage extensions.
+" Manage extensions.
 nnoremap <nowait> <Leader>ce  :<C-u>CocList extensions<cr>
-Show commands.
+" Show commands.
 nnoremap <nowait> <Leader>cc  :<C-u>CocList commands<cr>
-Find symbol of current document.
+" Find symbol of current document.
 nnoremap <nowait> <Leader>co  :<C-u>CocList outline<cr>
-Search workspace symbols.
+" Search workspace symbols.
 nnoremap <nowait> <Leader>cs  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
 " nnoremap <nowait> <Leader>j  :<C-u>CocNext<CR>
