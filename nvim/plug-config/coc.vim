@@ -132,21 +132,21 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <Leader>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-" nnoremap <silent><nowait> <Leader>e  :<C-u>CocList extensions<cr>
-" Show commands.
-" nnoremap <silent><nowait> <Leader>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-" nnoremap <silent><nowait> <Leader>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-" nnoremap <silent><nowait> <Leader>s  :<C-u>CocList -I symbols<cr>
+nnoremap <nowait> <Leader>ca  :<C-u>CocList diagnostics<cr>
+Manage extensions.
+nnoremap <nowait> <Leader>ce  :<C-u>CocList extensions<cr>
+Show commands.
+nnoremap <nowait> <Leader>cc  :<C-u>CocList commands<cr>
+Find symbol of current document.
+nnoremap <nowait> <Leader>co  :<C-u>CocList outline<cr>
+Search workspace symbols.
+nnoremap <nowait> <Leader>cs  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-" nnoremap <silent><nowait> <Leader>j  :<C-u>CocNext<CR>
+" nnoremap <nowait> <Leader>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-" nnoremap <silent><nowait> <Leader>k  :<C-u>CocPrev<CR>
+" nnoremap <nowait> <Leader>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-" nnoremap <silent><nowait> <Leader>p  :<C-u>CocListResume<CR>
+" nnoremap <nowait> <Leader>p  :<C-u>CocListResume<CR>
 
 " Explorer
 let g:coc_explorer_global_presets = {
@@ -183,7 +183,7 @@ let g:coc_explorer_global_presets = {
 \   }
 \ }
 
-nmap <Leader>e :CocCommand explorer --quit-on-open --focus<CR>
+nnoremap <Leader>e :CocCommand explorer --quit-on-open --focus<CR>
 
 " Use <C-l> for trigger snippet expand.
 " imap <C-l> <Plug>(coc-snippets-expand)
@@ -210,8 +210,6 @@ let airline#extensions#coc#warning_symbol = 'Warning:'
 let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
 " Change warning format:
 let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
-
-let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\")'"
 
 " snippet move between like vscode
 inoremap <silent><expr> <TAB>
