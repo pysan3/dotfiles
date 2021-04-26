@@ -94,7 +94,7 @@ nnoremap x "_x
 nnoremap s "_s
 
 " Trailing Spaces
-:command T FixWhitespace
+command! T FixWhitespace
 
 " Python Docs
 nnoremap <Leader>ss :Docstring<CR>
