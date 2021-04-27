@@ -92,6 +92,7 @@ zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b%F{DEFAUL
 zstyle ':completion:*:corrections' format '%F{YELLOW}%B%d ''%F{RED}(errors: %e)%b%F{DEFAULT}'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*' group-name ''
+zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
 
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
 export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
