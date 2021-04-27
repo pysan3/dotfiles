@@ -23,22 +23,24 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'nixon/vim-vmath'
     " drag things selected visually
     Plug 'joshukraine/dragvisuals'
-    " title case
-    Plug 'christoomey/vim-titlecase'
-    " sort selected places (just like diw, daw)
-    Plug 'christoomey/vim-sort-motion'
-    " quick search in Google and put link in selected letter
-    Plug 'mattn/webapi-vim'
-    Plug 'christoomey/vim-quicklink'
     " Comments
     Plug 'tpope/vim-commentary'
     Plug 'jbgutierrez/vim-better-comments'
+    " Custom operations
+    Plug 'christoomey/vim-titlecase'
+    Plug 'christoomey/vim-sort-motion'
+    Plug 'tpope/vim-surround'
+    Plug 'terryma/vim-expand-region'
+    Plug 'vim-scripts/ReplaceWithRegister'
+    " Custom Text Objects
+    Plug 'michaeljsmith/vim-indent-object'
+    " quick search in Google and put link in selected letter
+    Plug 'mattn/webapi-vim'
+    Plug 'christoomey/vim-quicklink'
     " 末尾の全角半角空白文字を赤くハイライト
     Plug 'bronson/vim-trailing-whitespace'
     " インデントの可視化
     Plug 'Yggdroot/indentLine'
-    " 範囲拡大を使う
-    Plug 'terryma/vim-expand-region'
     " better scroll
     " Plug 'yuttie/comfortable-motion.vim'
     " Stable version of coc
