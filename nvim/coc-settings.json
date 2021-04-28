@@ -1,4 +1,5 @@
 {
+    "coc.preferences.rootPatterns": [".git", ".vim"],
     "diagnostic-languageserver.enable": true,
     "diagnostic-languageserver.mergeConfig": true,
     "diagnostic.checkCurrentLine": true,

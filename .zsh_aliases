@@ -122,7 +122,7 @@ function venv() {
 function pinit() {
     cmd='pipenv install'
     if [ -f requirements.txt ]; then
-        checkyes 'We found a requirements.txt in your project. Do you want to reference it?'
+        checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
         if [ $? -eq 0 ]; then
             echo 'Installing from requirements.txt'
             cmd=$cmd' -r requirements.txt'
