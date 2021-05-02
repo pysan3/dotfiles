@@ -142,4 +142,14 @@ if [ ! -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
   git clone git://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
 fi
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ ! -d ~/.ghcup ] || [ ! command -v cabal &> /dev/null ] || [ ! command -v pandoc &> /dev/null ]; then
+    cd
+    curl https://get-ghcup.haskell.org -sSf | sh
+    . "$HOME/.ghcup/env"
+    cabal --version
+    cabal new-update
+    cabal new-install pandoc
+    cabal new-install pandoc-citeproc pandoc-crossref
+fi
 
+[ -f "/home/takuto/.ghcup/env" ] && source "/home/takuto/.ghcup/env" # ghcup-env
