@@ -75,12 +75,17 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'honza/vim-snippets'
     " Floaterm
     Plug 'voldikss/vim-floaterm'
+    " Async run
+    Plug 'skywind3000/asyncrun.vim'
 
     " language specific
     Plug 'pixelneo/vim-python-docstring'
     Plug 'uarun/vim-protobuf'
     " Pandoc
+    Plug 'lervag/vimtex'
+    Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
-    Plug 'vim-pandoc/vim-pandoc'
-    Plug 'vim-pandoc/vim-pandoc-syntax'
+    " Plug 'vim-pandoc/vim-pandoc'
+    " Plug 'vim-pandoc/vim-pandoc-syntax'
+    " Plug 'tpope/vim-markdown'
 call plug#end()
