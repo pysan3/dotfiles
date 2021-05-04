@@ -7,8 +7,8 @@ inoremap <silent> jk <Esc>
 tmap <silent> jk <Esc>
 
 " save undos on every space
-inoremap <space> <space><C-g>u
-inoremap <CR> <CR><C-g>u
+inoremap <space> <C-g>u<space>
+inoremap <CR> <C-g>u<CR>
 
 " new line in insert mode
 imap <C-o> <Esc>o
