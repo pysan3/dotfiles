@@ -20,3 +20,4 @@ source $HOME/.config/nvim/syntax/markdown.vim
 source $HOME/.config/nvim/myplug/autosave-session.vim
 source $HOME/.config/nvim/myplug/terminal-as-vscode.vim
 source $HOME/.config/nvim/myplug/easy-commit.vim
+source $HOME/.config/nvim/myplug/load-local-config.vim
