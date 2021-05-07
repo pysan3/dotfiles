@@ -50,12 +50,25 @@
     ],
     "python.jediEnabled": false,
     "python.linting.enabled": true,
-    "python.linting.pylintEnabled": true,
     "python.linting.lintOnSave": true,
-    "python.linting.pylintPath": "${workspaceFolder}/.venv/bin/pylint",
-    "python.linting.pylintArgs": [
-        "--init-hook='./'",
-        "--max-line-length=120"
+    /* "python.linting.mypyEnabled": true, */
+    /* "python.linting.mypyPath": "/home/takuto/.local/bin/mypy", */
+    /* "python.linting.mypyArgs": [ */
+    /*     "--ignore-missing-imports", */
+    /*     "--follow-imports=silent", */
+    /*     "--show-column-numbers" */
+    /* ], */
+    /* "python.linting.pylintEnabled": true, */
+    /* "python.linting.pylintPath": "${workspaceFolder}/.venv/bin/pylint", */
+    /* "python.linting.pylintArgs": [ */
+    /*     "--init-hook='./'", */
+    /*     "--max-line-length=120" */
+    /* ], */
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Path": "/home/takuto/.local/bin/flake8",
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--ignore=F405"
     ],
     "python.formatting.provider": "autopep8",
     "python.formatting.autopep8Args": [
