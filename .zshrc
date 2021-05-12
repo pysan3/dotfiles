@@ -101,6 +101,8 @@ bindkey -M viins '^j' vi-cmd-mode
 export EDITOR='vim'
 export XDG_CONFIG_HOME="$HOME/.config"
 
+export SYSTEMD_PAGER='cat'
+
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
