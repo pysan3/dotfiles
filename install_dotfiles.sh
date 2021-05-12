@@ -22,6 +22,11 @@ if [ -z "$XDG_CONFIG_HOME" ]; then
     echo 'setting $XDG_CONFIG_HOME to '"$HOME/.config"
     XDG_CONFIG_HOME="$HOME/.config"
 fi
+for f in `command ls -ap config | grep -v /`; do
+    if [ ! -f "$XDG_CONFIG_HOME/$f" ]; then
+        ln -s "$DIR/$f" "$XDG_CONFIG_HOME/$f"
+    fi
+done
 if [ -d ./nvim ]; then
     mkdir -p "$XDG_CONFIG_HOME/nvim/session"
     mkdir -p "$XDG_CONFIG_HOME/nvim/undodir"
