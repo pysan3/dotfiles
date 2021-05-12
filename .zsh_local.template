@@ -1,0 +1,72 @@
+export DISPLAY=$(python3 ~/set_configs.py display)':0'
+export LIBGL_ALWAYS_INDIRECT=1
+export CLASSPATH=$CLASSPATH:/usr/local/java/JSON/json-20200518.jar:/usr/local/java/sqlite/sqlite-jdbc-3.30.1.jar
+export MYENV='WSL'
+export PCNAME='takuto-hp'
+export NVIM_COLOR='codedark'
+export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa -F /dev/null'
+alias cgit="cd $HOME/Git/"
+alias clip="clip.exe"
+function crop () {
+    set -x
+    if [[ x$1 = x'-h' ]]; then
+        echo 'crop start[s], (length[s], (speed[nx]))'
+        return
+    fi
+    echo $#
+    start=$1
+    length=''
+    if [ $# -ge 2 ]; then
+        length='-t '$2
+    fi
+    speed=1.5
+    if [ $# -ge 3 ]; then
+        speed=$3
+    fi
+    ffmpeg -i output.mp4 -vf crop=640:480:3:22 1.mp4 -y
+    eval "ffmpeg -ss $1 -i 1.mp4 $length 2.mp4 -y"
+    ffmpeg -i 2.mp4 -vf setpts=PTS/$speed -af atempo=$speed crop.mp4 -y
+    # rm 1.mp4 2.mp4
+    set +x
+}
+function setdns () {
+    windowshost=`python ~/set_configs.py windowshost`
+    dnspath='/etc/resolv.conf'
+    prev=`cat $dnspath`
+    echo "" | sudo tee $dnspath
+    while read line; do
+        if [[ x$line != x ]]; then
+            echo "nameserver $line" | sudo tee -a $dnspath
+        fi
+    done <<-EOF
+8.8.8.8
+8.8.4.4
+$windowshost
+EOF
+    echo "$prev" | sudo tee -a $dnspath
+}
+function grass () {
+    set -x
+    if [ $# -eq 1 ]; then
+        length=$1
+        start=0
+    elif [ $# -eq 2 ]; then
+        start=$1
+        length=$2
+    else
+        echo 'Usage: cheatGit [start] length'
+        return 1
+    fi
+    til=$(($start+$length))
+    for ((d=$start;d<$til;d++)); do
+        rand=$((1+$RANDOM%3))
+        for ((n=0;n<$rand;n++)); do
+            git commit \
+                --allow-empty \
+                --date=`date +%F -d "-$d days"` \
+                -m "The grass is always greener on the other side."
+        done
+    done
+    git push
+    set +x
+}
