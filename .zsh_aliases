@@ -7,11 +7,18 @@ alias rm='echo "Im not going to let you delete me XD"; false'
 alias tp='trash-put'
 alias tl='trash-list'
 alias tr='trash-restore'
+if [ ! -d "$HOME/tmp" ]; then
+    mkdir -p "$HOME/tmp"
+fi
+export TMPDIR=$HOME/tmp
 
 export DOTFILES=$HOME/dotfiles
 
 alias g='git'
 alias gconfig='curl https://gist.githubusercontent.com/pysan3/3a982b2eb27a8a2843fb6d8dd381a2e1/raw/542914397dbdee53a7ac8c985141300ef6f833d7/.gitconfig >> ~/.gitconfig'
+
+alias yin='yay -S --noconfirm'
+alias yrm='yay -Rns'
 function happ() {
     trap "echo terminated; git remote rm heroku; return" 1 2 3 15
     heroku git:remote --app $(basename -s .git `git remote get-url origin`)
@@ -131,7 +138,7 @@ function pinit() {
     eval $cmd
     act;
     pipenv install attrdict rich;
-    pipenv install --dev isort pylint autopep8
+    pipenv install --dev isort pylint autopep8 flake8
     gignore
     pylint --generate-rcfile > .pylintrc
 }
