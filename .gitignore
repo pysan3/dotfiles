@@ -30,3 +30,4 @@ nvim/autoload/plugged
 !nvim/coc-settings.json
 !nvim/init.vim
 !nvim/syntax
+!nvim/snippets
