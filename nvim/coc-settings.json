@@ -65,17 +65,14 @@
     /*     "--max-line-length=120" */
     /* ], */
     "python.linting.flake8Enabled": true,
-    "python.linting.flake8Path": "/home/takuto/.local/bin/flake8",
     "python.linting.flake8Args": [
         "--max-line-length=120",
         "--ignore=F405"
     ],
-    "python.formatting.provider": "autopep8",
     "python.formatting.autopep8Args": [
         "--max-line-length=120",
         "--aggressive", "--aggressive"
     ],
-    "python.pipenvPath": "/usr/local/bin/pipenv",
 
     // js config
     "prettier.eslintIntegration": true,
