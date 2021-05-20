@@ -8,6 +8,8 @@ endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
+    " NeoVim in the browser
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(1) } }
     " Better Syntax Support
     Plug 'sheerun/vim-polyglot'
     " show how many occurance found
