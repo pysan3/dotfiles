@@ -70,7 +70,7 @@ function dup() {
 }
 
 alias restart="source ~/.zshrc"
-alias here="explorer.exe ."
+alias here="$FE ."
 export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH
 export PATH=$PATH:$(python -m site --user-base)/bin:$(python -m site --user-base)/share/virtualenvs
 export PATH=$PATH:/home/takuto/myCommands
