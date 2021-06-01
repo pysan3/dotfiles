@@ -71,7 +71,7 @@ function dup() {
 }
 
 alias restart="source ~/.zshrc"
-alias here="explorer.exe ."
+alias here="$FE ."
 export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH
 export PATH=$PATH:$(python -m site --user-base)/bin:$(python -m site --user-base)/share/virtualenvs
 export PATH=$PATH:/home/takuto/myCommands
@@ -189,3 +189,10 @@ function timer () {
     termdown $1 && cvlc /home/takuto/Music/Clock-Alarm.mp3 --play-and-exit >/dev/null 2>/dev/null
 }
 alias ramen='timer 150'
+function syncit () {
+    if ! command -v 'syncthing' &> /dev/null; then
+        echo 'install syncthing'
+        return
+    fi
+    eval "cp -v $@ ~/Sync"
+}
