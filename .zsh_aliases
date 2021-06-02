@@ -54,12 +54,12 @@ function dot() {
 function dup() {
     WDIR=$PWD
     dot
-    git pull
-    ga .
+    g pl
+    g a .
     if [ $# -ne 0 ]; then
-        gc "$@"
+        g ci "$@"
     else
-        gc "updated from $PCNAME";
+        g ci "updated from $PCNAME";
     fi
     git push
     for f in `command ls -ap | grep -v /`; do
