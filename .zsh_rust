@@ -38,7 +38,7 @@ while IFS= read -r line; do
             continue
         fi
     fi
-    eval "alias $line"
+    eval "alias $cmd=$alt"
 done <<- EOM
 ls=exa
 ps=procs
