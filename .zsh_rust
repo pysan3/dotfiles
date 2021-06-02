@@ -1,0 +1,57 @@
+#!/bin/bash
+
+if ! command -v 'cargo' &> /dev/null; then
+    curl https://sh.rustup.rs -sSf | sh
+fi
+
+function checkyes() {
+    result=1
+    if [[ x`basename $SHELL` = x'bash' ]]; then
+        read -p "$@ [y/N]: " yn; case "$yn" in [yY]*) result=0;; *) result=1;; esac
+    elif [[ x`basename $SHELL` = x'zsh' ]]; then
+        printf "$@ [y/N]: "; if read -q; then; result=0; else result=1; fi
+        echo
+    fi
+    return $result
+}
+
+while IFS= read -r line; do
+    IFS='=' read -r -A cmdArr <<< "$line"
+    # add one dummy in bash because zsh array is 1-index
+    if [[ x`basename $SHELL` = x'bash' ]]; then
+        cmdArr="tmp $cmdArr"
+    fi
+    cmd=${cmdArr[1]}
+    alt=${cmdArr[2]}
+    if [ ${#cmdArr[@]} -gt 2 ]; then
+        pkg=${cmdArr[3]}
+    else
+        pkg="$alt"
+    fi
+    if ! command -v $alt &> /dev/null; then
+        checkyes "$alt not installed. Do you want to install with cargo?"
+        if [ $? -eq 0 ]; then
+            cargo install -v $pkg
+        else
+            echo "failed to create alias from '$cmd' to '$alt': command not found"
+            continue
+        fi
+    fi
+    eval "alias $line"
+done <<- EOM
+ls=exa
+ps=procs
+cat=bat
+less=bat
+grep=rg=ripgrep
+nano=kibi
+find=fd=fd-find
+du=dust=du-dust
+time=hyperfine
+top=ytop
+iftop=bandwhich
+hexdump=hx
+objdump=bingrep
+http-server=miniserve
+lisence=licensor
+EOM

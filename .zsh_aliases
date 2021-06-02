@@ -1,7 +1,8 @@
 alias ls='ls --color=auto'
-alias ll='ls -Al'
-alias la='ls -A'
-alias l='ls -CF'
+alias ll='ls -aFhl'
+alias lr='ls -RFh'
+alias la='ls -AFh'
+alias l='ls -1F'
 
 alias rm='echo "Im not going to let you delete me XD"; false'
 alias tp='trash-put'
@@ -99,18 +100,6 @@ if [ x"$PCNAME" = 'x' ]; then
     export PCNAME='undefined';
 fi
 
-alias whichsh='ps -h -o comm -p $$'
-function checkyes() {
-    result=1
-    if [[ x`whichsh` = x'bash' ]]; then
-        read -p "$@ [y/N]: " yn; case "$yn" in [yY]*) result=0;; *) result=1;; esac
-    elif [[ x`whichsh` = x'zsh' ]]; then
-        printf "$@ [y/N]: "; if read -q; then; result=0; else result=1; fi
-        echo
-    fi
-    return $result
-}
-
 alias dc="docker-compose"
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
 alias act="source ~/.zshrc; [ -f 'bin/activate' ] && source bin/activate || source .venv/bin/activate"
@@ -159,6 +148,26 @@ function img2eps () {
         convert $filename eps2:$name.eps
     done
 }
+function ex () {
+    if [ -f $1 ]; then
+        case $1 in
+            *.tar.bz2)  tar xjf $1  ;;
+            *.tar.gz)   tar xzf $1  ;;
+            *.bz2)      bunzip2 $1  ;;
+            *.rar)      unrar x $1  ;;
+            *.gz)       gunzip $1   ;;
+            *.tar)      tar xf $1   ;;
+            *.tbz2)     tar xjf $1  ;;
+            *.tgz)      tar xzf $1  ;;
+            *.zip)      unzip $1    ;;
+            *.Z)        uncompress $1;;
+            *.7z)       7z x $1     ;;
+            *)          echo "'$1' cannot be extracted via ex()" ;;
+        esac
+    else
+        echo "'$1' is not found"
+    fi
+}
 function cpp () {
     for lst in "$@"; do :; done
     mkdir -p $lst
@@ -168,3 +177,10 @@ function timer () {
     termdown $1 && cvlc /home/takuto/Music/Clock-Alarm.mp3 --play-and-exit >/dev/null 2>/dev/null
 }
 alias ramen='timer 150'
+function syncit () {
+    if ! command -v 'syncthing' &> /dev/null; then
+        echo 'install syncthing'
+        return
+    fi
+    eval "cp -v $@ ~/Sync"
+}
