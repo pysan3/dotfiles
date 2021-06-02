@@ -58,7 +58,7 @@
     /*     "--follow-imports=silent", */
     /*     "--show-column-numbers" */
     /* ], */
-    /* "python.linting.pylintEnabled": true, */
+    "python.linting.pylintEnabled": false,
     /* "python.linting.pylintPath": "${workspaceFolder}/.venv/bin/pylint", */
     /* "python.linting.pylintArgs": [ */
     /*     "--init-hook='./'", */
