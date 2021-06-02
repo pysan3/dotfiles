@@ -74,7 +74,7 @@ alias restart="source ~/.zshrc"
 alias here="$FE ."
 export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH
 export PATH=$PATH:$(python -m site --user-base)/bin:$(python -m site --user-base)/share/virtualenvs
-export PATH=$PATH:/home/takuto/myCommands
+export PATH=$PATH:/home/takuto/myCommands:/home/takuto/myCommands/bin
 export INFOPATH=$INFOPATH:/usr/local/texlive/2020/texmf-dist/doc/info
 export MANPATH=$MANPATH:/usr/local/texlive/2020/texmf-dist/doc/man
 
