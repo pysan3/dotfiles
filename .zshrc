@@ -156,3 +156,8 @@ if [ ! -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
   git clone git://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
 fi
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+export PATH="$HOME/.poetry/bin:$PATH"
+if ! command -v 'poetry' &> /dev/null; then
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+fi
