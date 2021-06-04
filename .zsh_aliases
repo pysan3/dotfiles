@@ -185,3 +185,9 @@ function syncit () {
     fi
     eval "cp -v $@ ~/Sync"
 }
+function appearance () {
+    cat \
+        <(wget -O- 'https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt' 2> /dev/null) \
+        <(wget -O- 'https://unicode.org/Public/emoji/13.0/emoji-test.txt' 2> /dev/null) \
+        | less
+}
