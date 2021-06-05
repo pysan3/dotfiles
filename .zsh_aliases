@@ -5,6 +5,7 @@ alias la='ls -AFh'
 alias l='ls -1F'
 
 alias rm='echo "Im not going to let you delete me XD"; false'
+alias cbw='echo $BW_PASSWORD | bw'
 alias tp='trash-put'
 alias tl='trash-list'
 alias tr='trash-restore'
@@ -191,3 +192,8 @@ function appearance () {
         <(wget -O- 'https://unicode.org/Public/emoji/13.0/emoji-test.txt' 2> /dev/null) \
         | less
 }
+function syncddns () {
+    cbw get item mydns.jp | jq '.login' | jq -r '"\(.username):\(.password)"'
+    cbw get item mydns.jp | jq '.login' | jq -r '"\(.username):\(.password)"' | { read login; for v in 4 6; do curl -u "$login" "https://ipv$v.mydns.jp/login.html"; done }
+}
+
