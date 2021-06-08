@@ -1,7 +1,7 @@
 alias ls='ls --color=auto'
 alias ll='ls -aFhl'
 alias lr='ls -RFh'
-alias la='ls -AFh'
+alias la='ls -aFh'
 alias l='ls -1F'
 
 alias rm='echo "Im not going to let you delete me XD"; false'
