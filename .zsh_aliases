@@ -37,6 +37,7 @@ function upvim() {
 alias vm="vim $DOTFILES/.vimrc"
 alias vz="vim $DOTFILES/.zshrc"
 alias va="vim $DOTFILES/.zsh_aliases"
+alias vr="vim $DOTFILES/.zsh_rust"
 alias vl="vim ~/.zsh_local"
 alias vh="sudo vim ~/.zsh_history"
 alias tm="tmuxinator"
@@ -125,11 +126,21 @@ function pinit() {
     gignore
     pylint --generate-rcfile > .pylintrc
 }
+alias po='poetry'
 function tinit () {
-    poetry init
-    poetry config virtualenvs.in-project true
-    poetry add attrdict rich
-    poetry add -D isort pylint autopep8 flake8
+    po init
+    po config virtualenvs.in-project true
+    if [ -f requirements.txt ]; then
+        checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
+        if [ $? -eq 0 ]; then
+            echo 'Installing from requirements.txt'
+            for package in $(cat requirements.txt); do
+                po add "${package}"
+            done
+        fi
+    fi
+    po add attrdict rich toml
+    po add -D isort pylint autopep8 flake8
 }
 function cinit() {
     rm -rf build;
