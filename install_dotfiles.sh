@@ -52,6 +52,41 @@ if [ -d ./nvim ]; then
             sudo apt install python3-neovim
         fi
     fi
+
+    # install coc extensions
+    set -o nounset    # error when referencing undefined variable
+    set -o errexit    # exit when command fails
+
+    # Install extensions
+    mkdir -p ~/.config/coc/extensions
+    cd ~/.config/coc/extensions
+    if [ ! -f package.json ]; then
+      echo '{"dependencies":{}}'> package.json
+    fi
+    # Change extension names to the extensions you need
+    npm install \
+        coc-diagnostic \
+        coc-explorer \
+        coc-lists \
+        coc-dictionary \
+        coc-word \
+        coc-emoji \
+        coc-snippets \
+        coc-tsserver \
+        coc-eslint \
+        coc-prettier \
+        coc-vetur \
+        coc-json \
+        coc-python \
+        coc-pyright \
+        coc-protobuf \
+        coc-vimtex \
+        coc-texlab \
+        coc-sh \
+        coc-yaml \
+        --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
+    cd -
+
 fi
 
 cd $WORKDIR

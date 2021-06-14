@@ -7,17 +7,6 @@ fix_interop() {
     done
 }
 
-function checkyes() {
-    result=1
-    if [[ x`basename $SHELL` = x'bash' ]]; then
-        read -p "$@ [y/N]: " yn; case "$yn" in [yY]*) result=0;; *) result=1;; esac
-    elif [[ x`basename $SHELL` = x'zsh' ]]; then
-        printf "$@ [y/N]: "; if read -q; then; result=0; else result=1; fi
-        echo
-    fi
-    return $result
-}
-
 # fix_interop
 [ -z "$PS1" ] && return
 
@@ -156,3 +145,8 @@ if [ ! -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
   git clone git://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
 fi
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+export PATH="$HOME/.poetry/bin:$PATH"
+if ! command -v 'poetry' &> /dev/null; then
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+fi

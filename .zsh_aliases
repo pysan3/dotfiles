@@ -1,22 +1,18 @@
 alias ls='ls --color=auto'
 alias ll='ls -aFhl'
 alias lr='ls -RFh'
-alias la='ls -AFh'
+alias la='ls -aFh'
 alias l='ls -1F'
 
 alias rm='echo "Im not going to let you delete me XD"; false'
+alias cbw='echo $BW_PASSWORD | bw'
 alias tp='trash-put'
 alias tl='trash-list'
 alias tr='trash-restore'
-if [ ! -d "$HOME/tmp" ]; then
-    mkdir -p "$HOME/tmp"
-fi
-export TMPDIR=$HOME/tmp
 
 export DOTFILES=$HOME/dotfiles
 
 alias g='git'
-alias gconfig='curl https://gist.githubusercontent.com/pysan3/3a982b2eb27a8a2843fb6d8dd381a2e1/raw/542914397dbdee53a7ac8c985141300ef6f833d7/.gitconfig >> ~/.gitconfig'
 
 alias yay='yay --noconfirm'
 function happ() {
@@ -41,6 +37,7 @@ function upvim() {
 alias vm="vim $DOTFILES/.vimrc"
 alias vz="vim $DOTFILES/.zshrc"
 alias va="vim $DOTFILES/.zsh_aliases"
+alias vr="vim $DOTFILES/.zsh_rust"
 alias vl="vim ~/.zsh_local"
 alias vh="sudo vim ~/.zsh_history"
 alias tm="tmuxinator"
@@ -130,6 +127,22 @@ function pinit() {
     gignore
     pylint --generate-rcfile > .pylintrc
 }
+alias po='poetry'
+function tinit () {
+    po init
+    po config virtualenvs.in-project true
+    if [ -f requirements.txt ]; then
+        checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
+        if [ $? -eq 0 ]; then
+            echo 'Installing from requirements.txt'
+            for package in $(cat requirements.txt); do
+                po add "${package}"
+            done
+        fi
+    fi
+    po add attrdict rich toml
+    po add -D isort pylint autopep8 flake8
+}
 function cinit() {
     rm -rf build;
     mkdir build;
@@ -184,4 +197,10 @@ function syncit () {
         return
     fi
     eval "cp -v $@ ~/Sync"
+}
+function appearance () {
+    cat \
+        <(wget -O- 'https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt' 2> /dev/null) \
+        <(wget -O- 'https://unicode.org/Public/emoji/13.0/emoji-test.txt' 2> /dev/null) \
+    | less
 }

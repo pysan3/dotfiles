@@ -59,6 +59,9 @@ NeoBundle 'tmsvg/pear-tree'
 NeoBundle 'michaeljsmith/vim-indent-object'
 " コメントアウト
 NeoBundle 'tpope/vim-commentary'
+" Search with * in visual mode
+NeoBundle 'inkarkat/vim-ingo-library'
+NeoBundle 'inkarkat/vim-SearchHighlighting'
 
 " vimのlua機能が使える時だけ以下のVimプラグインをインストールする
 if has('lua')
