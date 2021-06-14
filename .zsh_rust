@@ -42,7 +42,6 @@ while IFS= read -r line; do
 done <<- EOM
 ls=exa
 ps=procs
-cat=bat
 less=bat
 grep=rg=ripgrep
 nano=kibi
