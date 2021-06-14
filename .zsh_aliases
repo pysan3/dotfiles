@@ -130,8 +130,15 @@ function pinit() {
 alias po='poetry'
 function tinit () {
     po init
+    res=$?
     po config virtualenvs.in-project true
-    if [ -f requirements.txt ]; then
+    if [ $res -ne 0 ]; then
+        checkyes '`pyproject.toml` might already exist. Do you want to install packages from it?'
+        if [ $? -eq 0 ]; then
+            echo 'Installing from pyproject.toml'
+            po install
+        fi
+    elif [ -f requirements.txt ]; then
         checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
         if [ $? -eq 0 ]; then
             echo 'Installing from requirements.txt'
