@@ -142,8 +142,10 @@ function tinit () {
         checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
         if [ $? -eq 0 ]; then
             echo 'Installing from requirements.txt'
-            for package in $(cat requirements.txt); do
-                po add "${package}"
+            cat requirements.txt | cut -f1 -d';' | while read package; do
+                if [[ x"$package" =~ ^x[#-].* ]]; then continue; fi
+                if [[ x"$package" = x ]]; then continue; fi
+                po add "$package"
             done
         fi
     fi
