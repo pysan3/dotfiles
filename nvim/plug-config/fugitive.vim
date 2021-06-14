@@ -13,3 +13,5 @@ nnoremap [fugitive]d :Gdiff<CR>
 nnoremap [fugitive]m :G merge<CR>
 nnoremap [fugitive]f :diffget //2<CR>
 nnoremap [fugitive]j :diffget //3<CR>
+
+" nnoremap dv "open diff configuration menu"

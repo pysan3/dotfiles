@@ -41,6 +41,7 @@ alias vr="vim $DOTFILES/.zsh_rust"
 alias vl="vim ~/.zsh_local"
 alias vh="sudo vim ~/.zsh_history"
 alias tm="tmuxinator"
+alias ttmp="tmux new-session -A -s tmp"
 function dot() {
     cd $DOTFILES
     eval $@
