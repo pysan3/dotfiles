@@ -150,3 +150,7 @@ export PATH="$HOME/.poetry/bin:$PATH"
 if ! command -v 'poetry' &> /dev/null; then
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 fi
+if [ ! -d ~/.ghcup ]; then
+    yes | ~/dotfiles/install_base.zsh
+fi
+source ~/.ghcup/env
