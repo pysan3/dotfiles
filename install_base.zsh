@@ -3,7 +3,8 @@
 # install haskel interpreter
 if [ ! -d ~/.ghcup ] || [ ! command -v cabal &> /dev/null ] || [ ! command -v pandoc &> /dev/null ]; then
     cd
-    wget -qO- https://get.haskellstack.org/ | sh
+    wget -qO- https://get-ghcup.haskell.org | sh
+    stack setup
     . "$HOME/.ghcup/env"
     cabal --version
     cabal new-update
