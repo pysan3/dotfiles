@@ -92,6 +92,25 @@ function peco-history-selection() {
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
 
+# change current dir to what is set in vifm
+function vicd() {
+    local dst="$(command vifm --choose-dir - .)"
+    if [ -z "$dst" ]; then
+        echo 'Directory picking cancelled/failed'
+        return 1
+    fi
+    cd "$dst"
+}
+function vifm-call() {
+    if [[ -z $BUFFER ]]; then
+        # interpreted at start, not when leaving
+        BUFFER="vicd"
+        zle accept-line
+    fi
+}
+zle -N vifm-call
+bindkey '^e' vifm-call
+
 if [ x"$MYENV" = 'x' ]; then
     export MYENV='undefined';
 fi
