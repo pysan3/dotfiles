@@ -3,6 +3,7 @@ alias ll='ls -aFhl'
 alias lr='ls -RFh'
 alias la='ls -aFh'
 alias l='ls -1F'
+alias grep='grep --color=auto'
 
 alias rm='echo "Im not going to let you delete me XD"; false'
 alias cbw='echo $BW_PASSWORD | bw'
@@ -13,8 +14,8 @@ alias tr='trash-restore'
 export DOTFILES=$HOME/dotfiles
 
 alias g='git'
-
 alias yay='yay --noconfirm'
+
 function happ() {
     trap "echo terminated; git remote rm heroku; return" 1 2 3 15
     heroku git:remote --app $(basename -s .git `git remote get-url origin`)
