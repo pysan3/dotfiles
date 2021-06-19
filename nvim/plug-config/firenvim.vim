@@ -17,6 +17,7 @@ if exists('g:started_by_firenvim')
     \ }
 
     let fc = g:firenvim_config['localSettings']
+    let fc['.*'] = { 'selector': 'textarea, div[role="textbox"]', 'priority': 0, 'takeover': 'never' }
     let fc['https?://.*twitter.*/'] = { 'takeover': 'never', 'priority': 1 }
     let fc['https?://.*instagram.*/'] = { 'takeover': 'never', 'priority': 1 }
 endif
