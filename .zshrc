@@ -22,6 +22,9 @@ autoload -Uz compinit
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
+# ただのディレクトリ名でcd
+shopt -s autocd
+
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
