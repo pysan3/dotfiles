@@ -23,7 +23,8 @@ compinit
 _comp_options+=(globdots)		# Include hidden files.
 
 # ただのディレクトリ名でcd
-shopt -s autocd
+setopt AUTO_CD
+cdpath=(.. ~ ~/Git)
 
 # vi mode
 bindkey -v
