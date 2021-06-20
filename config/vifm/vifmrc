@@ -495,11 +495,11 @@ nnoremap T t<down>
 
 " use dragon
 command! dragonall dragon-drag-and-drop -a -x %f
-nnoremap <C-t> :dragonall<CR>
+nnoremap <C-e> :dragonall<CR>
 command! dragonstay dragon-drag-and-drop -a %f
-nnoremap <C-T> :dragonstay<CR>
+nnoremap <C-t> :dragonstay<CR>
 
-nnoremap <C-r>
+" nnoremap <C-r>
 
 command! zip -r %D/%c:r.zip %f
 nnoremap Z :zip
