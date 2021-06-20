@@ -157,3 +157,8 @@ if [ ! -d ~/.ghcup ]; then
     yes | ~/dotfiles/install_base.zsh
 fi
 source ~/.ghcup/env
+
+if [ -f ~/.zsh_script ]; then
+   . ~/.zsh_script
+fi
+
