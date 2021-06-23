@@ -6,14 +6,32 @@ pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n
 # update global npm packages
 npm update -g
 
+# update rust and cargo
+rustup update
+
 if [[ x`basename $SHELL` = x'zsh' ]]; then
     :
 else
     :
 fi
 
+case "$(uname -s)" in
+    Darwin)
+        # echo 'Mac OS X'
+        ;;
+    Linux)
+        # echo 'Linux'
+        ;;
+    CYGWIN*|MINGW32*|MINGW)
+        # echo 'MS Windows'
+        ;;
+    *)
+        # echo 'Unknown OS'
+        ;;
+esac
+
 if ! command -v 'yay' &> /dev/null; then
-    yay -Syu
+    yay -Syu --overwrite '/usr/lib/node_modules/*'
 elif ! command -v 'apt' &> /dev/null; then
     sudo apt update && sudo apt upgrade -y
 fi
