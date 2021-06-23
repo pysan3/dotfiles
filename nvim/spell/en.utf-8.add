@@ -104,3 +104,8 @@ toprule
 midrule
 textbf
 bottomrule
+perceptron
+PIFE
+InputTNet
+MLP
+png

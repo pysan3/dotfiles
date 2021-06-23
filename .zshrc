@@ -22,21 +22,21 @@ autoload -Uz compinit
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
+# ただのディレクトリ名でcd
+setopt AUTO_CD
+cdpath=(.. ~ ~/Git)
+
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-  elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
-  fi
+    if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+        echo -ne '\e[1 q'
+    elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
+        echo -ne '\e[5 q'
+    fi
 }
 zle -N zle-keymap-select
 zle-line-init() {
@@ -120,13 +120,13 @@ RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -f ~/.zsh_local ]; then
-   . ~/.zsh_local
+    . ~/.zsh_local
 fi
 if [ -f ~/.zsh_aliases ]; then
-   . ~/.zsh_aliases
+    . ~/.zsh_aliases
 fi
 if [ -f ~/.zsh_rust ]; then
-   . ~/.zsh_rust
+    . ~/.zsh_rust
 fi
 
 # expansion: =mv -> /bin/mv
@@ -138,11 +138,11 @@ bindkey "^?" backward-delete-char
 
 mkdir -p ~/.zsh
 if [ ! -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
+    git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 fi
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 if [ ! -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-  git clone git://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
+    git clone git://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
 fi
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -150,3 +150,12 @@ export PATH="$HOME/.poetry/bin:$PATH"
 if ! command -v 'poetry' &> /dev/null; then
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 fi
+if [ ! -d ~/.ghcup ]; then
+    yes | ~/dotfiles/install_base.zsh
+fi
+source ~/.ghcup/env
+
+if [ -f ~/.zsh_script ]; then
+    . ~/.zsh_script
+fi
+
