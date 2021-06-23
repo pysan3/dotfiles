@@ -29,6 +29,14 @@ for f in `command find "config" -type f`; do
         ln -s "$DIR/$f" "$XDG_CONFIG_HOME/$file"
     fi
 done
+# if command -v pacman &> /dev/null && ! command -v peru &> /dev/null; then
+#     cd ~
+#     sudo pacman -S --needed base-devel
+#     git clone https://aur.archlinux.org/paru.git
+#     cd paru
+#     makepkg -si
+#     cd $DIR
+# fi
 if [ -d ./nvim ]; then
     mkdir -p "$XDG_CONFIG_HOME/nvim/session"
     mkdir -p "$XDG_CONFIG_HOME/nvim/undodir"
