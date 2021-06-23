@@ -164,9 +164,14 @@ function tinit () {
         checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
         if [ $? -eq 0 ]; then
             echo 'Installing from requirements.txt'
+            checkyes 'Do you want to install the strict versions?'
+            strict_version=$?
             cat requirements.txt | cut -f1 -d';' | while read package; do
                 if [[ x"$package" =~ ^x[#-].* ]]; then continue; fi
                 if [[ x"$package" = x ]]; then continue; fi
+                if [ $strict_version -ne 0 ]; then
+                    package=$(echo "$package" | cut -d'=' -f1)
+                fi
                 po add "$package"
             done
         fi
