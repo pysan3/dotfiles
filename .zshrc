@@ -3,7 +3,7 @@ compile_zdots() {
         echo "file $1 not found"
         return
     fi
-    if [ ! "$1.zwc" ]; then
+    if [ ! -f "$1.zwc" ]; then
         zcompile "$1"
         return
     fi
