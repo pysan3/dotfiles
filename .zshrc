@@ -8,8 +8,7 @@ compile_zdots() {
         return
     fi
     for file in "$@"; do
-        if [ ! -f "$file" ]; then continue; fi
-        if [ "$file" -nt "$file.zwc" ]; then
+        if [ -f "$file" ] && [ "$file" -nt "$file.zwc" ]; then
             zcompile "$1"
             return
         fi
