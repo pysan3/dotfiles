@@ -44,6 +44,27 @@ alias vs="vim ~/.zsh_script"
 alias vh="sudo vim ~/.zsh_history"
 alias tm="tmuxinator"
 alias ttmp="tmux new-session -A -s tmp"
+function tvim() {
+    if [ $# -ge 1 ]; then
+        cd "$1"
+    fi
+    workdir=$(basename "$PWD")
+    if `tmux has-session -t "$workdir" 2> /dev/null`; then
+        checkyes "Found a session named $workdir. Delete?"
+        if [ $? -eq 0 ]; then
+            tmux attach-session -t "$workdir"
+        else
+            tmux kill-session -t "$workdir"
+        fi
+    fi
+    vimcmd="nvim"
+    if [ ! -f "$PWD/.session.vim" ]; then
+        vimcmd="$vimcmd ."
+    fi
+    tmux new-session -s "$workdir" -d
+    tmux send-keys -t "$workdir" "$vimcmd" ENTER
+    tmux a -t "$workdir"
+}
 function dot() {
     cd $DOTFILES
     eval $@
