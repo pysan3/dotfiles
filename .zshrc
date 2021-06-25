@@ -1,3 +1,24 @@
+compile_zdots() {
+    if [ ! -f "$1" ]; then
+        echo "file $1 not found"
+        return
+    fi
+    if [ ! "$1.zwc" ]; then
+        zcompile "$1"
+        return
+    fi
+    for file in "$@"; do
+        if [ ! -f "$file" ]; then continue; fi
+        if [ "$file" -nt "$file.zwc" ]; then
+            zcompile "$1"
+            return
+        fi
+    done
+}
+compile_zdots ~/.zshrc ~/.zsh_aliases ~/.zsh_local ~/.zsh_script ~/.zsh_rust
+# compile_zdots ~/.zprofile
+# compile_zdots ~/.zlogin
+# compile_zdots ~/.zlogout
 
 fix_interop() {
     for i in $(pstree -np -s $$ | grep -o -E '[0-9]+'); do
