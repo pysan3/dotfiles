@@ -24,7 +24,7 @@ _comp_options+=(globdots)		# Include hidden files.
 
 # ただのディレクトリ名でcd
 setopt AUTO_CD
-cdpath=(.. ~ ~/Git)
+cdpath=(.. ~ ~/Git ~/Papers)
 
 # vi mode
 bindkey -v
