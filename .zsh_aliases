@@ -178,6 +178,8 @@ function tinit () {
     fi
     po add attrdict rich toml
     po add -D isort pylint autopep8 flake8
+    gignore
+    pylint --generate-rcfile > .pylintrc
 }
 function cinit() {
     rm -rf build;
