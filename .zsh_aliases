@@ -7,6 +7,7 @@ alias grep='grep --color=auto'
 
 alias rm='echo "Im not going to let you delete me XD"; false'
 alias cbw='echo $BW_PASSWORD | bw'
+alias bwpass="jq '.login' | jq -r '.password'"
 alias tp='trash-put'
 alias tl='trash-list'
 alias tr='trash-restore'
