@@ -63,6 +63,9 @@ function tvim() {
         vimcmd="$vimcmd ."
     fi
     tmux new-session -s "$workdir" -d
+    if [ x$MYENV = xWSL ]; then
+        sleep 1
+    fi
     tmux send-keys -t "$workdir" "$vimcmd" ENTER
     tmux a -t "$workdir"
 }

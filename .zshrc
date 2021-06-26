@@ -3,13 +3,12 @@ compile_zdots() {
         echo "file $1 not found"
         return
     fi
-    if [ ! "$1.zwc" ]; then
+    if [ ! -f "$1.zwc" ]; then
         zcompile "$1"
         return
     fi
     for file in "$@"; do
-        if [ ! -f "$file" ]; then continue; fi
-        if [ "$file" -nt "$file.zwc" ]; then
+        if [ -f "$file" ] && [ "$file" -nt "$file.zwc" ]; then
             zcompile "$1"
             return
         fi
