@@ -66,6 +66,7 @@ function tvim() {
         sleep 1
     fi
     tmux send-keys -t "$workdir" "$vimcmd" ENTER
+    tmux select-layout -t "$workdir" main-vertical
     tmux a -t "$workdir"
 }
 function dot() {
