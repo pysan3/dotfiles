@@ -76,5 +76,18 @@
 
     // js config
     "prettier.eslintIntegration": true,
-    "eslint.autoFixOnSave": true
+    "eslint.autoFixOnSave": true,
+
+    // vetur config
+    "vetur.format.defaultFormatterOptions": {
+        "js-beautify-html": {
+            "wrap_attributes": "force-expand-multiline"
+        },
+        "prettyhtml": {
+            "printWidth": 100,
+            "singleQuote": true,
+            "wrapAttributes": false,
+            "sortAttributes": false
+        }
+    }
 }
