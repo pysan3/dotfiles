@@ -53,9 +53,10 @@ function tvim() {
     if `tmux has-session -t "$workdir" 2> /dev/null`; then
         checkyes "Found a session named $workdir. Delete?"
         if [ $? -eq 0 ]; then
-            tmux attach-session -t "$workdir"
-        else
             tmux kill-session -t "$workdir"
+        else
+            tmux attach-session -t "$workdir"
+            return 0
         fi
     fi
     vimcmd="nvim"
