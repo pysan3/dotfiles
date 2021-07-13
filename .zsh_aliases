@@ -156,7 +156,7 @@ function vifm-call() {
     fi
 }
 zle -N vifm-call
-bindkey '^e' vifm-call
+bindkey '^w' vifm-call
 
 if [ x"$MYENV" = 'x' ]; then
     export MYENV='undefined';
