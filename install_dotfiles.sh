@@ -10,7 +10,8 @@ fi
 
 WORKDIR=$PWD
 cd $DIR
-for f in `command ls -Ap | grep -v / | grep -v '.session.vim' | grep -v 'test' | grep -v 'tmp'`; do
+for f in `command ls -Ap | grep -v / | grep -v '.sh'`; do
+    if [[ "$f" =~ '(\.git|\.session|test|tmp)' ]]; then continue; fi
     if [ -f "$HOME/$f" ]; then
         echo "$HOME/$f: Symbolic link already exists."
     else
@@ -29,14 +30,7 @@ for f in `command find "config" -type f`; do
         ln -s "$DIR/$f" "$XDG_CONFIG_HOME/$file"
     fi
 done
-# if command -v pacman &> /dev/null && ! command -v paru &> /dev/null; then
-#     cd ~
-#     sudo pacman -S --needed base-devel
-#     git clone https://aur.archlinux.org/paru.git
-#     cd paru
-#     makepkg -si
-#     cd $DIR
-# fi
+
 if [ -d ./nvim ]; then
     mkdir -p "$XDG_CONFIG_HOME/nvim/session"
     mkdir -p "$XDG_CONFIG_HOME/nvim/undodir"
@@ -64,14 +58,11 @@ if [ -d ./nvim ]; then
     # install coc extensions
     set -o nounset    # error when referencing undefined variable
     set -o errexit    # exit when command fails
-
-    # Install extensions
     mkdir -p ~/.config/coc/extensions
     cd ~/.config/coc/extensions
     if [ ! -f package.json ]; then
       echo '{"dependencies":{}}'> package.json
     fi
-    # Change extension names to the extensions you need
     npm install \
         coc-diagnostic \
         coc-explorer \
