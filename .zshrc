@@ -28,7 +28,7 @@ fix_interop() {
 }
 
 # fix_interop
-[ -z "$PS1" ] && return
+# [ -z "$PS1" ] && return
 
 export LANG=ja_JP.UTF-8
 
@@ -42,12 +42,9 @@ autoload -Uz compinit
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
-# ただのディレクトリ名でcd
-setopt AUTO_CD
-cdpath=(.. ~ ~/Git ~/Papers)
-
 # vi mode
 bindkey -v
+bindkey -M viins '^j' vi-cmd-mode
 export KEYTIMEOUT=1
 
 # Change cursor shape for different vi modes.
@@ -79,6 +76,22 @@ SAVEHIST=10000
 HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
 HISTCONTROL=ignoreboth
 
+# PROMPTの色
+PROMPT="%{${fg_bold[green]}%}@%m%{${fg_bold[yellow]}%}>%{${fg_bold[red]}%}>%{${reset_color}%} "
+
+local DEFAULT=$'%{^[[m%}'$
+local RED=$'%{^[[1;31m%}'$
+local YELLOW=$'%{^[[1;33m%}'$
+
+# ただのディレクトリ名でcd
+setopt AUTO_CD
+cdpath=(.. ~ ~/Git ~/Papers)
+# expansion: =mv -> /bin/mv
+unsetopt equals
+# 複数ファイルのmv 例　zmv *.txt *.txt.bk
+autoload -Uz zmv
+alias zmv='noglob zmv -W'
+
 setopt auto_param_slash # ディレクトリ名の補完で末尾に / を付加
 setopt magic_equal_subst # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
 
@@ -87,6 +100,8 @@ setopt pushd_ignore_dups # 重複したディレクトリはスタックしな�
 
 # backspace,deleteキーを使えるように
 stty erase ^H
+stty erase ""
+bindkey "^?" backward-delete-char
 bindkey "^[[3~" delete-char
 
 # 区切り文字の設定
@@ -94,12 +109,6 @@ autoload -Uz select-word-style
 select-word-style default
 zstyle ':zle:*' word-chars "_-./;@"
 zstyle ':zle:*' word-style unspecified
-
-PROMPT="%{${fg_bold[green]}%}@%m%{${fg_bold[yellow]}%}>%{${fg_bold[red]}%}>%{${reset_color}%} "
-
-local DEFAULT=$'%{^[[m%}'$
-local RED=$'%{^[[1;31m%}'$
-local YELLOW=$'%{^[[1;33m%}'$
 
 zstyle ':completion:*:default' menu select=2 # 補完後、メニュー選択モードになり左右キーで移動が出来る
 # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完で大文字にもマッチ
@@ -113,17 +122,8 @@ zstyle ':completion:*:corrections' format '%F{YELLOW}%B%d ''%F{RED}(errors: %e)%
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*' group-name ''
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
-
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
 export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-
-bindkey -M viins '^j' vi-cmd-mode
-export EDITOR='vim'
-export XDG_CONFIG_HOME="$HOME/.config"
-
-# 複数ファイルのmv 例　zmv *.txt *.txt.bk
-autoload -Uz zmv
-alias zmv='noglob zmv -W'
 
 # git設定
 RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
@@ -137,6 +137,9 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
+export EDITOR='vim'
+export XDG_CONFIG_HOME="$HOME/.config"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -f ~/.zsh_local ]; then
@@ -148,13 +151,6 @@ fi
 if [ -f ~/.zsh_rust ]; then
     . ~/.zsh_rust
 fi
-
-# expansion: =mv -> /bin/mv
-unsetopt equals
-
-# backspaceが認識されない問題を解決
-stty erase ""
-bindkey "^?" backward-delete-char
 
 mkdir -p ~/.zsh
 if [ ! -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
@@ -170,10 +166,10 @@ export PATH="$HOME/.poetry/bin:$PATH"
 if ! command -v 'poetry' &> /dev/null; then
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 fi
-if [ ! -d ~/.ghcup ]; then
-    yes | ~/dotfiles/install_base.zsh
-fi
-source ~/.ghcup/env
+# if [ ! -d ~/.ghcup ]; then
+#     yes | ~/dotfiles/install_base.zsh
+# fi
+# source ~/.ghcup/env
 
 if [ -f ~/.zsh_script ]; then
     . ~/.zsh_script
