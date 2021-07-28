@@ -1,28 +1,117 @@
+export DOTFILES=$HOME/dotfiles
+export PATH=$(python -m site --user-base)/bin:$(python -m site --user-base)/share/virtualenvs:$PATH
+export PATH="$HOME"/myCommands:"$HOME"/myCommands/bin:$PATH
+export PATH="$HOME"/local/bin:$PATH
+export PATH=$PATH:/usr/local/texlive/2020/bin/x86_64-linux
+export INFOPATH=$INFOPATH:/usr/local/texlive/2020/texmf-dist/doc/info
+export MANPATH=$MANPATH:/usr/local/texlive/2020/texmf-dist/doc/man
+
+export PIPENV_VENV_IN_PROJECT=1
+export PIPENV_NO_INHERIT=1
+export PIPENV_IGNORE_VIRTUALENVS=1
+export CLICOLOR=1
+export EDITOR='vim'
+
+if [ x"$MYENV" = 'x' ]; then
+    export MYENV='undefined';
+fi
+if [ x"$PCNAME" = 'x' ]; then
+    export PCNAME='undefined';
+fi
+
 alias ls='ls --color=auto'
 alias ll='ls -aFhl'
 alias lr='ls -RFh'
 alias la='ls -aFh'
 alias l='ls -1F'
+alias tree='tree -a -I "\.DS_Store|\.git|node_modules|vendor\/bundle" -N'
 alias grep='grep --color=auto'
 
 alias rm='echo "Im not going to let you delete me XD"; false'
-alias cbw='echo $BW_PASSWORD | bw'
-alias bwpass="jq '.login' | jq -r '.password'"
 alias tp='trash-put'
 alias tl='trash-list'
 alias tr='trash-restore'
 
-export DOTFILES=$HOME/dotfiles
-
 alias g='git'
+export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_git -F /dev/null'
 alias yay='yay --noconfirm'
+alias restart="source ~/.zshrc"
 
-function happ() {
-    trap "echo terminated; git remote rm heroku; return" 1 2 3 15
-    heroku git:remote --app $(basename -s .git `git remote get-url origin`)
-    eval "heroku $@"
-    echo "delete"
-    git remote rm heroku
+alias vm="vim $DOTFILES/.vimrc"
+alias vz="vim $DOTFILES/.zshrc"
+alias va="vim $DOTFILES/.zsh_aliases"
+alias vr="vim $DOTFILES/.zsh_rust"
+alias vl="vim ~/.zsh_local"
+alias vs="vim ~/.zsh_script"
+alias vh="sudo vim ~/.zsh_history"
+
+alias dc="docker-compose"
+alias po='poetry'
+alias tm="tmuxinator"
+alias ttmp="tmux new-session -A -s tmp"
+
+alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
+alias dotenv='if [[ -z "$DONT_LOAD_ENV" && -f .env ]]; then export $(grep -v "^#" .env | command tr -d " " | xargs); fi'
+alias act="source ~/.zshrc; [ -f 'bin/activate' ] && source bin/activate || source .venv/bin/activate; dotenv"
+alias gignore='wget -O- "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore'
+
+# depends on .zsh_local
+alias cbw='echo $BW_PASSWORD | bw'
+alias bwpass="jq '.login' | jq -r '.password'"
+alias here="$FE ."
+
+function dot() {
+    cd $DOTFILES
+    eval $@
+    if [ $# -ne 0 ]; then
+        cd -
+    fi
+}
+
+function dup() {
+    WDIR=$PWD
+    dot
+    g pl
+    g a .
+    if [ $# -ne 0 ]; then
+        g ci "$@"
+    else
+        g ci "updated from $PCNAME";
+    fi
+    git push
+    for f in `command ls -ap | grep -v /`; do
+        echo "$DOTFILES/$f"
+        ln -sf $DOTFILES/$f $HOME/$f
+    done
+    source ~/.zshrc;
+    cd "$WDIR"
+}
+
+function syncit () {
+    if ! command -v 'syncthing' &> /dev/null; then
+        echo 'install syncthing'
+        return
+    fi
+    eval "cp -v $@ ~/Sync"
+}
+
+function cpp () {
+    for lst in "$@"; do :; done
+    mkdir -p $lst
+    cp $@
+}
+
+function timer () {
+    termdown $1 && cvlc /home/takuto/Music/Clock-Alarm.mp3 --play-and-exit >/dev/null 2>/dev/null
+}
+
+alias ramen='timer 150'
+
+function appearance () {
+    cat \
+        <(wget -O- 'https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt' 2> /dev/null) \
+        <(wget -O- 'https://unicode.org/Public/emoji/13.0/emoji-test.txt' 2> /dev/null) \
+    | less
 }
 
 function upvim() {
@@ -36,15 +125,7 @@ function upvim() {
     fi
     cd -
 }
-alias vm="vim $DOTFILES/.vimrc"
-alias vz="vim $DOTFILES/.zshrc"
-alias va="vim $DOTFILES/.zsh_aliases"
-alias vr="vim $DOTFILES/.zsh_rust"
-alias vl="vim ~/.zsh_local"
-alias vs="vim ~/.zsh_script"
-alias vh="sudo vim ~/.zsh_history"
-alias tm="tmuxinator"
-alias ttmp="tmux new-session -A -s tmp"
+
 function tvim() {
     if [ $# -ge 1 ]; then
         cd "$1"
@@ -71,48 +152,117 @@ function tvim() {
     tmux select-layout -t "$workdir" main-vertical
     tmux a -t "$workdir"
 }
-function dot() {
-    cd $DOTFILES
-    eval $@
-    if [ $# -ne 0 ]; then
-        cd -
-    fi
+
+function venv() {
+	python -m venv "$@";
+	cd "$@";
+	source bin/activate;
+	pip install wheel;
+    pip install attrdict;
+    piplist;
+    gignore
 }
-function dup() {
-    WDIR=$PWD
-    dot
-    g pl
-    g a .
-    if [ $# -ne 0 ]; then
-        g ci "$@"
-    else
-        g ci "updated from $PCNAME";
+
+function pinit() {
+    cmd='pipenv install'
+    if [ -f requirements.txt ]; then
+        checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
+        if [ $? -eq 0 ]; then
+            echo 'Installing from requirements.txt'
+            cmd=$cmd' -r requirements.txt'
+        fi
     fi
-    git push
-    for f in `command ls -ap | grep -v /`; do
-        echo "$DOTFILES/$f"
-        ln -sf $DOTFILES/$f $HOME/$f
+    eval $cmd
+    act;
+    pipenv install attrdict rich;
+    pipenv install --dev isort pylint autopep8 flake8
+    gignore
+    pylint --generate-rcfile > .pylintrc
+}
+
+function tinit () {
+    po init
+    res=$?
+    po config virtualenvs.in-project true
+    if [ $res -ne 0 ]; then
+        checkyes '`pyproject.toml` might already exist. Do you want to install packages from it?'
+        if [ $? -eq 0 ]; then
+            echo 'Installing from pyproject.toml'
+            po install
+        fi
+    elif [ -f requirements.txt ]; then
+        checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
+        if [ $? -eq 0 ]; then
+            echo 'Installing from requirements.txt'
+            checkyes 'Do you want to install the strict versions?'
+            strict_version=$?
+            cat requirements.txt | cut -f1 -d';' | while read package; do
+                if [[ x"$package" =~ ^x[#-].* ]]; then continue; fi
+                if [[ x"$package" = x ]]; then continue; fi
+                if [ $strict_version -ne 0 ]; then
+                    package=$(echo "$package" | cut -d'=' -f1)
+                fi
+                po add "$package"
+            done
+        fi
+    fi
+    po add attrdict rich toml
+    po add -D isort pylint autopep8 flake8
+    gignore
+    pylint --generate-rcfile > .pylintrc
+}
+
+function cinit() {
+    rm -rf build;
+    mkdir build;
+    cd build;
+    cmake ..;
+}
+
+function pforward() {
+    ssh -fNT -L 127.0.0.1:$2:127.0.0.1:$2 $1
+}
+
+function img2eps () {
+    if ! command -v 'convert' &> /dev/null; then
+        sudo apt install imagemagick
+    fi
+    for filename in $@; do
+        echo "$filename"
+        name=$(echo $filename | cut -f 1 -d '.')
+        convert $filename eps2:$name.eps
     done
-    source ~/.zshrc;
-    cd "$WDIR"
 }
 
-alias restart="source ~/.zshrc"
-alias here="$FE ."
-export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH
-export PATH=$(python -m site --user-base)/bin:$(python -m site --user-base)/share/virtualenvs:$PATH
-export PATH="$HOME"/myCommands:"$HOME"/myCommands/bin:$PATH
-export PATH="$HOME"/local/bin:$PATH
-export INFOPATH=$INFOPATH:/usr/local/texlive/2020/texmf-dist/doc/info
-export MANPATH=$MANPATH:/usr/local/texlive/2020/texmf-dist/doc/man
+function ex () {
+    if [ -f $1 ]; then
+        case $1 in
+            *.tar.bz2)  tar xjf $1  ;;
+            *.tar.gz)   tar xzf $1  ;;
+            *.bz2)      bunzip2 $1  ;;
+            *.rar)      unrar x $1  ;;
+            *.gz)       gunzip $1   ;;
+            *.tar)      tar xf $1   ;;
+            *.tbz2)     tar xjf $1  ;;
+            *.tgz)      tar xzf $1  ;;
+            *.zip)      unzip $1    ;;
+            *.Z)        uncompress $1;;
+            *.7z)       7z x $1     ;;
+            *)          echo "'$1' cannot be extracted via ex()" ;;
+        esac
+    else
+        echo "'$1' is not found"
+    fi
+}
 
-export PIPENV_VENV_IN_PROJECT=1
-export PIPENV_NO_INHERIT=1
-export PIPENV_IGNORE_VIRTUALENVS=1
-export CLICOLOR=1
-export EDITOR='vim'
-export HISTCONTROL=ignoreboth
-export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_git -F /dev/null'
+function happ() {
+    trap "echo terminated; git remote rm heroku; return" 1 2 3 15
+    heroku git:remote --app $(basename -s .git `git remote get-url origin`)
+    eval "heroku $@"
+    echo "delete"
+    git remote rm heroku
+}
+
 # run peco with C-r
 function peco-history-selection() {
     BUFFER=`history -n 1 | tac  | awk '!a[$0]++' | peco --layout=bottom-up`
@@ -159,134 +309,3 @@ function vifm-call() {
 zle -N vifm-call
 bindkey '^w' vifm-call
 
-if [ x"$MYENV" = 'x' ]; then
-    export MYENV='undefined';
-fi
-if [ x"$PCNAME" = 'x' ]; then
-    export PCNAME='undefined';
-fi
-
-alias dc="docker-compose"
-alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
-alias dotenv='if [[ -z "$DONT_LOAD_ENV" && -f .env ]]; then export $(grep -v "^#" .env | command tr -d " " | xargs); fi'
-alias act="source ~/.zshrc; [ -f 'bin/activate' ] && source bin/activate || source .venv/bin/activate; dotenv"
-alias gignore='wget -O- "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore'
-alias tree='tree -a -I "\.DS_Store|\.git|node_modules|vendor\/bundle" -N'
-function venv() {
-	python -m venv "$@";
-	cd "$@";
-	source bin/activate;
-	pip install wheel;
-    pip install attrdict;
-    piplist;
-    gignore
-}
-function pinit() {
-    cmd='pipenv install'
-    if [ -f requirements.txt ]; then
-        checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
-        if [ $? -eq 0 ]; then
-            echo 'Installing from requirements.txt'
-            cmd=$cmd' -r requirements.txt'
-        fi
-    fi
-    eval $cmd
-    act;
-    pipenv install attrdict rich;
-    pipenv install --dev isort pylint autopep8 flake8
-    gignore
-    pylint --generate-rcfile > .pylintrc
-}
-alias po='poetry'
-function tinit () {
-    po init
-    res=$?
-    po config virtualenvs.in-project true
-    if [ $res -ne 0 ]; then
-        checkyes '`pyproject.toml` might already exist. Do you want to install packages from it?'
-        if [ $? -eq 0 ]; then
-            echo 'Installing from pyproject.toml'
-            po install
-        fi
-    elif [ -f requirements.txt ]; then
-        checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
-        if [ $? -eq 0 ]; then
-            echo 'Installing from requirements.txt'
-            checkyes 'Do you want to install the strict versions?'
-            strict_version=$?
-            cat requirements.txt | cut -f1 -d';' | while read package; do
-                if [[ x"$package" =~ ^x[#-].* ]]; then continue; fi
-                if [[ x"$package" = x ]]; then continue; fi
-                if [ $strict_version -ne 0 ]; then
-                    package=$(echo "$package" | cut -d'=' -f1)
-                fi
-                po add "$package"
-            done
-        fi
-    fi
-    po add attrdict rich toml
-    po add -D isort pylint autopep8 flake8
-    gignore
-    pylint --generate-rcfile > .pylintrc
-}
-function cinit() {
-    rm -rf build;
-    mkdir build;
-    cd build;
-    cmake ..;
-}
-function pforward() {
-    ssh -fNT -L 127.0.0.1:$2:127.0.0.1:$2 $1
-}
-function img2eps () {
-    if ! command -v 'convert' &> /dev/null; then
-        sudo apt install imagemagick
-    fi
-    for filename in $@; do
-        echo "$filename"
-        name=$(echo $filename | cut -f 1 -d '.')
-        convert $filename eps2:$name.eps
-    done
-}
-function ex () {
-    if [ -f $1 ]; then
-        case $1 in
-            *.tar.bz2)  tar xjf $1  ;;
-            *.tar.gz)   tar xzf $1  ;;
-            *.bz2)      bunzip2 $1  ;;
-            *.rar)      unrar x $1  ;;
-            *.gz)       gunzip $1   ;;
-            *.tar)      tar xf $1   ;;
-            *.tbz2)     tar xjf $1  ;;
-            *.tgz)      tar xzf $1  ;;
-            *.zip)      unzip $1    ;;
-            *.Z)        uncompress $1;;
-            *.7z)       7z x $1     ;;
-            *)          echo "'$1' cannot be extracted via ex()" ;;
-        esac
-    else
-        echo "'$1' is not found"
-    fi
-}
-function cpp () {
-    for lst in "$@"; do :; done
-    mkdir -p $lst
-    cp $@
-}
-function timer () {
-    termdown $1 && cvlc /home/takuto/Music/Clock-Alarm.mp3 --play-and-exit >/dev/null 2>/dev/null
-}
-alias ramen='timer 150'
-function syncit () {
-    if ! command -v 'syncthing' &> /dev/null; then
-        echo 'install syncthing'
-        return
-    fi
-    eval "cp -v $@ ~/Sync"
-}
-function appearance () {
-    cat \
-        <(wget -O- 'https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt' 2> /dev/null) \
-        <(wget -O- 'https://unicode.org/Public/emoji/13.0/emoji-test.txt' 2> /dev/null) \
-    | less
-}
