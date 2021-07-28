@@ -10,7 +10,8 @@ fi
 
 WORKDIR=$PWD
 cd $DIR
-for f in `command ls -Ap | grep -v / | grep -v '.session.vim' | grep -v 'test' | grep -v 'tmp'`; do
+for f in `command ls -Ap | grep -v / | grep -v '.sh'`; do
+    if [[ "$f" =~ '(\.git|\.session|test|tmp)' ]]; then continue; fi
     if [ -f "$HOME/$f" ]; then
         echo "$HOME/$f: Symbolic link already exists."
     else
