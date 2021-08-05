@@ -1,7 +1,3 @@
-" Better nav for omnicomplete
-inoremap <expr> <c-j> ("\<C-n>")
-inoremap <expr> <c-k> ("\<C-p>")
-
 " I hate escape more than anything else
 inoremap <silent> jk <Esc>
 tmap <silent> jk <Esc>
@@ -12,6 +8,7 @@ inoremap <CR> <C-g>u<CR>
 
 " new line in insert mode
 imap <C-o> <Esc>o
+inoremap <C-i> <Esc>A,<Esc>o
 
 " Easy CAPS
 inoremap <c-u> <ESC>viwUi
