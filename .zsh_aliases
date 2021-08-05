@@ -51,7 +51,7 @@ alias dc="docker-compose"
 alias po='poetry'
 alias tm="tmuxinator"
 alias ttmp="tmux new-session -A -s tmp"
-alias yt='youtube-dl -citk'
+alias yt='youtube-dl -citk -f mp4'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
 alias dotenv='if [[ -z "$DONT_LOAD_ENV" && -f .env ]]; then export $(grep -v "^#" .env | command tr -d " " | xargs); fi'
