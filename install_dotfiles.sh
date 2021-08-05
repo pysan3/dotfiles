@@ -10,8 +10,8 @@ fi
 
 WORKDIR=$PWD
 cd $DIR
-for f in `command ls -Ap | grep -v / | grep -v '.sh'`; do
-    if [[ "$f" =~ '(\.git|\.session|test|tmp)' ]]; then continue; fi
+for f in `command ls -Ap | grep -v / | grep -v '\.sh'`; do
+    if [[ "$f" =~ (\.git|\.session|test|tmp|local).* ]]; then continue; fi
     if [ -f "$HOME/$f" ]; then
         echo "$HOME/$f: Symbolic link already exists."
     else
@@ -19,6 +19,7 @@ for f in `command ls -Ap | grep -v / | grep -v '.sh'`; do
         ln -s "$DIR/$f" "$HOME/$f"
     fi
 done
+exit
 if [ -z "$XDG_CONFIG_HOME" ]; then
     echo 'setting $XDG_CONFIG_HOME to '"$HOME/.config"
     XDG_CONFIG_HOME="$HOME/.config"
