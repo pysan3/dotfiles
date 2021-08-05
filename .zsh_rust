@@ -3,8 +3,18 @@
 source "$DOTFILES/functions.sh"
 
 if ! command -v 'cargo' &> /dev/null; then
-    wget -qO - https://sh.rustup.rs | sh
+    checkyes "Seems you don't have cargo installed. Install?"
+    if [ $? -eq 0 ]; then
+        wget -qO - https://sh.rustup.rs | sh
+    else
+        echo 'Press C-c to exit and install cargo manually.'
+        read tmp
+    fi
+fi
+if [ -f ~/.cargo/env ]; then
     source ~/.cargo/env
+else
+    export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
 while IFS= read -r line; do
