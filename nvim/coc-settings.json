@@ -41,6 +41,7 @@
         "sourceBuffer",
         "reveal"
     ],
+    "explorer.trash.command": "trash-put %l",
 
     // python config
     "python.pythonPath": "${workspaceFolder}/.venv/bin/python3",
