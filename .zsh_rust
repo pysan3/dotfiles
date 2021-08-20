@@ -11,7 +11,7 @@ if ! command -v 'cargo' &> /dev/null; then
     checkyes "Seems you don't have cargo installed. Install?"
     if [ $? -eq 0 ]; then
         wget -qO - https://sh.rustup.rs | sh
-        source ~/.cargo/bin
+        source ~/.cargo/env
     else
         echo 'Press C-c to exit and install cargo manually.'
         read tmp
@@ -26,6 +26,11 @@ while IFS= read -r line; do
     fi
     cmd=${cmdArr[1]}
     alt=${cmdArr[2]}
+    issudo=""
+    if [[ x"$alt" == xsudo* ]]; then
+        alt="${alt:5}"
+        issudo="sudo "
+    fi
     if [ ${#cmdArr[@]} -gt 2 ]; then
         pkg=${cmdArr[3]}
     else
@@ -40,7 +45,7 @@ while IFS= read -r line; do
             continue
         fi
     fi
-    eval "alias $cmd=$alt"
+    eval "alias $cmd=$issudo$alt"
 done <<- EOM
 ls=exa
 ps=procs
