@@ -63,6 +63,10 @@ alias cbw='echo $BW_PASSWORD | bw'
 alias bwpass="jq '.login' | jq -r '.password'"
 alias here="$FE ."
 
+function def() {
+    alias $@ || declare -f $@
+}
+
 function dot() {
     cd $DOTFILES
     eval $@
