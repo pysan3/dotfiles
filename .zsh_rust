@@ -45,7 +45,7 @@ while IFS= read -r line; do
             continue
         fi
     fi
-    eval "alias $cmd=$issudo$alt"
+    eval "alias $cmd='$issudo$alt'"
 done <<- EOM
 ls=exa
 ps=procs
@@ -56,7 +56,7 @@ find=fd=fd-find
 du=dust=du-dust
 time=hyperfine
 top=ytop
-iftop=bandwhich
+iftop=sudo bandwhich
 hexdump=hx
 objdump=bingrep
 http-server=miniserve
