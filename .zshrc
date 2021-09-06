@@ -87,7 +87,7 @@ local YELLOW=$'%{^[[1;33m%}'$
 setopt AUTO_CD
 cdpath=(.. ~ ~/Git ~/Papers)
 # .env loading in the shell
-dotenv () {
+function dotenv () {
     if [ -f .env ]; then
         set -a
         . .env
@@ -96,7 +96,7 @@ dotenv () {
 }
 dotenv
 # Run dotenv on every new directory
-cd () {
+function cd () {
 	builtin cd $@
 	dotenv
 }
