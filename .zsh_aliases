@@ -39,6 +39,7 @@ export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_git -F /dev/null'
 alias yay='yay --noconfirm'
 alias restart="source ~/.zshrc"
 
+alias upgradeall='for lang in py rs js rb; do eval upgrade$lang; done'
 alias upgradepy="pipupgrade --verbose --latest --yes || pip install pipupgrade"
 alias upgraders="cargo install-update --all || cargo install cargo-update"
 alias upgradejs='sudo npm upgrade -g'
