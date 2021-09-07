@@ -41,6 +41,8 @@ alias restart="source ~/.zshrc"
 
 alias upgradepy="pipupgrade --verbose --latest --yes || pip install pipupgrade"
 alias upgraders="cargo install-update --all || cargo install cargo-update"
+alias upgradejs='sudo npm upgrade -g'
+alias upgraderb='sudo gem update'
 
 alias vm="vim $DOTFILES/.vimrc"
 alias vz="vim $DOTFILES/.zshrc"
