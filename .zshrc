@@ -86,6 +86,21 @@ local YELLOW=$'%{^[[1;33m%}'$
 # ただのディレクトリ名でcd
 setopt AUTO_CD
 cdpath=(.. ~ ~/Git ~/Papers)
+# .env loading in the shell
+function dotenv () {
+    if [ -f .env ]; then
+        set -a
+        . .env
+        set +a
+    fi
+}
+dotenv
+# Run dotenv on every new directory
+function cd () {
+	builtin cd $@
+	dotenv
+}
+
 # expansion: =mv -> /bin/mv
 unsetopt equals
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
