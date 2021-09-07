@@ -39,8 +39,8 @@ export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_git -F /dev/null'
 alias yay='yay --noconfirm'
 alias restart="source ~/.zshrc"
 
-alias upgradepy="pipupgrade --verbose --latest --yes"
-alias upgraders="cargo install-update --all"
+alias upgradepy="pipupgrade --verbose --latest --yes || pip install pipupgrade"
+alias upgraders="cargo install-update --all || cargo install cargo-update"
 
 alias vm="vim $DOTFILES/.vimrc"
 alias vz="vim $DOTFILES/.zshrc"

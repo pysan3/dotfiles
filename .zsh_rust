@@ -77,12 +77,3 @@ export PATH="$PATH:$NPM_PACKAGES/bin"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 # Python
-if ! command -v 'pipupgrade' &> /dev/null; then
-    checkyes "Seems you don't have pipupgrade installed. pip command needed. Install?"
-    if [ $? -eq 0 ]; then
-        pip install pipupgrade
-    else
-        echo 'Press C-c to exit and install manually.'
-    fi
-fi
-
