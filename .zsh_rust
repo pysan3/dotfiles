@@ -2,6 +2,7 @@
 
 source "$DOTFILES/functions.sh"
 
+# RUST
 if [ -f ~/.cargo/env ]; then
     source ~/.cargo/env
 else
@@ -21,7 +22,7 @@ fi
 while IFS= read -r line; do
     IFS='=' read -r -A cmdArr <<< "$line"
     # add one dummy in bash because zsh array is 1-index
-    if [[ x`basename $SHELL` = x'bash' ]]; then
+    if [[ x$(basename $SHELL) = x'bash' ]]; then
         cmdArr="tmp $cmdArr"
     fi
     cmd=${cmdArr[1]}
@@ -63,6 +64,7 @@ http-server=miniserve
 lisence=licensor
 EOM
 
+# JavaScript
 if [ ! -d "$HOME/.npm-packages" ]; then
     mkdir "$HOME/.npm-packages"
 fi
@@ -73,4 +75,14 @@ export PATH="$PATH:$NPM_PACKAGES/bin"
 # Preserve MANPATH if you already defined it somewhere in your config.
 # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+
+# Python
+if ! command -v 'pipupgrade' &> /dev/null; then
+    checkyes "Seems you don't have pipupgrade installed. pip command needed. Install?"
+    if [ $? -eq 0 ]; then
+        pip install pipupgrade
+    else
+        echo 'Press C-c to exit and install manually.'
+    fi
+fi
 
