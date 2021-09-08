@@ -99,6 +99,11 @@ set history=5000 " 保存するコマンド履歴の数
 autocmd TermOpen * setlocal nonumber norelativenumber
 
 "----------------------------------------------------------
+" Clipboard
+"----------------------------------------------------------
+set clipboard+=unnamedplus
+
+"----------------------------------------------------------
 " Toggle spell check
 "----------------------------------------------------------
 nnoremap <F6> :set spell! spelllang=en_us,cjk<CR>
