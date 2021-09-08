@@ -54,15 +54,15 @@ less=bat
 grep=rg=ripgrep
 nano=kibi
 find=fd=fd-find
-du=dust=du-dust
+du=sudo dust=du-dust
 time=hyperfine
 top=ytop
 iftop=sudo bandwhich
 hexdump=hx
 objdump=bingrep
-http-server=miniserve
 lisence=licensor
 EOM
+# http-server=miniserve
 
 # JavaScript
 if [ ! -d "$HOME/.npm-packages" ]; then
