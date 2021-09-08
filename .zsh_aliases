@@ -40,8 +40,8 @@ alias yay='yay --noconfirm'
 alias restart="source ~/.zshrc"
 
 alias upgradeall='for lang in py rs js rb; do eval upgrade$lang; done'
-alias upgradepy="pipupgrade --verbose --latest --yes || pip install pipupgrade"
-alias upgraders="cargo install-update --all || cargo install cargo-update"
+alias upgradepy='pipupgrade --verbose --latest --yes' # pip install pipupgrade
+alias upgraders='cargo install-update --all' # cargo install cargo-update
 alias upgradejs='sudo npm upgrade -g'
 alias upgraderb='sudo gem update'
 
