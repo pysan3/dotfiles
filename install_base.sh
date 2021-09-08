@@ -11,5 +11,5 @@ if [ ! -d ~/.ghcup ] || [ ! command -v cabal &> /dev/null ] || [ ! command -v pa
     cabal new-install pandoc
     cabal new-install pandoc-citeproc pandoc-crossref
 fi
-[ -f "/home/takuto/.ghcup/env" ] && source "/home/takuto/.ghcup/env" # ghcup-env
+[ -f "~/.ghcup/env" ] && source "~/.ghcup/env" # ghcup-env
 

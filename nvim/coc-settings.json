@@ -60,7 +60,7 @@
     "python.linting.enabled": true,
     "python.linting.lintOnSave": true,
     /* "python.linting.mypyEnabled": true, */
-    /* "python.linting.mypyPath": "/home/takuto/.local/bin/mypy", */
+    /* "python.linting.mypyPath": "~/.local/bin/mypy", */
     /* "python.linting.mypyArgs": [ */
     /*     "--ignore-missing-imports", */
     /*     "--follow-imports=silent", */
