@@ -8,5 +8,5 @@ set shiftwidth=2 " smartindentで増減する幅
 set showtabline=2                       " Always show tabs
 set formatoptions=tcroqln
 " au BufRead,BufNewFile *.tex set comments+=b:\\item
-inoremap <expr> <C-o> getline('.') =~ '\item' ? '<Esc>0wveyo<Esc>0i  <C-r>" <Esc>C ' : '<Esc>o'
-inoremap <expr> <CR> getline('.') =~ '\item' ? '<C-g>u<Esc>0wveyo<Esc>0i  <C-r>" <Esc>C ' : '<C-g>u<CR>'
+inoremap <expr> <C-o> getline('.') =~ '\\item' ? '<Esc>yyp0eeCm ' : '<Esc>o'
+inoremap <expr> <CR> getline('.') =~ '\\item' ? '<C-g>u<Esc>yyp0eeCm ' : '<C-g>u<CR>'
