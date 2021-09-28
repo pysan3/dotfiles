@@ -42,7 +42,7 @@ if [ ! -f ~/texmf/tex/latex/local/pdfpc-commands.sty ]; then
     if command -v texhash &> /dev/null; then
         texhash ~/texmf
     else;
-        echo 'Seems you do not have `texhash` installed.'
+        echo 'Seems you do not have "texhash" installed.'
         echo 'Install it and run this script again'
     fi
 fi
