@@ -39,6 +39,12 @@ done
 if [ ! -f ~/texmf/tex/latex/local/pdfpc-commands.sty ]; then
     mkdir -p ~/texmf/tex/latex/local
     cp ./static/pdfpc-commands.sty ~/texmf/tex/latex/local
+    if command -v texhash &> /dev/null; then
+        texhash ~/texmf
+    else;
+        echo 'Seems you do not have `texhash` installed.'
+        echo 'Install it and run this script again'
+    fi
 fi
 
 # neovim configs and install extensions
