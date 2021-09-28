@@ -10,6 +10,8 @@ fi
 
 WORKDIR=$PWD
 cd $DIR
+
+# create symlink to .zsh* files
 for f in `command ls -Ap | grep -v / | grep -v '\.sh'`; do
     if [[ "$f" =~ (\.git|\.session|test|tmp|local).* ]]; then continue; fi
     if [ -f "$HOME/$f" ]; then
@@ -19,7 +21,8 @@ for f in `command ls -Ap | grep -v / | grep -v '\.sh'`; do
         ln -s "$DIR/$f" "$HOME/$f"
     fi
 done
-exit
+
+# create and copy configs in $XDG_CONFIG_HOME
 if [ -z "$XDG_CONFIG_HOME" ]; then
     echo 'setting $XDG_CONFIG_HOME to '"$HOME/.config"
     XDG_CONFIG_HOME="$HOME/.config"
@@ -32,6 +35,13 @@ for f in `command find "config" -type f`; do
     fi
 done
 
+# install files in ./static/
+if [ ! -f ~/texmf/tex/latex/local/pdfpc-commands.sty ]; then
+    mkdir -p ~/texmf/tex/latex/local
+    cp ./static/pdfpc-commands.sty ~/texmf/tex/latex/local
+fi
+
+# neovim configs and install extensions
 if [ -d ./nvim ]; then
     mkdir -p "$XDG_CONFIG_HOME/nvim/session"
     mkdir -p "$XDG_CONFIG_HOME/nvim/undodir"
@@ -86,7 +96,6 @@ if [ -d ./nvim ]; then
         coc-yaml \
         --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
     cd -
-
 fi
 
 cd $WORKDIR

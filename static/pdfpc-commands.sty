@@ -1,0 +1,163 @@
+% Package: textpos is required for textblock*
+\usepackage[absolute,overlay]{textpos}
+
+
+% fullFrameMovie
+%
+% Arguments:
+%
+%   [optional]: movie-options, seperated by &
+%       Supported options: loop, start=N, end=N, autostart
+%   Default: autostart&loop
+%
+%   1. Movie file
+%   2. Poster image
+%   3. Any text on the slide, or nothing (e.g. {})
+%
+% Example:
+%   \fullFrameMovie[loop&autostart]{apollo17.avi}{apollo17.jpg}{\copyrightText{Apollo 17, NASA}}
+%
+\newcommand{\fullFrameMovie}[4][autostart&loop]
+{
+    {
+        \setbeamercolor{background canvas}{bg=black}
+
+
+        % to make this work for both horizontally filled and vertically filled images, we create an absolutely
+        % positioned textblock* that we force to be the width of the slide.
+        % we then place it at (0,0), and then create a box inside of it to ensure that it's always 95% of the vertical
+        % height of the frame.  Once we have created an absolutely positioned and sized box, it doesn't matter what
+        % goes inside -- it will always be vertically and horizontally centered
+        \frame[plain]
+        {
+            \begin{textblock*}{\paperwidth}(0\paperwidth,0\paperheight)
+                \centering
+                \vbox to 0.95\paperheight {
+                    \vfil{
+                        \href{run:#2?autostart&#1}{\includegraphics[width=\paperwidth,height=0.95\paperheight,keepaspectratio]{#3}}
+                    }
+                    \vfil
+                }
+            \end{textblock*}
+            #4
+        }
+    }
+}
+
+% inlineMovie
+%
+% Arguments:
+%
+%   [optional]: movie-options, seperated by &
+%       Supported options: loop, start=N, end=N, autostart
+%   Default: autostart&loop
+%
+%   1. Movie file
+%   2. Poster image
+%   3. size command, such as width=\textwidth
+%
+% Example:
+%   \inlineMovie[loop&autostart&start=5&stop=12]{apollo17.avi}{apollo17.jpg}{height=0.7\textheight}
+%
+\newcommand{\inlineMovie}[4][autostart&loop]
+{
+    \href{run:#2?#1}{\includegraphics[#4]{#3}}
+}
+
+
+% copyrightText
+%
+% Produces small text on the right side of the screen, useful for
+% stating copyright or other small notes in movies or images
+%
+% Arguments:
+%
+%   [optional]: text color
+%       Default: white
+%
+%   1. Text to be displayed
+%
+% Example:
+%   \copyrightText{Full frame image of: Apollo 17, NASA}
+%
+\newcommand\copyrightText[2][white]{%
+    \begin{textblock*}{\paperwidth}(0\paperwidth,.97\paperheight)%
+        \hfill\textcolor{#1}{\tiny#2}\hspace{20pt}
+    \end{textblock*}
+}
+
+% fullFrameImageZoomed
+%
+% Produces a slide that contains a full frame image.  Scales down the image
+% to fit if the aspect ratio of the slide does not match the image.
+%
+% Arguments:
+%
+%   [optional]: color of text on page
+%       Default: white
+%
+%   1. Path to image file
+%   2. Any additional content on the frame
+%
+% Example:
+%   \fullFrameImageZoomed{apollo17.jpg}{\copyrightText{Full frame image of: Apollo 17, NASA}}
+%
+\newcommand{\fullFrameImage}[3][white]
+{
+    {
+        \setbeamercolor{normal text}{bg=black,fg=#1}
+
+
+        % to make this work for both horizontally filled and vertically filled images, we create an absolutely
+        % positioned textblock* that we force to be the width of the slide.
+        % we then place it at (0,0), and then create a box inside of it to ensure that it's always 95% of the vertical
+        % height of the frame.  Once we have created an absolutely positioned and sized box, it doesn't matter what
+        % goes inside -- it will always be vertically and horizontally centered
+        \frame
+        {
+            \begin{textblock*}{\paperwidth}(0\paperwidth,0\paperheight)
+                \centering
+                \vbox to 0.95\paperheight {
+                    \vfil{
+                        \includegraphics[width=\paperwidth,height=0.95\paperheight,keepaspectratio]{#2}
+                    }
+                    \vfil
+                }
+            \end{textblock*}
+            #3
+        }
+    }
+}
+
+% fullFrameImageZoomed
+%
+% Produces a slide that contains a full frame image.  If the aspect ratio
+% of the image does not match the slide, it crops the image.
+%
+% Arguments:
+%
+%   [optional]: color of text on page
+%       Default: black
+%
+%   1. Path to image file
+%   2. Any additional content on the frame
+%
+% Example:
+%   \fullFrameImageZoomed{apollo17.jpg}{\copyrightText{Full frame image of: Apollo 17, NASA}}
+%
+\newcommand{\fullFrameImageZoomed}[3][black]
+{
+    {
+        \usebackgroundtemplate{\includegraphics[height=\paperheight]{#2}}
+        \setbeamercolor{normal text}{bg=black,fg=#1}
+        \frame
+        {
+            #3
+        }
+    }
+}
+
+
+
+
+
