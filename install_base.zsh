@@ -30,11 +30,6 @@ if ! command -v 'poetry' &> /dev/null; then
 fi
 
 # RUST
-if [ -f ~/.cargo/env ]; then
-    source ~/.cargo/env
-else
-    export PATH="$PATH:$HOME/.cargo/bin"
-fi
 if ! command -v 'cargo' &> /dev/null; then
     checkyes "Seems you don't have cargo installed. Install?"
     if [ $? -eq 0 ]; then

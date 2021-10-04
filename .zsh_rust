@@ -5,6 +5,11 @@
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 # alias to command line utils
+if [ -f ~/.cargo/env ]; then
+    source ~/.cargo/env
+else
+    export PATH="$PATH:$HOME/.cargo/bin"
+fi
 while IFS= read -r line; do
     if [ 'x#' = x${line:0:1} ]; then continue; fi
     IFS='=' read -r -A cmdArr <<< "$line"
