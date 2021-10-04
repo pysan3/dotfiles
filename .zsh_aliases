@@ -1,5 +1,5 @@
 export DOTFILES=$HOME/dotfiles
-source "$DOTFILES/functions.sh"
+source "$DOTFILES/functions.zsh"
 
 export PATH=$(python -m site --user-base)/bin:$(python -m site --user-base)/share/virtualenvs:$PATH
 export PATH="$HOME"/myCommands:"$HOME"/myCommands/bin:$PATH
