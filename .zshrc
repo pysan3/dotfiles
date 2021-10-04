@@ -1,7 +1,7 @@
 compile_zdots() {
     for file in "$@"; do
-        if [ -f "$file" ] && ([ ! -f "$file.zwc" ] || [ "$file" -nt "$file.zwc" ]); then
-            zcompile "$1"
+        if [ -f "$file" ] && [ ! -f "$file.zwc" -o "$file" -nt "$file.zwc" ]; then
+            zcompile "$file"
         fi
     done
 }
