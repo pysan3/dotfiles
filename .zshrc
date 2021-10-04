@@ -145,14 +145,6 @@ if [ -f ~/.zsh_aliases ]; then
 fi
 if [ -f ~/.zsh_rust ]; then
     . ~/.zsh_rust
-<<<<<<< HEAD
-=======
-fi
-
-mkdir -p ~/.zsh
-if [ ! -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
->>>>>>> 83de0fbf16979f76bb5de00ed1d3a500ba5d097e
 fi
 
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
