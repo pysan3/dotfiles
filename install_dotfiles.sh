@@ -1,24 +1,26 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-if [[ 'xdotfiles' != x$(basename $DIR) ]]; then
+if [[ 'xdotfiles' != x$(basename $DOTFILES) ]]; then
     echo "install.sh might not be placed in the right place."
     echo "Try running it inside dotfile directory."
     exit
 fi
 
 WORKDIR=$PWD
-cd $DIR
+cd $DOTFILES
+
+source "$DOTFILES/functions.zsh"
 
 # create symlink to .zsh* files
 for f in `command ls -Ap | grep -v / | grep -v '\.sh'`; do
-    if [[ "$f" =~ (\.git|\.session|test|tmp|local).* ]]; then continue; fi
+    if [[ "$f" =~ (\.git|\.session|test|tmp|local|list).* ]]; then continue; fi
     if [ -f "$HOME/$f" ]; then
         echo "$HOME/$f: Symbolic link already exists."
     else
         echo "Creating a symbolic link of $f in $HOME"
-        ln -s "$DIR/$f" "$HOME/$f"
+        ln -s "$DOTFILES/$f" "$HOME/$f"
     fi
 done
 
@@ -31,19 +33,18 @@ for f in `command find "config" -type f`; do
     file=${f#"config/"}
     if [ ! -f "$XDG_CONFIG_HOME/$file" ]; then
         mkdir -p `dirname "$XDG_CONFIG_HOME/$file"`
-        ln -s "$DIR/$f" "$XDG_CONFIG_HOME/$file"
+        ln -s "$DOTFILES/$f" "$XDG_CONFIG_HOME/$file"
     fi
 done
 
 # install files in ./static/
 if [ ! -f ~/texmf/tex/latex/local/pdfpc-commands.sty ]; then
     mkdir -p ~/texmf/tex/latex/local
-    cp ./static/pdfpc-commands.sty ~/texmf/tex/latex/local
-    if command -v texhash &> /dev/null; then
+    ln -s "$DOTFILES/static/pdfpc-commands.sty" ~/texmf/tex/latex/local/pdfpc-commands.sty
+    if checkdependency 'texhash'; then
         texhash ~/texmf
     else
-        echo 'Seems you do not have "texhash" installed.'
-        echo 'Install it and run this script again'
+        exit
     fi
 fi
 
@@ -51,24 +52,19 @@ fi
 if [ -d ./nvim ]; then
     mkdir -p "$XDG_CONFIG_HOME/nvim/session"
     mkdir -p "$XDG_CONFIG_HOME/nvim/undodir"
-    cp -rs "$DIR/nvim" "$XDG_CONFIG_HOME" 2>/dev/null
+    cp -rs "$DOTFILES/nvim" "$XDG_CONFIG_HOME" 2>/dev/null
     if ! command -v nvim &> /dev/null; then
-        echo -n 'It seems neovim is not installed. Install? '
-        result=0
-        if [[ $SHELL == *'bash'* ]]; then
-            read -n1 -p "[Y/n] " yn; if [[ $yn =~ n|N ]]; then result=1; fi
-        elif [[ $SHELL == *'zsh'* ]]; then
-            if read -q; then :; else result=1; fi
-        else
-            echo 'Could not detect which shell you are using. Please install manually.'
-            echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
-            result=1
-        fi
-        echo
-        if [ $result -eq 0 ]; then
+        echo 'It seems neovim is not installed. Commands bellow will be called.'
+        echo 'sudo apt install neovim'
+        echo 'sudo apt install python-neovim'
+        echo 'sudo apt install python3-neovim'
+        checkyes 'Proceed? '
+        if [ $? -eq 0 ]; then
             sudo apt install neovim
             sudo apt install python-neovim
             sudo apt install python3-neovim
+        else
+            echo 'Please install manually. https://github.com/neovim/neovim/wiki/Installing-Neovim'
         fi
     fi
 
@@ -79,6 +75,9 @@ if [ -d ./nvim ]; then
     cd ~/.config/coc/extensions
     if [ ! -f package.json ]; then
       echo '{"dependencies":{}}'> package.json
+    fi
+    if ! checkdependency 'npm'; then
+        exit
     fi
     npm install \
         coc-diagnostic \
@@ -106,3 +105,5 @@ fi
 
 cd $WORKDIR
 
+checkdependency git
+checkdependency tmux

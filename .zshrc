@@ -1,16 +1,7 @@
 compile_zdots() {
-    if [ ! -f "$1" ]; then
-        echo "file $1 not found"
-        return
-    fi
-    if [ ! -f "$1.zwc" ]; then
-        zcompile "$1"
-        return
-    fi
     for file in "$@"; do
-        if [ -f "$file" ] && [ "$file" -nt "$file.zwc" ]; then
+        if [ -f "$file" ] && ([ ! -f "$file.zwc" ] || [ "$file" -nt "$file.zwc" ]); then
             zcompile "$1"
-            return
         fi
     done
 }
@@ -18,17 +9,6 @@ compile_zdots ~/.zshrc ~/.zsh_aliases ~/.zsh_local ~/.zsh_script ~/.zsh_rust
 # compile_zdots ~/.zprofile
 # compile_zdots ~/.zlogin
 # compile_zdots ~/.zlogout
-
-fix_interop() {
-    for i in $(pstree -np -s $$ | grep -o -E '[0-9]+'); do
-        if [[ -e "/run/WSL/${i}_interop" ]]; then
-            export WSL_INTEROP=/run/WSL/${i}_interop
-        fi
-    done
-}
-
-# fix_interop
-# [ -z "$PS1" ] && return
 
 export LANG=ja_JP.UTF-8
 
@@ -163,28 +143,14 @@ fi
 if [ -f ~/.zsh_aliases ]; then
     . ~/.zsh_aliases
 fi
-# if [ -f ~/.zsh_rust ]; then
-#     . ~/.zsh_rust
-# fi
+if [ -f ~/.zsh_rust ]; then
+    . ~/.zsh_rust
+fi
 
-mkdir -p ~/.zsh
-if [ ! -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
-fi
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-if [ ! -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    git clone git://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
-fi
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export PATH="$HOME/.poetry/bin:$PATH"
-if ! command -v 'poetry' &> /dev/null; then
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
-fi
-# if [ ! -d ~/.ghcup ]; then
-#     yes | ~/dotfiles/install_base.zsh
-# fi
-# source ~/.ghcup/env
 
 if [ -f ~/.zsh_script ]; then
     . ~/.zsh_script

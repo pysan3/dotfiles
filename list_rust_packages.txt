@@ -1,0 +1,14 @@
+ls=exa
+ps=procs
+less=bat
+grep=rg=ripgrep
+nano=kibi
+find=fd=fd-find
+du=sudo dust=du-dust
+time=hyperfine
+top=ytop
+iftop=sudo bandwhich
+hexdump=hx
+objdump=bingrep
+lisence=licensor
+# http-server=miniserve
