@@ -163,9 +163,9 @@ fi
 if [ -f ~/.zsh_aliases ]; then
     . ~/.zsh_aliases
 fi
-# if [ -f ~/.zsh_rust ]; then
-#     . ~/.zsh_rust
-# fi
+if [ -f ~/.zsh_rust ]; then
+    . ~/.zsh_rust
+fi
 
 mkdir -p ~/.zsh
 if [ ! -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
