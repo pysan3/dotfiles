@@ -71,7 +71,7 @@ alias cbw='set -a; . ~/mySecrets.env; set +a; echo $BW_PASSWORD | bw'
 alias bwpass="jq '.login' | jq -r '.password'"
 alias here="$FE ."
 
-setopt aliases
+setoptp aliases
 
 function def() {
     alias $@ || declare -f $@
@@ -226,6 +226,7 @@ function tinit () {
     po add attrdict rich toml
     po add -D isort pylint autopep8 flake8
     gignore
+    act
     pylint --generate-rcfile > .pylintrc
 }
 
