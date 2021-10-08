@@ -71,6 +71,8 @@ alias cbw='set -a; . ~/mySecrets.env; set +a; echo $BW_PASSWORD | bw'
 alias bwpass="jq '.login' | jq -r '.password'"
 alias here="$FE ."
 
+setopt aliases
+
 function def() {
     alias $@ || declare -f $@
 }
