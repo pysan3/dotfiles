@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-source "$DOTFILES/functions.sh"
+source "$DOTFILES/functions.zsh"
 
 # install haskel interpreter
 if [ ! -d ~/.ghcup ] || [ ! command -v cabal &> /dev/null ] || [ ! command -v pandoc &> /dev/null ]; then
@@ -63,7 +63,7 @@ while IFS= read -r line; do
     if ! command -v $alt &> /dev/null; then
         checkyes "$alt not installed. Do you want to install with cargo?"
         if [ $? -eq 0 ]; then
-            cargo install -v $pkg
+            cargo install -v $pkg -f
         else
             echo "failed to create alias from '$cmd' to '$alt': command not found"
             continue
