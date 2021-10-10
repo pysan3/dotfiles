@@ -42,7 +42,7 @@ alias restart="source ~/.zshrc"
 alias upgradeall='for lang in py rs js rb hs; do eval upgrade$lang; done'
 alias upgradepy='pipupgrade --verbose --latest --yes' # pip install pipupgrade
 alias upgraders='cargo install-update --all' # cargo install cargo-update
-alias upgradejs='sudo npm upgrade -g'
+alias upgradejs='sudo npm install -g npm && sudo npm upgrade -g'
 alias upgraderb='sudo gem update'
 alias upgradehs='cabal new-update' # cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
 
@@ -71,6 +71,8 @@ alias gignore='wget -O- "https://gist.githubusercontent.com/pysan3/d84715ea0a66f
 alias cbw='set -a; . ~/mySecrets.env; set +a; echo $BW_PASSWORD | bw'
 alias bwpass="jq '.login' | jq -r '.password'"
 alias here="$FE ."
+
+setopt aliases
 
 function def() {
     alias $@ || declare -f $@
@@ -225,6 +227,7 @@ function tinit () {
     po add attrdict rich toml
     po add -D isort pylint autopep8 flake8
     gignore
+    act
     pylint --generate-rcfile > .pylintrc
 }
 
