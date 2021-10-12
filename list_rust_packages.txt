@@ -12,3 +12,4 @@ hexdump=hx
 objdump=bingrep
 lisence=licensor
 # http-server=miniserve
+cargo-update=cargo-update

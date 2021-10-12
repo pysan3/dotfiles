@@ -33,3 +33,9 @@ while IFS= read -r line; do
 done < "$HOME/dotfiles/list_rust_packages.txt"
 
 # Python
+
+# Haskel
+if [ -f ~/.ghcup/env ]; then
+    source ~/.ghcup/env
+fi
+

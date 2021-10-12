@@ -82,7 +82,7 @@ function cd () {
 }
 
 # expansion: =mv -> /bin/mv
-unsetopt equals
+# unsetopt equals
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
@@ -147,6 +147,7 @@ if [ -f ~/.zsh_rust ]; then
     . ~/.zsh_rust
 fi
 
+export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
