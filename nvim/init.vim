@@ -15,6 +15,7 @@ source $HOME/.config/nvim/plug-config/undotree.vim
 source $HOME/.config/nvim/plug-config/start-screen.vim
 source $HOME/.config/nvim/plug-config/vim-math.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
+source $HOME/.config/nvim/plug-config/vimtex.vim
 source $HOME/.config/nvim/plug-config/dragvisuals.vim
 source $HOME/.config/nvim/plug-config/asyncrun.vim
 source $HOME/.config/nvim/syntax/markdown.vim
