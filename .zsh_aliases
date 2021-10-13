@@ -66,6 +66,8 @@ alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requ
 alias dotenv='if [[ -z "$DONT_LOAD_ENV" && -f .env ]]; then export $(grep -v "^#" .env | command tr -d " " | xargs); fi'
 alias act="source ~/.zshrc; [ -f 'bin/activate' ] && source bin/activate || source .venv/bin/activate; dotenv"
 alias gignore='wget -O- "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore'
+alias tasktex="cat $NCPATH/Templates/task-template.tex > "
+alias papertex="cp $NCPATH/Templates/template.sty . && cat $NCPATH/Templates/paper-template.tex > "
 
 # depends on .zsh_local
 alias cbw='set -a; . ~/mySecrets.env; set +a; echo $BW_PASSWORD | bw'
