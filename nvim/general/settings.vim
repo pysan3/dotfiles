@@ -72,7 +72,8 @@ set colorcolumn=120
 "----------------------------------------------------------
 " Trailing Spaces
 "----------------------------------------------------------
-set conceallevel=0                      " So that I can see `` in markdown files
+set conceallevel=2                      " So that I can see `` in markdown files
+set concealcursor=""
 
 "----------------------------------------------------------
 " Coc configs
