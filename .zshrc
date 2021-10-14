@@ -1,15 +1,3 @@
-compile_zdots() {
-    for file in "$@"; do
-        if [ -f "$file" ] && [ ! -f "$file.zwc" -o "$file" -nt "$file.zwc" ]; then
-            zcompile "$file"
-        fi
-    done
-}
-compile_zdots ~/.zshrc ~/.zsh_aliases ~/.zsh_local ~/.zsh_script ~/.zsh_rust
-# compile_zdots ~/.zprofile
-# compile_zdots ~/.zlogin
-# compile_zdots ~/.zlogout
-
 export LANG=ja_JP.UTF-8
 
 # ${fg[blue]}等で色が利用できるようにする
@@ -156,4 +144,16 @@ export PATH="$HOME/.poetry/bin:$PATH"
 if [ -f ~/.zsh_script ]; then
     . ~/.zsh_script
 fi
+
+compile_zdots() {
+    for file in "$@"; do
+        if [ -f "$file" ] && [ ! -f "$file.zwc" -o "$file" -nt "$file.zwc" ]; then
+            zcompile "$file"
+        fi
+    done
+}
+compile_zdots ~/.zshrc ~/.zsh_aliases ~/.zsh_local ~/.zsh_script ~/.zsh_rust
+# compile_zdots ~/.zprofile
+# compile_zdots ~/.zlogin
+# compile_zdots ~/.zlogout
 
