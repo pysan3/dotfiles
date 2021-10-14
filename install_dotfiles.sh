@@ -43,8 +43,6 @@ if [ ! -f ~/texmf/tex/latex/local/pdfpc-commands.sty ]; then
     ln -s "$DOTFILES/static/pdfpc-commands.sty" ~/texmf/tex/latex/local/pdfpc-commands.sty
     if checkdependency 'texhash'; then
         texhash ~/texmf
-    else
-        exit
     fi
 fi
 
