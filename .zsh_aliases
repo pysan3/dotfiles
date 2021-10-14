@@ -77,7 +77,7 @@ alias here="$FE ."
 setopt aliases
 
 function def() {
-    alias $@ || declare -f $@
+    alias $@ || declare -f $@ || which $@
 }
 
 function dot() {
