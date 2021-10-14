@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source "$DOTFILES/functions.zsh"
 
 # install haskel interpreter
@@ -73,3 +74,4 @@ while IFS= read -r line; do
     fi
     eval "alias $cmd='$issudo$alt'"
 done < "$HOME/dotfiles/list_rust_packages.txt"
+
