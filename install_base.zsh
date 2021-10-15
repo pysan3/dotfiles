@@ -39,6 +39,7 @@ if [ ! -d ~/.rbenv ]; then
 fi
 export PATH="$PATH:$HOME/.rbenv/bin"
 CONFIGURE_OPTS='--disable-install-rdoc' rbenv install $(rbenv install -l | grep -v - | tail -1)
+rbenv global $(rbenv install -l | grep -v - | tail -1)
 
 # RUST
 if ! command -v 'cargo' &> /dev/null; then
