@@ -39,3 +39,6 @@ if [ -f ~/.ghcup/env ]; then
     source ~/.ghcup/env
 fi
 
+# ruby
+export PATH="$PATH:$HOME/.rbenv/bin"
+eval "$(rbenv init -)"

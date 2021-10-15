@@ -51,54 +51,6 @@ if [ -d ./nvim ]; then
     mkdir -p "$XDG_CONFIG_HOME/nvim/session"
     mkdir -p "$XDG_CONFIG_HOME/nvim/undodir"
     cp -rs "$DOTFILES/nvim" "$XDG_CONFIG_HOME" 2>/dev/null
-    if ! command -v nvim &> /dev/null; then
-        echo 'It seems neovim is not installed. Commands bellow will be called.'
-        echo 'sudo apt install neovim'
-        echo 'sudo apt install python-neovim'
-        echo 'sudo apt install python3-neovim'
-        checkyes 'Proceed? '
-        if [ $? -eq 0 ]; then
-            sudo apt install neovim
-            sudo apt install python-neovim
-            sudo apt install python3-neovim
-        else
-            echo 'Please install manually. https://github.com/neovim/neovim/wiki/Installing-Neovim'
-        fi
-    fi
-
-    # install coc extensions
-    set -o nounset    # error when referencing undefined variable
-    set -o errexit    # exit when command fails
-    mkdir -p ~/.config/coc/extensions
-    cd ~/.config/coc/extensions
-    if [ ! -f package.json ]; then
-      echo '{"dependencies":{}}'> package.json
-    fi
-    if ! checkdependency 'npm'; then
-        exit
-    fi
-    npm install \
-        coc-diagnostic \
-        coc-explorer \
-        coc-lists \
-        coc-dictionary \
-        coc-word \
-        coc-emoji \
-        coc-snippets \
-        coc-tsserver \
-        coc-eslint \
-        coc-prettier \
-        coc-vetur \
-        coc-json \
-        coc-python \
-        coc-pyright \
-        coc-protobuf \
-        coc-vimtex \
-        coc-texlab \
-        coc-sh \
-        coc-yaml \
-        --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
-    cd -
 fi
 
 cd $WORKDIR
