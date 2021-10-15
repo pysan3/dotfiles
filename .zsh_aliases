@@ -43,7 +43,7 @@ alias upgradeall='for lang in py rs js rb hs; do eval upgrade$lang; done'
 alias upgradepy='pipupgrade --verbose --latest --yes' # pip install pipupgrade
 alias upgraders='cargo install-update --all' # cargo install cargo-update
 alias upgradejs='sudo npm install -g npm && sudo npm upgrade -g'
-alias upgraderb='sudo gem update'
+alias upgraderb='gem update'
 alias upgradehs='cabal new-update' # cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
 
 alias vm="vim $DOTFILES/.vimrc"
