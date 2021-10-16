@@ -19,7 +19,7 @@ let g:vimtex_syntax_conceal = {
             \ 'cites': 1,
             \ 'fancy': 0,
             \ 'greek': 1,
-            \ 'math_bounds': 1,
+            \ 'math_bounds': 0,
             \ 'math_delimiters': 1,
             \ 'math_fracs': 0,
             \ 'math_super_sub': 0,
