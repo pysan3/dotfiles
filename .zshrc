@@ -51,15 +51,10 @@ local DEFAULT=$'%{^[[m%}'$
 local RED=$'%{^[[1;31m%}'$
 local YELLOW=$'%{^[[1;33m%}'$
 
-# ただのディレクトリ名でcd
-setopt AUTO_CD
-cdpath=(.. ~ ~/Git ~/Papers)
 # .env loading in the shell
 function dotenv () {
     if [ -f .env ]; then
-        set -a
         . .env
-        set +a
     fi
 }
 dotenv
