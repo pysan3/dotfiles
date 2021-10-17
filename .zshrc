@@ -54,7 +54,7 @@ local YELLOW=$'%{^[[1;33m%}'$
 # .env loading in the shell
 function dotenv () {
     if [ -f .env ]; then
-        . .env
+        source .env
     fi
 }
 dotenv
@@ -121,13 +121,13 @@ export XDG_CONFIG_HOME="$HOME/.config"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -f ~/.zsh_local ]; then
-    . ~/.zsh_local
+    source ~/.zsh_local
 fi
 if [ -f ~/.zsh_aliases ]; then
-    . ~/.zsh_aliases
+    source ~/.zsh_aliases
 fi
 if [ -f ~/.zsh_rust ]; then
-    . ~/.zsh_rust
+    source ~/.zsh_rust
 fi
 
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
@@ -137,7 +137,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 export PATH="$HOME/.poetry/bin:$PATH"
 
 if [ -f ~/.zsh_script ]; then
-    . ~/.zsh_script
+    source ~/.zsh_script
 fi
 
 compile_zdots() {

@@ -8,7 +8,7 @@ if [ ! -d ~/.ghcup ] || [ ! command -v cabal &> /dev/null ] || [ ! command -v pa
     cd
     wget -qO- https://get-ghcup.haskell.org | sh
     stack setup
-    . "$HOME/.ghcup/env"
+    source "$HOME/.ghcup/env"
     cabal --version
     cabal new-update
     cabal new-install pandoc

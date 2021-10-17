@@ -69,7 +69,7 @@ alias tasktex="cat $NCPATH/Templates/task-template.tex > "
 alias papertex="cp $NCPATH/Templates/template.sty . && cat $NCPATH/Templates/paper-template.tex > "
 
 # depends on .zsh_local
-alias cbw='set -a; . ~/mySecrets.env; set +a; echo $BW_PASSWORD | bw'
+alias cbw='set -a; source ~/mySecrets.env; set +a; echo $BW_PASSWORD | bw'
 alias bwpass="jq '.login' | jq -r '.password'"
 alias here="$FE ."
 
