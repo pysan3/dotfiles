@@ -124,6 +124,10 @@ function timer () {
 
 alias ramen='timer 150'
 
+function pdflock () {
+    qpdf --encrypt "$1" "$1" 40 -- "$2" "$3"
+}
+
 function appearance () {
     cat \
         <(wget -O- 'https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt' 2> /dev/null) \
