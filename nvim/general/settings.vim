@@ -21,7 +21,7 @@ scriptencoding utf-8
 set fileencoding=utf-8                  " The encoding written to file
 set fileencodings=utf-8,ucs-boms,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
 set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
-set ambiwidth=double " □や○文字が崩れる問題を解決
+set ambiwidth=single " □や○文字が崩れる問題を解決
 
 "----------------------------------------------------------
 " Cursor
