@@ -44,7 +44,7 @@
     "explorer.trash.command": "trash-put %l",
 
     // python config
-    "python.pythonPath": "${workspaceFolder}/.venv/bin/python3",
+    /* "python.pythonPath": "${workspaceFolder}/.venv/bin/python3", */
     "python.analysis.extraPaths": [
         "${workspaceFolder}"
     ],
@@ -73,6 +73,7 @@
     /*     "--max-line-length=120" */
     /* ], */
     "python.linting.flake8Enabled": true,
+    "python.linting.flake8Path": "~/.local/bin/flake8",
     "python.linting.flake8Args": [
         "--max-line-length=120",
         "--ignore=F405"
