@@ -18,6 +18,7 @@ source $HOME/.config/nvim/plug-config/vim-markdown.vim
 source $HOME/.config/nvim/plug-config/vimtex.vim
 source $HOME/.config/nvim/plug-config/dragvisuals.vim
 source $HOME/.config/nvim/plug-config/asyncrun.vim
+source $HOME/.config/nvim/plug-config/auto-pairs.vim
 source $HOME/.config/nvim/syntax/markdown.vim
 source $HOME/.config/nvim/myplug/autosave-session.vim
 source $HOME/.config/nvim/myplug/terminal-as-vscode.vim
