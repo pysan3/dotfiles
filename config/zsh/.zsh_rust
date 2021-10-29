@@ -35,10 +35,10 @@ done < "$HOME/dotfiles/static/list_rust_packages.txt"
 # Python
 
 # Haskel
-if [ -f ~/.ghcup/env ]; then
-    source ~/.ghcup/env
+if [ -f "$XDG_DATA_HOME"/.ghcup/env ]; then
+    source "$XDG_DATA_HOME"/.ghcup/env
 fi
 
 # ruby
-export PATH="$PATH:$HOME/.rbenv/bin"
+export PATH="$PATH:$RBENV_ROOT/.rbenv/bin"
 eval "$(rbenv init -)"

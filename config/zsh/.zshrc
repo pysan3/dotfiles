@@ -11,7 +11,8 @@ colors
 # 補完を利用
 plugins=(… zsh-completions)
 autoload -Uz compinit
-compinit
+compinit -d $XDG_CACHE_HOME/zsh/zcompdump
+zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
 _comp_options+=(globdots)		# Include hidden files.
 
 # vi mode
@@ -132,8 +133,8 @@ if [ -f "$ZDOTDIR/.zsh_rust" ]; then
 fi
 
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export PATH="$HOME/.poetry/bin:$PATH"
 

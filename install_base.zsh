@@ -1,43 +1,44 @@
 #!/bin/zsh
 
-DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+DOTFILES="$( cd "$( dirname "$0" )" &> /dev/null && pwd )"
+echo "Running file in $DOTFILES"
 source "$DOTFILES/functions.zsh"
 
 # install haskel interpreter
-if [ ! -d ~/.ghcup ] || [ ! command -v cabal &> /dev/null ] || [ ! command -v pandoc &> /dev/null ]; then
+if [ ! -d "$XDG_DATA_HOME"/ghcup ] || [ ! command -v cabal &> /dev/null ] || [ ! command -v pandoc &> /dev/null ]; then
     cd
     wget -qO- https://get-ghcup.haskell.org | sh
     stack setup
-    source "$HOME/.ghcup/env"
+    [ -f "$XDG_DATA_HOME/ghcup/env" ] && source "$XDG_DATA_HOME/ghcup/env"
     cabal --version
     cabal new-update
     cabal new-install pandoc
     cabal new-install pandoc-citeproc pandoc-crossref
 fi
-[ -f "~/.ghcup/env" ] && source "~/.ghcup/env" # ghcup-env
+[ -f "$XDG_DATA_HOME/ghcup/env" ] && source "$XDG_DATA_HOME/ghcup/env" # ghcup-env
 
 # install zsh shell utils
-mkdir -p ~/.zsh
-if [ ! -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
-    zcompile ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+mkdir -p "$XDG_DATA_HOME"/zsh
+if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    git clone git://github.com/zsh-users/zsh-syntax-highlighting.git "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting
+    zcompile "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-if [ ! -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    git clone git://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
-    zcompile ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    git clone git://github.com/zsh-users/zsh-autosuggestions.git "$XDG_DATA_HOME"/zsh/zsh-autosuggestions
+    zcompile "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # install poetry
 if ! command -v 'poetry' &> /dev/null; then
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
 fi
 
 # install ruby
-if [ ! -d ~/.rbenv ]; then
-    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-    git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+if [ ! -d "$RBENV_ROOT" ]; then
+    git clone https://github.com/rbenv/rbenv.git "$RBENV_ROOT"
+    git clone https://github.com/rbenv/ruby-build.git "$RBENV_ROOT"/.rbenv/plugins/ruby-build
 fi
-export PATH="$PATH:$HOME/.rbenv/bin"
+export PATH="$PATH:$RBENV_ROOT/.rbenv/bin"
 CONFIGURE_OPTS='--disable-install-rdoc' rbenv install $(rbenv install -l | grep -v - | tail -1)
 rbenv global $(rbenv install -l | grep -v - | tail -1)
 
@@ -46,7 +47,7 @@ if ! command -v 'cargo' &> /dev/null; then
     checkyes "Seems you don't have cargo installed. Install?"
     if [ $? -eq 0 ]; then
         wget -qO - https://sh.rustup.rs | sh
-        source ~/.cargo/env
+        source "$CARGO_HOME"/env
     else
         echo 'Press C-c to exit and install cargo manually.'
         read tmp
@@ -81,7 +82,7 @@ while IFS= read -r line; do
         fi
     fi
     eval "alias $cmd='$issudo$alt'"
-done < "$HOME/dotfiles/static/list_rust_packages.txt"
+done < "$DOTFILES/static/list_rust_packages.txt"
 
 # install nvim
 if ! command -v nvim &> /dev/null; then
