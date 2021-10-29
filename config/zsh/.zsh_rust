@@ -5,8 +5,8 @@
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 # alias to command line utils
-if [ -f ~/.cargo/env ]; then
-    source ~/.cargo/env
+if [ -f "$CARGO_HOME"/env ]; then
+    source "$CARGO_HOME"/env
 else
     export PATH="$PATH:$HOME/.cargo/bin"
 fi

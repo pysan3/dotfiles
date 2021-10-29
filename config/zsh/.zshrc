@@ -122,8 +122,8 @@ RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ -f "$HOME/.zsh_local" ]; then
-    source "$HOME/.zsh_local"
+if [ -f "$ZDOTDIR/.zsh_local" ]; then
+    source "$ZDOTDIR/.zsh_local"
 fi
 if [ -f "$ZDOTDIR/.zsh_aliases" ]; then
     source "$ZDOTDIR/.zsh_aliases"
@@ -138,8 +138,8 @@ source "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
-if [ -f "$HOME/.zsh_script" ]; then
-    source "$HOME/.zsh_script"
+if [ -f "$ZDOTDIR/.zsh_script" ]; then
+    source "$ZDOTDIR/.zsh_script"
 fi
 
 compile_zdots() {
