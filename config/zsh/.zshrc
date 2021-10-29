@@ -136,8 +136,6 @@ export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-export PATH="$HOME/.poetry/bin:$PATH"
-
 if [ -f "$ZDOTDIR/.zsh_script" ]; then
     source "$ZDOTDIR/.zsh_script"
 fi
@@ -149,8 +147,8 @@ compile_zdots() {
         fi
     done
 }
-compile_zdots "$ZDOTDIR/.zshrc" "$ZDOTDIR/.zsh_aliases" "$HOME/.zsh_local" "$HOME/.zsh_script" "$ZDOTDIR/.zsh_rust"
+compile_zdots "$ZDOTDIR/.zshrc" "$ZDOTDIR/.zsh_aliases" "$ZDOTDIR/.zsh_local" "$ZDOTDIR/.zsh_script" "$ZDOTDIR/.zsh_rust"
 # compile_zdots .zprofile
 # compile_zdots .zlogin
 # compile_zdots .zlogout
-
+compile_zdots "$HOME/.zshenv"
