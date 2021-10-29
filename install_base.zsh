@@ -81,7 +81,7 @@ while IFS= read -r line; do
         fi
     fi
     eval "alias $cmd='$issudo$alt'"
-done < "$HOME/dotfiles/list_rust_packages.txt"
+done < "$HOME/dotfiles/static/list_rust_packages.txt"
 
 # install nvim
 if ! command -v nvim &> /dev/null; then

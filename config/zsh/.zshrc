@@ -1,5 +1,9 @@
 export LANG=ja_JP.UTF-8
 
+export EDITOR='vim'
+export XDG_CONFIG_HOME="$HOME/.config"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
 # ${fg[blue]}等で色が利用できるようにする
 autoload -Uz colors
 export TERM=screen-256color
@@ -38,7 +42,7 @@ bindkey '^o' edit-command-line
 setopt share_history # 他ターミナルとヒストリを共有
 setopt hist_ignore_all_dups # ヒストリを重複表示しない
 setopt hist_ignore_space # Ignore histories starting with space
-HISTFILE=~/.zsh_history
+HISTFILE="$ZDOTDIR/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=10000
 HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
@@ -115,19 +119,16 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
-export EDITOR='vim'
-export XDG_CONFIG_HOME="$HOME/.config"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ -f ~/.zsh_local ]; then
-    source ~/.zsh_local
+if [ -f "$HOME/.zsh_local" ]; then
+    source "$HOME/.zsh_local"
 fi
-if [ -f ~/.zsh_aliases ]; then
-    source ~/.zsh_aliases
+if [ -f "$ZDOTDIR/.zsh_aliases" ]; then
+    source "$ZDOTDIR/.zsh_aliases"
 fi
-if [ -f ~/.zsh_rust ]; then
-    source ~/.zsh_rust
+if [ -f "$ZDOTDIR/.zsh_rust" ]; then
+    source "$ZDOTDIR/.zsh_rust"
 fi
 
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
@@ -136,8 +137,8 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
-if [ -f ~/.zsh_script ]; then
-    source ~/.zsh_script
+if [ -f "$HOME/.zsh_script" ]; then
+    source "$HOME/.zsh_script"
 fi
 
 compile_zdots() {
@@ -147,8 +148,8 @@ compile_zdots() {
         fi
     done
 }
-compile_zdots ~/.zshrc ~/.zsh_aliases ~/.zsh_local ~/.zsh_script ~/.zsh_rust
-# compile_zdots ~/.zprofile
-# compile_zdots ~/.zlogin
-# compile_zdots ~/.zlogout
+compile_zdots "$ZDOTDIR/.zshrc" "$ZDOTDIR/.zsh_aliases" "$HOME/.zsh_local" "$HOME/.zsh_script" "$ZDOTDIR/.zsh_rust"
+# compile_zdots .zprofile
+# compile_zdots .zlogin
+# compile_zdots .zlogout
 

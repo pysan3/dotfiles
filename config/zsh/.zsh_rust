@@ -30,7 +30,7 @@ while IFS= read -r line; do
         pkg="$alt"
     fi
     eval "alias $cmd='$issudo$alt'"
-done < "$HOME/dotfiles/list_rust_packages.txt"
+done < "$HOME/dotfiles/static/list_rust_packages.txt"
 
 # Python
 
