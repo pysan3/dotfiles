@@ -27,6 +27,10 @@ if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; th
     zcompile "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
+# install pyenv
+if ! command -v 'pyenv' &>/dev/null; then
+    curl https://pyenv.run | bash
+fi
 # install poetry
 if ! command -v 'poetry' &> /dev/null; then
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
