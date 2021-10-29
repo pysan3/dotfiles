@@ -9,6 +9,7 @@
 pyvenv.cfg
 __pycache__
 *.cfg
+*.zwc
 *.code-workspace
 .venv
 .vscode
