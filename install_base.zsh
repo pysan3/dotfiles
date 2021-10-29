@@ -2,6 +2,7 @@
 
 DOTFILES="$( cd "$( dirname "$0" )" &> /dev/null && pwd )"
 echo "Running file in $DOTFILES"
+source "$DOTFILES/.zshenv"
 source "$DOTFILES/functions.zsh"
 
 # install haskel interpreter
