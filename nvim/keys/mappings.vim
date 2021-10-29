@@ -2,6 +2,9 @@
 inoremap <silent> jk <Esc>
 tmap <silent> jk <Esc>
 
+" jump to the last edited file
+nnoremap <C-6> <C-^>
+
 " save undos on every space
 inoremap <space> <C-g>u<space>
 inoremap <CR> <C-g>u<CR>
