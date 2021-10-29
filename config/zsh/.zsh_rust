@@ -35,6 +35,7 @@ done < "$HOME/dotfiles/static/list_rust_packages.txt"
 # Python
 export PATH="$PATH:$PYENV_ROOT/bin"
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # Haskel
 if [ -f "$XDG_DATA_HOME"/ghcup/env ]; then
