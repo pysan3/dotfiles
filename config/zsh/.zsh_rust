@@ -36,6 +36,7 @@ done < "$HOME/dotfiles/static/list_rust_packages.txt"
 export PATH="$PATH:$PYENV_ROOT/bin"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+export PATH="$HOME/.poetry/bin:$PATH"
 
 # Haskel
 if [ -f "$XDG_DATA_HOME"/ghcup/env ]; then
