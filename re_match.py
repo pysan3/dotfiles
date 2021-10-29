@@ -1,5 +1,6 @@
 import sys
 
+
 def main():
     if len(sys.argv) != 2:
         print('you forgot argv')
@@ -11,6 +12,7 @@ def main():
         return
 
     print(f'{cut[0]}(?:(?!{cut[0]}|{cut[1]}).)*{cut[1]}')
+
 
 if __name__ == "__main__":
     main()
