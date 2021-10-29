@@ -47,6 +47,7 @@ if ! command -v 'cargo' &> /dev/null; then
     if [ $? -eq 0 ]; then
         wget -qO - https://sh.rustup.rs | sh
         source "$CARGO_HOME"/env
+        cargo install cargo-update
     else
         echo 'Press C-c to exit and install cargo manually.'
         read tmp
