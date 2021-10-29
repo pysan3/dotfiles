@@ -8,7 +8,7 @@ export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 if [ -f "$CARGO_HOME"/env ]; then
     source "$CARGO_HOME"/env
 else
-    export PATH="$PATH:$HOME/.cargo/bin"
+    export PATH="$PATH:$CARGO_HOME/bin"
 fi
 while IFS= read -r line; do
     if [ 'x#' = x${line:0:1} ]; then continue; fi
