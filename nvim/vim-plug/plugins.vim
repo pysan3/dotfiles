@@ -83,6 +83,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " language specific
     Plug 'pixelneo/vim-python-docstring'
     Plug 'uarun/vim-protobuf'
+    Plug 'tikhomirov/vim-glsl'
     " Pandoc
     Plug 'lervag/vimtex'
     Plug 'godlygeek/tabular'
