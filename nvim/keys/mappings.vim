@@ -10,7 +10,7 @@ inoremap <space> <C-g>u<space>
 inoremap <CR> <C-g>u<CR>
 
 " new line in insert mode
-imap <C-o> <Esc>o
+imap <C-o> <Esc>A<CR>
 inoremap <C-i> <Esc>A,<Esc>o
 
 " Easy CAPS
