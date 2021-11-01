@@ -125,7 +125,15 @@ function timer () {
 alias ramen='timer 150'
 
 function pdflock () {
-    qpdf --encrypt "$1" "$1" 40 -- "$2" "$3"
+    F="$2"
+    if [ $# -lt 3 ]; then
+        TO="${2%.*}_lock.pdf"
+    else
+        TO="$3"
+    fi
+    echo "Found file: $F"
+    echo "Locked file created: $TO"
+    qpdf --encrypt "$1" "$1" 40 -- "$F" "$TO"
 }
 
 function appearance () {
