@@ -63,7 +63,7 @@ alias ttmp="tmux new-session -A -s tmp"
 alias yt='youtube-dl -ci -f mp4'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
-alias act="source ~/.zshrc; [ -f 'bin/activate' ] && source bin/activate || source .venv/bin/activate; dotenv"
+alias act="source ~/.zshenv; source ~/.config/zsh/.zshrc; [ -f 'bin/activate' ] && source bin/activate || source .venv/bin/activate; dotenv"
 alias gignore='wget -O- "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore'
 alias tasktex="cat $NCPATH/Templates/task-template.tex > "
 alias papertex="cp $NCPATH/Templates/template.sty . && cat $NCPATH/Templates/paper-template.tex > "
