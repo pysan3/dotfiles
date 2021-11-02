@@ -13,7 +13,7 @@ if [ ! -d "$XDG_DATA_HOME"/ghcup ] || [ ! command -v cabal &> /dev/null ] || [ !
     [ -f "$XDG_DATA_HOME/ghcup/env" ] && source "$XDG_DATA_HOME/ghcup/env"
     cabal --version
     cabal new-update
-    cabal new-install pandoc pandoc-citeproc pandoc-crossref
+    cabal new-install pandoc pandoc-citeproc pandoc-crossref --overwrite-policy=always
 fi
 [ -f "$XDG_DATA_HOME/ghcup/env" ] && source "$XDG_DATA_HOME/ghcup/env" # ghcup-env
 
