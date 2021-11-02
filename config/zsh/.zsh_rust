@@ -33,7 +33,7 @@ while IFS= read -r line; do
 done < "$HOME/dotfiles/static/list_rust_packages.txt"
 
 # Python
-export PATH="$PATH:$PYENV_ROOT/bin"
+export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export PATH="$HOME/.poetry/bin:$PATH"
