@@ -54,7 +54,7 @@ alias vl="vim $ZDOTDIR/.zsh_local"
 alias vs="vim $ZDOTDIR/.zsh_script"
 alias vc="vim ~/mySecrets.env"
 alias ve="vim .env"
-alias vh="sudo vim $ZDOTDIR/.zsh_history"
+alias vh="vim $ZDOTDIR/.zsh_history"
 
 alias dc="docker-compose"
 alias po='poetry'
