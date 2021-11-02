@@ -46,3 +46,6 @@ fi
 # ruby
 export PATH="$PATH:$RBENV_ROOT/bin"
 eval "$(rbenv init -)"
+
+act
+dotenv

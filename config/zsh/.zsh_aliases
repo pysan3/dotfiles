@@ -63,7 +63,15 @@ alias ttmp="tmux new-session -A -s tmp"
 alias yt='youtube-dl -ci -f mp4'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
-alias act="source ~/.zshenv; source ~/.config/zsh/.zshrc; [ -f 'bin/activate' ] && source bin/activate || source .venv/bin/activate; dotenv"
+function act() {
+    if [ -f 'bin/activate' ]; then
+        . bin/activate
+    else if [ -f '.venv/bin/activate' ]; then
+        . '.venv/bin/activate'
+    else
+        activate >/dev/null 2>&1 || echo 'activate file not found'
+    fi
+}
 alias gignore='wget -O- "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore'
 alias tasktex="cat $NCPATH/Templates/task-template.tex > "
 alias papertex="cp $NCPATH/Templates/template.sty . && cat $NCPATH/Templates/paper-template.tex > "
@@ -83,6 +91,19 @@ function dot() {
     if [ $# -ne 0 ]; then
         cd -
     fi
+}
+
+# .env loading in the shell
+function dotenv () {
+    if [ -f .env ]; then
+        source .env
+    fi
+}
+# Run dotenv on every new directory
+function cd () {
+	builtin cd $@
+    act
+	dotenv
 }
 
 function dup() {
@@ -169,7 +190,7 @@ function tvim() {
             return 0
         fi
     fi
-    vimcmd="nvim"
+    vimcmd="act && nvim"
     if [ ! -f "$PWD/.session.vim" ]; then
         vimcmd="$vimcmd ."
     fi

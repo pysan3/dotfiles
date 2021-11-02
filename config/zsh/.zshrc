@@ -56,19 +56,6 @@ local DEFAULT=$'%{^[[m%}'$
 local RED=$'%{^[[1;31m%}'$
 local YELLOW=$'%{^[[1;33m%}'$
 
-# .env loading in the shell
-function dotenv () {
-    if [ -f .env ]; then
-        source .env
-    fi
-}
-dotenv
-# Run dotenv on every new directory
-function cd () {
-	builtin cd $@
-	dotenv
-}
-
 # expansion: =mv -> /bin/mv
 # unsetopt equals
 # 複数ファイルのmv 例　zmv *.txt *.txt.bk
