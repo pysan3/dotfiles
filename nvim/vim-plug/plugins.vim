@@ -84,10 +84,12 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'pixelneo/vim-python-docstring'
     Plug 'uarun/vim-protobuf'
     Plug 'tikhomirov/vim-glsl'
-    " Pandoc
     Plug 'lervag/vimtex'
     Plug 'godlygeek/tabular'
+    Plug 'cespare/vim-toml', { 'branch': 'main' }
+    Plug 'elzr/vim-json'
     Plug 'plasticboy/vim-markdown'
+    " Pandoc
     " Plug 'vim-pandoc/vim-pandoc'
     " Plug 'vim-pandoc/vim-pandoc-syntax'
     " Plug 'tpope/vim-markdown'
