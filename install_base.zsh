@@ -42,7 +42,7 @@ if [ ! -d "$RBENV_ROOT" ]; then
     git clone https://github.com/rbenv/rbenv.git "$RBENV_ROOT"
     git clone https://github.com/rbenv/ruby-build.git "$RBENV_ROOT"/plugins/ruby-build
 fi
-export PATH="$PATH:$RBENV_ROOT/bin"
+export PATH="$RBENV_ROOT/bin:$PATH"
 CONFIGURE_OPTS='--disable-install-rdoc' rbenv install $(rbenv install -l | grep -v - | tail -1)
 rbenv global $(rbenv install -l | grep -v - | tail -1)
 
