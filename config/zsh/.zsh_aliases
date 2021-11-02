@@ -66,7 +66,7 @@ alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requ
 function act() {
     if [ -f 'bin/activate' ]; then
         . bin/activate
-    else if [ -f '.venv/bin/activate' ]; then
+    elif [ -f '.venv/bin/activate' ]; then
         . '.venv/bin/activate'
     else
         activate >/dev/null 2>&1 || echo 'activate file not found'
