@@ -234,6 +234,7 @@ function tinit () {
     po init
     res=$?
     po config virtualenvs.in-project true
+    po env use `which python`
     if [ $res -ne 0 ]; then
         checkyes '`pyproject.toml` might already exist. Do you want to install packages from it?'
         if [ $? -eq 0 ]; then
