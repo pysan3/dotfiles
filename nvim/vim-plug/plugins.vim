@@ -65,6 +65,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " git stuff
     Plug 'mhinz/vim-signify'
     Plug 'tpope/vim-fugitive'
+    Plug 'rhysd/conflict-marker.vim'
     Plug 'tpope/vim-rhubarb'
     Plug 'stsewd/fzf-checkout.vim'
     Plug 'airblade/vim-rooter'
