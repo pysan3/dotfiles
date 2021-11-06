@@ -21,6 +21,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'mbbill/undotree'
     " Auto pairs for '(' '[' '{'
     Plug 'jiangmiao/auto-pairs'
+    Plug 'PeterRincker/vim-argumentative'
+    Plug 'wellle/targets.vim'
     " calculate sum, average, max, min in selected area
     Plug 'nixon/vim-vmath'
     " drag things selected visually
