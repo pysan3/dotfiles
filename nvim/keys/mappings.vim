@@ -76,10 +76,6 @@ nnoremap <C-u> <C-u>zz
 nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
 
-" vim-expand-region用スニペット
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
-
 " クリップボードからのペースト
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
