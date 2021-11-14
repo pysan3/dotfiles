@@ -56,6 +56,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'ulwlu/elly.vim'
     Plug 'tomasiser/vim-code-dark'
     Plug 'arcticicestudio/nord-vim'
+    Plug 'chriskempson/vim-tomorrow-theme'
     " Airline
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
