@@ -158,7 +158,6 @@ npm install \
     coc-prettier \
     coc-vetur \
     coc-json \
-    coc-python \
     coc-pyright \
     coc-protobuf \
     coc-vimtex \
