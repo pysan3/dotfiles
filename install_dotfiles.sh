@@ -14,7 +14,7 @@ cd $DOTFILES
 source "$DOTFILES/functions.zsh"
 
 # create symlink to .zsh* files
-for f in `command ls -Ap | grep -v / | grep -v '\.sh' | grep -v '\.zsh'`; do
+for f in `command ls -Ap | grep -v / | grep -v '\.sh' | grep -v '\.zsh$'`; do
     if [[ "$f" =~ (\.git|\.session|test|tmp|local|list|README).* ]]; then continue; fi
     if [ -f "$HOME/$f" ]; then
         warning "$HOME/$f: Symbolic link already exists."
