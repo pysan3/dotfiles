@@ -65,4 +65,3 @@ fi
 cd $WORKDIR
 
 checkdependency git
-checkdependency tmux
