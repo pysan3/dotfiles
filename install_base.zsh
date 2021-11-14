@@ -7,6 +7,8 @@ source "$DOTFILES/functions.zsh"
 
 # install haskel interpreter
 if [ ! -d "$XDG_DATA_HOME"/ghcup ] || [ ! command -v cabal &> /dev/null ] || [ ! command -v pandoc &> /dev/null ]; then
+    info 'Installing `cabal` for haskel and `pandoc`'
+    warning 'Answer N->Y->Y to the questions'
     cd
     wget -qO- https://get-ghcup.haskell.org | sh
     stack setup
@@ -20,41 +22,65 @@ fi
 # install zsh shell utils
 mkdir -p "$XDG_DATA_HOME"/zsh
 if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    info "Installing zsh-syntax-highlighting"
     git clone git://github.com/zsh-users/zsh-syntax-highlighting.git "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting
     zcompile "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    info "Installing zsh-autosuggestions"
     git clone git://github.com/zsh-users/zsh-autosuggestions.git "$XDG_DATA_HOME"/zsh/zsh-autosuggestions
     zcompile "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # install pyenv
 if ! command -v 'pyenv' &>/dev/null; then
+    info "Installing pyenv"
     curl https://pyenv.run | bash
 fi
 # install poetry
 if ! command -v 'poetry' &> /dev/null; then
+    info "Installing poetry"
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
 fi
 
 # install ruby
+install_ruby=true
 if [ ! -d "$RBENV_ROOT" ]; then
+    info "Installing ruby and rbenv, mainly for neovim"
+    if command -v 'rbenv' &> /dev/null; then
+        error 'Command `rbenv` found but not installed to '"$RBENV_ROOT"
+        checkyes "Continue installation? ($(tput setaf 1)THIS WILL TAKE OVER EXISTING ENVS$(tput sgr0))"
+        if [ $? -eq 0 ]; then
+            install_ruby=false
+            tput setaf 4
+            echo "Please delete the following line in $DOTFILES/.zshenv"
+            tput sgr0
+            echo 'export RBENV_ROOT="$XDG_DATA_HOME"/rbenv'
+            tput setaf 4
+            echo 'Or add `unset RBENV_ROOT` to the top of '"$ZDOTDIR/.zshrc"
+            tput sgr0
+        fi
+    fi
     git clone https://github.com/rbenv/rbenv.git "$RBENV_ROOT"
     git clone https://github.com/rbenv/ruby-build.git "$RBENV_ROOT"/plugins/ruby-build
 fi
-export PATH="$RBENV_ROOT/bin:$PATH"
-CONFIGURE_OPTS='--disable-install-rdoc' rbenv install $(rbenv install -l | grep -v - | tail -1)
-rbenv global $(rbenv install -l | grep -v - | tail -1)
+if "$install_ruby"; then
+    export PATH="$RBENV_ROOT/bin:$PATH"
+    latest_ruby=$(rbenv install -l 2>/dev/null | grep -v - | tail -1)
+    CONFIGURE_OPTS='--disable-install-rdoc' rbenv install $latest_ruby
+    rbenv global $latest_ruby && info "Installed ruby ($latest_ruby) for user: $USER"
+fi
 
 # RUST
 if ! command -v 'cargo' &> /dev/null; then
-    checkyes "Seems you don't have cargo installed. Install?"
+    checkyes "Seems you don't have cargo (rust) installed. Install?"
     if [ $? -eq 0 ]; then
         wget -qO - https://sh.rustup.rs | sh
         source "$CARGO_HOME"/env
-        cargo install cargo-update
+        cargo install cargo-update && info "Successfully installed cargo"
     else
-        echo 'Press C-c to exit and install cargo manually.'
+        echo 'Press C-c to exit and install cargo manually. Or press ENTER to continue.'
+        warning 'cargo is a MUST required dependency for further executions'
         read tmp
     fi
 fi
@@ -91,7 +117,7 @@ done < "$DOTFILES/static/list_rust_packages.txt"
 
 # install nvim
 if ! command -v nvim &> /dev/null; then
-    echo 'It seems neovim is not installed. Commands bellow will be called.'
+    error 'It seems neovim is not installed. Commands bellow will be called.'
     echo 'sudo apt install neovim'
     echo 'sudo apt install python-neovim'
     echo 'sudo apt install python3-neovim'
@@ -101,7 +127,9 @@ if ! command -v nvim &> /dev/null; then
         sudo apt install python-neovim
         sudo apt install python3-neovim
     else
-        echo 'Please install manually. https://github.com/neovim/neovim/wiki/Installing-Neovim'
+        error 'Please install manually.'
+        echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
+        exit
     fi
 fi
 
@@ -116,6 +144,7 @@ fi
 if ! checkdependency 'npm'; then
     exit
 fi
+info "Updating coc plugins."
 npm install \
     coc-diagnostic \
     coc-explorer \
@@ -139,3 +168,5 @@ npm install \
     https://github.com/Eric-Song-Nop/coc-glslx \
     --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 cd -
+
+info "Everything is done. Thx!!"

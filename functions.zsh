@@ -1,3 +1,15 @@
+function error () {
+    tput setaf 1; echo "ERROR; $@" 1>&2; tput sgr0
+}
+
+function warning () {
+    tput setaf 3; echo "WARNING; $@" 1>&2; tput sgr0
+}
+
+function info () {
+    tput setaf 2; echo -n "INFO; "; tput sgr0; echo "$@"
+}
+
 function checkyes() {
     result=1
     if [[ x$(basename $SHELL) = x'bash' ]]; then
@@ -12,8 +24,8 @@ function checkdependency () {
     if command -v "$1" >/dev/null 2>&1; then
         return 0
     else
-        echo 'Seems you do not have `'"$1"'`$1 installed.'
-        echo 'Install it and run this script again'
+        error 'Seems you do not have `'"$1"'`$1 installed.'
+        error 'Install it and run this script again'
         return 1
     fi
 }
