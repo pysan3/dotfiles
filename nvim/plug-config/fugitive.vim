@@ -6,8 +6,8 @@ nmap <Leader>g [fugitive]
 nnoremap [fugitive]s :G<CR>
 nnoremap [fugitive]a :G add .<CR>
 nnoremap [fugitive]t :GBranches<CR>
-nnoremap [fugitive]p :G push<CR>
-nnoremap [fugitive]l :G pull<CR>
+nnoremap [fugitive]p :G! push --quiet<CR>
+nnoremap [fugitive]l :G! pull --quiet<CR>
 nnoremap [fugitive]b :G blame<CR>
 nnoremap [fugitive]d :Gdiff<CR>
 nnoremap [fugitive]m :G merge<CR>
