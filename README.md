@@ -8,28 +8,28 @@ This installation might cause serious changes to your workflow.
 ## Included Config Files
 
 - zsh
-  - <./.zshenv>
-  - <./config/zsh/.zshrc>
-  - <./config/zsh/.zsh_aliases>
-  - <./config/zsh/.zsh_rust> (Add various programs to `$PATH`)
+  - [./.zshenv](./.zshenv)
+  - [./config/zsh/.zshrc](./config/zsh/.zshrc)
+  - [./config/zsh/.zsh_aliases](./config/zsh/.zsh_aliases)
+  - [./config/zsh/.zsh_rust](./config/zsh/.zsh_rust) (Add various programs to `$PATH`)
 - neovim
-  - <./config/nvim>
+  - [./config/nvim](./config/nvim)
 - alacritty
-  - <./config/alacritty/alacritty.yml>
+  - [./config/alacritty/alacritty.yml](./config/alacritty/alacritty.yml)
 - git
-  - <./config/git/config>
+  - [./config/git/config](./config/git/config)
 - latexmk
-  - <./config/latexmk/latexmkrc>
+  - [./config/latexmk/latexmkrc](./config/latexmk/latexmkrc)
 - npm
-  - <./config/npm/npmrc>
+  - [./config/npm/npmrc](./config/npm/npmrc)
 - peco
-  - <./config/peco/config.json>
+  - [./config/peco/config.json](./config/peco/config.json)
 - tmux
-  - <./config/tmux/tmux.conf>
+  - [./config/tmux/tmux.conf](./config/tmux/tmux.conf)
 - vifm
-  - <./config/vifm/vifmrc>
+  - [./config/vifm/vifmrc](./config/vifm/vifmrc)
 - wget
-  - <./config/wgetrc>
+  - [./config/wgetrc](./config/wgetrc)
 
 ## Installation
 
