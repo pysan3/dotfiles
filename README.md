@@ -13,7 +13,7 @@ This installation might cause serious changes to your workflow.
   - [./config/zsh/.zsh_aliases](./config/zsh/.zsh_aliases)
   - [./config/zsh/.zsh_rust](./config/zsh/.zsh_rust) (Add various programs to `$PATH`)
 - neovim
-  - [./config/nvim](./config/nvim)
+  - [./nvim](./nvim)
 - alacritty
   - [./config/alacritty/alacritty.yml](./config/alacritty/alacritty.yml)
 - git
