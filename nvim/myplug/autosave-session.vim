@@ -22,6 +22,10 @@ function SessionName()
 endfunction
 
 function! SaveSess(...)
+    if expand(getcwd()) == $HOME
+        echo 'Currently working in $HOME directory. Not saving session.'
+        return 0
+    endif
     let sessionpath = expand(getcwd() . '/.session.vim ')
     let dirname = expand(g:startify_session_dir) . '/' . SessionName()
     let yes = a:0 && a:1
