@@ -46,15 +46,15 @@ alias upgradejs='sudo npm install -g npm && sudo npm upgrade -g'
 alias upgraderb='gem update'
 alias upgradehs='cabal new-update' # cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
 
-alias vm="$EDITOR $ZDOTDIR/.vimrc"
-alias vz="$EDITOR $ZDOTDIR/.zshrc"
-alias va="$EDITOR $ZDOTDIR/.zsh_aliases"
-alias vr="$EDITOR $ZDOTDIR/.zsh_rust"
-alias vl="$EDITOR $ZDOTDIR/.zsh_local"
-alias vs="$EDITOR $ZDOTDIR/.zsh_script"
-alias vc="$EDITOR ~/mySecrets.env"
-alias ve="$EDITOR .env"
-alias vh="$EDITOR $ZDOTDIR/.zsh_history"
+alias vm="cd; $EDITOR $ZDOTDIR/.vimrc; cd - >/dev/null"
+alias vz="cd; $EDITOR $ZDOTDIR/.zshrc; cd - >/dev/null"
+alias va="cd; $EDITOR $ZDOTDIR/.zsh_aliases; cd - >/dev/null"
+alias vr="cd; $EDITOR $ZDOTDIR/.zsh_rust; cd - >/dev/null"
+alias vl="cd; $EDITOR $ZDOTDIR/.zsh_local; cd - >/dev/null"
+alias vs="cd; $EDITOR $ZDOTDIR/.zsh_script; cd - >/dev/null"
+alias vc="cd; $EDITOR ~/mySecrets.env; cd - >/dev/null"
+alias ve="cd; $EDITOR .env; cd - >/dev/null"
+alias vh="cd; $EDITOR $ZDOTDIR/.zsh_history; cd - >/dev/null"
 
 alias dc="docker-compose"
 alias po='poetry'
