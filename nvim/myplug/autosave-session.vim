@@ -21,13 +21,17 @@ function SessionName()
     return trim(trim(system('basename ' . getcwd())), '.')
 endfunction
 
+function! FullPath(path)
+    return resolve(expand(a:path))
+endfun
+
 function! SaveSess(...)
-    if expand(getcwd()) == $HOME
+    if FullPath(getcwd()) == FullPath($HOME)
         echo 'Currently working in $HOME directory. Not saving session.'
         return 0
     endif
-    let sessionpath = expand(getcwd() . '/.session.vim ')
-    let dirname = expand(g:startify_session_dir) . '/' . SessionName()
+    let sessionpath = FullPath(getcwd() . '/.session.vim ')
+    let dirname = FullPath(g:startify_session_dir) . '/' . SessionName()
     let yes = a:0 && a:1
     if (!yes) && empty(glob(dirname)) && (Confirm('Save current session to ' . dirname . '? [y/N]: ', 'y', 1) == 0)
         echo 'Not saving a new session.'
@@ -54,7 +58,7 @@ endif
 endfunction
 
 function! DeleteSess()
-    let session_list = split(globpath(expand(g:startify_session_dir), '[^_]*'), '\n')
+    let session_list = split(globpath(FullPath(g:startify_session_dir), '[^_]*'), '\n')
     let current = -1
     let current_session = SessionName()
     if len(session_list) == 0
