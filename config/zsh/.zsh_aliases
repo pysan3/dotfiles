@@ -12,7 +12,7 @@ export PIPENV_VENV_IN_PROJECT=1
 export PIPENV_NO_INHERIT=1
 export PIPENV_IGNORE_VIRTUALENVS=1
 export CLICOLOR=1
-export EDITOR='vim'
+export EDITOR='nvim'
 
 if [ x"$MYENV" = 'x' ]; then
     export MYENV='undefined';
@@ -37,7 +37,7 @@ alias tr='trash-restore'
 alias g='git'
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_git -F /dev/null'
 alias yay='yay --noconfirm'
-alias restart="source $ZDOTDIR/.zshrc"
+alias restart="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
 alias upgradeall='for lang in py rs js rb hs; do eval upgrade$lang; done'
 alias upgradepy='pipupgrade --verbose --latest --yes' # pip install pipupgrade
@@ -46,15 +46,15 @@ alias upgradejs='sudo npm install -g npm && sudo npm upgrade -g'
 alias upgraderb='gem update'
 alias upgradehs='cabal new-update' # cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
 
-alias vm="vim $ZDOTDIR/.vimrc"
-alias vz="vim $ZDOTDIR/.zshrc"
-alias va="vim $ZDOTDIR/.zsh_aliases"
-alias vr="vim $ZDOTDIR/.zsh_rust"
-alias vl="vim $ZDOTDIR/.zsh_local"
-alias vs="vim $ZDOTDIR/.zsh_script"
-alias vc="vim ~/mySecrets.env"
-alias ve="vim .env"
-alias vh="vim $ZDOTDIR/.zsh_history"
+alias vm="$EDITOR $ZDOTDIR/.vimrc"
+alias vz="$EDITOR $ZDOTDIR/.zshrc"
+alias va="$EDITOR $ZDOTDIR/.zsh_aliases"
+alias vr="$EDITOR $ZDOTDIR/.zsh_rust"
+alias vl="$EDITOR $ZDOTDIR/.zsh_local"
+alias vs="$EDITOR $ZDOTDIR/.zsh_script"
+alias vc="$EDITOR ~/mySecrets.env"
+alias ve="$EDITOR .env"
+alias vh="$EDITOR $ZDOTDIR/.zsh_history"
 
 alias dc="docker-compose"
 alias po='poetry'
