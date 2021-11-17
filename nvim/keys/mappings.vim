@@ -38,12 +38,14 @@ vnoremap > >gv
 
 " Searching
 nnoremap <ESC><ESC> :nohlsearch<CR>
-"検索語が画面の真ん中に来るようにする
+" 検索語が画面の真ん中に来るようにする
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *Nzz
 nnoremap # #nzz
 nnoremap g* g*zz
+" // で選択中のテキストを検索
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " Better window navigation
 nnoremap <C-h> <C-w>h

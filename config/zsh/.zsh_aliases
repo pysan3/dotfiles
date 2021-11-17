@@ -12,7 +12,7 @@ export PIPENV_VENV_IN_PROJECT=1
 export PIPENV_NO_INHERIT=1
 export PIPENV_IGNORE_VIRTUALENVS=1
 export CLICOLOR=1
-export EDITOR='nvim'
+export EDITOR='vim'
 
 if [ x"$MYENV" = 'x' ]; then
     export MYENV='undefined';
@@ -46,16 +46,16 @@ alias upgradejs='sudo npm install -g npm && sudo npm upgrade -g'
 alias upgraderb='gem update'
 alias upgradehs='cabal new-update' # cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
 
-alias vm="cd; $EDITOR $ZDOTDIR/.vimrc; cd - >/dev/null"
-alias vz="cd; $EDITOR $ZDOTDIR/.zshrc; cd - >/dev/null"
-alias vv="cd; $EDITOR $HOME/.zshenv; cd - >/dev/null"
-alias va="cd; $EDITOR $ZDOTDIR/.zsh_aliases; cd - >/dev/null"
-alias vr="cd; $EDITOR $ZDOTDIR/.zsh_rust; cd - >/dev/null"
-alias vl="cd; $EDITOR $ZDOTDIR/.zsh_local; cd - >/dev/null"
-alias vs="cd; $EDITOR $ZDOTDIR/.zsh_script; cd - >/dev/null"
-alias vc="cd; $EDITOR ~/mySecrets.env; cd - >/dev/null"
-alias ve="cd; $EDITOR .env; cd - >/dev/null"
-alias vh="cd; $EDITOR $ZDOTDIR/.zsh_history; cd - >/dev/null"
+alias vm="cd; nvim $ZDOTDIR/.vimrc; cd - >/dev/null"
+alias vz="cd; nvim $ZDOTDIR/.zshrc; cd - >/dev/null"
+alias vv="cd; nvim $HOME/.zshenv; cd - >/dev/null"
+alias va="cd; nvim $ZDOTDIR/.zsh_aliases; cd - >/dev/null"
+alias vr="cd; nvim $ZDOTDIR/.zsh_rust; cd - >/dev/null"
+alias vl="cd; nvim $ZDOTDIR/.zsh_local; cd - >/dev/null"
+alias vs="cd; nvim $ZDOTDIR/.zsh_script; cd - >/dev/null"
+alias vc="cd; nvim ~/mySecrets.env; cd - >/dev/null"
+alias ve="cd; nvim .env; cd - >/dev/null"
+alias vh="cd; nvim $ZDOTDIR/.zsh_history; cd - >/dev/null"
 
 alias dc="docker-compose"
 alias po='poetry'
