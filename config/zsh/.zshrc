@@ -134,8 +134,8 @@ compile_zdots() {
         fi
     done
 }
-compile_zdots "$ZDOTDIR/.zshrc" "$ZDOTDIR/.zsh_aliases" "$ZDOTDIR/.zsh_local" "$ZDOTDIR/.zsh_script" "$ZDOTDIR/.zsh_rust"
+compile_zdots "$HOME/.zshenv"
 # compile_zdots .zprofile
+compile_zdots "$ZDOTDIR/.zshrc" "$ZDOTDIR/.zsh_aliases" "$ZDOTDIR/.zsh_local" "$ZDOTDIR/.zsh_script" "$ZDOTDIR/.zsh_rust"
 # compile_zdots .zlogin
 # compile_zdots .zlogout
-compile_zdots "$HOME/.zshenv"
