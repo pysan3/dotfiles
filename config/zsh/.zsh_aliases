@@ -48,6 +48,7 @@ alias upgradehs='cabal new-update' # cabal new-install --overwrite-policy=always
 
 alias vm="cd; $EDITOR $ZDOTDIR/.vimrc; cd - >/dev/null"
 alias vz="cd; $EDITOR $ZDOTDIR/.zshrc; cd - >/dev/null"
+alias vv="cd; $EDITOR $HOME/.zshenv; cd - >/dev/null"
 alias va="cd; $EDITOR $ZDOTDIR/.zsh_aliases; cd - >/dev/null"
 alias vr="cd; $EDITOR $ZDOTDIR/.zsh_rust; cd - >/dev/null"
 alias vl="cd; $EDITOR $ZDOTDIR/.zsh_local; cd - >/dev/null"
