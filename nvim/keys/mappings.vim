@@ -89,7 +89,7 @@ noremap <Leader>P "+P
 
 " ノーマルモードのときにxキー、sキーで削除した文字をヤンクしない
 nnoremap x "_x
-nnoremap s "_s
+" nnoremap s "_s
 
 " Trailing Spaces
 command! T FixWhitespace
