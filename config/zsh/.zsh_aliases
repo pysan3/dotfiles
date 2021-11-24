@@ -60,6 +60,7 @@ alias vh="cd; nvim $ZDOTDIR/.zsh_history; cd - >/dev/null"
 alias dc="docker-compose"
 alias po='poetry'
 alias tm="tmuxinator"
+alias ta="tmux a"
 alias ttmp="tmux new-session -A -s tmp"
 alias yt='youtube-dl -ci -f mp4'
 
