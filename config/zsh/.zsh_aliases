@@ -40,7 +40,7 @@ alias yay='yay --noconfirm'
 alias restart="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
 alias upgradeall='for lang in py rs js rb hs; do eval upgrade$lang; done'
-alias upgradepy='pipupgrade --verbose --latest --yes' # pip install pipupgrade
+alias upgradepy='pipupgrade --verbose --latest --yes; poetry self update' # pip install pipupgrade
 alias upgraders='cargo install-update --all' # cargo install cargo-update
 alias upgradejs='sudo npm install -g npm && sudo npm upgrade -g'
 alias upgraderb='gem update'
@@ -82,7 +82,7 @@ alias papertex="cp $NCPATH/Templates/template.sty . && cat $NCPATH/Templates/pap
 # depends on .zsh_local
 alias cbw='set -a; source ~/mySecrets.env; set +a; echo $BW_PASSWORD | bw'
 alias bwpass="jq '.login' | jq -r '.password'"
-alias here="$FE ."
+alias here="$FE . >/dev/null 2/&1 || true"
 
 function def() {
     alias $@ || declare -f $@ || which $@
