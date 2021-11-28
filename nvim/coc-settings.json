@@ -1,102 +1,97 @@
 {
-    "coc.preferences.rootPatterns": [".git", ".vim"],
-    "diagnostic-languageserver.enable": true,
-    "diagnostic-languageserver.mergeConfig": true,
-    "diagnostic.checkCurrentLine": true,
-    "diagnostic.virtualText": true,
-    "diagnostic.virtualTextCurrentLineOnly": false,
-    "diagnostic.messageTarget": "echo",
+  "coc.preferences.rootPatterns": [".git", ".vim"],
+  "diagnostic-languageserver.enable": true,
+  "diagnostic-languageserver.mergeConfig": true,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.messageTarget": "echo",
 
-    "coc.preferences.formatOnSaveFiletypes": [
-        "css",
-        "markdown",
-        "javascript",
-        "vue",
-        "graphql",
-        "html",
-        "yaml",
-        "json",
-        "python"
-    ],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "markdown",
+    "javascript",
+    "vue",
+    "graphql",
+    "html",
+    "yaml",
+    "json",
+    "python"
+  ],
 
-    "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",
-    "snippets.ultisnips.directories": [
-        "UltiSnips",
-        "~/.config/nvim/utils/snips"
-    ],
+  "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",
+  "snippets.ultisnips.directories": ["UltiSnips", "~/.config/nvim/utils/snips"],
 
-    // explorer
-    "explorer.width": 30,
-    "explorer.icon.enableNerdfont": true,
-    "explorer.previewAction.onHover": false,
-    "explorer.keyMappings.global": {
-        "<cr>": ["expandable?", "expand", "open"],
-        "v": "open:vsplit"
+  // explorer
+  "explorer.width": 30,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.previewAction.onHover": false,
+  "explorer.keyMappings.global": {
+    "<cr>": ["expandable?", "expand", "open"],
+    "v": "open:vsplit"
+  },
+  "explorer.file.showHiddenFiles": true,
+  "explorer.root.strategies": [
+    "keep",
+    "workspace",
+    "cwd",
+    "sourceBuffer",
+    "reveal"
+  ],
+  "explorer.trash.command": "trash-put %l",
+
+  // python config
+  /* "python.pythonPath": "${workspaceFolder}/.venv/bin/python3", */
+  "python.analysis.extraPaths": ["${workspaceFolder}"],
+  "python.autoComplete.extraPaths": ["${workspaceFolder}"],
+  "python.venvPath": "${workspaceFolder}/..",
+  "python.venvFolders": ["${workspaceFolder}/..", "${workspaceFolder}"],
+  "python.jediEnabled": false,
+  "python.linting.enabled": true,
+  "python.linting.lintOnSave": true,
+  /* "python.linting.mypyEnabled": true, */
+  /* "python.linting.mypyPath": "~/.local/bin/mypy", */
+  /* "python.linting.mypyArgs": [ */
+  /*     "--ignore-missing-imports", */
+  /*     "--follow-imports=silent", */
+  /*     "--show-column-numbers" */
+  /* ], */
+  "python.linting.pylintEnabled": false,
+  /* "python.linting.pylintPath": "${workspaceFolder}/.venv/bin/pylint", */
+  /* "python.linting.pylintArgs": [ */
+  /*     "--init-hook='./'", */
+  /*     "--max-line-length=120" */
+  /* ], */
+  "python.linting.flake8Enabled": true,
+  /* "python.linting.flake8Path": "~/.local/bin/flake8", */
+  "python.linting.flake8Args": ["--max-line-length=120", "--ignore=F405"],
+  "python.formatting.autopep8Args": [
+    "--max-line-length=120",
+    "--aggressive",
+    "--aggressive"
+  ],
+
+  // js config
+  "prettier.eslintIntegration": true,
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnTypeFiletypes": [
+    "css",
+    "markdown",
+    "javascript",
+    "typescript"
+  ],
+  "eslint.autoFixOnSave": true,
+
+  // vetur config
+  "vetur.format.defaultFormatterOptions": {
+    "js-beautify-html": {
+      "wrap_attributes": "force-expand-multiline"
     },
-    "explorer.file.showHiddenFiles": true,
-    "explorer.root.strategies": [
-        "keep",
-        "workspace",
-        "cwd",
-        "sourceBuffer",
-        "reveal"
-    ],
-    "explorer.trash.command": "trash-put %l",
-
-    // python config
-    /* "python.pythonPath": "${workspaceFolder}/.venv/bin/python3", */
-    "python.analysis.extraPaths": [
-        "${workspaceFolder}"
-    ],
-    "python.autoComplete.extraPaths": [
-        "${workspaceFolder}"
-    ],
-    "python.venvPath": "${workspaceFolder}/..",
-    "python.venvFolders": [
-        "${workspaceFolder}/..",
-        "${workspaceFolder}"
-    ],
-    "python.jediEnabled": false,
-    "python.linting.enabled": true,
-    "python.linting.lintOnSave": true,
-    /* "python.linting.mypyEnabled": true, */
-    /* "python.linting.mypyPath": "~/.local/bin/mypy", */
-    /* "python.linting.mypyArgs": [ */
-    /*     "--ignore-missing-imports", */
-    /*     "--follow-imports=silent", */
-    /*     "--show-column-numbers" */
-    /* ], */
-    "python.linting.pylintEnabled": false,
-    /* "python.linting.pylintPath": "${workspaceFolder}/.venv/bin/pylint", */
-    /* "python.linting.pylintArgs": [ */
-    /*     "--init-hook='./'", */
-    /*     "--max-line-length=120" */
-    /* ], */
-    "python.linting.flake8Enabled": true,
-    /* "python.linting.flake8Path": "~/.local/bin/flake8", */
-    "python.linting.flake8Args": [
-        "--max-line-length=120",
-        "--ignore=F405"
-    ],
-    "python.formatting.autopep8Args": [
-        "--max-line-length=120",
-        "--aggressive", "--aggressive"
-    ],
-
-    // js config
-    "prettier.eslintIntegration": true,
-    "eslint.autoFixOnSave": true,
-
-    // vetur config
-    "vetur.format.defaultFormatterOptions": {
-        "js-beautify-html": {
-            "wrap_attributes": "force-expand-multiline"
-        },
-        "prettyhtml": {
-            "printWidth": 100,
-            "singleQuote": true,
-            "wrapAttributes": false,
-            "sortAttributes": false
-        }
+    "prettyhtml": {
+      "printWidth": 100,
+      "singleQuote": true,
+      "wrapAttributes": false,
+      "sortAttributes": false
     }
+  }
 }
