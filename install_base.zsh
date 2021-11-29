@@ -40,7 +40,7 @@ fi
 # install poetry
 if ! command -v 'poetry' &> /dev/null; then
     info "Installing poetry"
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+    curl -sSL https://install.python-poetry.org | python -
 fi
 
 # install ruby
