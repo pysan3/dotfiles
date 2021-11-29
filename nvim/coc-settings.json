@@ -72,7 +72,7 @@
   ],
 
   // js config
-  "prettier.eslintIntegration": true,
+  "prettier.eslintIntegration": false,
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnTypeFiletypes": [
     "css",
