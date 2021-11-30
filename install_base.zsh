@@ -5,6 +5,13 @@ echo "Running file in $DOTFILES"
 source "$DOTFILES/.zshenv"
 source "$DOTFILES/functions.zsh"
 
+if ! command -v 'python' &>/dev/null || [[ `python -V` =~ 'Python 2.*' ]]; then
+    error 'No python command found'
+    if checkyes 'do you want to create a systemwide symlink to python3?'; then
+        sudo ln -s `which python3` /usr/bin/python
+    fi
+fi
+
 # install haskel interpreter
 if [ ! -d "$XDG_DATA_HOME"/ghcup ] || [ ! command -v cabal &> /dev/null ] || [ ! command -v pandoc &> /dev/null ]; then
     info 'Installing `cabal` for haskel and `pandoc`'
