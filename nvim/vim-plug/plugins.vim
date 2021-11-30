@@ -66,13 +66,16 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Startify
     Plug 'mhinz/vim-startify'
     " git stuff
-    Plug 'mhinz/vim-signify'
-    Plug 'tpope/vim-fugitive'
-    Plug 'rhysd/conflict-marker.vim'
-    Plug 'tpope/vim-rhubarb'
-    Plug 'stsewd/fzf-checkout.vim'
-    Plug 'airblade/vim-rooter'
+    " Plug 'mhinz/vim-signify'
+    " Plug 'tpope/vim-fugitive'
+    " Plug 'rhysd/conflict-marker.vim'
+    " Plug 'tpope/vim-rhubarb'
+    " Plug 'stsewd/fzf-checkout.vim'
+    " Plug 'airblade/vim-rooter'
     Plug 'junegunn/gv.vim'
+    Plug 'TimUntersberger/neogit'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'sindrets/diffview.nvim'
     " vim-which-key
     " Plug 'liuchengxu/vim-which-key'
     " vim sneak or lightspeed is better in some ways
