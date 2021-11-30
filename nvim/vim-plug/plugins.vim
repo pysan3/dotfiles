@@ -11,7 +11,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " NeoVim in the browser
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(1) } }
     " Better Syntax Support
-    Plug 'sheerun/vim-polyglot'
+    " Plug 'sheerun/vim-polyglot'
     " show how many occurance found
     Plug 'google/vim-searchindex'
     " Use * in visual mode
@@ -75,8 +75,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'junegunn/gv.vim'
     " vim-which-key
     " Plug 'liuchengxu/vim-which-key'
-    " vim sneak
-    Plug 'justinmk/vim-sneak'
+    " vim sneak or lightspeed is better in some ways
+    " Plug 'justinmk/vim-sneak'
+    Plug 'ggandor/lightspeed.nvim'
     " Snippets
     Plug 'honza/vim-snippets'
     " Floaterm
