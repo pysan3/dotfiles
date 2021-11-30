@@ -24,8 +24,8 @@ nnoremap <F3> :bnext<CR>
 " Alternate way to save
 nnoremap <C-s> :w<CR>
 " Alternate way to quit
-nnoremap <C-Q> :wq<CR>
-inoremap <C-Q> <Esc>:wq<CR>
+nnoremap <C-Q> :wq!<CR>
+inoremap <C-Q> <Esc>:wq!<CR>
 nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>q :bd!<CR>
 " Use control-c instead of escape
