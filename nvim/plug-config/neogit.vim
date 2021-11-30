@@ -70,3 +70,7 @@ nnoremap [neogit]d :DiffviewOpen<CR>
 nnoremap [neogit]D :DiffviewOpen master<CR>
 nnoremap [neogit]l :Neogit log<CR>
 nnoremap [neogit]p :Neogit push<CR>
+
+lua << EOF
+require('gitsigns').setup()
+EOF

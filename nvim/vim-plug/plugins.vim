@@ -76,6 +76,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'TimUntersberger/neogit'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'sindrets/diffview.nvim'
+    Plug 'lewis6991/gitsigns.nvim'
     " vim-which-key
     " Plug 'liuchengxu/vim-which-key'
     " vim sneak or lightspeed is better in some ways
