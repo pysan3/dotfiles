@@ -1,6 +1,3 @@
-[user]
-	email = takutoitoi914@ruri.waseda.jp
-	name = takuto
 [secrets]
 	providers = git secrets --aws-provider
 	patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
