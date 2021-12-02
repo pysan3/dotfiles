@@ -42,13 +42,14 @@ cd "$HOME"
 git clone https://git.esslab.jp/takuto/dotfiles.git
 cd dotfiles
 
+# Create Symlink for all Config Files
+# Already existing files will NOT be overwritten, and will not apply any changes
+~/dotfiles/install_dotfiles.sh
+
 # Install Package Requirements
 # Watch the installation, it needs some inputs from the user along the way
 ~/dotfiles/install_base.zsh
 
-# Create Symlink for all Config Files
-# Already existing files will NOT be overwritten, and will not apply any changes
-~/dotfiles/install_dotfiles.sh
 ```
 
 ## Requirements
