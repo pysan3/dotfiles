@@ -64,11 +64,11 @@ nnoremap [neogit] <Nop>
 
 nmap <Leader>g [neogit]
 
-nnoremap [neogit]g :Neogit<CR>
-nnoremap [neogit]s :Neogit<CR>
+nnoremap [neogit]s :Neogit kind=split<CR>
 nnoremap [neogit]d :DiffviewOpen<CR>
 nnoremap [neogit]D :DiffviewOpen master<CR>
-nnoremap [neogit]l :Neogit log<CR>
+nnoremap [neogit]g :Neogit log<CR>
+nnoremap [neogit]l :Neogit pull<CR>
 nnoremap [neogit]p :Neogit push<CR>
 
 lua << EOF
