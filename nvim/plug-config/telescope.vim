@@ -11,6 +11,14 @@ require('telescope').setup {
         layout_config = {
             prompt_position = "top",
             },
+        -- put results in ascending order
+        sorting_strategy = "ascending",
+        -- shorten file names displayed
+        path_display = {
+            shorten = { len = 1, exclude = { -1, -2 } },
+            smart = true,
+            truncate = true
+            },
         -- ripgrep remove indentation
         vimgrep_arguments = {
             "rg",
