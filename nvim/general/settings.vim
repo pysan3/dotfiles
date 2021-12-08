@@ -117,10 +117,10 @@ nnoremap <F7> :set nospell!<CR>
 nnoremap zg zg]s
 
 "----------------------------------------------------------
-" .netrwhist
-" new files to manage network files
+" disable netrw
 "----------------------------------------------------------
 let g:netrw_home=$XDG_CACHE_HOME . '/nvim'
+let loaded_netrw = 0
 
 let g:loaded_python_provider = 0
 let g:python3_host_prog='/usr/bin/python3'

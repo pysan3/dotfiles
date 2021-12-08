@@ -1,7 +1,3 @@
-function! GetCurrentDirName()
-    echo system('basename ' . getcwd())
-endfunction
-
 function! Confirm(msg, ans, value)
     echo a:msg . ' '
     let l:answer = nr2char(getchar())
@@ -17,8 +13,11 @@ function! Confirm(msg, ans, value)
     endif
 endfun
 
-function SessionName()
-    return trim(trim(system('basename ' . getcwd())), '.')
+function SessionName(path)
+    if a:path == ''
+        return ''
+    endif
+    return trim(trim(system('basename ' . a:path)), '.')
 endfunction
 
 function! FullPath(path)
@@ -31,7 +30,7 @@ function! SaveSess(...)
         return 0
     endif
     let sessionpath = FullPath(getcwd() . '/.session.vim ')
-    let dirname = FullPath(g:startify_session_dir) . '/' . SessionName()
+    let dirname = FullPath(g:startify_session_dir) . '/' . SessionName(getcwd())
     let yes = a:0 && a:1
     if (!yes) && empty(glob(dirname)) && (Confirm('Save current session to ' . dirname . '? [y/N]: ', 'y', 1) == 0)
         echo 'Not saving a new session.'
@@ -47,13 +46,19 @@ endfunction
 function! RestoreSess()
 if filereadable(getcwd() . '/.session.vim')
     execute 'so ' . getcwd() . '/.session.vim'
+    let current_session = SessionName(getcwd())
+    for buf in range(1, bufnr('$'))
+        if SessionName(bufname(buf)) == current_session
+            exec 'bd ' . bufname(buf)
+        endif
+    endfor
 endif
 endfunction
 
 function! DeleteSess()
     let session_list = split(globpath(FullPath(g:startify_session_dir), '[^_]*'), '\n')
     let current = -1
-    let current_session = SessionName()
+    let current_session = SessionName(getcwd())
     if len(session_list) == 0
         echo 'No sessions to delete!'
         echo 'Nice and clean :D'
