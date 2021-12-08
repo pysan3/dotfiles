@@ -72,14 +72,8 @@
   ],
 
   // js config
-  "prettier.eslintIntegration": false,
+  "prettier.eslintIntegration": true,
   "coc.preferences.formatOnType": true,
-  "coc.preferences.formatOnTypeFiletypes": [
-    "css",
-    "markdown",
-    "javascript",
-    "typescript"
-  ],
   "eslint.autoFixOnSave": true,
 
   // vetur config
