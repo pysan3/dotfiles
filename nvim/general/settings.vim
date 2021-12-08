@@ -116,8 +116,12 @@ nnoremap <F6> :set spell! spelllang=en_us,cjk<CR>
 nnoremap <F7> :set nospell!<CR>
 nnoremap zg zg]s
 
-" else
-au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC
+"----------------------------------------------------------
+" .netrwhist
+" new files to manage network files
+"----------------------------------------------------------
+let g:netrw_home=$XDG_CACHE_HOME . '/nvim'
+
 let g:loaded_python_provider = 0
 let g:python3_host_prog='/usr/bin/python3'
 let g:python_host_prog='usr/bin/python2'
