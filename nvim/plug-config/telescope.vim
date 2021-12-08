@@ -5,8 +5,11 @@ require('telescope').setup {
         mappings = {
             i = {
                 ["<esc>"] = require('telescope.actions').close,
-                ["jk"] = require('telescope.actions').close
                 }
+            },
+        -- put prompt (input box) position to the top
+        layout_config = {
+            prompt_position = "top",
             },
         -- ripgrep remove indentation
         vimgrep_arguments = {
@@ -21,8 +24,8 @@ require('telescope').setup {
             }
         },
     pickers = {
+        -- remove ./ from fd results
         find_files = {
-            -- remove ./ from fd results
             find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
             }
         },
