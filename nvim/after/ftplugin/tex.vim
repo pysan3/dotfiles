@@ -9,4 +9,3 @@ set showtabline=2                       " Always show tabs
 set formatoptions=tcroqln
 " au BufRead,BufNewFile *.tex set comments+=b:\\item
 inoremap <expr> <CR> getline('.') =~ '\\item' ? '<C-g>u<CR>\item <Esc>0==fmla' : '<C-g>u<CR>'
-imap <C-o> <Esc>A<CR>
