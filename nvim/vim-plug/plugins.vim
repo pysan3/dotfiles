@@ -7,7 +7,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
-
+    Plug 'nvim-lua/plenary.nvim'
     " NeoVim in the browser
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(1) } }
     " Better Syntax Support
@@ -60,9 +60,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Airline
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    " Fzf
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
     " Startify
     Plug 'mhinz/vim-startify'
     " git stuff
@@ -74,9 +71,14 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Plug 'airblade/vim-rooter'
     Plug 'junegunn/gv.vim'
     Plug 'TimUntersberger/neogit'
-    Plug 'nvim-lua/plenary.nvim'
     Plug 'sindrets/diffview.nvim'
     Plug 'lewis6991/gitsigns.nvim'
+    " Fzf
+    " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    " Plug 'junegunn/fzf.vim'
+    Plug 'BurntSushi/ripgrep'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     " vim-which-key
     " Plug 'liuchengxu/vim-which-key'
     " vim sneak or lightspeed is better in some ways
