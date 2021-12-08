@@ -23,7 +23,7 @@ require('telescope').setup {
     pickers = {
         find_files = {
             -- remove ./ from fd results
-            find_command = { "fd". "--type", "f", "--strip-cwd-prefix" }
+            find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
             }
         },
     extensions = {
