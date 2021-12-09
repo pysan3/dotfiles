@@ -48,7 +48,7 @@ if filereadable(getcwd() . '/.session.vim')
     execute 'so ' . getcwd() . '/.session.vim'
     let current_session = SessionName(getcwd())
     for buf in range(1, bufnr('$'))
-        if bufname(buf) =~ '\.\/*'
+        if bufname(buf) == '.' || bufname(buf) == './'
             exec 'bd ' . bufname(buf)
         elseif SessionName(bufname(buf)) == current_session
             exec 'bd ' . bufname(buf)
