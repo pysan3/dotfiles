@@ -100,6 +100,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'cespare/vim-toml', { 'branch': 'main' }
     Plug 'elzr/vim-json'
     Plug 'plasticboy/vim-markdown'
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
     " Pandoc
     " Plug 'vim-pandoc/vim-pandoc'
     " Plug 'vim-pandoc/vim-pandoc-syntax'
