@@ -69,7 +69,7 @@ setopt auto_pushd # 遷移したディレクトリをスタックする
 setopt pushd_ignore_dups # 重複したディレクトリはスタックしない
 
 # backspace,deleteキーを使えるように
-stty erase ^H
+# stty erase ^H
 stty erase ""
 bindkey "^?" backward-delete-char
 bindkey "^[[3~" delete-char
