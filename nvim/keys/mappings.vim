@@ -11,11 +11,7 @@ inoremap <CR> <C-g>u<CR>
 
 " new line in insert mode
 imap <C-o> <Esc>A<CR>
-inoremap <C-i> <Esc>A,<Esc>o
-
-" Easy CAPS
-inoremap <c-u> <ESC>viwUi
-nnoremap <c-u> viwU<Esc>
+inoremap <C-p> <Esc>A,<Esc>o
 
 " move to next / previous buffer
 nnoremap <F2> :bprevious<CR>
