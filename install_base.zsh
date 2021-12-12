@@ -136,7 +136,6 @@ if ! command -v nvim &> /dev/null; then
     else
         error 'Please install manually.'
         echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
-        exit
     fi
 fi
 
