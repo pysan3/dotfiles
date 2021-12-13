@@ -125,18 +125,15 @@ done < "$DOTFILES/static/list_rust_packages.txt"
 # install and update zap (appimage package manager)
 info 'Installing zap (appimage package manager)'
 curl https://raw.githubusercontent.com/srevinsaju/zap/main/install.sh | bash -s
-zap init
 
 # install nvim
-if ! command -v nvim &> /dev/null; then
-    error 'It seems neovim is not installed.'
-    checkyes 'Install with zap?'
-    if [ $? -eq 0 ]; then
-        zap i --github --from neovim/neovim --executable nvim
-    else
-        error 'Please install manually.'
-        echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
-    fi
+warning 'Do you want to reinstall nvim?'
+checkyes 'Install with zap?'
+if [ $? -eq 0 ]; then
+    zap i --github --from neovim/neovim --executable nvim
+else
+    error 'Please install manually.'
+    echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
 fi
 
 # install coc extensions
