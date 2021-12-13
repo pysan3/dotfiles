@@ -21,7 +21,7 @@ if [ x"$PCNAME" = 'x' ]; then
     export PCNAME='undefined';
 fi
 
-alias ls='ls --color=auto'
+# alias ls='ls --color=auto'
 alias ll='ls -aFhl'
 alias lr='ls -RFh'
 alias la='ls -aFh'
