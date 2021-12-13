@@ -8,6 +8,7 @@ nnoremap <C-6> <C-^>
 " save undos on every space
 inoremap <space> <C-g>u<space>
 inoremap <CR> <C-g>u<CR>
+inoremap . <C-g>u.
 
 " new line in insert mode
 imap <C-o> <Esc>A<CR>
