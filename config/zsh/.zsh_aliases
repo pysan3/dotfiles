@@ -39,12 +39,13 @@ export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_git -F /dev/null'
 alias yay='yay --noconfirm'
 alias restart="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
-alias upgradeall='for lang in py rs js rb hs; do eval upgrade$lang; done'
+alias upgradeall='for lang in py rs js rb hs zap; do eval upgrade$lang; done'
 alias upgradepy='pipupgrade --verbose --latest --yes; poetry self update' # pip install pipupgrade
 alias upgraders='cargo install-update --all' # cargo install cargo-update
 alias upgradejs='sudo npm install -g npm && sudo npm upgrade -g'
 alias upgraderb='gem update'
 alias upgradehs='cabal new-update' # cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
+alias upgradezap='zap upgrade'
 
 alias vm="cd; nvim $ZDOTDIR/.vimrc; cd - >/dev/null"
 alias vz="cd; nvim $ZDOTDIR/.zshrc; cd - >/dev/null"
