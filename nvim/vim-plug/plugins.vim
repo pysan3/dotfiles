@@ -86,6 +86,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'ggandor/lightspeed.nvim'
     " Snippets
     Plug 'honza/vim-snippets'
+    " Zen-mode
+    Plug 'folke/zen-mode.nvim'
     " Floaterm
     Plug 'voldikss/vim-floaterm'
     " Async run

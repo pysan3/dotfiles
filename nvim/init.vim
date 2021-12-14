@@ -29,6 +29,7 @@ SourceIF $HOME/.config/nvim/plug-config/dragvisuals.vim
 SourceIF $HOME/.config/nvim/plug-config/asyncrun.vim
 SourceIF $HOME/.config/nvim/plug-config/auto-pairs.vim
 SourceIF $HOME/.config/nvim/plug-config/expand-region.vim
+SourceIF $HOME/.config/nvim/plug-config/zen-mode.vim
 " SourceIF $HOME/.config/nvim/syntax/markdown.vim
 SourceIF $HOME/.config/nvim/myplug/autosave-session.vim
 SourceIF $HOME/.config/nvim/myplug/terminal-as-vscode.vim
