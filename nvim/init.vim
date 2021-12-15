@@ -14,7 +14,7 @@ SourceIF $HOME/.config/nvim/themes/airline.vim
 SourceIF $HOME/.config/nvim/themes/environtheme.vim
 SourceIF $HOME/.config/nvim/plug-config/coc.vim
 " SourceIF $HOME/.config/nvim/plug-config/fzf.vim
-SourceIF $HOME/.config/nvim/plug-config/signify.vim
+" SourceIF $HOME/.config/nvim/plug-config/signify.vim
 SourceIF $HOME/.config/nvim/plug-config/firenvim.vim
 " SourceIF $HOME/.config/nvim/plug-config/fugitive.vim
 SourceIF $HOME/.config/nvim/plug-config/sneak.vim

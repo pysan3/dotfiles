@@ -34,7 +34,7 @@ require("neogit").setup {
             folded = false
             },
         stashes = {
-            folded = true
+            folded = false
             },
         unpulled = {
             folded = false
@@ -74,3 +74,11 @@ nnoremap [neogit]p :Neogit push<CR>
 lua << EOF
 require('gitsigns').setup()
 EOF
+
+" highlight conflicts
+" details: https://github.com/rhysd/conflict-marker.vim
+highlight ConflictMarkerBegin guibg=#2f7366
+highlight ConflictMarkerOurs guibg=#2e5049
+highlight ConflictMarkerTheirs guibg=#344f69
+highlight ConflictMarkerEnd guibg=#2f628e
+highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
