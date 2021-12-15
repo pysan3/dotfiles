@@ -49,4 +49,3 @@ eval "$(rbenv init -)"
 
 # js
 export PATH="$PATH:`npm config get prefix`/bin"
-
