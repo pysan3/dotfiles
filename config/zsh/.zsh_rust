@@ -47,5 +47,8 @@ fi
 export PATH="$PATH:$RBENV_ROOT/bin"
 eval "$(rbenv init -)"
 
+# js
+export PATH="$PATH:`npm config get prefix`/bin"
+
 act
 dotenv
