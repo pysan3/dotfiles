@@ -69,7 +69,7 @@ setopt auto_pushd # 遷移したディレクトリをスタックする
 setopt pushd_ignore_dups # 重複したディレクトリはスタックしない
 
 # backspace,deleteキーを使えるように
-stty erase ^H
+# stty erase ^H
 stty erase ""
 bindkey "^?" backward-delete-char
 bindkey "^[[3~" delete-char
@@ -112,11 +112,11 @@ RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 if [ -f "$ZDOTDIR/.zsh_local" ]; then
     source "$ZDOTDIR/.zsh_local"
 fi
-if [ -f "$ZDOTDIR/.zsh_aliases" ]; then
-    source "$ZDOTDIR/.zsh_aliases"
-fi
 if [ -f "$ZDOTDIR/.zsh_rust" ]; then
     source "$ZDOTDIR/.zsh_rust"
+fi
+if [ -f "$ZDOTDIR/.zsh_aliases" ]; then
+    source "$ZDOTDIR/.zsh_aliases"
 fi
 
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1

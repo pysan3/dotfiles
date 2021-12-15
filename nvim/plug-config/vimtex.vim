@@ -27,3 +27,6 @@ let g:vimtex_syntax_conceal = {
             \ 'sections': 1,
             \ 'styles': 0,
             \}
+
+" https://github.com/lervag/vimtex/blob/master/doc/vimtex.txt#LC2140
+let g:vimtex_quickfix_open_on_warning = 0

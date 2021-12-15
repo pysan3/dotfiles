@@ -54,7 +54,7 @@ endsnippet
 
 snippet apiroute "@api.route: snippet for @api.route()"
 @api.route('/api/${1:route_name}')
-async def ${1}(req, resp):
+async def ${1}(req: Request, resp: Response):
 	$0
 endsnippet
 

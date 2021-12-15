@@ -21,7 +21,7 @@ if [ x"$PCNAME" = 'x' ]; then
     export PCNAME='undefined';
 fi
 
-alias ls='ls --color=auto'
+# alias ls='ls --color=auto'
 alias ll='ls -aFhl'
 alias lr='ls -RFh'
 alias la='ls -aFh'
@@ -39,12 +39,13 @@ export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_git -F /dev/null'
 alias yay='yay --noconfirm'
 alias restart="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
-alias upgradeall='for lang in py rs js rb hs; do eval upgrade$lang; done'
+alias upgradeall='for lang in py rs js rb hs zap; do eval upgrade$lang; done'
 alias upgradepy='pipupgrade --verbose --latest --yes; poetry self update' # pip install pipupgrade
 alias upgraders='cargo install-update --all' # cargo install cargo-update
 alias upgradejs='sudo npm install -g npm && sudo npm upgrade -g'
 alias upgraderb='gem update'
 alias upgradehs='cabal new-update' # cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
+alias upgradezap='zap upgrade'
 
 alias vm="cd; nvim $ZDOTDIR/.vimrc; cd - >/dev/null"
 alias vz="cd; nvim $ZDOTDIR/.zshrc; cd - >/dev/null"
@@ -75,6 +76,7 @@ function act() {
     fi
     return 0
 }
+act
 alias gignore='wget -O- "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore'
 alias tasktex="cat $NCPATH/Templates/task-template.tex > "
 alias papertex="cp $NCPATH/Templates/template.sty . && cat $NCPATH/Templates/paper-template.tex > "
@@ -102,6 +104,7 @@ function dotenv () {
         source .env
     fi
 }
+dotenv
 
 # Run dotenv on every new directory
 function cd () {

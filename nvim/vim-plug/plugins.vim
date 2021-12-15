@@ -7,7 +7,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
-
+    Plug 'nvim-lua/plenary.nvim'
     " NeoVim in the browser
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(1) } }
     " Better Syntax Support
@@ -60,23 +60,25 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Airline
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    " Fzf
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
     " Startify
     Plug 'mhinz/vim-startify'
     " git stuff
     " Plug 'mhinz/vim-signify'
     " Plug 'tpope/vim-fugitive'
-    " Plug 'rhysd/conflict-marker.vim'
+    Plug 'rhysd/conflict-marker.vim'
     " Plug 'tpope/vim-rhubarb'
     " Plug 'stsewd/fzf-checkout.vim'
     " Plug 'airblade/vim-rooter'
     Plug 'junegunn/gv.vim'
     Plug 'TimUntersberger/neogit'
-    Plug 'nvim-lua/plenary.nvim'
     Plug 'sindrets/diffview.nvim'
     Plug 'lewis6991/gitsigns.nvim'
+    " Fzf
+    " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    " Plug 'junegunn/fzf.vim'
+    Plug 'BurntSushi/ripgrep'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     " vim-which-key
     " Plug 'liuchengxu/vim-which-key'
     " vim sneak or lightspeed is better in some ways
@@ -84,6 +86,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'ggandor/lightspeed.nvim'
     " Snippets
     Plug 'honza/vim-snippets'
+    " Zen-mode
+    Plug 'folke/zen-mode.nvim'
     " Floaterm
     Plug 'voldikss/vim-floaterm'
     " Async run
@@ -98,6 +102,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'cespare/vim-toml', { 'branch': 'main' }
     Plug 'elzr/vim-json'
     Plug 'plasticboy/vim-markdown'
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
     " Pandoc
     " Plug 'vim-pandoc/vim-pandoc'
     " Plug 'vim-pandoc/vim-pandoc-syntax'
