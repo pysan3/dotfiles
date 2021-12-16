@@ -127,15 +127,17 @@ if [ -f "$ZDOTDIR/.zsh_script" ]; then
     source "$ZDOTDIR/.zsh_script"
 fi
 
-compile_zdots() {
-    for file in "$@"; do
-        if [ -f "$file" ] && [ ! -f "$file.zwc" -o "$file" -nt "$file.zwc" ]; then
-            zcompile "$file"
-        fi
-    done
+compile_zdot() {
+    if [ -f "$1" ] && [ ! -f "$1.zwc" -o "$1" -nt "$1.zwc" ]; then
+        zcompile "$1"
+    fi
 }
-compile_zdots "$HOME/.zshenv"
-# compile_zdots .zprofile
-compile_zdots "$ZDOTDIR/.zshrc" "$ZDOTDIR/.zsh_aliases" "$ZDOTDIR/.zsh_local" "$ZDOTDIR/.zsh_script" "$ZDOTDIR/.zsh_rust"
-# compile_zdots .zlogin
-# compile_zdots .zlogout
+compile_zdot "$HOME/.zshenv"
+# compile_zdot .zprofile
+compile_zdot "$ZDOTDIR/.zshrc"
+compile_zdot "$ZDOTDIR/.zsh_aliases"
+compile_zdot "$ZDOTDIR/.zsh_local"
+compile_zdot "$ZDOTDIR/.zsh_script"
+compile_zdot "$ZDOTDIR/.zsh_rust"
+# compile_zdot .zlogin
+# compile_zdot .zlogout
