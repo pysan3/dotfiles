@@ -27,9 +27,12 @@ export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 export NVM_DIR="$XDG_DATA_HOME"/nvm
 export PYENV_ROOT="$XDG_DATA_HOME"/pyenv
+export POETRY_HOME="$XDG_DATA_HOME"/poetry
 export RBENV_ROOT="$XDG_DATA_HOME"/rbenv
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export WGETRC="$XDG_CONFIG_HOME"/wgetrc
 export SSB_HOME="$XDG_DATA_HOME"/zoom
 export GEM_HOME="$XDG_DATA_HOME"/gem
 export GEM_SPEC_CACHE="$XDG_CACHE_HOME"/gem
+
+alias exit="exit 0"
