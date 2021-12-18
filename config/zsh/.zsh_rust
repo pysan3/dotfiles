@@ -10,27 +10,29 @@ if [ -f "$CARGO_HOME"/env ]; then
 else
     export PATH="$PATH:$CARGO_HOME/bin"
 fi
-while IFS= read -r line; do
-    if [ 'x#' = x${line:0:1} ]; then continue; fi
-    IFS='=' read -r -A cmdArr <<< "$line"
-    # add one dummy in bash because zsh array is 1-index
-    if [[ x$(basename $SHELL) = x'bash' ]]; then
-        cmdArr="tmp $cmdArr"
-    fi
-    cmd=${cmdArr[1]}
-    alt=${cmdArr[2]}
-    issudo=""
-    if [[ x"$alt" == xsudo* ]]; then
-        alt="${alt:5}"
-        issudo="sudo "
-    fi
-    if [ ${#cmdArr[@]} -gt 2 ]; then
-        pkg=${cmdArr[3]}
-    else
-        pkg="$alt"
-    fi
-    eval "alias $cmd='$issudo$alt'"
-done < "$HOME/dotfiles/static/list_rust_packages.txt"
+if [ -d "$CARGO_HOME" ]; then
+    while IFS= read -r line; do
+        if [ 'x#' = x${line:0:1} ]; then continue; fi
+        IFS='=' read -r -A cmdArr <<< "$line"
+        # add one dummy in bash because zsh array is 1-index
+        if [[ x$(basename $SHELL) = x'bash' ]]; then
+            cmdArr="tmp $cmdArr"
+        fi
+        cmd=${cmdArr[1]}
+        alt=${cmdArr[2]}
+        issudo=""
+        if [[ x"$alt" == xsudo* ]]; then
+            alt="${alt:5}"
+            issudo="sudo "
+        fi
+        if [ ${#cmdArr[@]} -gt 2 ]; then
+            pkg=${cmdArr[3]}
+        else
+            pkg="$alt"
+        fi
+        eval "alias $cmd='$issudo$alt'"
+    done < "$HOME/dotfiles/static/list_rust_packages.txt"
+fi
 
 # Python
 export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
@@ -44,6 +46,10 @@ if [ -f "$XDG_DATA_HOME"/ghcup/env ]; then
 fi
 
 # ruby
-export PATH="$PATH:$RBENV_ROOT/bin"
-eval "$(rbenv init -)"
+if [ -d "$RBENV_ROOT" ]; then
+    export PATH="$PATH:$RBENV_ROOT/bin"
+    eval "$(rbenv init -)"
+fi
 
+# js
+export PATH="$PATH:`npm config get prefix`/bin"

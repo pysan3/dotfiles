@@ -17,7 +17,7 @@ if [ ! -d "$XDG_DATA_HOME"/ghcup ] || [ ! command -v cabal &> /dev/null ] || [ !
     info 'Installing `cabal` for haskel and `pandoc`'
     warning 'Answer N->Y->Y to the questions'
     cd
-    wget -qO- https://get-ghcup.haskell.org | sh
+    curl --insecure https://get-ghcup.haskell.org | sh
     stack setup
     [ -f "$XDG_DATA_HOME/ghcup/env" ] && source "$XDG_DATA_HOME/ghcup/env"
     cabal --version
@@ -30,12 +30,12 @@ fi
 mkdir -p "$XDG_DATA_HOME"/zsh
 if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     info "Installing zsh-syntax-highlighting"
-    git clone git://github.com/zsh-users/zsh-syntax-highlighting.git "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting
     zcompile "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     info "Installing zsh-autosuggestions"
-    git clone git://github.com/zsh-users/zsh-autosuggestions.git "$XDG_DATA_HOME"/zsh/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git "$XDG_DATA_HOME"/zsh/zsh-autosuggestions
     zcompile "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
@@ -47,7 +47,7 @@ fi
 # install poetry
 if ! command -v 'poetry' &> /dev/null; then
     info "Installing poetry"
-    curl -sSL https://install.python-poetry.org | python -
+    curl https://install.python-poetry.org | python -
 fi
 
 # install ruby
@@ -74,7 +74,7 @@ fi
 if "$install_ruby"; then
     export PATH="$RBENV_ROOT/bin:$PATH"
     latest_ruby=$(rbenv install -l 2>/dev/null | grep -v - | tail -1)
-    CONFIGURE_OPTS='--disable-install-rdoc' rbenv install $latest_ruby
+    CONFIGURE_OPTS='--disable-install-rdoc' RUBY_BUILD_CURL_OPTS='--insecure' rbenv install $latest_ruby
     rbenv global $latest_ruby && info "Installed ruby ($latest_ruby) for user: $USER"
 fi
 
@@ -82,7 +82,7 @@ fi
 if ! command -v 'cargo' &> /dev/null; then
     checkyes "Seems you don't have cargo (rust) installed. Install?"
     if [ $? -eq 0 ]; then
-        wget -qO - https://sh.rustup.rs | sh
+        curl -sSf https://sh.rustup.rs | sh
         source "$CARGO_HOME"/env
         cargo install cargo-update && info "Successfully installed cargo"
     else
@@ -167,7 +167,7 @@ npm install \
     coc-texlab \
     coc-sh \
     coc-yaml \
-    https://github.com/Eric-Song-Nop/coc-glslx \
+    # https://github.com/Eric-Song-Nop/coc-glslx \
     --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 cd -
 
