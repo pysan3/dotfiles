@@ -71,8 +71,8 @@ function act() {
         . bin/activate
     elif [ -f '.venv/bin/activate' ]; then
         . '.venv/bin/activate'
-    else
-        activate >/dev/null 2>&1
+    # else
+    #     activate >/dev/null 2>&1
     fi
     return 0
 }
