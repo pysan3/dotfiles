@@ -167,8 +167,8 @@ npm install \
     coc-texlab \
     coc-sh \
     coc-yaml \
-    # https://github.com/Eric-Song-Nop/coc-glslx \
     --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
+    # https://github.com/Eric-Song-Nop/coc-glslx \
 cd -
 
 info "Everything is done. Thx!!"
