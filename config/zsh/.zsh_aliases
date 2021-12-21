@@ -78,8 +78,6 @@ function act() {
 }
 act
 alias gignore='curl "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore'
-alias tasktex="cat $NCPATH/Templates/task-template.tex > "
-alias papertex="cp $NCPATH/Templates/template.sty . && cat $NCPATH/Templates/paper-template.tex > "
 
 # depends on .zsh_local
 alias cbw='set -a; source ~/mySecrets.env; set +a; echo $BW_PASSWORD | bw'
@@ -139,6 +137,35 @@ function syncit () {
     fi
     eval "cp -v $@ ~/Sync"
 }
+
+function textemplate () {
+    template="$1"
+    target="$2"
+    if [ ! -f "$template" ]; then
+        error "$template not found."
+        return 1
+    elif [ -f "$target" ]; then
+        warning "$target already exists."
+        checkyes 'overwrite?'
+        if [ $? -eq 0 ]; then
+            cat "$template" > "$target"
+            return 0
+        fi
+        checkyes 'append?'
+        if [ $? -eq 0 ]; then
+            cat "$template" >> "$target"
+            return 0
+        fi
+        error 'Abort'
+        return 1
+    else
+        cat "$template" > "$target"
+        return 0
+    fi
+}
+
+alias tasktex="textemplate $NCPATH/Templates/task-template.tex"
+alias papertex="cp $NCPATH/Templates/template.sty . && textemplate $NCPATH/Templates/paper-template.tex"
 
 function cpp () {
     for lst in "$@"; do :; done
