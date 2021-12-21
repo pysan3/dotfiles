@@ -279,7 +279,7 @@ function cinit() {
 }
 
 function pforward() {
-    ssh -fNT -L 127.0.0.1:$2:127.0.0.1:$2 $1
+    ssh -fNT -L 127.0.0.1:$2:127.0.0.1:$2 $1 && echo "Port forward to: http://127.0.0.1:$2"
 }
 
 function img2eps () {
