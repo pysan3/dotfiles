@@ -107,8 +107,6 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 if [ -f "$ZDOTDIR/.zsh_local" ]; then
     source "$ZDOTDIR/.zsh_local"
 fi

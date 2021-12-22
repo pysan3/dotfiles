@@ -123,8 +123,10 @@ while IFS= read -r line; do
 done < "$DOTFILES/static/list_rust_packages.txt"
 
 # install and update zap (appimage package manager)
-info 'Installing zap (appimage package manager)'
-curl https://raw.githubusercontent.com/srevinsaju/zap/main/install.sh | bash -s
+if ! command -v 'zap' &>/dev/null; then
+    info 'Installing zap (appimage package manager)'
+    curl https://raw.githubusercontent.com/srevinsaju/zap/main/install.sh | bash -s
+fi
 
 # install nvim
 warning 'Do you want to reinstall nvim?'
