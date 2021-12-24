@@ -14,6 +14,10 @@ inoremap . <C-g>u.
 imap <C-o> <Esc>A<CR>
 inoremap <C-p> <Esc>A,<Esc>o
 
+" shift in insert mode
+inoremap g> <Esc>>>a
+inoremap g< <Esc><<a
+
 " move to next / previous buffer
 nnoremap <F2> :bprevious<CR>
 nnoremap <F3> :bnext<CR>

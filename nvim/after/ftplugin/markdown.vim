@@ -7,6 +7,3 @@ set smarttab                            " Makes tabbing smarter will realize you
 set shiftwidth=2 " smartindentで増減する幅
 set showtabline=2                       " Always show tabs
 set formatoptions-=cro
-
-inoremap g> <Esc>>>a
-inoremap g< <Esc><<a
