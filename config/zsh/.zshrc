@@ -110,23 +110,15 @@ RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ -f "$ZDOTDIR/.zsh_local" ]; then
-    source "$ZDOTDIR/.zsh_local"
-fi
-if [ -f "$ZDOTDIR/.zsh_rust" ]; then
-    source "$ZDOTDIR/.zsh_rust"
-fi
-if [ -f "$ZDOTDIR/.zsh_aliases" ]; then
-    source "$ZDOTDIR/.zsh_aliases"
-fi
+[ -f "$ZDOTDIR/.zsh_local" ] && source "$ZDOTDIR/.zsh_local"
+[ -f "$ZDOTDIR/.zsh_rust" ] && source "$ZDOTDIR/.zsh_rust"
+[ -f "$ZDOTDIR/.zsh_aliases" ] && source "$ZDOTDIR/.zsh_aliases"
 
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-if [ -f "$ZDOTDIR/.zsh_script" ]; then
-    source "$ZDOTDIR/.zsh_script"
-fi
+[ -f "$ZDOTDIR/.zsh_script" ] && source "$ZDOTDIR/.zsh_script"
 
 compile_zdot() {
     [ -f "$1" ] && [ ! -f "$1.zwc" -o "$1" -nt "$1.zwc" ] && zcompile "$1"
