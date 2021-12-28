@@ -1,3 +1,5 @@
+zmodload zsh/zprof
+
 export LANG=ja_JP.UTF-8
 
 export EDITOR='vim'
@@ -8,12 +10,6 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 autoload -Uz colors
 export TERM=screen-256color
 colors
-# 補完を利用
-plugins=(… zsh-completions)
-autoload -Uz compinit
-compinit -d $XDG_CACHE_HOME/zsh/zcompdump
-zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
-_comp_options+=(globdots)		# Include hidden files.
 
 # vi mode
 bindkey -v
@@ -75,25 +71,30 @@ bindkey "^?" backward-delete-char
 bindkey "^[[3~" delete-char
 
 # 区切り文字の設定
-autoload -Uz select-word-style
-select-word-style default
-zstyle ':zle:*' word-chars "_-./;@"
-zstyle ':zle:*' word-style unspecified
+# autoload -Uz select-word-style
+# select-word-style default
+# zstyle ':zle:*' word-chars "_-./;@"
+# zstyle ':zle:*' word-style unspecified
 
-zstyle ':completion:*:default' menu select=2 # 補完後、メニュー選択モードになり左右キーで移動が出来る
-# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完で大文字にもマッチ
-zstyle ':completion:*' verbose true # 補完を詳細に表示
-zstyle ':completion:*' use-cache true # キャッシュによる補完の高速化
-zstyle ':completion:*' completer _expand _complete _history _prefix # 補完の出し方
-zstyle ':completion:*:messages' format '%F{YELLOW}%d%F{DEFAULT}'
-zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d%F{DEFAULT}'
-zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b%F{DEFAULT}'
-zstyle ':completion:*:corrections' format '%F{YELLOW}%B%d ''%F{RED}(errors: %e)%b%F{DEFAULT}'
-zstyle ':completion:*:options' description 'yes'
-zstyle ':completion:*' group-name ''
-zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
-export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+# 補完を利用
+# autoload -Uz compinit
+# compinit -d $ZDOTDIR/.zcompdump
+# _comp_options+=(globdots)		# Include hidden files.
+# zstyle ':completion:*' use-cache true # キャッシュによる補完の高速化
+# zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
+# zstyle ':completion:*:default' menu select=2 # 補完後、メニュー選択モードになり左右キーで移動が出来る
+# zstyle ':completion:*' completer _expand _complete _history _prefix # 補完の出し方
+# # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完で大文字にもマッチ
+# # zstyle ':completion:*' verbose true # 補完を詳細に表示
+# # zstyle ':completion:*:messages' format '%F{YELLOW}%d%F{DEFAULT}'
+# # zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d%F{DEFAULT}'
+# # zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b%F{DEFAULT}'
+# # zstyle ':completion:*:corrections' format '%F{YELLOW}%B%d ''%F{RED}(errors: %e)%b%F{DEFAULT}'
+# # zstyle ':completion:*:options' description 'yes'
+# # zstyle ':completion:*' group-name ''
+# zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
+# export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # git設定
 RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
@@ -128,16 +129,16 @@ if [ -f "$ZDOTDIR/.zsh_script" ]; then
 fi
 
 compile_zdot() {
-    if [ -f "$1" ] && [ ! -f "$1.zwc" -o "$1" -nt "$1.zwc" ]; then
-        zcompile "$1"
-    fi
+    [ -f "$1" ] && [ ! -f "$1.zwc" -o "$1" -nt "$1.zwc" ] && zcompile "$1"
 }
 compile_zdot "$HOME/.zshenv"
 # compile_zdot .zprofile
 compile_zdot "$ZDOTDIR/.zshrc"
-compile_zdot "$ZDOTDIR/.zsh_aliases"
 compile_zdot "$ZDOTDIR/.zsh_local"
-compile_zdot "$ZDOTDIR/.zsh_script"
 compile_zdot "$ZDOTDIR/.zsh_rust"
+compile_zdot "$ZDOTDIR/.zsh_aliases"
+compile_zdot "$ZDOTDIR/.zsh_script"
 # compile_zdot .zlogin
 # compile_zdot .zlogout
+
+zprof
