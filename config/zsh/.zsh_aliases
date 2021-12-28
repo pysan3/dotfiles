@@ -66,13 +66,8 @@ alias yt='youtube-dl -ci -f mp4'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
 function act() {
-    if [ -f 'bin/activate' ]; then
-        . bin/activate
-    elif [ -f '.venv/bin/activate' ]; then
-        . '.venv/bin/activate'
-    else
-        activate >/dev/null 2>&1
-    fi
+    [ -f 'bin/activate' ] && source bin/activate
+    [ -f '.venv/bin/activate' ] && source .venv/bin/activate
     return 0
 }
 act
@@ -90,16 +85,12 @@ function def() {
 function dot() {
     cd $DOTFILES
     eval $@
-    if [ $# -ne 0 ]; then
-        cd -
-    fi
+    [ $# -ne 0 ] && cd -
 }
 
 # .env loading in the shell
 function dotenv () {
-    if [ -f .env ]; then
-        source .env
-    fi
+    [ -f .env ] && source .env
 }
 dotenv
 
