@@ -1,4 +1,4 @@
-zmodload zsh/zprof
+# zmodload zsh/zprof
 
 export LANG=ja_JP.UTF-8
 
@@ -133,4 +133,4 @@ compile_zdot "$ZDOTDIR/.zsh_script"
 # compile_zdot .zlogin
 # compile_zdot .zlogout
 
-zprof
+# zprof
