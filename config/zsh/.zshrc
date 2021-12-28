@@ -1,4 +1,4 @@
-# zmodload zsh/zprof
+zmodload zsh/zprof
 
 export LANG=ja_JP.UTF-8
 
@@ -94,7 +94,7 @@ bindkey "^[[3~" delete-char
 # # zstyle ':completion:*' group-name ''
 # zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
 # zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
-# export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # git設定
 RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
@@ -132,5 +132,6 @@ compile_zdot "$ZDOTDIR/.zsh_aliases"
 compile_zdot "$ZDOTDIR/.zsh_script"
 # compile_zdot .zlogin
 # compile_zdot .zlogout
+compile_zdot "$ZDOTDIR/.zcompdump"
 
-# zprof
+zprof
