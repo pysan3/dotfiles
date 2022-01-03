@@ -110,13 +110,6 @@ set history=5000 " 保存するコマンド履歴の数
 autocmd TermOpen * setlocal nonumber norelativenumber
 
 "----------------------------------------------------------
-" Toggle spell check
-"----------------------------------------------------------
-nnoremap <F6> :set spell! spelllang=en_us,cjk<CR>
-nnoremap <F7> :set nospell!<CR>
-nnoremap zg zg]s
-
-"----------------------------------------------------------
 " disable netrw
 "----------------------------------------------------------
 let g:netrw_home=$XDG_CACHE_HOME . '/nvim'

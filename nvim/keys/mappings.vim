@@ -68,6 +68,12 @@ nnoremap <up> gk
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
+" Toggle spell check
+nnoremap <F6> :set spell! spelllang=en_us,cjk<CR>
+nnoremap <F7> :set nospell!<CR>
+nnoremap zg zg]s
+nnoremap zl 1z=]s
+
 " 対応括弧
 nnoremap { {zz
 nnoremap } }zz
