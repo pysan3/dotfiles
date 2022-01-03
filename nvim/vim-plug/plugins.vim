@@ -95,6 +95,10 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
     " language specific
     Plug 'pixelneo/vim-python-docstring'
+    Plug 'heavenshell/vim-jsdoc', {
+                \ 'for': ['javascript', 'javascript.jsx','typescript'],
+                \ 'do': 'make install'
+                \ }
     Plug 'uarun/vim-protobuf'
     Plug 'tikhomirov/vim-glsl'
     Plug 'lervag/vimtex'
