@@ -15,7 +15,6 @@ imap <C-o> <Esc>A<CR>
 inoremap <C-p> <Esc>A,<Esc>o
 
 " shift in insert mode
-inoremap <C-t> <Esc>>>a
 inoremap <C-f> <Esc><<a
 
 " move to next / previous buffer
