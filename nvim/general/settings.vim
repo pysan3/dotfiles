@@ -103,6 +103,7 @@ set shortmess=aT
 "----------------------------------------------------------
 set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
+set shellcmdflag=-ic " invoke shell in interactive mode
 
 "----------------------------------------------------------
 " Command mode
