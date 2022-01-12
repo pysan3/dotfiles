@@ -8,6 +8,7 @@ export NVIM_COLOR='codedark'
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa -F /dev/null'
 alias cgit="cd $HOME/Git/"
 alias clip="clip.exe"
+# alias pdfpc="pdfpc -Ss" # for WSL
 function crop () {
     set -x
     if [[ x$1 = x'-h' ]]; then
