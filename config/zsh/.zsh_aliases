@@ -56,6 +56,7 @@ alias vs="cd; nvim $ZDOTDIR/.zsh_script; cd - >/dev/null"
 alias vc="cd; nvim ~/mySecrets.env; cd - >/dev/null"
 alias ve="cd; nvim .env; cd - >/dev/null"
 alias vh="cd; nvim $ZDOTDIR/.zsh_history; cd - >/dev/null"
+alias vlocal="cd; nvim $XDG_CONFIG_HOME/nvim/local.vim; cd - >/dev/null"
 
 alias dc="docker-compose"
 alias po='poetry'

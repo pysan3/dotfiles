@@ -35,3 +35,4 @@ SourceIF $HOME/.config/nvim/myplug/autosave-session.vim
 SourceIF $HOME/.config/nvim/myplug/terminal-as-vscode.vim
 SourceIF $HOME/.config/nvim/myplug/easy-commit.vim
 SourceIF $HOME/.config/nvim/myplug/load-local-config.vim
+SourceIF $HOME/.config/nvim/local.vim
