@@ -28,12 +28,12 @@ fi
 
 # install zsh shell utils
 mkdir -p "$XDG_DATA_HOME"/zsh
-if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh.zwc ]; then
     info "Installing zsh-syntax-highlighting"
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting
     zcompile "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh.zwc ]; then
     info "Installing zsh-autosuggestions"
     git clone https://github.com/zsh-users/zsh-autosuggestions.git "$XDG_DATA_HOME"/zsh/zsh-autosuggestions
     zcompile "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -123,8 +123,10 @@ while IFS= read -r line; do
 done < "$DOTFILES/static/list_rust_packages.txt"
 
 # install and update zap (appimage package manager)
-info 'Installing zap (appimage package manager)'
-curl https://raw.githubusercontent.com/srevinsaju/zap/main/install.sh | bash -s
+if ! command -v 'zap' &>/dev/null; then
+    info 'Installing zap (appimage package manager)'
+    curl https://raw.githubusercontent.com/srevinsaju/zap/main/install.sh | bash -s
+fi
 
 # install nvim
 warning 'Do you want to reinstall nvim?'

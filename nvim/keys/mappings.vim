@@ -15,8 +15,7 @@ imap <C-o> <Esc>A<CR>
 inoremap <C-p> <Esc>A,<Esc>o
 
 " shift in insert mode
-inoremap g> <Esc>>>a
-inoremap g< <Esc><<a
+inoremap <C-f> <Esc><<a
 
 " move to next / previous buffer
 nnoremap <F2> :bprevious<CR>
@@ -68,6 +67,12 @@ nnoremap <up> gk
 " 選択モードで上下に移動
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
+" Toggle spell check
+nnoremap <F6> :set spell! spelllang=en_us,cjk<CR>
+nnoremap <F7> :set nospell!<CR>
+nnoremap zg zg]s
+nnoremap zl 1z=]s
 
 " 対応括弧
 nnoremap { {zz

@@ -63,12 +63,12 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Startify
     Plug 'mhinz/vim-startify'
     " git stuff
-    " Plug 'mhinz/vim-signify'
-    " Plug 'tpope/vim-fugitive'
+    Plug 'mhinz/vim-signify'
+    Plug 'tpope/vim-fugitive'
     Plug 'rhysd/conflict-marker.vim'
-    " Plug 'tpope/vim-rhubarb'
-    " Plug 'stsewd/fzf-checkout.vim'
-    " Plug 'airblade/vim-rooter'
+    Plug 'tpope/vim-rhubarb'
+    Plug 'stsewd/fzf-checkout.vim'
+    Plug 'airblade/vim-rooter'
     Plug 'junegunn/gv.vim'
     Plug 'TimUntersberger/neogit'
     Plug 'sindrets/diffview.nvim'
@@ -95,6 +95,10 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
     " language specific
     Plug 'pixelneo/vim-python-docstring'
+    Plug 'heavenshell/vim-jsdoc', {
+                \ 'for': ['javascript', 'javascript.jsx','typescript'],
+                \ 'do': 'make install'
+                \ }
     Plug 'uarun/vim-protobuf'
     Plug 'tikhomirov/vim-glsl'
     Plug 'lervag/vimtex'
