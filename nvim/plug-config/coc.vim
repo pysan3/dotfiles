@@ -60,7 +60,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gR <Plug>(coc-references)
-nmap <silent> rn <Plug>(coc-rename)
+nmap <silent> cn <Plug>(coc-rename)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
