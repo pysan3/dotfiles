@@ -60,10 +60,10 @@ require("neogit").setup {
     }
 EOF
 
-" nnoremap gs :Neogit kind=split<CR>
-" nnoremap gd :DiffviewOpen<CR>
-" nnoremap gD :DiffviewOpen master<CR>
-" nnoremap gg :Neogit log<CR>
+nnoremap gs :Neogit kind=split<CR>
+nnoremap gd :DiffviewOpen<CR>
+nnoremap gD :DiffviewOpen master<CR>
+nnoremap gg :Neogit log<CR>
 nnoremap <Leader>gl :Neogit pull<CR>
 nnoremap <Leader>gp :Neogit push<CR>
 
