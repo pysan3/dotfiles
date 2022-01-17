@@ -60,12 +60,15 @@ require("neogit").setup {
     }
 EOF
 
-nnoremap gs :Neogit kind=split<CR>
-nnoremap gd :DiffviewOpen<CR>
-nnoremap gD :DiffviewOpen master<CR>
-nnoremap gg :Neogit log<CR>
-nnoremap <Leader>gl :Neogit pull<CR>
-nnoremap <Leader>gp :Neogit push<CR>
+nnoremap [neogit] <Nop>
+
+nmap <Leader>g [neogit]
+nnoremap [neogit]s :Neogit kind=split<CR>
+nnoremap [neogit]d :DiffviewOpen<CR>
+nnoremap [neogit]D :DiffviewOpen master<CR>
+nnoremap [neogit]g :Neogit log<CR>
+nnoremap [neogit]l :Neogit pull<CR>
+nnoremap [neogit]p :Neogit push<CR>
 
 lua << EOF
 require('gitsigns').setup()
