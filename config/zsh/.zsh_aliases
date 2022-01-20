@@ -87,6 +87,7 @@ function dot() {
     cd $DOTFILES
     eval $@
     [ $# -ne 0 ] && cd -
+    ~/dotfiles/install_dotfiles.sh
 }
 
 # .env loading in the shell
