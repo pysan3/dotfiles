@@ -248,3 +248,6 @@ documentclass
 a4paper
 counterwithin
 lstlisting
+conv
+Convolutional
+cnn
