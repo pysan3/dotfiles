@@ -28,10 +28,15 @@ alias l='ls -1F'
 alias tree='tree -a -I "\.DS_Store|\.git|node_modules|vendor\/bundle" -N'
 alias grep='grep --color=auto'
 
-alias rm='echo "Im not going to let you delete me XD"; false'
+alias rm='rm -i --preserve-root'
+alias mv='mv -i'
+alias cp='mv -i'
+alias ln='ln -i'
 alias tp='trash-put'
-alias tl='trash-list'
-alias tr='trash-restore'
+alias tlist='trash-list'
+alias tres='trash-restore'
+
+alias ..='cd ..'
 
 alias g='git'
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_git -F /dev/null'
@@ -62,6 +67,7 @@ alias dc="docker-compose"
 alias po='poetry'
 alias tm="tmuxinator"
 alias ta="tmux a"
+alias ts='tmux a -t'
 alias ttmp="tmux new-session -A -s tmp"
 alias yt='youtube-dl -ci -f mp4'
 
