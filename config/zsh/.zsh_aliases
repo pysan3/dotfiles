@@ -30,7 +30,7 @@ alias grep='grep --color=auto'
 
 alias rm='rm -i --preserve-root'
 alias mv='mv -i'
-alias cp='mv -i'
+alias cp='cp -i'
 alias ln='ln -i'
 alias tp='trash-put'
 alias tlist='trash-list'
