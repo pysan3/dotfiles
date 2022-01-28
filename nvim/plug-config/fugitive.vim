@@ -2,7 +2,7 @@ let $FZF_DEFAULT_OPTS='--reverse'
 
 nnoremap [fugitive] <Nop>
 
-nmap <Leader>h [fugitive]
+nmap <Leader>l [fugitive]
 nnoremap [fugitive]s :G<CR>
 nnoremap [fugitive]a :G add .<CR>
 nnoremap [fugitive]t :GBranches<CR>
