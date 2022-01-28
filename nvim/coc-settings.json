@@ -1,11 +1,14 @@
 {
-  "coc.preferences.rootPatterns": [".git", ".vim"],
+  "coc.preferences.rootPatterns": [".git", ".vim", ".session.vim"],
   "diagnostic-languageserver.enable": true,
   "diagnostic-languageserver.mergeConfig": true,
   "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextCurrentLineOnly": false,
   "diagnostic.messageTarget": "echo",
+  "codeLens.enable": true,
+  "coc.preferences.enableMessageDialog": true,
+  "coc.preferences.messageLevel": "warning",
 
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
