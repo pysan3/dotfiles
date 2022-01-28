@@ -31,23 +31,22 @@ set cursorline " カーソルラインをハイライト
 set backspace=indent,eol,start
 
 set hidden                              " Required to keep multiple buffers open multiple buffers
-set number relativenumber
 set nu rnu
 set mouse=a                             " Enable your mouse
-set showbreak=↪
+" set showbreak=↪
 set iskeyword+=-                      	" treat dash separated words as a word text object"
-set scrolloff=16
+set scrolloff=12
 
 "----------------------------------------------------------
 " Memory Usage
 "----------------------------------------------------------
-set mmp=5000
+set mmp=2000000
 
 "----------------------------------------------------------
 " Window
 "----------------------------------------------------------
-set pumheight=10                        " Makes popup menu smaller
-set cmdheight=2                         " More space for displaying messages
+" set pumheight=10                        " Makes popup menu smaller
+set cmdheight=1                         " More space for displaying messages
 set splitbelow                          " Horizontal splits will automatically be below
 set splitright                          " Vertical splits will automatically be to the right
 set background=dark                     " tell vim what the background color looks like
@@ -96,7 +95,7 @@ set timeoutlen=500                      " By default timeoutlen is 1000 ms
 "----------------------------------------------------------
 " Status Line
 "----------------------------------------------------------
-set shortmess=aT
+set shortmess=aTc
 
 "----------------------------------------------------------
 " Command mode
