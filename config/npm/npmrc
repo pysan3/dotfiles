@@ -2,5 +2,3 @@ prefix=/home/takuto/.local/share/npm
 cache=/home/takuto/.cache/npm
 tmp=/home/takuto/${XDG_RUNTIME_DIR}/npm
 init-module=/home/takuto/.config/npm/config/npm-init.js
-proxy=http://localhost:8888/
-https-proxy=http://localhost:8888/
