@@ -129,6 +129,7 @@ if ! command -v 'zap' &>/dev/null; then
 fi
 
 # install nvim
+# TODO: want to install with flatpak
 warning 'Do you want to reinstall nvim?'
 checkyes 'Install with zap?'
 if [ $? -eq 0 ]; then
@@ -138,53 +139,18 @@ else
     echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
 fi
 
-# install coc extensions
-set -o nounset    # error when referencing undefined variable
-set -o errexit    # exit when command fails
-mkdir -p ~/.config/coc/extensions
-cd ~/.config/coc/extensions
-if [ ! -f package.json ]; then
-  echo '{"dependencies":{}}'> package.json
-fi
-if ! checkdependency 'npm'; then
-    exit
-fi
-info "Updating coc plugins."
-npm install \
-    coc-diagnostic \
-    coc-explorer \
-    coc-lists \
-    coc-dictionary \
-    coc-word \
-    coc-emoji \
-    coc-snippets \
-    coc-tsserver \
-    coc-eslint \
-    coc-prettier \
-    coc-vetur \
-    coc-json \
-    coc-pyright \
-    coc-protobuf \
-    coc-vimtex \
-    coc-texlab \
-    coc-sh \
-    coc-yaml \
-    --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
-    # https://github.com/Eric-Song-Nop/coc-glslx \
-cd -
-
 # nvim dependencies
 checkcommand () {
   if ! command -v "$1" &>/dev/null; then
     warning "Command $1 not found. Installing with following command."
     info "$2"
-    eval "$2"
+    zsh -c "$2" || error "failed: $2; DO IT YOURSELF"
   fi
 }
 checkcommand 'ueberzug' 'pip install ueberzug'
-checkcommand 'pdftoppm' 'echo DO IT YOURSELF'
-checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/"'
-checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler || echo DO IT YOURSELF'
+checkcommand 'pdftoppm' 'exit 1'
+checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
+checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler'
 checkcommand 'stylua' 'cargo install stylua'
 checkcommand 'prettier' 'npm install --save-dev prettier'
 checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
