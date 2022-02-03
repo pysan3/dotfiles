@@ -1,20 +1,27 @@
-function! SourceIfExists(file)
+function! SourceIFExists(file)
   if filereadable(expand(a:file))
     exe 'source' a:file
   endif
 endfunction
-command! -nargs=1 SourceIF call SourceIfExists(<f-args>)
+command! -nargs=1 SourceIF call SourceIFExists(<f-args>)
 
+" deprecated
 SourceIF $HOME/.config/nvim/vim-plug/plugins.vim
+lua require 'plug-config.00-plugins'
 SourceIF $HOME/.config/nvim/general/settings.vim
 SourceIF $HOME/.config/nvim/keys/mappings.vim
-" SourceIF $HOME/.config/nvim/keys/which-key.vim
+" deprecated
 SourceIF $HOME/.config/nvim/autoload/plug.vim
 SourceIF $HOME/.config/nvim/themes/airline.vim
-SourceIF $HOME/.config/nvim/themes/environtheme.vim
-SourceIF $HOME/.config/nvim/plug-config/coc.vim
-" SourceIF $HOME/.config/nvim/plug-config/fzf.vim
-" SourceIF $HOME/.config/nvim/plug-config/signify.vim
+lua require 'themes.envtheme'
+lua require 'plug-config.n-notify'
+lua require 'lsp-config.n-cmp'
+lua require 'lsp-config.n-lsp'
+lua require 'plug-config.n-tree'
+lua require 'plug-config.n-autopairs'
+" SourceIF $HOME/.config/nvim/plug-config/coc.vim
+SourceIF $HOME/.config/nvim/plug-config/fzf.vim
+SourceIF $HOME/.config/nvim/plug-config/signify.vim
 SourceIF $HOME/.config/nvim/plug-config/firenvim.vim
 SourceIF $HOME/.config/nvim/plug-config/fugitive.vim
 SourceIF $HOME/.config/nvim/plug-config/sneak.vim
@@ -27,7 +34,6 @@ SourceIF $HOME/.config/nvim/plug-config/vim-markdown.vim
 SourceIF $HOME/.config/nvim/plug-config/vimtex.vim
 SourceIF $HOME/.config/nvim/plug-config/dragvisuals.vim
 SourceIF $HOME/.config/nvim/plug-config/asyncrun.vim
-SourceIF $HOME/.config/nvim/plug-config/auto-pairs.vim
 SourceIF $HOME/.config/nvim/plug-config/expand-region.vim
 SourceIF $HOME/.config/nvim/plug-config/zen-mode.vim
 " SourceIF $HOME/.config/nvim/syntax/markdown.vim

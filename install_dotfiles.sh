@@ -58,10 +58,13 @@ fi
 if [ -d "$DOTFILES/nvim" ]; then
     mkdir -p "$XDG_CONFIG_HOME/nvim/session"
     mkdir -p "$XDG_CONFIG_HOME/nvim/undodir"
+    mkdir -p "$XDG_CONFIG_HOME/nvim/lua"
     cp -rs "$DOTFILES/nvim" "$XDG_CONFIG_HOME" 2>/dev/null
+    if [ -d "$DOTFILES/nlua" ]; then
+        cp -rs "$DOTFILES"/nlua/* "$XDG_CONFIG_HOME"/nvim/lua 2>/dev/null
+    fi
     info "Installed nvim config files to $XDG_CONFIG_HOME/nvim"
 fi
-
 cd $WORKDIR
 
 checkdependency git
