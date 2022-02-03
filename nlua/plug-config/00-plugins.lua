@@ -84,6 +84,9 @@ return packer.startup(function(use)
   -- zenmode
   use("folke/zen-mode.nvim")
 
+  -- terminal
+  use("akinsho/toggleterm.nvim")
+
   -- color theme
   use("lunarvim/darkplus.nvim")
   use("joshdick/onedark.vim")

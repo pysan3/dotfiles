@@ -23,9 +23,9 @@ lua require 'plug-config.n-neogit'
 
 lua require 'plug-config.undotree'
 lua require 'plug-config.vim-math'
-        SourceIF $HOME/.config/nvim/plug-config/vim-markdown.vim
-        lua require 'plug-config.dragvisuals'
-        lua require 'plug-config.expand-region'
+SourceIF $HOME/.config/nvim/plug-config/vim-markdown.vim
+lua require 'plug-config.dragvisuals'
+lua require 'plug-config.expand-region'
 lua require 'plug-config.zen-mode'
 " TODO
 SourceIF $HOME/.config/nvim/plug-config/start-screen.vim
