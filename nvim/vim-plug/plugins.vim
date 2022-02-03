@@ -76,9 +76,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Fzf
     " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     " Plug 'junegunn/fzf.vim'
-    Plug 'BurntSushi/ripgrep'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    " Plug 'BurntSushi/ripgrep'
+    " Plug 'nvim-telescope/telescope.nvim'
+    " Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     " vim-which-key
     " Plug 'liuchengxu/vim-which-key'
     " vim sneak or lightspeed is better in some ways

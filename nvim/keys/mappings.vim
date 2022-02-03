@@ -19,8 +19,8 @@ inoremap <C-p> <Esc>A,<Esc>o
 inoremap <C-f> <Esc><<a
 
 " move to next / previous buffer
-nnoremap <F2> :bprevious<CR>
-nnoremap <F3> :bnext<CR>
+nnoremap H :bprevious<CR>
+nnoremap L :bnext<CR>
 
 " Alternate way to save
 nnoremap <C-s> :w<CR>

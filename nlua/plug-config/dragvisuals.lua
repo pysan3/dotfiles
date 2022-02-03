@@ -1,3 +1,4 @@
+vim.cmd([[
 " go left and squish
 let g:Schlepp#allowSquishingLines = 1
 let g:Schlepp#allowSquishingBlock = 1
@@ -14,4 +15,4 @@ vmap <unique> Dk <Plug>SchleppDupUp
 vmap <unique> Dj <Plug>SchleppDupDown
 vmap <unique> Dh <Plug>SchleppDupLeft
 vmap <unique> Dl <Plug>SchleppDupRight
-
+]])

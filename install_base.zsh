@@ -173,4 +173,23 @@ npm install \
     # https://github.com/Eric-Song-Nop/coc-glslx \
 cd -
 
+# nvim dependencies
+checkcommand () {
+  if ! command -v "$1" &>/dev/null; then
+    warning "Command $1 not found. Installing with following command."
+    info "$2"
+    eval "$2"
+  fi
+}
+checkcommand 'ueberzug' 'pip install ueberzug'
+checkcommand 'pdftoppm' 'echo DO IT YOURSELF'
+checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/"'
+checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler || echo DO IT YOURSELF'
+checkcommand 'stylua' 'cargo install stylua'
+checkcommand 'prettier' 'npm install --save-dev prettier'
+checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
+checkcommand 'flake8' 'pip install --user --upgrade flake8'
+checkcommand 'pylint' 'pip install --user --upgrade pylint'
+
 info "Everything is done. Thx!!"
+

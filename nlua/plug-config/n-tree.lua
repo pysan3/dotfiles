@@ -13,8 +13,7 @@ let g:nvim_tree_symlink_arrow = ' >> ' " defaults to ' ➛ '. used as a separato
 let g:nvim_tree_respect_buf_cwd = 1 "0 by default, will change cwd of nvim-tree to that of new buffer's when opening nvim-tree.
 
 nnoremap <leader>e :NvimTreeToggle<CR>
-nnoremap <leader>er :NvimTreeRefresh<CR>
-nnoremap <leader>ef :NvimTreeFindFile<CR>
+nnoremap <leader>/ :NvimTreeFindFile<CR>
 
 set termguicolors " this variable must be enabled for colors to be applied properly
 
@@ -22,7 +21,9 @@ set termguicolors " this variable must be enabled for colors to be applied prope
 highlight NvimTreeFolderIcon guibg=blue
 ]]
 
-require'nvim-tree'.setup {
+local tree_cb = require("nvim-tree.config").nvim_tree_callback
+
+require 'nvim-tree'.setup {
   disable_netrw       = true,
   hijack_netrw        = true,
   open_on_setup       = false,
@@ -70,7 +71,11 @@ require'nvim-tree'.setup {
     auto_resize = false,
     mappings = {
       custom_only = false,
-      list = {}
+      list = {
+        { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
+        { key = "h", cb = tree_cb "close_node" },
+        { key = "v", cb = tree_cb "vsplit" },
+      }
     },
     number = false,
     relativenumber = false,
@@ -81,3 +86,4 @@ require'nvim-tree'.setup {
     require_confirm = true
   }
 }
+
