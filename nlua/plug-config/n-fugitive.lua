@@ -1,6 +1,6 @@
-vim.cmd [[
-let $FZF_DEFAULT_OPTS='--reverse'
+vim.env.FZF_DEFAULT_OPTS = "--reverse"
 
+vim.cmd([[
 nnoremap [fugitive] <Nop>
 
 nmap <Leader>l [fugitive]
@@ -17,5 +17,4 @@ nnoremap [fugitive]k :diffget //3<CR>
 nnoremap [fugitive]v dv<CR>
 
 " nnoremap dv "open diff configuration menu"
-]]
-
+]])

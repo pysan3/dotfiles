@@ -8,7 +8,7 @@ command! -nargs=1 SourceIF call SourceIFExists(<f-args>)
 lua require 'plug-config.00-plugins'
 SourceIF $HOME/.config/nvim/general/settings.vim
 SourceIF $HOME/.config/nvim/keys/mappings.vim
-lua require 'plug-config.airline' -- TODO
+lua require 'plug-config.airbufferline'
 lua require 'themes.envtheme'
 lua require 'plug-config.n-notify'
 lua require 'lsp-config.n-cmp'
@@ -20,6 +20,7 @@ lua require 'plug-config.treesitter'
 lua require 'plug-config.comment'
 lua require 'plug-config.n-fugitive'
 lua require 'plug-config.n-neogit'
+lua require 'plug-config.toggleterm'
 
 lua require 'plug-config.undotree'
 lua require 'plug-config.vim-math'

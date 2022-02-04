@@ -11,4 +11,4 @@ end
 vim.g.airline_theme = colorscheme
 
 vim.opt.termguicolors = true
--- vim.cmd "highlight LineNr guifg=#2c4350"
+vim.cmd("highlight LineNr guifg=#2c4350")

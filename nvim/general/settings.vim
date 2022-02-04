@@ -31,8 +31,10 @@ set cursorline " カーソルラインをハイライト
 set backspace=indent,eol,start
 
 set hidden                              " Required to keep multiple buffers open multiple buffers
-set nu rnu
+" set number
+set relativenumber
 set mouse=a                             " Enable your mouse
+set numberwidth=1
 " set showbreak=↪
 set iskeyword+=-                      	" treat dash separated words as a word text object"
 set scrolloff=12
@@ -72,6 +74,7 @@ set shiftwidth=4 " smartindentで増減する幅
 set showtabline=2                       " Always show tabs
 set formatoptions-=cro
 set colorcolumn=120
+set signcolumn=yes
 
 "----------------------------------------------------------
 " Trailing Spaces

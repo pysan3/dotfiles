@@ -3,14 +3,14 @@ if not status_ok then
   return
 end
 
-local actions = require "telescope.actions"
+local actions = require("telescope.actions")
 
-telescope.setup {
+telescope.setup({
   defaults = {
     mappings = {
       i = {
         ["<esc>"] = actions.close,
-      }
+      },
     },
     -- put prompt (input box) position to the top
     layout_config = {
@@ -22,7 +22,7 @@ telescope.setup {
     path_display = {
       shorten = { len = 1, exclude = { -1, -2 } },
       smart = true,
-      truncate = true
+      truncate = true,
     },
     -- ripgrep remove indentation
     vimgrep_arguments = {
@@ -33,37 +33,37 @@ telescope.setup {
       "--line-number",
       "--column",
       "--smart-case",
-      "--trim"
-    }
+      "--trim",
+    },
   },
   pickers = {
     -- remove ./ from fd results
     find_files = {
-      find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
-    }
+      find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+    },
   },
   extensions = {
     fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case", the default case_mode is "smart_case"
+      fuzzy = true, -- false will only do exact matching
+      override_generic_sorter = true, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+      case_mode = "smart_case", -- or "ignore_case" or "respect_case", the default case_mode is "smart_case"
     },
     media_files = {
-      filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "pdf", },
+      filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "pdf" },
       find_cmd = "rg",
-    }
-  }
-}
+    },
+  },
+})
 
 telescope.load_extension("fzf")
 telescope.load_extension("media_files")
 
-vim.cmd [[
+vim.cmd([[
 nnoremap <leader>fp <cmd>Telescope git_files<CR>
 nnoremap <leader>fl <cmd>Telescope find_files<CR>
 nnoremap <leader>fs <cmd>Telescope live_grep<CR>
 " nnoremap <leader>fb <cmd>Telescope buffers<CR>
 " nnoremap <leader>fh <cmd>Telescope help_tags<CR>
 nnoremap <leader>fi <cmd>Telescope media_files<CR>
-]]
+]])

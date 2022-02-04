@@ -71,6 +71,9 @@ return packer.startup(function(use)
   use("terryma/vim-expand-region")
   use("vim-scripts/ReplaceWithRegister")
   use("michaeljsmith/vim-indent-object")
+  -- argument commands
+  use("PeterRincker/vim-argumentative")
+  use("wellle/targets.vim")
   -- dragviduals
   use("zirrostig/vim-schlepp")
   -- undo tree
@@ -97,6 +100,7 @@ return packer.startup(function(use)
   -- Airline
   use("vim-airline/vim-airline")
   use("vim-airline/vim-airline-themes")
+  use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" })
 
   -- language specific
   use("pixelneo/vim-python-docstring")
