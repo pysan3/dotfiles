@@ -24,20 +24,16 @@ lua require 'plug-config.toggleterm'
 
 lua require 'plug-config.undotree'
 lua require 'plug-config.vim-math'
-SourceIF $HOME/.config/nvim/plug-config/vim-markdown.vim
+lua require 'plug-config.vim-markdown'
 lua require 'plug-config.dragvisuals'
 lua require 'plug-config.expand-region'
 lua require 'plug-config.zen-mode'
-" TODO
-SourceIF $HOME/.config/nvim/plug-config/start-screen.vim
-SourceIF $HOME/.config/nvim/plug-config/vimtex.vim
-
+lua require 'plug-config.start-screen'
+lua require 'plug-config.vimtex'
+lua require 'plug-config.sneak'
 SourceIF $HOME/.config/nvim/plug-config/firenvim.vim
-SourceIF $HOME/.config/nvim/plug-config/sneak.vim
 
-SourceIF $HOME/.config/nvim/myplug/autosave-session.vim
-SourceIF $HOME/.config/nvim/myplug/terminal-as-vscode.vim
-SourceIF $HOME/.config/nvim/myplug/easy-commit.vim
-SourceIF $HOME/.config/nvim/myplug/load-local-config.vim
+lua require 'my-plugins.load-local-config'
+lua require 'my-plugins.autosave-session'
 SourceIF $HOME/.config/nvim/local.vim
 
