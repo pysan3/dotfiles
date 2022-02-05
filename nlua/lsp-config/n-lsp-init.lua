@@ -1,12 +1,6 @@
-local lsp_ok, _ = pcall(require, "lspconfig")
-if not lsp_ok then
-  return
-end
-
-local lsp_installer_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
-if not lsp_installer_ok then
-  return
-end
+require("lspconfig")
+local lsp_installer = require("nvim-lsp-installer")
+local lsp_handler = require("lsp-config.handlers")
 
 local servers = {
   -- awk_ls = {}, -- AWK
@@ -66,7 +60,7 @@ local servers = {
   texlab = {}, -- LaTeX
   -- lelwel_ls = {}, -- Lelwel
   sumneko_lua = {}, -- Lua
-  remark_ls = {}, -- Markdown
+  -- remark_ls = {}, -- Markdown
   -- zeta_note = {}, -- Markdown
   -- zk = {}, -- Markdown
   -- nickel_ls = {}, -- Nickel
@@ -85,7 +79,7 @@ local servers = {
   -- purescriptls = {}, -- PureScript
   -- jedi_language_server = {}, -- Python
   pyright = {}, -- Python
-  pylsp = {}, -- Python
+  -- pylsp = {}, -- Python
   -- rescriptls = {}, -- ReScript
   -- rome = {}, -- Rome
   -- solargraph = {}, -- Ruby
@@ -103,12 +97,12 @@ local servers = {
   -- svelte = {}, -- Svelte
   -- sourcekit = {}, -- Swift
   -- verible = {}, -- SystemVerilog
-  -- taplo = {}, -- TOML
+  taplo = {}, -- TOML
   -- tailwindcss = {}, -- Tailwind CSS
   -- terraformls = {}, -- Terraform
   -- tflint = {}, -- Terraform
   -- vala_ls = {}, -- Vala
-  -- vimls = {}, -- VimL
+  vimls = {}, -- VimL
   -- volar = {}, -- Vue
   vuels = {}, -- Vue
   -- lemminx = {}, -- XML
@@ -116,9 +110,20 @@ local servers = {
   -- zls = {}, -- Zig
 }
 
+local stop_lsp_fmt = {
+  tsserver = 1,
+  pylsp = 1,
+}
+
 local opts = {
-  on_attach = require("lsp-config.handlers").on_attach,
-  capabilities = require("lsp-config.handlers").capabilities,
+  capabilities = lsp_handler.capabilities,
+  on_attach = function(client, bufnr)
+    if stop_lsp_fmt[client.name] ~= nil then
+      client.resolved_capabilities.document_formatting = false
+    end
+    lsp_handler.lsp_keymaps(bufnr)
+    lsp_handler.lsp_highlight_document(client)
+  end,
 }
 
 for server_name, server_opt in pairs(servers) do
@@ -140,5 +145,5 @@ for server_name, server_opt in pairs(servers) do
   end
 end
 
-require("lsp-config.handlers").setup()
+lsp_handler.setup()
 require("lsp-config.n-lsp-null")

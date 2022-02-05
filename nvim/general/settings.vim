@@ -22,6 +22,7 @@ set fileencoding=utf-8                  " The encoding written to file
 set fileencodings=utf-8,ucs-boms,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
 set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
 set ambiwidth=single " □や○文字が崩れる問題を解決
+set tildeop
 
 "----------------------------------------------------------
 " Cursor
@@ -33,8 +34,8 @@ set backspace=indent,eol,start
 set hidden                              " Required to keep multiple buffers open multiple buffers
 " set number
 set relativenumber
-set mouse=a                             " Enable your mouse
 set numberwidth=1
+set mouse=a                             " Enable your mouse
 " set showbreak=↪
 set iskeyword+=-                      	" treat dash separated words as a word text object"
 set scrolloff=12
@@ -107,16 +108,8 @@ set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
 
 "----------------------------------------------------------
-" Command mode
+" Others
 "----------------------------------------------------------
-autocmd TermOpen * setlocal nonumber norelativenumber
-
-"----------------------------------------------------------
-" disable netrw
-"----------------------------------------------------------
-let g:netrw_home=$XDG_CACHE_HOME . '/nvim'
-let loaded_netrw = 0
-
 let g:loaded_python_provider = 0
 let g:python3_host_prog='/usr/bin/python3'
 let g:python_host_prog='usr/bin/python2'

@@ -23,6 +23,8 @@ lua require 'plug-config.n-neogit'
 lua require 'plug-config.toggleterm'
 
 lua require 'plug-config.undotree'
+lua require 'plug-config.quick-scope'
+lua require 'plug-config.vim-sneak'
 lua require 'plug-config.vim-math'
 lua require 'plug-config.vim-markdown'
 lua require 'plug-config.dragvisuals'

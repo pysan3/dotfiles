@@ -25,21 +25,16 @@ end
 
 M.Confirm = function(msg, ans, default)
   print(msg .. " ")
-  local answer = string.char(tonumber(vim.fn.getchar(), 10)):lower()
-  print(answer)
-  vim.cmd("redraw")
-  if answer == ans:lower() then
+  local raw_ans = tonumber(vim.fn.getchar(), 10)
+  local answer = string.char(raw_ans):lower()
+  if answer == ans:lower() or raw_ans == 13 then -- \n returns the default
     return default
   elseif answer == "n" then
-    print("no")
-    vim.cmd("redraw")
     return false
   elseif answer == "y" then
-    print("yes")
-    vim.cmd("redraw")
     return true
   else
-    return default
+    return not default
   end
 end
 

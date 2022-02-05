@@ -19,16 +19,14 @@ M.SaveGlobalSess = function()
   local cwd = vim.fn.getcwd()
   local dirname = basef.FullPath(vim.g.startify_session_dir) .. "/" .. basef.SessionName(cwd)
   local sessionpath = M.SaveSess(true)
-  if basef.file_exist(sessionpath) then
-    if basef.Confirm("Global session: `" .. dirname .. "` exists. Overwrite? [y/N]:", "n", false) then
-      io.popen("ln -sf " .. sessionpath .. " " .. dirname .. " >/dev/null 2>/dev/null"):close()
-      if basef.file_exist(dirname) then
-        basef.echo("Saved session as: " .. dirname)
-        return true
-      else
-        basef.echo("Something went wrong.", "error")
-        return false
-      end
+  if not basef.file_exist(dirname) or basef.Confirm(dirname .. " exists. Overwrite? [y/N]:", "n", false) then
+    io.popen("ln -sf " .. sessionpath .. " " .. dirname .. " >/dev/null 2>/dev/null"):close()
+    if basef.file_exist(dirname) then
+      basef.echo("Saved session as: " .. dirname)
+      return true
+    else
+      basef.echo("Something went wrong.", "error")
+      return false
     end
   end
   basef.echo("Abort", "error")
@@ -50,7 +48,7 @@ M.RestoreSess = function()
       M.SaveSess(true)
     end
   else
-    basef.echo("Last session not found. Run `:SessSave` to save session.", "warning")
+    basef.echo("Last session not found. Run `:SessSave` to save session.", "warn")
   end
   local current_session = basef.SessionName(cwd)
   for buf = 1, vim.fn.bufnr("$") do
@@ -105,6 +103,7 @@ M.DeleteSess = function()
 end
 
 vim.cmd([[
+command! Sess lua vim.notify('NOP\nAvailables: Auto, Save, Global, Delete', 'warn')
 command! SessSave lua require('my-plugins.autosave-session').SaveSess(true)
 command! SessAuto lua require('my-plugins.autosave-session').SaveSess(false)
 command! SessGlobal lua require('my-plugins.autosave-session').SaveGlobalSess()

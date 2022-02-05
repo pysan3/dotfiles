@@ -14,14 +14,14 @@ null_ls.setup({
       vim.cmd([[
         augroup LspFormatting
         autocmd! * <buffer>
-        autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+        autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 2000)
         augroup END
       ]])
     end
   end,
   debug = false,
   sources = {
-    fmt.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
+    fmt.prettier,
     fmt.autopep8.with({ extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" } }),
     fmt.stylua.with({
       extra_args = {
@@ -31,5 +31,6 @@ null_ls.setup({
       },
     }),
     diag.flake8.with({ extra_args = { "--max-line-length=120", "--ignore=F405" } }),
+    diag.eslint,
   },
 })

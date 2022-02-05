@@ -65,12 +65,15 @@ return packer.startup(function(use)
   use("inkarkat/vim-ingo-library")
   use("inkarkat/vim-SearchHighlighting")
   -- Custom operations
-  use("christoomey/vim-titlecase")
-  use("christoomey/vim-sort-motion")
-  use("tpope/vim-surround")
-  use("terryma/vim-expand-region")
-  use("vim-scripts/ReplaceWithRegister")
-  use("michaeljsmith/vim-indent-object")
+  use("tpope/vim-repeat") -- better repetition
+  use("christoomey/vim-titlecase") -- gzz
+  use("christoomey/vim-sort-motion") -- gs<motion> eg. gs2j => sort 3 lines
+  use("tpope/vim-surround") -- s is motion, ys to add
+  use("terryma/vim-expand-region") -- + to expand, _ to shrink
+  use("vim-scripts/ReplaceWithRegister") -- {Visual}["x]gr - replace {Visual} with register x
+  use("michaeljsmith/vim-indent-object") -- ai, ii, aI, iI: text object of same indent (i; above, a; above and below)
+  use("unblevable/quick-scope") -- highlights f, t, F, T
+  use("justinmk/vim-sneak") -- s, S to jump anywhere
   -- argument commands
   use("PeterRincker/vim-argumentative")
   use("wellle/targets.vim")
@@ -113,8 +116,6 @@ return packer.startup(function(use)
   use("tikhomirov/vim-glsl")
   use("lervag/vimtex")
   use("godlygeek/tabular")
-  use({ "cespare/vim-toml", branch = "main" })
-  use("elzr/vim-json")
   use("plasticboy/vim-markdown")
   use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install" })
 
