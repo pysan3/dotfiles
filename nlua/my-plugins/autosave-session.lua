@@ -52,16 +52,16 @@ M.RestoreSess = function()
   else
     basef.echo("Last session not found. Run `:SessSave` to save session.", "warning")
   end
+  local current_session = basef.SessionName(cwd)
+  for buf = 1, vim.fn.bufnr("$") do
+    local bufname = vim.fn.bufname(buf)
+    if string.match(bufname, "^.*/$") then
+      vim.cmd("bd " .. bufname)
+    elseif basef.SessionName(bufname) == current_session then
+      vim.cmd("bd " .. bufname)
+    end
+  end
   return true
-  -- local current_session = vim.fn.sessionname(cwd)
-  -- for buf = 1, vim.fn.bufnr("$") do
-  --   local bufname = vim.fn.bufname(buf)
-  --   if bufname == "." or bufname == "./" then
-  --     vim.cmd("bd " .. bufname)
-  --   elseif vim.fn.sessionname(bufname) == current_session then
-  --     vim.cmd("bd " .. bufname)
-  --   end
-  -- end
 end
 
 M.DeleteSess = function()
@@ -78,17 +78,16 @@ M.DeleteSess = function()
     return false
   end
   for index, value in ipairs(session_list) do
-    print(index, value)
     if basef.s_trim(basef.basename(value)):lower() == current_session:lower() then
       current = index
     end
   end
   while true do
     local c = vim.fn.input("Delete which session? (Default: " .. (current >= 1 and current or "None") .. "): ")
-    print("")
+    vim.cmd("redraw")
     if c:len() == 0 and current >= 1 then
       break
-    elseif c:match("^-?\\d$") and tonumber(c, 10) < session_len then
+    elseif c:match("^-?%d$") and tonumber(c, 10) < session_len then
       current = tonumber(c, 10)
       break
     else

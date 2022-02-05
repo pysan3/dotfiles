@@ -36,7 +36,7 @@ cmp.setup({
     { name = "nvim_lua" },
     { name = "luasnip" },
     { name = "buffer" },
-    { name = "dictionary", keyword_length = 2 },
+    { name = "dictionary", keyword_length = 3 },
     { name = "path" },
     { name = "spell" },
     { name = "emoji" },

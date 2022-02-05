@@ -12,7 +12,6 @@ end
 
 vim.cmd([[
 augroup MyAutoCmds
-  autocmd BufRead,BufNewFile * call SourceLocalConfig()
   autocmd BufRead,BufNewFile * lua require('my-plugins.load-local-config').SourceLocalConfig()
 
   if has('nvim')
