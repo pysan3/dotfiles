@@ -29,6 +29,9 @@ nnoremap <C-Q> :wq!<CR>
 inoremap <C-Q> <Esc>:wq!<CR>
 nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>q :bd!<CR>
+command! Q :q
+command! WQ :wq
+command! Wq :wq
 " Use control-c instead of escape
 nnoremap <C-c> <Esc>
 inoremap <C-c> <Esc>
