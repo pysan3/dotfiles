@@ -28,7 +28,7 @@ require("neogit").setup({
     staged = { folded = false },
     stashes = { folded = true },
     unpulled = { folded = true },
-    unmerged = { folded = true },
+    unmerged = { folded = false },
     recent = { folded = true },
   },
   mappings = {
