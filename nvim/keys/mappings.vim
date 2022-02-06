@@ -23,12 +23,12 @@ nnoremap H :bprevious<CR>
 nnoremap L :bnext<CR>
 
 " Alternate way to save
-nnoremap <C-s> :w<CR>
+nnoremap <C-s> :silent w<CR>
 " Alternate way to quit
-nnoremap <C-Q> :wq!<CR>
-inoremap <C-Q> <Esc>:wq!<CR>
-nnoremap <silent> <Leader>w :w<CR>
-nnoremap <silent> <Leader>q :bd!<CR>
+nnoremap <C-Q> :silent wq!<CR>
+inoremap <C-Q> <Esc>:silent wq!<CR>
+nnoremap <silent> <Leader>w :silent w<CR>
+nnoremap <silent> <Leader>q :silent bd!<CR>
 command! Q :q
 command! WQ :wq
 command! Wq :wq
@@ -41,7 +41,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Searching
-nnoremap <ESC><ESC> :nohlsearch<CR>
+nnoremap <ESC><ESC> :silent nohlsearch<CR>
 " 検索語が画面の真ん中に来るようにする
 nnoremap n nzz
 nnoremap N Nzz
