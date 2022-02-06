@@ -2,7 +2,7 @@ local M = {}
 
 local basef = require("my-plugins.base-functions")
 
-M.SaveSess = function(force)
+M.SaveSession = function(force)
   local cwd = vim.fn.getcwd()
   if basef.FullPath(cwd) == basef.FullPath(vim.env.HOME) then
     basef.echo("Currently working in $HOME directory. Not saving session.")
@@ -15,10 +15,15 @@ M.SaveSess = function(force)
   return sessionpath
 end
 
-M.SaveGlobalSess = function()
+M.SaveGlobalSession = function()
   local cwd = vim.fn.getcwd()
+  if not vim.g.startify_session_dir then
+    basef.echo("Please set `g:startify_session_dir`.\nAbort", "error")
+    return false
+  end
+  vim.fn.mkdir(basef.FullPath(vim.g.startify_session_dir), "p")
   local dirname = basef.FullPath(vim.g.startify_session_dir) .. "/" .. basef.SessionName(cwd)
-  local sessionpath = M.SaveSess(true)
+  local sessionpath = M.SaveSession(true)
   if not basef.file_exist(dirname) or basef.Confirm(dirname .. " exists. Overwrite? [y/N]:", "n", false) then
     io.popen("ln -sf " .. sessionpath .. " " .. dirname .. " >/dev/null 2>/dev/null"):close()
     if basef.file_exist(dirname) then
@@ -33,7 +38,7 @@ M.SaveGlobalSess = function()
   return false
 end
 
-M.RestoreSess = function()
+M.RestoreSession = function()
   local cwd = vim.fn.getcwd()
   if not vim.fn.filereadable(cwd .. "/.session.vim") then
     return false
@@ -45,10 +50,10 @@ M.RestoreSess = function()
   elseif basef.file_exist(dirname) then
     if basef.Confirm("Found global session. Restore? [y/N]:", "n", false) then
       vim.cmd("so " .. dirname)
-      M.SaveSess(true)
+      M.SaveSession(true)
     end
   else
-    basef.echo("Last session not found. Run `:SessSave` to save session.", "warn")
+    basef.echo("Last session not found. Run `:AutoSessionSave` to save session.", "warn")
   end
   local current_session = basef.SessionName(cwd)
   for buf = 1, vim.fn.bufnr("$") do
@@ -62,7 +67,7 @@ M.RestoreSess = function()
   return true
 end
 
-M.DeleteSess = function()
+M.DeleteSession = function()
   local cwd = vim.fn.getcwd()
   local session_list = {}
   for line in vim.fn.globpath(basef.FullPath(vim.g.startify_session_dir), "[^_]*"):gmatch("([^\n]+)") do
@@ -79,18 +84,23 @@ M.DeleteSess = function()
     if basef.s_trim(basef.basename(value)):lower() == current_session:lower() then
       current = index
     end
+    print(index .. ": " .. value)
   end
   while true do
-    local c = vim.fn.input("Delete which session? (Default: " .. (current >= 1 and current or "None") .. "): ")
-    vim.cmd("redraw")
+    local quest = "Delete which session? (Default: " .. (current >= 1 and current or "None") .. ") (q: quit): "
+    local c = vim.fn.input(quest)
     if c:len() == 0 and current >= 1 then
       break
-    elseif c:match("^-?%d$") and tonumber(c, 10) < session_len then
+    elseif c:match("^q$") then
+      current = 0
+      break
+    elseif c:match("^%d$") and tonumber(c, 10) <= session_len then
       current = tonumber(c, 10)
       break
     else
-      basef.echo("Please input an integer or nothing for default value (available only if not None).")
+      basef.echo("Please input an integer or nothing for default value (available only if not None).", "error")
     end
+    vim.cmd("redraw")
   end
   if current >= 1 then
     os.remove(basef.s_trim(session_list[current]))
@@ -103,13 +113,13 @@ M.DeleteSess = function()
 end
 
 vim.cmd([[
-command! Sess lua vim.notify('NOP\nAvailables: Auto, Save, Global, Delete', 'warn')
-command! SessSave lua require('my-plugins.autosave-session').SaveSess(true)
-command! SessAuto lua require('my-plugins.autosave-session').SaveSess(false)
-command! SessGlobal lua require('my-plugins.autosave-session').SaveGlobalSess()
-command! SessDelete lua require('my-plugins.autosave-session').DeleteSess()
-autocmd VimLeave * nested SessAuto
-autocmd VimEnter * nested lua require('my-plugins.autosave-session').RestoreSess()
+command! AutoSession lua vim.notify('NOP\nAvailables: Auto, Save, Global, Delete', 'warn')
+command! AutoSessionSave lua require('my-plugins.autosave-session').SaveSession(true)
+command! AutoSessionAuto lua require('my-plugins.autosave-session').SaveSession(false)
+command! AutoSessionGlobal lua require('my-plugins.autosave-session').SaveGlobalSession()
+command! AutoSessionDelete lua require('my-plugins.autosave-session').DeleteSession()
+autocmd VimLeave * nested AutoSessionAuto
+autocmd VimEnter * nested lua require('my-plugins.autosave-session').RestoreSession()
 ]])
 
 return M

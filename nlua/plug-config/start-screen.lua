@@ -1,4 +1,4 @@
-vim.g.startify_session_dir = vim.env.HOME .. "/.config/nvim/session"
+vim.g.startify_session_dir = vim.fn.stdpath("data") .. "/session"
 
 vim.g.startify_lists = {
   { type = "sessions", header = { "   Sessions" } },
