@@ -129,7 +129,6 @@ if ! command -v 'zap' &>/dev/null; then
 fi
 
 # install nvim
-# TODO: want to install with flatpak
 warning 'Do you want to reinstall nvim?'
 checkyes 'Install with zap?'
 if [ $? -eq 0 ]; then
