@@ -26,10 +26,10 @@ require("neogit").setup({
     untracked = { folded = false },
     unstaged = { folded = false },
     staged = { folded = false },
-    stashes = { folded = false },
-    unpulled = { folded = false },
-    unmerged = { folded = false },
-    recent = { folded = false },
+    stashes = { folded = true },
+    unpulled = { folded = true },
+    unmerged = { folded = true },
+    recent = { folded = true },
   },
   mappings = {
     status = {
