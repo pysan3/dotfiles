@@ -42,7 +42,7 @@ M.SessionName = function(path)
   if path == "" then
     return ""
   end
-  return M.s_trim(M.basename(path), "\\.")
+  return M.s_trim(M.basename(path), "%.")
 end
 
 M.FullPath = function(path)
