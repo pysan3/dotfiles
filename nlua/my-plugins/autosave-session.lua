@@ -3,15 +3,29 @@ local M = {}
 local basef = require("my-plugins.base-functions")
 local plugin_name = "AutoSession Plugin"
 local plugin_icon = ""
+local plugin_commands = {
+  AutoSessionSave = "Create `.session.vim` to store current session.",
+  AutoSessionAuto = "Update `.session.vim` if exists.",
+  AutoSessionGlobal = "Resigter current session for vim-startify.",
+  AutoSessionDelete = "Delete a global session.",
+}
 
 local echo = function(msg, level, ...)
   if not level then
     level = "info"
   end
   local opts = { ... }
-  opts.title = plugin_name
-  opts.icon = plugin_icon
+  opts.title = opts.title or plugin_name
+  opts.icon = opts.icon or plugin_icon
   basef.echo(msg, level, opts)
+end
+
+M.help = function()
+  local str = "Available Commands:\n\n"
+  for command, com_help in pairs(plugin_commands) do
+    str = str .. "- " .. command .. ": " .. com_help .. "\n"
+  end
+  echo(str, "warn", { title = plugin_name .. " Help" })
 end
 
 M.SaveSession = function(force)
@@ -125,7 +139,7 @@ M.DeleteSession = function()
 end
 
 vim.cmd([[
-command! AutoSession lua vim.notify('NOP\nAvailables: Auto, Save, Global, Delete', 'warn')
+command! AutoSession lua require('my-plugins.autosave-session').help()
 command! AutoSessionSave lua require('my-plugins.autosave-session').SaveSession(true)
 command! AutoSessionAuto lua require('my-plugins.autosave-session').SaveSession(false)
 command! AutoSessionGlobal lua require('my-plugins.autosave-session').SaveGlobalSession()
