@@ -120,9 +120,14 @@ local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
 -- from cmp-dictionary
+local dict_source = { "/usr/share/dict/words" }
+-- add my spell lists; $XDG_CONFIG_HOME/nvim/spell/*.add
+for filepath in string.gmatch(vim.fn.glob(vim.env.XDG_CONFIG_HOME .. "/nvim/spell/*.add"), "[^\n]+") do
+  table.insert(dict_source, filepath)
+end
 require("cmp_dictionary").setup({
   dic = {
-    ["*"] = { "/usr/share/dict/words" },
+    ["*"] = dict_source,
     -- ["lua"] = "path/to/lua.dic",
     -- ["javascript,typescript"] = { "path/to/js.dic", "path/to/js2.dic" },
     -- filename = {
@@ -133,7 +138,7 @@ require("cmp_dictionary").setup({
     -- },
   },
   exact = 3,
-  first_case_insensitive = false,
+  first_case_insensitive = true,
   async = false,
   capacity = 5,
   debug = false,
