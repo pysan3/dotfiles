@@ -1,11 +1,23 @@
 local M = {}
 
 local basef = require("my-plugins.base-functions")
+local plugin_name = "AutoSession Plugin"
+local plugin_icon = ""
+
+local echo = function(msg, level, ...)
+  if not level then
+    level = "info"
+  end
+  local opts = { ... }
+  opts.title = plugin_name
+  opts.icon = plugin_icon
+  basef.echo(msg, level, opts)
+end
 
 M.SaveSession = function(force)
   local cwd = vim.fn.getcwd()
   if basef.FullPath(cwd) == basef.FullPath(vim.env.HOME) then
-    basef.echo("Currently working in $HOME directory. Not saving session.")
+    echo("Currently working in $HOME directory. Not saving session.")
     return nil
   end
   local sessionpath = basef.FullPath(cwd .. "/.session.vim")
@@ -18,7 +30,7 @@ end
 M.SaveGlobalSession = function()
   local cwd = vim.fn.getcwd()
   if not vim.g.startify_session_dir then
-    basef.echo("Please set `g:startify_session_dir`.\nAbort", "error")
+    echo("Please set `g:startify_session_dir`.\nAbort", "error")
     return false
   end
   vim.fn.mkdir(basef.FullPath(vim.g.startify_session_dir), "p")
@@ -27,14 +39,14 @@ M.SaveGlobalSession = function()
   if not basef.file_exist(dirname) or basef.Confirm(dirname .. " exists. Overwrite? [y/N]:", "n", false) then
     io.popen("ln -sf " .. sessionpath .. " " .. dirname .. " >/dev/null 2>/dev/null"):close()
     if basef.file_exist(dirname) then
-      basef.echo("Saved session as: " .. dirname)
+      echo("Saved session as: " .. dirname)
       return true
     else
-      basef.echo("Something went wrong.", "error")
+      echo("Something went wrong.", "error")
       return false
     end
   end
-  basef.echo("Abort", "error")
+  echo("Abort", "error")
   return false
 end
 
@@ -53,7 +65,7 @@ M.RestoreSession = function()
       M.SaveSession(true)
     end
   else
-    basef.echo("Last session not found. Run `:AutoSessionSave` to save session.", "warn")
+    echo("Last session not found. Run `:AutoSessionSave` to save session.", "warn")
   end
   local current_session = basef.SessionName(cwd)
   for buf = 1, vim.fn.bufnr("$") do
@@ -77,14 +89,14 @@ M.DeleteSession = function()
   local current = -1
   local current_session = basef.SessionName(cwd)
   if session_len == 0 then
-    basef.echo("No sessions to delete!\nNice and clean 😄")
+    echo("No sessions to delete!\nNice and clean 😄")
     return false
   end
   for index, value in ipairs(session_list) do
     if basef.s_trim(basef.basename(value)):lower() == current_session:lower() then
       current = index
     end
-    print(index .. ": " .. value)
+    print(index - 1 .. ": " .. value)
   end
   while true do
     local quest = "Delete which session? (Default: " .. (current >= 1 and current or "None") .. ") (q: quit): "
@@ -94,11 +106,11 @@ M.DeleteSession = function()
     elseif c:match("^q$") then
       current = 0
       break
-    elseif c:match("^%d$") and tonumber(c, 10) <= session_len then
-      current = tonumber(c, 10)
+    elseif c:match("^%d$") and tonumber(c, 10) < session_len then
+      current = tonumber(c, 10) + 1
       break
     else
-      basef.echo("Please input an integer or nothing for default value (available only if not None).", "error")
+      echo("Please input an integer or nothing for default value (available only if not None).", "error")
     end
     vim.cmd("redraw")
   end
@@ -106,9 +118,9 @@ M.DeleteSession = function()
     os.remove(basef.s_trim(session_list[current]))
     local sessionpath = basef.FullPath(cwd .. "/.session.vim")
     os.remove(sessionpath)
-    basef.echo("Delete " .. session_list[current])
+    echo("Delete " .. session_list[current])
   else
-    basef.echo("Aborted")
+    echo("Aborted")
   end
 end
 
