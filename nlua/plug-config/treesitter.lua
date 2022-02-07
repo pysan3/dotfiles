@@ -12,7 +12,10 @@ configs.setup({
   },
   highlight = {
     enable = true, -- false will disable the whole extension
-    disable = {}, -- list of language that will be disabled
+    disable = { -- list of language that will be disabled
+      "tex", -- use vim-tex
+      "latex",
+    },
     additional_vim_regex_highlighting = true,
   },
   indent = {
