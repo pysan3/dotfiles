@@ -65,11 +65,7 @@ vim.g["airline_symbols.notexists"] = "Ɇ"
 vim.g["airline_symbols.whitespace"] = "Ξ"
 vim.g["airline_symbols.dirty"] = "⚡"
 
-local status_ok, bufferline = pcall(require, "bufferline")
-if not status_ok then
-  return
-end
-
+local bufferline = require("bufferline")
 bufferline.setup({
   options = {
     -- | "ordinal" | "buffer_id" | "both" | f({ ordinal, id, lower, raise }): string,
