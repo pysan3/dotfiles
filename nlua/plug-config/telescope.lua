@@ -6,8 +6,12 @@ telescope.setup({
     mappings = {
       i = {
         ["<esc>"] = actions.close,
+        -- cycle through previously done searches
+        ["<C-n>"] = actions.cycle_history_next,
+        ["<C-p>"] = actions.cycle_history_prev,
       },
     },
+    cache_picker = { num_pickers = 3 }, -- default 1
     -- put prompt (input box) position to the top
     layout_config = {
       prompt_position = "top",
@@ -59,7 +63,7 @@ vim.cmd([[
 nnoremap <leader>fp <cmd>Telescope git_files<CR>
 nnoremap <leader>fl <cmd>Telescope find_files<CR>
 nnoremap <leader>fs <cmd>Telescope live_grep<CR>
-" nnoremap <leader>fb <cmd>Telescope buffers<CR>
-" nnoremap <leader>fh <cmd>Telescope help_tags<CR>
+nnoremap <leader>fh <cmd>Telescope help_tags<CR>
+nnoremap <leader>fr <cmd>Telescope resume<CR>
 nnoremap <leader>fi <cmd>Telescope media_files<CR>
 ]])
