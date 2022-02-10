@@ -14,6 +14,7 @@ This installation might cause serious changes to your workflow.
   - [./config/zsh/.zsh_rust](./config/zsh/.zsh_rust) (Add various programs to `$PATH`)
 - neovim
   - [./nvim](./nvim)
+  - [nvim/lua (./nlua)](./nlua)
 - alacritty
   - [./config/alacritty/alacritty.yml](./config/alacritty/alacritty.yml)
 - git

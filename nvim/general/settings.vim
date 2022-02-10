@@ -22,6 +22,7 @@ set fileencoding=utf-8                  " The encoding written to file
 set fileencodings=utf-8,ucs-boms,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
 set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
 set ambiwidth=single " □や○文字が崩れる問題を解決
+set tildeop
 
 "----------------------------------------------------------
 " Cursor
@@ -31,7 +32,9 @@ set cursorline " カーソルラインをハイライト
 set backspace=indent,eol,start
 
 set hidden                              " Required to keep multiple buffers open multiple buffers
-set nu rnu
+" set number
+set relativenumber
+set numberwidth=1
 set mouse=a                             " Enable your mouse
 " set showbreak=↪
 set iskeyword+=-                      	" treat dash separated words as a word text object"
@@ -72,6 +75,7 @@ set shiftwidth=4 " smartindentで増減する幅
 set showtabline=2                       " Always show tabs
 set formatoptions-=cro
 set colorcolumn=120
+set signcolumn=yes
 
 "----------------------------------------------------------
 " Trailing Spaces
@@ -90,12 +94,11 @@ set nowritebackup                       " This is recommended by coc
 "----------------------------------------------------------
 set updatetime=300                      " Faster completion
 set timeoutlen=500                      " By default timeoutlen is 1000 ms
-" set autochdir                           " Your working directory will always be the same as your working directory
 
 "----------------------------------------------------------
 " Status Line
 "----------------------------------------------------------
-set shortmess=aTc
+set shortmess=aTcoOsWAIcF
 
 "----------------------------------------------------------
 " Command mode
@@ -104,16 +107,8 @@ set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
 
 "----------------------------------------------------------
-" Command mode
+" Others
 "----------------------------------------------------------
-autocmd TermOpen * setlocal nonumber norelativenumber
-
-"----------------------------------------------------------
-" disable netrw
-"----------------------------------------------------------
-let g:netrw_home=$XDG_CACHE_HOME . '/nvim'
-let loaded_netrw = 0
-
 let g:loaded_python_provider = 0
 let g:python3_host_prog='/usr/bin/python3'
 let g:python_host_prog='usr/bin/python2'

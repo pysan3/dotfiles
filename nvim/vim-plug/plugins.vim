@@ -20,7 +20,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Undo Tree
     Plug 'mbbill/undotree'
     " Auto pairs for '(' '[' '{'
-    Plug 'jiangmiao/auto-pairs'
+    Plug 'windwp/nvim-autopairs'
     Plug 'PeterRincker/vim-argumentative'
     Plug 'wellle/targets.vim'
     " calculate sum, average, max, min in selected area
@@ -48,9 +48,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " better scroll
     " Plug 'yuttie/comfortable-motion.vim'
     " Stable version of coc
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " Keeping up to date with master
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
     " color theme
     Plug 'joshdick/onedark.vim'
     Plug 'ulwlu/elly.vim'
@@ -76,9 +76,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Fzf
     " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     " Plug 'junegunn/fzf.vim'
-    Plug 'BurntSushi/ripgrep'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    " Plug 'BurntSushi/ripgrep'
+    " Plug 'nvim-telescope/telescope.nvim'
+    " Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     " vim-which-key
     " Plug 'liuchengxu/vim-which-key'
     " vim sneak or lightspeed is better in some ways

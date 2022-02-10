@@ -105,6 +105,7 @@ dotenv
 
 # Run dotenv on every new directory
 function cd () {
+    deactivate >/dev/null 2>/dev/null
 	builtin cd $@
     act
 	dotenv
