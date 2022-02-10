@@ -44,26 +44,31 @@ nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 nnoremap <silent>L :BufferLineCycleNext<CR>
 nnoremap <silent>H :BufferLineCyclePrev<CR>
 nnoremap <silent>F :BufferLinePick<CR>
+
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.colnr = ''
+let g:airline_symbols.maxlinenr = ''
+" let g:airline_symbols.maxlinenr = '☰'
+let g:airline_symbols.branch = ''
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = 'Ɇ'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.dirty = '⚡'
 ]])
 
-vim.g["airline_left_sep"] = ""
-vim.g["airline_left_alt_sep"] = ""
-vim.g["airline_right_sep"] = ""
-vim.g["airline_right_alt_sep"] = ""
-vim.g["airline_symbols.readonly"] = ""
-vim.g["airline_symbols.crypt"] = "🔒"
-vim.g["airline_symbols.linenr"] = "¶"
-vim.g["airline_symbols.colnr"] = ""
-vim.g["airline_symbols.maxlinenr"] = ""
--- vim.g["airline_symbols.maxlinenr"] = "☰"
-vim.g["airline_symbols.branch"] = ""
-vim.g["airline_symbols.paste"] = "ρ"
-vim.g["airline_symbols.paste"] = "Þ"
-vim.g["airline_symbols.paste"] = "∥"
-vim.g["airline_symbols.spell"] = "Ꞩ"
-vim.g["airline_symbols.notexists"] = "Ɇ"
-vim.g["airline_symbols.whitespace"] = "Ξ"
-vim.g["airline_symbols.dirty"] = "⚡"
 
 local bufferline = require("bufferline")
 bufferline.setup({
