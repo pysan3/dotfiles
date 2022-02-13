@@ -30,3 +30,13 @@ function checkdependency () {
     fi
 }
 
+function followlink () {
+    if command -v 'readlink' >/dev/null 2>&1; then
+        eval "readlink $@"
+    elif command -v 'greadlink' >/dev/null 2>&1; then
+        eval 'greadlink $@'
+    else
+        error "No command to follow link found. Please install readlink(Linux) or greadlink(Mac)"
+    fi
+}
+
