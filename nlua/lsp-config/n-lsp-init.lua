@@ -1,6 +1,6 @@
 require("lspconfig")
 local lsp_installer = require("nvim-lsp-installer")
-local lsp_handler = require("lsp-config.handlers")
+local lsp_base = require("lsp-config.n-lsp-base")
 
 local servers = {
   -- awk_ls = {}, -- AWK
@@ -116,13 +116,13 @@ local stop_lsp_fmt = {
 }
 
 local opts = {
-  capabilities = lsp_handler.capabilities,
+  capabilities = lsp_base.capabilities,
   on_attach = function(client, bufnr)
     if stop_lsp_fmt[client.name] ~= nil then
       client.resolved_capabilities.document_formatting = false
     end
-    lsp_handler.lsp_keymaps(bufnr)
-    lsp_handler.lsp_highlight_document(client)
+    lsp_base.lsp_keymaps(bufnr)
+    lsp_base.lsp_highlight_document(client)
   end,
 }
 
@@ -145,5 +145,5 @@ for server_name, server_opt in pairs(servers) do
   end
 end
 
-lsp_handler.setup()
+lsp_base.setup()
 require("lsp-config.n-lsp-null")

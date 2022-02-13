@@ -103,9 +103,8 @@ return packer.startup(function(use)
   use("arcticicestudio/nord-vim")
   use("chriskempson/vim-tomorrow-theme")
   -- Airline
-  use("vim-airline/vim-airline")
-  use("vim-airline/vim-airline-themes")
   use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" })
+  use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } })
 
   -- language specific
   use("pixelneo/vim-python-docstring")

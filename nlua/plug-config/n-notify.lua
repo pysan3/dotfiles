@@ -1,9 +1,5 @@
 require("notify").setup({
-  stages = "static",
-  -- fade_in_slide_out
-  -- fade
-  -- slide
-  -- static
+  stages = "static", -- fade_in_slide_out, fade, slide, static
   on_open = nil,
   on_close = nil,
   render = "default",

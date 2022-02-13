@@ -8,8 +8,9 @@ command! -nargs=1 SourceIF call SourceIFExists(<f-args>)
 lua require 'plug-config.00-plugins'
 SourceIF $HOME/.config/nvim/general/settings.vim
 SourceIF $HOME/.config/nvim/keys/mappings.vim
-lua require 'plug-config.airbufferline'
 lua require 'themes.envtheme'
+lua require 'plug-config.bufferline'
+lua require 'plug-config.lualine'
 lua require 'plug-config.n-notify'
 lua require 'lsp-config.n-cmp'
 lua require 'lsp-config.n-lsp-init'
@@ -32,9 +33,8 @@ lua require 'plug-config.vim-markdown'
 lua require 'plug-config.dragvisuals'
 lua require 'plug-config.expand-region'
 lua require 'plug-config.zen-mode'
-lua require 'plug-config.start-screen'
+lua require 'plug-config.startify'
 lua require 'plug-config.vimtex'
-lua require 'plug-config.sneak'
 " SourceIF $HOME/.config/nvim/plug-config/firenvim.vim
 
 lua require 'my-plugins.load-local-config'
