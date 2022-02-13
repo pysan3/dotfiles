@@ -56,14 +56,12 @@ fi
 
 # neovim configs and install extensions
 if [ -d "$DOTFILES/nvim" ]; then
-    mkdir -p "$XDG_CONFIG_HOME/nvim/session"
-    mkdir -p "$XDG_CONFIG_HOME/nvim/undodir"
-    mkdir -p "$XDG_CONFIG_HOME/nvim/lua"
-    cp -rs "$DOTFILES/nvim" "$XDG_CONFIG_HOME" 2>/dev/null
-    if [ -d "$DOTFILES/nlua" ]; then
-        cp -rs "$DOTFILES"/nlua/* "$XDG_CONFIG_HOME"/nvim/lua 2>/dev/null
-    fi
+    ln -s "$DOTFILES"/nvim "$XDG_CONFIG_HOME"/nvim
     info "Installed nvim config files to $XDG_CONFIG_HOME/nvim"
+fi
+if [ -d "$DOTFILES/nlua" ]; then
+    ln -s "$DOTFILES"/nlua "$XDG_CONFIG_HOME"/nvim/lua
+    info "Installed nlua config files to $XDG_CONFIG_HOME/nvim/lua"
 fi
 cd $WORKDIR
 
