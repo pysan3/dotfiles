@@ -18,8 +18,13 @@ null_ls.setup({
   end,
   debug = false,
   sources = {
+    -- js, ts
     fmt.prettier,
+    diag.eslint,
+    -- python
     fmt.autopep8.with({ extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" } }),
+    diag.flake8.with({ extra_args = { "--max-line-length=120", "--ignore=F405" } }),
+    -- lua
     fmt.stylua.with({
       extra_args = {
         "--indent-width=2",
@@ -27,7 +32,5 @@ null_ls.setup({
         "--quote-style=AutoPreferDouble",
       },
     }),
-    diag.flake8.with({ extra_args = { "--max-line-length=120", "--ignore=F405" } }),
-    diag.eslint,
   },
 })
