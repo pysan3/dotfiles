@@ -6,11 +6,10 @@ bufferline.setup({
       -- return string.format("%s", opts.ordinal)
       return ""
     end,
-    close_command = "bd! %d",
-    right_mouse_command = "bd! %d",
+    close_command = "bd %d",
+    right_mouse_command = "bd %d",
     left_mouse_command = "buffer %d",
     middle_mouse_command = nil,
-    -- indicator_icon = "▎",
     indicator_icon = "▎",
     buffer_close_icon = "",
     modified_icon = "●",
