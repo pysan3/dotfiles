@@ -24,8 +24,9 @@ bufferline.setup({
     diagnostics_update_in_insert = false,
     diagnostics_indicator = function(_, _, diag, _)
       return (diag.error and " " .. diag.error .. " " or "")
-        .. (diag.warning and "" .. diag.warning or "")
-        .. (diag.hint and "" .. diag.hint or "")
+        .. (diag.warning and " " .. diag.warning or "")
+        .. (diag.info and "" .. diag.info or "")
+        .. (diag.hint and "" .. diag.hint or "")
     end,
     show_buffer_icons = true,
     show_buffer_close_icons = true,

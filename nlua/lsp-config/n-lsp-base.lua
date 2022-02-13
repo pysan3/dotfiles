@@ -1,16 +1,20 @@
 local M = {}
 
 M.setup = function()
-  local signs = {
-    { name = "DiagnosticSignError", text = "" },
-    { name = "DiagnosticSignWarn", text = "" },
-    { name = "DiagnosticSignHint", text = "" },
-    { name = "DiagnosticSignInfo", text = "" },
-  }
-
-  for _, sign in ipairs(signs) do
-    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-  end
+  -- local signs = {
+  --   { name = "DiagnosticSignError", text = "" },
+  --   { name = "DiagnosticSignWarn", text = "" },
+  --   { name = "DiagnosticSignHint", text = "" },
+  --   { name = "DiagnosticSignInfo", text = "" },
+  -- }
+  --
+  -- return (diag.error and " " .. diag.error .. " " or "")
+  --   .. (diag.warning and " " .. diag.warning .. " " or "")
+  --   .. (diag.info and "" .. diag.info or "")
+  --   .. (diag.hint and "" .. diag.hint or "")
+  -- for _, sign in ipairs(signs) do
+  --   vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+  -- end
 
   vim.diagnostic.config({
     virtual_text = true,
