@@ -9,12 +9,11 @@ local check_backspace = function()
 end
 
 -- stylua: ignore start
-local kind_icons = { Text = "", Method = "m", Function = "", Constructor =
-  "", Field = "", Variable = "", Class = "", Interface = "", Module = "",
-  Property = "", Unit = "", Value = "", Enum = "", Keyword = "", Snippet =
-    "", Color = "", File = "", Reference = "", Folder = "", EnumMember =
-    "", Constant = "", Struct = "", Event = "", Operator = "",
-  TypeParameter = "", }
+local cmp_icons = { Text = "", Method = "m", Function = "", Constructor = "",
+Field = "", Variable = "", Class = "", Interface = "", Module = "",
+Property = "", Unit = "", Value = "", Enum = "", Keyword = "", Snippet =
+"", Color = "", File = "", Reference = "", Folder = "", EnumMember = "",
+Constant = "", Struct = "", Event = "", Operator = "", TypeParameter = ""}
 -- stylua: ignore end
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
@@ -38,7 +37,7 @@ cmp.setup({
   formatting = {
     fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+      vim_item.kind = string.format("%s", cmp_icons[vim_item.kind])
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
         nvim_lua = "[CONFIGS]",
@@ -113,11 +112,13 @@ local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
 -- from cmp-dictionary
-local dict_source = { "/usr/share/dict/words" }
+local dict_source = { "/usr/share/dict/words" } -- sudo apt install wamerican
+
 -- add my spell lists; $XDG_CONFIG_HOME/nvim/spell/*.add
 for filepath in string.gmatch(vim.fn.glob(vim.env.XDG_CONFIG_HOME .. "/nvim/spell/*.add"), "[^\n]+") do
   table.insert(dict_source, filepath)
 end
+
 require("cmp_dictionary").setup({
   dic = {
     ["*"] = dict_source,
