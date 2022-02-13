@@ -8,7 +8,7 @@ source "$DOTFILES/functions.zsh"
 if ! command -v 'python' &>/dev/null || [[ `python -V` =~ 'Python 2.*' ]]; then
     error 'No python command found'
     if checkyes 'do you want to create a systemwide symlink to python3?'; then
-        sudo ln -s `which python3` /usr/bin/python
+        sudo ln -s "$(which python3)" /usr/bin/python
     fi
 fi
 
@@ -74,8 +74,8 @@ fi
 if "$install_ruby"; then
     export PATH="$RBENV_ROOT/bin:$PATH"
     latest_ruby=$(rbenv install -l 2>/dev/null | grep -v - | tail -1)
-    CONFIGURE_OPTS='--disable-install-rdoc' RUBY_BUILD_CURL_OPTS='--insecure' rbenv install $latest_ruby
-    rbenv global $latest_ruby && info "Installed ruby ($latest_ruby) for user: $USER"
+    CONFIGURE_OPTS='--disable-install-rdoc' RUBY_BUILD_CURL_OPTS='--insecure' rbenv install "$latest_ruby"
+    rbenv global "$latest_ruby" && info "Installed ruby ($latest_ruby) for user: $USER"
 fi
 
 # RUST
@@ -146,10 +146,12 @@ checkcommand () {
     zsh -c "$2" || error "failed: $2; DO IT YOURSELF"
   fi
 }
+# telescope
 checkcommand 'ueberzug' 'pip install ueberzug'
 checkcommand 'pdftoppm' 'exit 1'
 checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
 checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler'
+# null-ls
 checkcommand 'stylua' 'cargo install stylua'
 checkcommand 'prettier' 'npm install --save-dev -g prettier'
 checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
@@ -157,4 +159,3 @@ checkcommand 'flake8' 'pip install --user --upgrade flake8'
 checkcommand 'pylint' 'pip install --user --upgrade pylint'
 
 info "Everything is done. Thx!!"
-
