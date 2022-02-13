@@ -35,7 +35,7 @@ lua require 'plug-config.zen-mode'
 lua require 'plug-config.start-screen'
 lua require 'plug-config.vimtex'
 lua require 'plug-config.sneak'
-SourceIF $HOME/.config/nvim/plug-config/firenvim.vim
+" SourceIF $HOME/.config/nvim/plug-config/firenvim.vim
 
 lua require 'my-plugins.load-local-config'
 lua require 'my-plugins.autosave-session'
