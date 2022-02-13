@@ -6,6 +6,7 @@ vim.g.nvim_tree_group_empty = 1 --  0 by default, compact folders that only cont
 vim.g.nvim_tree_change_dir_global = 0 -- 0 by default, use :cd when changing directories.
 vim.g.nvim_tree_disable_window_picker = 1 -- 0 by default, will disable the window picker.
 vim.g.nvim_tree_respect_buf_cwd = 1 -- 0 by default, will change cwd of nvim-tree to that of new buffer's when opening nvim-tree.
+vim.g.nvim_tree_icons = { default = "" } -- fallback icon for unknown filetypes
 
 vim.cmd([[
 nnoremap <leader>e :NvimTreeToggle<CR>
