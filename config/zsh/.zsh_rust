@@ -44,6 +44,7 @@ export PATH="$HOME/.poetry/bin:$PATH"
 if [ -f "$XDG_DATA_HOME"/ghcup/env ]; then
     source "$XDG_DATA_HOME"/ghcup/env
 fi
+export PATH="$PATH:$XDG_CACHE_HOME/cabal/bin"
 
 # ruby
 if [ -d "$RBENV_ROOT" ]; then
@@ -52,5 +53,4 @@ if [ -d "$RBENV_ROOT" ]; then
 fi
 
 # js
-export PATH="$PATH:`npm config get prefix`/bin"
-
+export PATH="$PATH:$(npm config get prefix)/bin"
