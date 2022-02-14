@@ -58,12 +58,12 @@ return packer.startup(function(use)
   -- others
   use("rcarriga/nvim-notify")
   use("nixon/vim-vmath")
-  use("google/vim-searchindex") -- show how many occurrence [n/N]
   use("bronson/vim-trailing-whitespace") -- highlight trailing whitespace
   use("Yggdroot/indentLine") -- show indent line with |
-  -- use * in visual mode
+  -- better search
   use("inkarkat/vim-ingo-library")
   use("inkarkat/vim-SearchHighlighting")
+  use("google/vim-searchindex") -- show how many occurrence [n/N]
   -- Custom operations
   use("tpope/vim-repeat") -- better repetition
   use("christoomey/vim-titlecase") -- gzz
