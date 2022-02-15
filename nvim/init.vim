@@ -24,6 +24,7 @@ lua require 'plug-config.gitsigns'
 lua require 'plug-config.n-fugitive'
 lua require 'plug-config.n-neogit'
 lua require 'plug-config.toggleterm'
+lua require 'plug-config.vim-qf'
 
 lua require 'plug-config.undotree'
 lua require 'plug-config.quick-scope'
