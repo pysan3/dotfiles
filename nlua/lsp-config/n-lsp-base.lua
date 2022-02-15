@@ -7,7 +7,6 @@ M.setup = function()
     { name = "DiagnosticSignHint", text = "" },
     { name = "DiagnosticSignInfo", text = "" },
   }
-
   vim.diagnostic.config({
     virtual_text = true,
     signs = {
@@ -25,11 +24,9 @@ M.setup = function()
       prefix = "",
     },
   })
-
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
   })
-
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
     border = "rounded",
   })
