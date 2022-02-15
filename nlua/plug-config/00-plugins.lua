@@ -68,13 +68,13 @@ return packer.startup(function(use)
   use("tpope/vim-repeat") -- better repetition
   use("christoomey/vim-titlecase") -- gzz
   use("christoomey/vim-sort-motion") -- gs<motion> eg. gs2j => sort 3 lines
-  use("tpope/vim-surround") -- s is motion, ys to add
   use("terryma/vim-expand-region") -- + to expand, _ to shrink
   use("vim-scripts/ReplaceWithRegister") -- {Visual}["x]gr - replace {Visual} with register x
-  use("michaeljsmith/vim-indent-object") -- ai, ii, aI, iI: text object of same indent (i; above, a; above and below)
   use("unblevable/quick-scope") -- highlights f, t, F, T
   use("justinmk/vim-sneak") -- s, S to jump anywhere
-  -- argument commands
+  -- select objects
+  use("michaeljsmith/vim-indent-object") -- ai, ii, aI, iI: text object of same indent (i; above, a; above and below)
+  use("tpope/vim-surround") -- s is motion, ys to add
   use("PeterRincker/vim-argumentative")
   use("wellle/targets.vim")
   -- dragviduals
