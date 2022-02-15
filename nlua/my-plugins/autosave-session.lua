@@ -37,6 +37,7 @@ M.SaveSession = function(force)
   local sessionpath = basef.FullPath(cwd .. "/.session.vim")
   if force or basef.file_exist(sessionpath) then
     vim.cmd("mksession! " .. sessionpath)
+    echo(".session.vim created.")
   end
   return sessionpath
 end
@@ -66,25 +67,22 @@ end
 
 M.RestoreSession = function()
   local cwd = vim.fn.getcwd()
-  if not vim.fn.filereadable(cwd .. "/.session.vim") then
+  local sessionpath = basef.FullPath(cwd .. "/.session.vim")
+  if not vim.fn.filereadable(sessionpath) then
     return false
   end
-  local sessionpath = basef.FullPath(cwd .. "/.session.vim")
-  local dirname = basef.FullPath(vim.g.startify_session_dir) .. "/" .. basef.SessionName(cwd)
   if basef.file_exist(sessionpath) then
     vim.cmd("so " .. sessionpath)
-  elseif basef.file_exist(dirname) then
-    if basef.Confirm("Found global session. Restore? [y/N]:", "n", false) then
-      vim.cmd("so " .. dirname)
-      M.SaveSession(true)
-    end
   else
-    echo("Last session not found. Run `:AutoSessionSave` to save session.", "warn")
+    print("AutoSession WARN: Last session not found. Run :AutoSessionSave to save session.")
+    vim.cmd("redraws")
   end
   local current_session = basef.SessionName(cwd)
   for buf = 1, vim.fn.bufnr("$") do
     local bufname = vim.fn.bufname(buf)
     if string.match(bufname, "^.*/$") then
+      vim.cmd("bd " .. bufname)
+    elseif string.match(bufname, "^\\[.*\\]$") then
       vim.cmd("bd " .. bufname)
     elseif basef.SessionName(bufname) == current_session then
       vim.cmd("bd " .. bufname)
