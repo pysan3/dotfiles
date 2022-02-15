@@ -9,8 +9,7 @@ vim.g.nvim_tree_respect_buf_cwd = 1 -- 0 by default, will change cwd of nvim-tre
 vim.g.nvim_tree_icons = { default = "" } -- fallback icon for unknown filetypes
 
 vim.cmd([[
-nnoremap <leader>e :NvimTreeToggle<CR>
-nnoremap <leader>/ :NvimTreeFindFile<CR>
+nnoremap <leader>e :NvimTreeFindFileToggle<CR>
 ]])
 
 local tree_cb = require("nvim-tree.config").nvim_tree_callback
@@ -21,6 +20,7 @@ require("nvim-tree").setup({
   open_on_setup = false,
   ignore_ft_on_setup = {},
   auto_close = true,
+  auto_reload_on_write = true,
   open_on_tab = false,
   hijack_cursor = true,
   update_cwd = false,
