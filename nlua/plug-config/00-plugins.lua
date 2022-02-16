@@ -83,8 +83,7 @@ return packer.startup(function(use)
   use("mbbill/undotree")
   -- file explorer
   use("kyazdani42/nvim-web-devicons")
-  -- use("kyazdani42/nvim-tree.lua")
-  use({ "kyazdani42/nvim-tree.lua", commit = "3f4ed9b6c2598ab8304186486a05ae7a328b8d49" })
+  use("kyazdani42/nvim-tree.lua")
   -- colorizer
   use("norcalli/nvim-colorizer.lua")
 
