@@ -50,6 +50,7 @@ return packer.startup(function(use)
 
   -- treesitter
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+  use("nvim-treesitter/nvim-treesitter-textobjects")
 
   -- cmp and lsp
   require("lsp-config.n-cmp-plug").cmp_use(use)
@@ -73,10 +74,10 @@ return packer.startup(function(use)
   use("unblevable/quick-scope") -- highlights f, t, F, T
   use("justinmk/vim-sneak") -- s, S to jump anywhere
   -- select objects
-  use("michaeljsmith/vim-indent-object") -- ai, ii, aI, iI: text object of same indent (i; above, a; above and below)
   use("tpope/vim-surround") -- s is motion, ys to add
-  use("PeterRincker/vim-argumentative")
-  use("wellle/targets.vim")
+  -- use("michaeljsmith/vim-indent-object") -- ai, ii, aI, iI: text object of same indent (i; above, a; above and below)
+  -- use("PeterRincker/vim-argumentative")
+  use("wellle/targets.vim") -- 2i, 2a for more inner and outer selection
   -- dragviduals
   use("zirrostig/vim-schlepp")
   -- undo tree
@@ -99,6 +100,7 @@ return packer.startup(function(use)
 
   -- color theme
   use("lunarvim/darkplus.nvim")
+  use("christianchiarulli/nvcode-color-schemes.vim")
   use("joshdick/onedark.vim")
   use("ulwlu/elly.vim")
   use("tomasiser/vim-code-dark")
