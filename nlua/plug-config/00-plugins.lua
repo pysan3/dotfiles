@@ -101,6 +101,7 @@ return packer.startup(function(use)
   -- color theme
   use("lunarvim/darkplus.nvim")
   use("christianchiarulli/nvcode-color-schemes.vim")
+  use("EdenEast/nightfox.nvim")
   use("joshdick/onedark.vim")
   use("ulwlu/elly.vim")
   use("tomasiser/vim-code-dark")
