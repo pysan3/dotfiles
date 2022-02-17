@@ -1,13 +1,3 @@
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-
-require("luasnip.loaders.from_vscode").lazy_load()
-
-local check_backspace = function()
-  local col = vim.fn.col(".") - 1
-  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-end
-
 -- stylua: ignore start
 local cmp_icons = { Text = "", Method = "m", Function = "", Constructor = "",
 Field = "", Variable = "", Class = "", Interface = "", Module = "",
@@ -17,16 +7,18 @@ Constant = "", Struct = "", Event = "", Operator = "", TypeParameter
 -- stylua: ignore end
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
+local cmp = require("cmp")
+local ultimap = require("cmp_nvim_ultisnips.mappings")
 cmp.setup({
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body) -- For `luasnip` users.
+      vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
   sources = {
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
-    { name = "luasnip" },
+    { name = "ultisnips" },
     { name = "buffer" },
     { name = "dictionary", keyword_length = 3 },
     { name = "path" },
@@ -41,7 +33,7 @@ cmp.setup({
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
         nvim_lua = "[CONFIGS]",
-        luasnip = "[Snippet]",
+        ultisnips = "[Snippet]",
         buffer = "[Buffer]",
         path = "[Path]",
         dictionary = "[Text]",
@@ -63,35 +55,19 @@ cmp.setup({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    ["<CR>"] = cmp.mapping.confirm({ select = false }),
     ["<C-l>"] = cmp.mapping(function(fallback)
-      if luasnip.expandable() then
-        luasnip.expand()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      elseif check_backspace() then
-        fallback()
-      else
-        fallback()
-      end
+      ultimap.compose({ "expand", "jump_forwards" })(fallback)
     end, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.confirm({ select = true })
-      elseif luasnip.expandable() then
-        luasnip.expand()
-      elseif check_backspace() then
-        fallback()
       else
-        fallback()
+        ultimap.compose({ "expand", "select_next_item" })(fallback)
       end
     end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
+      ultimap.jump_backwards(fallback)
     end, { "i", "s" }),
   },
   confirm_opts = {
@@ -106,6 +82,14 @@ cmp.setup({
     -- native_menu = true,
   },
 })
+
+-- from UltiSnips
+require("cmp_nvim_ultisnips").setup({})
+vim.cmd([[
+augroup CMP_NVIM_ULTISNIPS
+  autocmd BufWritePost *.snippets :CmpUltisnipsReloadSnippets
+augroup END
+]])
 
 -- from nvim-autopairs
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")

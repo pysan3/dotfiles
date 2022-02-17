@@ -23,9 +23,18 @@ M.cmp_use = function(use)
   use("uga-rosa/cmp-dictionary")
 
   -- snippets
-  use("L3MON4D3/LuaSnip")
-  use("saadparwaiz1/cmp_luasnip")
-  use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
+  use({
+    "SirVer/ultisnips",
+    requires = { { "honza/vim-snippets", rtp = "." } },
+    config = function()
+      vim.g.UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+      vim.g.UltiSnipsJumpForwardTrigger = "<Plug>(ultisnips_jump_forward)"
+      vim.g.UltiSnipsJumpBackwardTrigger = "<Plug>(ultisnips_jump_backward)"
+      vim.g.UltiSnipsListSnippets = "<c-x><c-s>"
+      vim.g.UltiSnipsRemoveSelectModeMappings = 0
+    end,
+  })
+  use("quangnguyen30192/cmp-nvim-ultisnips")
 
   -- LSP
   use("neovim/nvim-lspconfig") -- enable LSP
