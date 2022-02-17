@@ -28,7 +28,7 @@ require("gitsigns").setup({
     border = "single",
     style = "minimal",
     relative = "cursor",
-    row = 0,
+    row = 1,
     col = 1,
   },
   yadm = {
