@@ -13,11 +13,14 @@ configs.setup({
       "tex", -- use vim-tex
       "latex",
     },
-    additional_vim_regex_highlighting = true,
+    -- additional_vim_regex_highlighting = true,
   },
   indent = {
     enable = true,
-    disable = {},
+    disable = {
+      "python",
+      "yaml",
+    },
   },
   context_commentstring = {
     enable = true,

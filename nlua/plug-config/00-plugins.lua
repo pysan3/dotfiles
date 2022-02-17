@@ -118,6 +118,7 @@ return packer.startup(function(use)
     ft = { "javascript", "javascript.jsx", "typescript" },
     run = "make install",
   })
+  use("Vimjas/vim-python-pep8-indent")
   use("uarun/vim-protobuf")
   use("tikhomirov/vim-glsl")
   use("lervag/vimtex")
