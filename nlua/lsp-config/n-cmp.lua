@@ -31,14 +31,14 @@ cmp.setup({
     format = function(entry, vim_item)
       vim_item.kind = string.format("%s", cmp_icons[vim_item.kind])
       vim_item.menu = ({
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[CONFIGS]",
-        ultisnips = "[Snippet]",
-        buffer = "[Buffer]",
+        nvim_lsp = "[LSP ]",
+        nvim_lua = "[NLUA]",
+        ultisnips = "[Snip]",
+        buffer = "[Buff]",
         path = "[Path]",
         dictionary = "[Text]",
         emoji = "[Text]",
-        spell = "[Spell]",
+        spell = "[Spll]",
         calc = "[Calc]",
       })[entry.source.name]
       return vim_item
