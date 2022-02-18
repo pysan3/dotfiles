@@ -44,6 +44,10 @@ M.cmp_use = function(use)
   -- others
   use("numToStr/Comment.nvim")
   use("JoosepAlviste/nvim-ts-context-commentstring")
+
+  -- fidget https://github.com/j-hui/fidget.nvim
+  -- print linting progress
+  use("j-hui/fidget.nvim")
 end
 
 return M
