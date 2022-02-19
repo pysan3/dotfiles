@@ -62,7 +62,8 @@ M.SaveSession = function(force)
     while vim.g.autosession_win_opened > 0 and wait_counter > 0 do
       wait_counter = wait_counter - 1
     end
-    if vim.g.autosession_win_opened <= 0 or basef.Confirm("May crush. Continue? [Y/n]:", "y", true) then
+    local confirm_msg = "May crush. Please wait until all Notification are gone. Continue? [Y/n]:"
+    if vim.g.autosession_win_opened <= 0 or basef.Confirm(confirm_msg, "y", true) then
       vim.cmd("mksession! " .. sessionpath)
       echo(".session.vim created.")
     else
@@ -173,7 +174,6 @@ command! -bar AutoSessionAuto lua require('my-plugins.autosave-session').SaveSes
 command! -bar AutoSessionGlobal lua require('my-plugins.autosave-session').SaveGlobalSession()
 command! -bar AutoSessionDelete lua require('my-plugins.autosave-session').DeleteSession()
 autocmd VimEnter * nested lua require('my-plugins.autosave-session').RestoreSession()
-autocmd VimLeave * nested AutoSessionAuto
 
 command! Q :AutoSessionAuto <bar> :q
 command! WQ :AutoSessionAuto <bar> :wq

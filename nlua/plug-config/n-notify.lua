@@ -5,7 +5,6 @@ require("notify").setup({
   end,
   on_close = function()
     require("my-plugins.autosave-session").close_win_open()
-    vim.g.autosession_win_opened = vim.g.autosession_win_opened - 1
   end,
   render = "default",
   timeout = 800,
