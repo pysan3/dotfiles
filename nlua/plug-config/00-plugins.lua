@@ -95,6 +95,8 @@ return packer.startup(function(use)
   use("romainl/vim-qf")
   -- zenmode
   use("folke/zen-mode.nvim")
+  -- distant.nvim (remote file edit)
+  use("chipsenkbeil/distant.nvim")
 
   -- terminal
   use("akinsho/toggleterm.nvim")

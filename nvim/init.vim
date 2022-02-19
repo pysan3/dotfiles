@@ -35,6 +35,7 @@ lua require 'plug-config.dragvisuals'
 lua require 'plug-config.expand-region'
 lua require 'plug-config.zen-mode'
 lua require 'plug-config.startify'
+lua require 'plug-config.distant'
 lua require 'plug-config.vimtex'
 " SourceIF $HOME/.config/nvim/plug-config/firenvim.vim
 
