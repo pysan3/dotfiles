@@ -132,7 +132,7 @@ fi
 warning 'Do you want to reinstall nvim?'
 checkyes 'Install with zap?'
 if [ $? -eq 0 ]; then
-    zap i --github --from neovim/neovim --executable nvim
+    zap i --github --from neovim/neovim --executable nvim --update
 else
     error 'Please install manually.'
     echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
@@ -146,16 +146,17 @@ checkcommand () {
     zsh -c "$2" || error "failed: $2; DO IT YOURSELF"
   fi
 }
-# telescope
-checkcommand 'ueberzug' 'pip install ueberzug'
-checkcommand 'pdftoppm' 'exit 1'
-checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
-checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler'
+
 # null-ls
 checkcommand 'stylua' 'cargo install stylua'
 checkcommand 'prettier' 'npm install --save-dev -g prettier'
 checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
 checkcommand 'flake8' 'pip install --user --upgrade flake8'
 checkcommand 'pylint' 'pip install --user --upgrade pylint'
+# telescope
+checkcommand 'ueberzug' 'pip install ueberzug'
+checkcommand 'pdftoppm' 'exit 1'
+checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
+checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler'
 
 info "Everything is done. Thx!!"
