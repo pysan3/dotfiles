@@ -1,5 +1,6 @@
 " I hate escape more than anything else
 inoremap <silent> jk <Esc>
+inoremap <silent> kj <Esc>
 tmap <silent> jk <Esc>
 
 " jump to the last edited file
@@ -23,10 +24,10 @@ nnoremap H :bprevious<CR>
 nnoremap L :bnext<CR>
 
 " Alternate way to save
-nnoremap <C-s> :silent w<CR>
+nnoremap <C-s> :w<CR>
 " Alternate way to quit
-nnoremap <C-Q> :silent wq!<CR>
-inoremap <C-Q> <Esc>:silent wq!<CR>
+nnoremap <C-Q> :wq!<CR>
+inoremap <C-Q> <Esc>:wq!<CR>
 nnoremap <silent> <Leader>w :silent w<CR>
 nnoremap <silent> <Leader>q :silent bd!<CR>
 command! Q :q
