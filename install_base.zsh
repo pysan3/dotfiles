@@ -132,7 +132,8 @@ fi
 warning 'Do you want to reinstall nvim?'
 checkyes 'Install with zap?'
 if [ $? -eq 0 ]; then
-    zap i --github --from neovim/neovim --executable nvim --update
+    rm "$XDG_DATA_HOME"/zap/v2/index/nvim.json
+    zap i --github --from neovim/neovim --executable nvim
 else
     error 'Please install manually.'
     echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
