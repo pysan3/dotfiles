@@ -9,6 +9,7 @@ local plugin_commands = {
   AutoSessionGlobal = "Resigter current session for vim-startify.",
   AutoSessionDelete = "Delete a global session.",
 }
+vim.g.autosession_win_opened = 0
 
 local echo = function(msg, level, ...)
   if not level then
@@ -28,6 +29,27 @@ M.help = function()
   echo(str, "warn", { title = plugin_name .. " Help" })
 end
 
+M.add_win_open_timer = function(wait_for_ms, msg)
+  M.add_win_open()
+  vim.fn.timer_start(wait_for_ms, function()
+    M.close_win_open(msg)
+  end)
+end
+
+M.add_win_open = function(msg)
+  vim.g.autosession_win_opened = vim.g.autosession_win_opened + 1
+  if msg ~= nil then
+    echo(msg)
+  end
+end
+
+M.close_win_open = function(msg)
+  vim.g.autosession_win_opened = vim.g.autosession_win_opened - 1
+  if msg ~= nil then
+    echo(msg)
+  end
+end
+
 M.SaveSession = function(force)
   local cwd = vim.fn.getcwd()
   if basef.FullPath(cwd) == basef.FullPath(vim.env.HOME) then
@@ -36,8 +58,16 @@ M.SaveSession = function(force)
   end
   local sessionpath = basef.FullPath(cwd .. "/.session.vim")
   if force or basef.file_exist(sessionpath) then
-    vim.cmd("mksession! " .. sessionpath)
-    echo(".session.vim created.")
+    local wait_counter = 1000
+    while vim.g.autosession_win_opened > 0 and wait_counter > 0 do
+      wait_counter = wait_counter - 1
+    end
+    if vim.g.autosession_win_opened <= 0 or basef.Confirm("May crush. Continue? [Y/n]:", "y", true) then
+      vim.cmd("mksession! " .. sessionpath)
+      echo(".session.vim created.")
+    else
+      echo("Aborted!", "error")
+    end
   end
   return sessionpath
 end
