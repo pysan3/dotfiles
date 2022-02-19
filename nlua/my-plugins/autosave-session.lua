@@ -137,13 +137,17 @@ M.DeleteSession = function()
 end
 
 vim.cmd([[
-command! AutoSession lua require('my-plugins.autosave-session').help()
-command! AutoSessionSave lua require('my-plugins.autosave-session').SaveSession(true)
-command! AutoSessionAuto lua require('my-plugins.autosave-session').SaveSession(false)
-command! AutoSessionGlobal lua require('my-plugins.autosave-session').SaveGlobalSession()
-command! AutoSessionDelete lua require('my-plugins.autosave-session').DeleteSession()
-autocmd VimLeave * nested AutoSessionAuto
+command! -bar AutoSession lua require('my-plugins.autosave-session').help()
+command! -bar AutoSessionSave lua require('my-plugins.autosave-session').SaveSession(true)
+command! -bar AutoSessionAuto lua require('my-plugins.autosave-session').SaveSession(false)
+command! -bar AutoSessionGlobal lua require('my-plugins.autosave-session').SaveGlobalSession()
+command! -bar AutoSessionDelete lua require('my-plugins.autosave-session').DeleteSession()
 autocmd VimEnter * nested lua require('my-plugins.autosave-session').RestoreSession()
+
+command! Q :AutoSessionAuto <bar> :q
+command! WQ :AutoSessionAuto <bar> :wq
+command! Wq :AutoSessionAuto <bar> :wq
+command! CL AutoSessionAuto <bar> :qa
 ]])
 
 return M
