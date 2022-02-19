@@ -5,7 +5,7 @@ require("neogit").setup({
   disable_commit_confirmation = true,
   disable_insert_on_commit = false,
   auto_refresh = true,
-  disable_builtin_notifications = false,
+  disable_builtin_notifications = true,
   commit_popup = {
     kind = "split",
   },

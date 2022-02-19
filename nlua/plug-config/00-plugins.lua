@@ -39,6 +39,7 @@ return packer.startup(function(use)
   -- git
   use("lewis6991/gitsigns.nvim")
   use("TimUntersberger/neogit")
+  use("sindrets/diffview.nvim")
   use("rhysd/conflict-marker.vim")
   use("tpope/vim-fugitive")
 
