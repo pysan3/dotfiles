@@ -5,6 +5,21 @@ echo "Running file in $DOTFILES"
 source "$DOTFILES/.zshenv"
 source "$DOTFILES/functions.zsh"
 
+function update_git_repo() {
+    dist="$1"; repo_url="$2"
+    shift 2
+    if [ ! -d "$dist" ]; then
+        info "Installing $dist"
+        mkdir -p "$dist" && git clone --depth 1 "$repo_url" "$dist"
+    fi
+    info "Updating $dist"
+    git -C "$dist" pull
+    for file in "$@"; do
+        info "Compiled $dist/$file"
+        zcompile "$dist/$file"
+    done
+}
+
 if ! command -v 'python' &>/dev/null || [[ `python -V` =~ 'Python 2.*' ]]; then
     error 'No python command found'
     if checkyes 'do you want to create a systemwide symlink to python3?'; then
@@ -29,19 +44,9 @@ fi
 # install zsh shell utils
 mkdir -p "$XDG_DATA_HOME"/zsh
 ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR="$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting
-if [ ! -d "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" ]; then
-    info "Installing zsh-syntax-highlighting"
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR"
-fi
-git -C "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" pull
-zcompile "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR"/zsh-syntax-highlighting.zsh
+update_git_repo "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting.zsh
 ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME"/zsh/zsh-autosuggestions
-if [ ! -d "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" ]; then
-    info "Installing zsh-autosuggestions"
-    git clone https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR"
-fi
-git -C "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" pull
-zcompile "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR"/zsh-autosuggestions.zsh
+update_git_repo "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git zsh-autosuggestions.zsh
 
 # install pyenv
 if ! command -v 'pyenv' &>/dev/null; then
@@ -128,20 +133,13 @@ done < "$DOTFILES/static/list_rust_packages.txt"
 
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME"/fzf
-if [ ! -d "$FZF_INSTALL_DIR" ]; then
-    git clone --depth 1 https://github.com/junegunn/fzf.git "$FZF_INSTALL_DIR"
-fi
-git -C "$FZF_INSTALL_DIR" pull
+update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git
 "$FZF_INSTALL_DIR"/install --xdg --no-key-bindings --no-completion --no-update-rc --no-bash --no-fish
 zcompile "$XDG_CONFIG_HOME"/fzf/fzf.zsh
 
 # install tmux plugin manager
 TPM_INSTALL_DIR="$XDG_DATA_HOME"/tmux/plugins/tpm
-if [ ! -d "$TPM_INSTALL_DIR" ]; then
-    mkdir -p "$TPM_INSTALL_DIR"
-    git clone https://github.com/tmux-plugins/tpm "$TPM_INSTALL_DIR"
-fi
-git -C "$TPM_INSTALL_DIR" pull
+update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm
 
 # install and update zap (appimage package manager)
 if ! command -v 'zap' &>/dev/null; then
