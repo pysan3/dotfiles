@@ -128,13 +128,19 @@ while IFS= read -r line; do
             continue
         fi
     fi
-    eval "alias $cmd='$issudo$alt'"
+    cache_file=${CARGO_ALIAS_CACHE:=$XDG_CACHE_HOME/cargo/alias_local}
+    mkdir -p "$(dirname "$cache_file")"
+    touch "$cache_file"
+    if [ $(cat "$cache_file" | grep -c "$cmd") -eq 0 ]; then
+        echo "alias $cmd='$issudo$alt'" >> "$cache_file"
+    fi
 done < "$DOTFILES/static/list_rust_packages.txt"
 
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME"/fzf
 update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git
-"$FZF_INSTALL_DIR"/install --xdg --no-key-bindings --no-completion --no-update-rc --no-bash --no-fish
+# "$FZF_INSTALL_DIR"/install --xdg --no-key-bindings --no-completion --no-update-rc --no-bash --no-fish
+"$FZF_INSTALL_DIR"/install --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish
 zcompile "$XDG_CONFIG_HOME"/fzf/fzf.zsh
 
 # install tmux plugin manager

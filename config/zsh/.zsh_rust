@@ -1,6 +1,8 @@
 #!/bin/bash
 
-function store_eval() {
+source "$DOTFILES/functions.zsh"
+
+function add_completions() {
     # cmd="$1"; cache_file="$2"
     if [ ! -f "$2" ]; then
         eval "$1" > "$2"
@@ -8,8 +10,10 @@ function store_eval() {
     source "$2"
 }
 
+# js
 # Preserve MANPATH if you already defined it somewhere in your config.
 # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
+export PATH="$PATH:$(npm config get prefix)/bin"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 # alias to command line utils
@@ -18,37 +22,16 @@ if [ -f "$CARGO_HOME"/env ]; then
 else
     export PATH="$PATH:$CARGO_HOME/bin"
 fi
-if [ -d "$CARGO_HOME" ]; then
-    while IFS= read -r line; do
-        if [ 'x#' = x${line:0:1} ]; then continue; fi
-        IFS='=' read -r -A cmdArr <<< "$line"
-        # add one dummy in bash because zsh array is 1-index
-        if [[ x$(basename $SHELL) = x'bash' ]]; then
-            cmdArr="tmp $cmdArr"
-        fi
-        cmd=${cmdArr[1]}
-        alt=${cmdArr[2]}
-        issudo=""
-        if [[ x"$alt" == xsudo* ]]; then
-            alt="${alt:5}"
-            issudo="sudo "
-        fi
-        if [ ${#cmdArr[@]} -gt 2 ]; then
-            pkg=${cmdArr[3]}
-        else
-            pkg="$alt"
-        fi
-        eval "alias $cmd='$issudo$alt'"
-    done < "$HOME/dotfiles/static/list_rust_packages.txt"
+if [ -f "${CARGO_ALIAS_CACHE:=$XDG_CACHE_HOME/cargo/alias_local}" ]; then
+    source "$CARGO_ALIAS_CACHE"
+else
+    warning '$CARGO_ALIAS_CACHE not found'
 fi
 
 # Python
 export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
-# eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
-store_eval "pyenv init -" "/tmp/pyenv-init-cache"
-store_eval "pyenv virtualenv-init -" "/tmp/pyenv-virutalenv-init-cache"
-export PATH="$HOME/.poetry/bin:$PATH"
+# add_completions "pyenv init -" "/tmp/pyenv-init-cache"
+# add_completions "pyenv virtualenv-init -" "/tmp/pyenv-virutalenv-init-cache"
 
 # Haskel
 if [ -f "$XDG_DATA_HOME"/ghcup/env ]; then
@@ -59,8 +42,5 @@ export PATH="$PATH:$XDG_CACHE_HOME/cabal/bin"
 # ruby
 if [ -d "$RBENV_ROOT" ]; then
     export PATH="$PATH:$RBENV_ROOT/bin:$XDG_DATA_HOME/gem/bin"
-    store_eval "rbenv init -" "/tmp/rbenv-init-cache"
+    # add_completions "rbenv init -" "/tmp/rbenv-init-cache"
 fi
-
-# js
-export PATH="$PATH:$(npm config get prefix)/bin"
