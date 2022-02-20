@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$DOTFILES/functions.zsh"
+source "${DOTFILES:-$HOME/dotfiles}/functions.zsh"
 
 function add_completions() {
     # cmd="$1"; cache_file="$2"
