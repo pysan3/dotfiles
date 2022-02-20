@@ -3,7 +3,7 @@
 DOTFILES="$( cd "$( dirname "$0" )" &> /dev/null && pwd )"
 echo "Running file in $DOTFILES"
 source "$DOTFILES/.zshenv"
-source "$DOTFILES/functions.zsh"
+unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 
 function update_git_repo() {
     dist="$1"; repo_url="$2"

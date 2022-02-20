@@ -11,7 +11,7 @@ fi
 WORKDIR=$PWD
 cd $DOTFILES || error "Could not cd to $DOTFILES; Abort" || exit
 
-source "$DOTFILES/functions.zsh"
+unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 
 # create symlink to .zsh* files
 for f in $(command ls -Ap | grep -v / | grep -v '\.sh' | grep -v '\.zsh$'); do
