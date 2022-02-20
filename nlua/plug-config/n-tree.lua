@@ -12,8 +12,6 @@ vim.cmd([[
 nnoremap <leader>e :NvimTreeFindFileToggle<CR>
 ]])
 
-local tree_cb = require("nvim-tree.config").nvim_tree_callback
-
 require("nvim-tree").setup({
   disable_netrw = true,
   hijack_netrw = true,
@@ -23,6 +21,7 @@ require("nvim-tree").setup({
   auto_reload_on_write = true,
   open_on_tab = false,
   hijack_cursor = true,
+  hijack_unnamed_buffer_when_opening = true,
   update_cwd = false,
   update_to_buf_dir = {
     enable = true,
@@ -59,9 +58,9 @@ require("nvim-tree").setup({
     mappings = {
       custom_only = false,
       list = {
-        { key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
-        { key = "v", cb = tree_cb("vsplit") },
-        { key = "h", cb = tree_cb("close_node") },
+        { key = { "l", "<CR>", "o" }, action = "edit" },
+        { key = "v", action = "vsplit" },
+        { key = "h", action = "close_node" },
       },
     },
     number = false,
