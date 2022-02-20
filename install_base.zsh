@@ -166,11 +166,11 @@ fi
 
 # nvim dependencies
 checkcommand () {
-  if ! command -v "$1" &>/dev/null; then
-    warning "Command $1 not found. Installing with following command."
-    info "$2"
-    zsh -c "$2" || error "failed: $2; DO IT YOURSELF"
-  fi
+    if ! command -v "$1" &>/dev/null; then
+        warning "Command $1 not found. Installing with following command."
+        info "$2"
+        zsh -c "$2" || error "failed: $2; DO IT YOURSELF"
+    fi
 }
 
 # null-ls
@@ -182,10 +182,10 @@ checkcommand 'pylint' 'pip install --user --upgrade pylint'
 # telescope
 checkyes 'Install telescope dependencies?'
 if [ $? -eq 0 ]; then
-  checkcommand 'ueberzug' 'pip install ueberzug'
-  checkcommand 'pdftoppm' 'exit 1'
-  checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
-  checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler'
+    checkcommand 'ueberzug' 'pip install ueberzug'
+    checkcommand 'pdftoppm' 'exit 1'
+    checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
+    checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler'
 fi
 
 info "Everything is done. Thx!!"
