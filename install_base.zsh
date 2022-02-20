@@ -28,16 +28,20 @@ fi
 
 # install zsh shell utils
 mkdir -p "$XDG_DATA_HOME"/zsh
-if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh.zwc ]; then
+ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR="$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting
+if [ ! -d "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" ]; then
     info "Installing zsh-syntax-highlighting"
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting
-    zcompile "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR"
 fi
-if [ ! -f "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh.zwc ]; then
+git -C "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" pull
+zcompile "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR"/zsh-syntax-highlighting.zsh
+ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME"/zsh/zsh-autosuggestions
+if [ ! -d "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" ]; then
     info "Installing zsh-autosuggestions"
-    git clone https://github.com/zsh-users/zsh-autosuggestions.git "$XDG_DATA_HOME"/zsh/zsh-autosuggestions
-    zcompile "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR"
 fi
+git -C "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" pull
+zcompile "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR"/zsh-autosuggestions.zsh
 
 # install pyenv
 if ! command -v 'pyenv' &>/dev/null; then
@@ -122,11 +126,22 @@ while IFS= read -r line; do
     eval "alias $cmd='$issudo$alt'"
 done < "$DOTFILES/static/list_rust_packages.txt"
 
-# install tmux plugin manager
-if [ ! -d "$XDG_DATA_HOME"/tmux/plugins/tpm ]; then
-    mkdir -p "$XDG_DATA_HOME"/tmux/plugins/tpm
-    git clone https://github.com/tmux-plugins/tpm "$XDG_DATA_HOME"/tmux/plugins/tpm
+# install fzf
+FZF_INSTALL_DIR="$XDG_DATA_HOME"/fzf
+if [ ! -d "$FZF_INSTALL_DIR" ]; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git "$FZF_INSTALL_DIR"
 fi
+git -C "$FZF_INSTALL_DIR" pull
+"$FZF_INSTALL_DIR"/install --xdg --no-key-bindings --no-completion --no-update-rc --no-bash --no-fish
+zcompile "$XDG_CONFIG_HOME"/fzf/fzf.zsh
+
+# install tmux plugin manager
+TPM_INSTALL_DIR="$XDG_DATA_HOME"/tmux/plugins/tpm
+if [ ! -d "$TPM_INSTALL_DIR" ]; then
+    mkdir -p "$TPM_INSTALL_DIR"
+    git clone https://github.com/tmux-plugins/tpm "$TPM_INSTALL_DIR"
+fi
+git -C "$TPM_INSTALL_DIR" pull
 
 # install and update zap (appimage package manager)
 if ! command -v 'zap' &>/dev/null; then
@@ -161,9 +176,12 @@ checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
 checkcommand 'flake8' 'pip install --user --upgrade flake8'
 checkcommand 'pylint' 'pip install --user --upgrade pylint'
 # telescope
-checkcommand 'ueberzug' 'pip install ueberzug'
-checkcommand 'pdftoppm' 'exit 1'
-checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
-checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler'
+checkyes 'Install telescope dependencies?'
+if [ $? -eq 0 ]; then
+  checkcommand 'ueberzug' 'pip install ueberzug'
+  checkcommand 'pdftoppm' 'exit 1'
+  checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
+  checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler'
+fi
 
 info "Everything is done. Thx!!"

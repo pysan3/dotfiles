@@ -115,6 +115,7 @@ RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source "$XDG_CONFIG_HOME"/fzf/fzf.zsh
 
 [ -f "$ZDOTDIR/.zsh_script" ] && source "$ZDOTDIR/.zsh_script"
 
