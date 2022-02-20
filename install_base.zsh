@@ -122,6 +122,12 @@ while IFS= read -r line; do
     eval "alias $cmd='$issudo$alt'"
 done < "$DOTFILES/static/list_rust_packages.txt"
 
+# install tmux plugin manager
+if [ ! -d "$XDG_DATA_HOME"/tmux/plugins/tpm ]; then
+    mkdir -p "$XDG_DATA_HOME"/tmux/plugins/tpm
+    git clone https://github.com/tmux-plugins/tpm "$XDG_DATA_HOME"/tmux/plugins/tpm
+fi
+
 # install and update zap (appimage package manager)
 if ! command -v 'zap' &>/dev/null; then
     info 'Installing zap (appimage package manager)'

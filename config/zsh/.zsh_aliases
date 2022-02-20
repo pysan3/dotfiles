@@ -69,6 +69,7 @@ alias tm="tmuxinator"
 alias ta="tmux a"
 alias ts='tmux a -t'
 alias ttmp="tmux new-session -A -s tmp"
+function tn() { tmux new-session -A -s $(basename "$PWD") }
 alias yt='youtube-dl -ci -f mp4'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
