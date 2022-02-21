@@ -23,8 +23,10 @@ function update_git_repo() {
     zcompile "$dist/$file"
   done
   for file in $(command find "$dist" -name '*.zsh' -type f); do
-    info "Found $file -> Compiling"
-    zcompile "$file"
+    if [ ! "$file.zwc" -nt "$file" ]; then
+      info "Found $file -> Compiling"
+      zcompile "$file"
+    fi
   done
 }
 
