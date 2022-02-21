@@ -1,31 +1,18 @@
 #!/usr/bin/zsh
 
-DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
-if [[ 'xdotfiles' != x$(basename $DOTFILES) ]]; then
-  echo "install.sh might not be placed in the right place."
+if [[ 'xdotfiles' != x$(basename ${DOTFILES:=$HOME/dotfiles}) ]]; then
+  echo "install_all.zsh might not be placed in the right place."
   echo "Try running it inside dotfile directory."
   exit
 fi
 
-WORKDIR=$PWD
-cd $DOTFILES || error "Could not cd to $DOTFILES; Abort" || exit
+cd $DOTFILES
+if [[ x"$PWD" != x"$DOTFILES" ]]; then
+  error "Could not cd to $DOTFILES; PWD=$PWD; Abort"
+  exit
+fi
 
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
-
-compile_zdot() {
-  [ -f "$1" ] && [ ! -f "$1.zwc" -o "$1" -nt "$1.zwc" ] && zcompile "$1"
-}
-compile_zdot "$HOME/.zshenv"
-# compile_zdot .zprofile
-compile_zdot "$ZDOTDIR/.zshrc"
-compile_zdot "$ZDOTDIR/.zsh_local"
-compile_zdot "$ZDOTDIR/.zsh_rust"
-compile_zdot "$ZDOTDIR/.zsh_aliases"
-compile_zdot "$ZDOTDIR/.zsh_script"
-# compile_zdot .zlogin
-# compile_zdot .zlogout
-compile_zdot "$ZDOTDIR/.zcompdump"
 
 # create symlink to .zsh* files
 for f in $(command ls -Ap | grep -v / | grep -v '\.sh' | grep -v '\.zsh$'); do
@@ -78,7 +65,3 @@ if [ ! -f ~/texmf/tex/latex/local/pdfpc-commands.sty ]; then
   fi
   info "Installed pdfpc-commands.sty"
 fi
-
-cd $WORKDIR || error "Could not cd to $WORKDIR; Abort" || exit
-
-checkdependency git

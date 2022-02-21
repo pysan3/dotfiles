@@ -1,7 +1,11 @@
 #!/usr/bin/zsh
 
-DOTFILES="$( cd "$( dirname "$0" )" &> /dev/null && pwd )"
-echo "Running file in $DOTFILES"
+if [[ 'xdotfiles' != x$(basename ${DOTFILES:=$HOME/dotfiles}) ]]; then
+  echo "install_base.zsh might not be placed in the right place."
+  echo "Try running it inside dotfile directory."
+  exit
+fi
+
 source "$DOTFILES/.zshenv"
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 
@@ -187,3 +191,4 @@ if [ $? -eq 0 ]; then
 fi
 
 info "Everything is done. Thx!!"
+

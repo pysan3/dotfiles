@@ -87,12 +87,27 @@ function def() {
   alias $@ || declare -f $@ || which $@
 }
 
+function update_zwc () {
+  compile_zdot() { [ -f "$1" ] && [ ! -f "$1.zwc" -o "$1" -nt "$1.zwc" ] && info "Compiled $1" && zcompile "$1" }
+  compile_zdot "$HOME/.zshenv"
+  # compile_zdot .zprofile
+  compile_zdot "$ZDOTDIR/.zshrc"
+  compile_zdot "$ZDOTDIR/.zsh_local"
+  compile_zdot "$ZDOTDIR/.zsh_rust"
+  compile_zdot "$ZDOTDIR/.zsh_aliases"
+  compile_zdot "$ZDOTDIR/.zsh_script"
+  # compile_zdot .zlogin
+  # compile_zdot .zlogout
+  compile_zdot "$ZDOTDIR/.zcompdump"
+  return 0
+}
 function dot() {
   cd $DOTFILES
-  eval $@
-  [ $# -ne 0 ] && cd -
-  "$HOME"/dotfiles/install_all.zsh >/dev/null && info 'Restarted' || error 'Failed to Reload'
-  restart
+  [ $# -ne 0 ] && (eval $@; cd -)
+  run_cmd () { eval "$@" && info "Success: '$@'" || error "Failed: '$@'" }
+  run_cmd "$HOME"/dotfiles/install_all.zsh
+  run_cmd restart
+  run_cmd update_zwc
 }
 
 # .env loading in the shell
