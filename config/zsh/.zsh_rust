@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 function add_completions() {
   # cmd="$1"; cache_file="$2"
@@ -20,7 +20,7 @@ if [ -f "$CARGO_HOME"/env ]; then
 else
   export PATH="$PATH:$CARGO_HOME/bin"
 fi
-if [ -f "${CARGO_ALIAS_CACHE:=$XDG_CACHE_HOME/cargo/alias_local}" ]; then
+if [ -f "${CARGO_ALIAS_CACHE:=$XDG_CACHE_HOME/cargo/alias_local.zsh}" ]; then
   source "$CARGO_ALIAS_CACHE"
 else
   echo '$CARGO_ALIAS_CACHE not found'
