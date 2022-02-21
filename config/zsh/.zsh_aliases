@@ -91,7 +91,7 @@ function dot() {
   cd $DOTFILES
   eval $@
   [ $# -ne 0 ] && cd -
-  "$HOME"/dotfiles/install_dotfiles.sh >/dev/null && info 'Restarted' || error 'Failed to Reload'
+  "$HOME"/dotfiles/install_all.zsh >/dev/null && info 'Restarted' || error 'Failed to Reload'
   restart
 }
 
