@@ -22,6 +22,10 @@ function update_git_repo() {
     info "Compiled $dist/$file"
     zcompile "$dist/$file"
   done
+  for file in $(command find "$dist" -name '*.zsh' -type f); do
+    info "Found $file -> Compiling"
+    zcompile "$file"
+  done
 }
 
 if ! command -v 'python' &>/dev/null || [[ `python -V` =~ 'Python 2.*' ]]; then
@@ -103,6 +107,9 @@ if ! command -v 'cargo' &> /dev/null; then
     read tmp
   fi
 fi
+CARGO_ALIAS_CACHE=${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}
+mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"
+touch "$CARGO_ALIAS_CACHE"
 while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
   IFS='=' read -r -A cmdArr <<< "$line"
@@ -131,13 +138,11 @@ while IFS= read -r line; do
       continue
     fi
   fi
-  cache_file=${CARGO_ALIAS_CACHE:=$XDG_CACHE_HOME/cargo/alias_local}
-  mkdir -p "$(dirname "$cache_file")"
-  touch "$cache_file"
-  if [ $(cat "$cache_file" | grep -c "$cmd") -eq 0 ]; then
-    echo "alias $cmd='$issudo$alt'" >> "$cache_file"
+  if [ $(cat "$CARGO_ALIAS_CACHE" | grep -c "$cmd") -eq 0 ]; then
+    echo "alias $cmd='$issudo$alt'" >> "$CARGO_ALIAS_CACHE"
   fi
 done < "$DOTFILES/static/list_rust_packages.txt"
+zcompile "$CARGO_ALIAS_CACHE"
 
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME"/fzf
