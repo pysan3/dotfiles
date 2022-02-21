@@ -14,7 +14,7 @@ function update_git_repo() {
   fi
   info "Updating $dist"
   git -C "$dist" pull
-  for file in "$@"; do
+  for file in $@; do
     info "Compiled $dist/$file"
     zcompile "$dist/$file"
   done
@@ -137,8 +137,7 @@ done < "$DOTFILES/static/list_rust_packages.txt"
 
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME"/fzf
-update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git
-# "$FZF_INSTALL_DIR"/install --xdg --no-key-bindings --no-completion --no-update-rc --no-bash --no-fish
+update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh shell/key-bindings.zsh
 "$FZF_INSTALL_DIR"/install --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish
 zcompile "$XDG_CONFIG_HOME"/fzf/fzf.zsh
 
