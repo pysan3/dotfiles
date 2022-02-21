@@ -44,3 +44,4 @@ function followlink () {
   fi
 }
 
+true

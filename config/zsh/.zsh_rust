@@ -42,3 +42,5 @@ if [ -d "$RBENV_ROOT" ]; then
   export PATH="$PATH:$RBENV_ROOT/bin:$XDG_DATA_HOME/gem/bin"
   # add_completions "rbenv init -" "/tmp/rbenv-init-cache"
 fi
+
+true

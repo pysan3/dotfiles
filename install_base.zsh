@@ -190,5 +190,4 @@ if [ $? -eq 0 ]; then
   checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler'
 fi
 
-info "Everything is done. Thx!!"
-
+info "Everything is done. Thx!!"; true

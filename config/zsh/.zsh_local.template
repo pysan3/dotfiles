@@ -77,3 +77,4 @@ function syncddns () {
   cbw get item mydns.jp | jq '.login' | jq -r '"\(.username):\(.password)"' | { read login; for v in 4 6; do curl -u "$login" "https://ipv$v.mydns.jp/login.html"; done }
 }
 
+true

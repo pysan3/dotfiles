@@ -370,3 +370,5 @@ function fzf-cdr () {
 }
 zle -N fzf-cdr
 bindkey '^E' fzf-cdr
+
+true

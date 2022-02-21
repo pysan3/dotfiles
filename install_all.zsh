@@ -65,3 +65,5 @@ if [ ! -f ~/texmf/tex/latex/local/pdfpc-commands.sty ]; then
   fi
   info "Installed pdfpc-commands.sty"
 fi
+
+true
