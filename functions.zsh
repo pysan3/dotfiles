@@ -1,5 +1,3 @@
-[ -n "${DOTFILES_FUNCTIONS}" ] && return; export readonly DOTFILES_FUNCTIONS=0;
-
 function error () {
     tput setaf 1; echo "ERROR; $@" 1>&2; tput sgr0
 }
@@ -11,8 +9,6 @@ function warning () {
 function info () {
     tput setaf 2; echo -n "INFO; "; tput sgr0; echo "$@"
 }
-
-warning 'dotfiles/functions.zsh is being loaded'
 
 function checkyes() {
     result=1

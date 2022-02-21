@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source "${DOTFILES:-$HOME/dotfiles}/functions.zsh"
-
 function add_completions() {
     # cmd="$1"; cache_file="$2"
     if [ ! -f "$2" ]; then
@@ -25,7 +23,7 @@ fi
 if [ -f "${CARGO_ALIAS_CACHE:=$XDG_CACHE_HOME/cargo/alias_local}" ]; then
     source "$CARGO_ALIAS_CACHE"
 else
-    warning '$CARGO_ALIAS_CACHE not found'
+    echo '$CARGO_ALIAS_CACHE not found'
 fi
 
 # Python
