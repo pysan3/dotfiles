@@ -88,7 +88,7 @@ function def() {
 }
 
 function update_zwc () {
-  compile_zdot() { [ -f "$1" ] && [ ! -f "$1.zwc" -o "$1" -nt "$1.zwc" ] && info "Compiled $1" && zcompile "$1" }
+  compile_zdot() { [ -f "$1" ] && [ ! "$1.zwc" -nt "$1" ] && zcompile "$1" && info "Compiled $1" }
   compile_zdot "$HOME/.zshenv"
   # compile_zdot .zprofile
   compile_zdot "$ZDOTDIR/.zshrc"
