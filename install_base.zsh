@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 DOTFILES="$( cd "$( dirname "$0" )" &> /dev/null && pwd )"
 echo "Running file in $DOTFILES"
