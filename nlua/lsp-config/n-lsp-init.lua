@@ -166,7 +166,7 @@ require("fidget").setup({
     end,
     task = function(task_name, msg, perc)
       require("my-plugins.autosave-session").add_win_open_timer(500)
-      return string.format("%s%s %s", msg, perc ~= 100 and string.format(" %s%%", perc) or "", task_name)
+      return string.format("%s%s %s", msg, perc and string.format(" %s%%", perc) or "", task_name)
     end,
   },
 })
