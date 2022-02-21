@@ -11,10 +11,10 @@ export CLICOLOR=1
 export EDITOR='vim'
 
 if [ x"$MYENV" = 'x' ]; then
-    export MYENV='undefined';
+  export MYENV='undefined';
 fi
 if [ x"$PCNAME" = 'x' ]; then
-    export PCNAME='undefined';
+  export PCNAME='undefined';
 fi
 
 # alias ls='ls --color=auto'
@@ -71,9 +71,9 @@ alias yt='youtube-dl -ci -f mp4'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
 function act() {
-    [ -f 'bin/activate' ] && source bin/activate
-    [ -f '.venv/bin/activate' ] && source .venv/bin/activate
-    return 0
+  [ -f 'bin/activate' ] && source bin/activate
+  [ -f '.venv/bin/activate' ] && source .venv/bin/activate
+  return 0
 }
 act
 alias gignore='curl "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore'
@@ -84,286 +84,274 @@ alias bwpass="jq '.login' | jq -r '.password'"
 alias here="$FE . >/dev/null 2>&1 || true"
 
 function def() {
-    alias $@ || declare -f $@ || which $@
+  alias $@ || declare -f $@ || which $@
 }
 
 function dot() {
-    cd $DOTFILES
-    eval $@
-    [ $# -ne 0 ] && cd -
-    "$HOME"/dotfiles/install_dotfiles.sh >/dev/null && info 'Restarted' || error 'Failed to Reload'
-    restart
+  cd $DOTFILES
+  eval $@
+  [ $# -ne 0 ] && cd -
+  "$HOME"/dotfiles/install_dotfiles.sh >/dev/null && info 'Restarted' || error 'Failed to Reload'
+  restart
 }
 
 # .env loading in the shell
 function dotenv () {
-    [ -f .env ] && source .env
+  [ -f .env ] && source .env
 }
 dotenv
 
 # Run dotenv on every new directory
 function cd () {
-    deactivate >/dev/null 2>/dev/null
-	builtin cd $@
-    act
-	dotenv
+  deactivate >/dev/null 2>/dev/null
+  builtin cd $@
+  act
+  dotenv
 }
 
 function dup() {
-    WDIR=$PWD
-    dot
-    g pl
-    g a .
-    if [ $# -ne 0 ]; then
-        g ci "$@"
-    else
-        g ci "updated from $PCNAME";
-    fi
-    git push
-    for f in `command ls -ap | grep -v /`; do
-        echo "$DOTFILES/$f"
-        ln -sf $DOTFILES/$f $HOME/$f
-    done
-    source ~/.zshrc;
-    cd "$WDIR"
+  WDIR=$PWD
+  dot
+  g pl
+  g a .
+  if [ $# -ne 0 ]; then
+    g ci "$@"
+  else
+    g ci "updated from $PCNAME";
+  fi
+  git push
+  for f in `command ls -ap | grep -v /`; do
+    echo "$DOTFILES/$f"
+    ln -sf $DOTFILES/$f $HOME/$f
+  done
+  source ~/.zshrc;
+  cd "$WDIR"
 }
 
 function syncit () {
-    if ! command -v 'syncthing' &> /dev/null; then
-        echo 'install syncthing'
-        return
-    fi
-    eval "cp -v $@ ~/Sync"
+  if ! command -v 'syncthing' &> /dev/null; then
+    echo 'install syncthing'
+    return
+  fi
+  eval "cp -v $@ ~/Sync"
 }
 
 function textemplate () {
-    template="$1"
-    target="$2"
-    if [ ! -f "$template" ]; then
-        error "$template not found."
-        return 1
-    elif [ -f "$target" ]; then
-        warning "$target already exists."
-        checkyes 'overwrite?'
-        if [ $? -eq 0 ]; then
-            cat "$template" > "$target"
-            return 0
-        fi
-        checkyes 'append?'
-        if [ $? -eq 0 ]; then
-            cat "$template" >> "$target"
-            return 0
-        fi
-        error 'Abort'
-        return 1
-    else
-        cat "$template" > "$target"
-        return 0
+  template="$1"
+  target="$2"
+  if [ ! -f "$template" ]; then
+    error "$template not found."
+    return 1
+  elif [ -f "$target" ]; then
+    warning "$target already exists."
+    checkyes 'overwrite?'
+    if [ $? -eq 0 ]; then
+      cat "$template" > "$target"
+      return 0
     fi
+    checkyes 'append?'
+    if [ $? -eq 0 ]; then
+      cat "$template" >> "$target"
+      return 0
+    fi
+    error 'Abort'
+    return 1
+  else
+    cat "$template" > "$target"
+    return 0
+  fi
 }
 
 alias tasktex="textemplate $NCPATH/Templates/task-template.tex"
 alias papertex="cp $NCPATH/Templates/template.sty . && textemplate $NCPATH/Templates/paper-template.tex"
 
 function cpp () {
-    for lst in "$@"; do :; done
-    mkdir -p $lst
-    cp $@
+  for lst in "$@"; do :; done
+  mkdir -p $lst
+  cp $@
 }
 
 function timer () {
-    termdown $1 && cvlc "$NCPATH/900-その他/Music/Clock-Alarm.mp3" --play-and-exit >/dev/null 2>/dev/null
+  termdown $1 && cvlc "$NCPATH/900-その他/Music/Clock-Alarm.mp3" --play-and-exit >/dev/null 2>/dev/null
 }
 
 alias ramen='timer 150'
 
 function pdflock () {
-    F="$2"
-    if [ $# -lt 3 ]; then
-        TO="${2%.*}_lock.pdf"
-    else
-        TO="$3"
-    fi
-    echo "Found file: $F"
-    echo "Locked file created: $TO"
-    qpdf --encrypt "$1" "$1" 40 -- "$F" "$TO"
+  F="$2"
+  if [ $# -lt 3 ]; then
+    TO="${2%.*}_lock.pdf"
+  else
+    TO="$3"
+  fi
+  echo "Found file: $F"
+  echo "Locked file created: $TO"
+  qpdf --encrypt "$1" "$1" 40 -- "$F" "$TO"
 }
 
 function appearance () {
-    cat \
-        <(wget -O- 'https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt' 2> /dev/null) \
-        <(wget -O- 'https://unicode.org/Public/emoji/13.0/emoji-test.txt' 2> /dev/null) \
+  cat \
+    <(wget -O- 'https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt' 2> /dev/null) \
+    <(wget -O- 'https://unicode.org/Public/emoji/13.0/emoji-test.txt' 2> /dev/null) \
     | less
 }
 
-function upvim() {
-    cd ~/vim
-    git pull
-    checkyes 'run make install?'
-    if [ $? -eq 0 ]; then
-        ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-xi;
-        make
-        sudo make install
-    fi
-    cd -
-}
-
 function tvim() {
-    if [ $# -ge 1 ]; then
-        cd "$1"
+  if [ $# -ge 1 ]; then
+    cd "$1"
+  fi
+  workdir=$(basename "$PWD")
+  if `tmux has-session -t "$workdir" 2> /dev/null`; then
+    checkyes "Found a session named $workdir. Delete?"
+    if [ $? -eq 0 ]; then
+      tmux kill-session -t "$workdir"
+    else
+      tmux attach-session -t "$workdir"
+      return 0
     fi
-    workdir=$(basename "$PWD")
-    if `tmux has-session -t "$workdir" 2> /dev/null`; then
-        checkyes "Found a session named $workdir. Delete?"
-        if [ $? -eq 0 ]; then
-            tmux kill-session -t "$workdir"
-        else
-            tmux attach-session -t "$workdir"
-            return 0
-        fi
-    fi
-    vimcmd="act && nvim"
-    if [ ! -f "$PWD/.session.vim" ]; then
-        vimcmd="$vimcmd ."
-    fi
-    tmux new-session -s "$workdir" -d
-    if [ x$MYENV = xWSL ]; then
-        sleep 1
-    fi
-    tmux send-keys -t "$workdir" "$vimcmd" ENTER
-    tmux select-layout -t "$workdir" main-vertical
-    tmux a -t "$workdir"
+  fi
+  vimcmd="act && nvim"
+  if [ ! -f "$PWD/.session.vim" ]; then
+    vimcmd="$vimcmd ."
+  fi
+  tmux new-session -s "$workdir" -d
+  if [ x$MYENV = xWSL ]; then
+    sleep 1
+  fi
+  tmux send-keys -t "$workdir" "$vimcmd" ENTER
+  tmux select-layout -t "$workdir" main-vertical
+  tmux a -t "$workdir"
 }
 
 function venv() {
-	python -m venv "$@";
-	cd "$@";
-	source bin/activate;
-	pip install wheel;
-    pip install attrdict;
-    piplist;
-    gignore
+  python -m venv "$@";
+  cd "$@";
+  source bin/activate;
+  pip install wheel;
+  pip install attrdict;
+  piplist;
+  gignore
 }
 
 function pinit() {
-    cmd='pipenv install'
-    if [ -f requirements.txt ]; then
-        checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
-        if [ $? -eq 0 ]; then
-            echo 'Installing from requirements.txt'
-            cmd=$cmd' -r requirements.txt'
-        fi
+  cmd='pipenv install'
+  if [ -f requirements.txt ]; then
+    checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
+    if [ $? -eq 0 ]; then
+      echo 'Installing from requirements.txt'
+      cmd=$cmd' -r requirements.txt'
     fi
-    eval $cmd
-    act;
-    pipenv install attrdict rich;
-    pipenv install --dev isort pylint autopep8 flake8
-    gignore
-    pylint --generate-rcfile > .pylintrc
+  fi
+  eval $cmd
+  act;
+  pipenv install attrdict rich;
+  pipenv install --dev isort pylint autopep8 flake8
+  gignore
+  pylint --generate-rcfile > .pylintrc
 }
 
 function tinit () {
-    po init
-    res=$?
-    po config virtualenvs.in-project true
-    po env use `which python`
-    if [ $res -ne 0 ]; then
-        checkyes '`pyproject.toml` might already exist. Do you want to install packages from it?'
-        if [ $? -eq 0 ]; then
-            echo 'Installing from pyproject.toml'
-            po install
-        fi
-    elif [ -f requirements.txt ]; then
-        checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
-        if [ $? -eq 0 ]; then
-            echo 'Installing from requirements.txt'
-            checkyes 'Do you want to install the strict versions?'
-            strict_version=$?
-            cat requirements.txt | cut -f1 -d';' | while read package; do
-                if [[ x"$package" =~ ^x[#-].* ]]; then continue; fi
-                if [[ x"$package" = x ]]; then continue; fi
-                if [ $strict_version -ne 0 ]; then
-                    package=$(echo "$package" | cut -d'=' -f1)
-                fi
-                po add "$package"
-            done
-        fi
+  po init
+  res=$?
+  po config virtualenvs.in-project true
+  po env use `which python`
+  if [ $res -ne 0 ]; then
+    checkyes '`pyproject.toml` might already exist. Do you want to install packages from it?'
+    if [ $? -eq 0 ]; then
+      echo 'Installing from pyproject.toml'
+      po install
     fi
-    po add attrdict rich toml
-    po add -D isort pylint autopep8 flake8
-    gignore
-    act
-    pylint --generate-rcfile > .pylintrc
+  elif [ -f requirements.txt ]; then
+    checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
+    if [ $? -eq 0 ]; then
+      echo 'Installing from requirements.txt'
+      checkyes 'Do you want to install the strict versions?'
+      strict_version=$?
+      cat requirements.txt | cut -f1 -d';' | while read package; do
+      if [[ x"$package" =~ ^x[#-].* ]]; then continue; fi
+      if [[ x"$package" = x ]]; then continue; fi
+      if [ $strict_version -ne 0 ]; then
+        package=$(echo "$package" | cut -d'=' -f1)
+      fi
+      po add "$package"
+    done
+    fi
+  fi
+  po add attrdict rich toml
+  po add -D isort pylint autopep8 flake8
+  gignore
+  act
+  pylint --generate-rcfile > .pylintrc
 }
 
 function cinit() {
-    rm -rf build;
-    mkdir build;
-    cd build;
-    cmake ..;
+  rm -rf build;
+  mkdir build;
+  cd build;
+  cmake ..;
 }
 
 function pforward() {
-    ssh -fNT -L 127.0.0.1:$2:127.0.0.1:$2 $1 && echo "Port forward to: http://127.0.0.1:$2"
+  ssh -fNT -L 127.0.0.1:$2:127.0.0.1:$2 $1 && echo "Port forward to: http://127.0.0.1:$2"
 }
 
 function img2eps () {
-    if ! command -v 'convert' &> /dev/null; then
-        sudo apt install imagemagick
-    fi
-    for filename in $@; do
-        echo "$filename"
-        name=$(echo $filename | cut -f 1 -d '.')
-        convert $filename eps2:$name.eps
-    done
+  if ! command -v 'convert' &> /dev/null; then
+    sudo apt install imagemagick
+  fi
+  for filename in $@; do
+    echo "$filename"
+    name=$(echo $filename | cut -f 1 -d '.')
+    convert $filename eps2:$name.eps
+  done
 }
 
 function ex () {
-    for filename in $@; do
-        if [ -f "$filename" ]; then
-            case "$filename" in
-                *.tar.bz2)  tar xjf "$filename"  ;;
-                *.tar.gz)   tar xzf "$filename"  ;;
-                *.bz2)      bunzip2 "$filename"  ;;
-                *.rar)      unrar x "$filename"  ;;
-                *.gz)       gunzip "$filename"   ;;
-                *.tar)      tar xf "$filename"   ;;
-                *.tbz2)     tar xjf "$filename"  ;;
-                *.tgz)      tar xzf "$filename"  ;;
-                *.zip)      unzip "$filename"    ;;
-                *.Z)        uncompress "$filename";;
-                *.7z)       7z x "$filename"     ;;
-                *)          echo "'$filename' cannot be extracted via ex()" ;;
-            esac
-        else
-            echo "'$filename' is not found"
-        fi
-    done
+  for filename in $@; do
+    if [ -f "$filename" ]; then
+      case "$filename" in
+        *.tar.bz2)  tar xjf "$filename"  ;;
+        *.tar.gz)   tar xzf "$filename"  ;;
+        *.bz2)      bunzip2 "$filename"  ;;
+        *.rar)      unrar x "$filename"  ;;
+        *.gz)       gunzip "$filename"   ;;
+        *.tar)      tar xf "$filename"   ;;
+        *.tbz2)     tar xjf "$filename"  ;;
+        *.tgz)      tar xzf "$filename"  ;;
+        *.zip)      unzip "$filename"    ;;
+        *.Z)        uncompress "$filename";;
+        *.7z)       7z x "$filename"     ;;
+        *)          echo "'$filename' cannot be extracted via ex()" ;;
+      esac
+    else
+      echo "'$filename' is not found"
+    fi
+  done
 }
 
 function happ() {
-    trap "echo terminated; git remote rm heroku; return" 1 2 3 15
-    heroku git:remote --app $(basename -s .git `git remote get-url origin`)
-    eval "heroku $@"
-    echo "delete"
-    git remote rm heroku
+  trap "echo terminated; git remote rm heroku; return" 1 2 3 15
+  heroku git:remote --app $(basename -s .git `git remote get-url origin`)
+  eval "heroku $@"
+  echo "delete"
+  git remote rm heroku
 }
 
 # cdr: run fzf with dir history
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
-    autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-    add-zsh-hook chpwd chpwd_recent_dirs
-    zstyle ':completion:*' recent-dirs-insert both
-    zstyle ':chpwd:*' recent-dirs-default true
-    zstyle ':chpwd:*' recent-dirs-max 1000
-    zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
+  autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+  add-zsh-hook chpwd chpwd_recent_dirs
+  zstyle ':completion:*' recent-dirs-insert both
+  zstyle ':chpwd:*' recent-dirs-default true
+  zstyle ':chpwd:*' recent-dirs-max 1000
+  zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
 fi
 function fzf-cdr () {
-    local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | fzf --query="$LBUFFER" --prompt='cd > ' +s --preview 'eval exa -aFhl {}')"
-    if [ -n "$selected_dir" ]; then
-        BUFFER="cd ${selected_dir}"
-        zle accept-line
-    fi
+  local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | fzf --query="$LBUFFER" --prompt='cd > ' +s --preview 'eval exa -aFhl {}')"
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
 }
 zle -N fzf-cdr
 bindkey '^E' fzf-cdr

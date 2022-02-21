@@ -1,11 +1,11 @@
 #!/bin/bash
 
 function add_completions() {
-    # cmd="$1"; cache_file="$2"
-    if [ ! -f "$2" ]; then
-        eval "$1" > "$2"
-    fi
-    source "$2"
+  # cmd="$1"; cache_file="$2"
+  if [ ! -f "$2" ]; then
+    eval "$1" > "$2"
+  fi
+  source "$2"
 }
 
 # js
@@ -16,14 +16,14 @@ export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 # alias to command line utils
 if [ -f "$CARGO_HOME"/env ]; then
-    source "$CARGO_HOME"/env
+  source "$CARGO_HOME"/env
 else
-    export PATH="$PATH:$CARGO_HOME/bin"
+  export PATH="$PATH:$CARGO_HOME/bin"
 fi
 if [ -f "${CARGO_ALIAS_CACHE:=$XDG_CACHE_HOME/cargo/alias_local}" ]; then
-    source "$CARGO_ALIAS_CACHE"
+  source "$CARGO_ALIAS_CACHE"
 else
-    echo '$CARGO_ALIAS_CACHE not found'
+  echo '$CARGO_ALIAS_CACHE not found'
 fi
 
 # Python
@@ -33,12 +33,12 @@ export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 
 # Haskel
 if [ -f "$XDG_DATA_HOME"/ghcup/env ]; then
-    source "$XDG_DATA_HOME"/ghcup/env
+  source "$XDG_DATA_HOME"/ghcup/env
 fi
 export PATH="$PATH:$XDG_CACHE_HOME/cabal/bin"
 
 # ruby
 if [ -d "$RBENV_ROOT" ]; then
-    export PATH="$PATH:$RBENV_ROOT/bin:$XDG_DATA_HOME/gem/bin"
-    # add_completions "rbenv init -" "/tmp/rbenv-init-cache"
+  export PATH="$PATH:$RBENV_ROOT/bin:$XDG_DATA_HOME/gem/bin"
+  # add_completions "rbenv init -" "/tmp/rbenv-init-cache"
 fi
