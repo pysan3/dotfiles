@@ -13,6 +13,20 @@ cd $DOTFILES || error "Could not cd to $DOTFILES; Abort" || exit
 
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 
+compile_zdot() {
+  [ -f "$1" ] && [ ! -f "$1.zwc" -o "$1" -nt "$1.zwc" ] && zcompile "$1"
+}
+compile_zdot "$HOME/.zshenv"
+# compile_zdot .zprofile
+compile_zdot "$ZDOTDIR/.zshrc"
+compile_zdot "$ZDOTDIR/.zsh_local"
+compile_zdot "$ZDOTDIR/.zsh_rust"
+compile_zdot "$ZDOTDIR/.zsh_aliases"
+compile_zdot "$ZDOTDIR/.zsh_script"
+# compile_zdot .zlogin
+# compile_zdot .zlogout
+compile_zdot "$ZDOTDIR/.zcompdump"
+
 # create symlink to .zsh* files
 for f in $(command ls -Ap | grep -v / | grep -v '\.sh' | grep -v '\.zsh$'); do
   if [[ "$f" =~ (\.git|\.session|test|tmp|local|list|README|LICENSE).* ]]; then continue; fi

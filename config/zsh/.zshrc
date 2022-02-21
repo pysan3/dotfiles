@@ -119,18 +119,4 @@ source "$XDG_CONFIG_HOME"/fzf/fzf.zsh
 
 [ -f "$ZDOTDIR/.zsh_script" ] && source "$ZDOTDIR/.zsh_script"
 
-compile_zdot() {
-  [ -f "$1" ] && [ ! -f "$1.zwc" -o "$1" -nt "$1.zwc" ] && zcompile "$1"
-}
-compile_zdot "$HOME/.zshenv"
-# compile_zdot .zprofile
-compile_zdot "$ZDOTDIR/.zshrc"
-compile_zdot "$ZDOTDIR/.zsh_local"
-compile_zdot "$ZDOTDIR/.zsh_rust"
-compile_zdot "$ZDOTDIR/.zsh_aliases"
-compile_zdot "$ZDOTDIR/.zsh_script"
-# compile_zdot .zlogin
-# compile_zdot .zlogout
-compile_zdot "$ZDOTDIR/.zcompdump"
-
 # zprof
