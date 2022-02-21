@@ -1,4 +1,16 @@
 # zmodload zsh/zprof
+# source () {
+#   if [[ ! "$1.zwc" -nt "$1" ]]; then
+#     echo "$1 not compiled"
+#   fi
+#   builtin source $@
+# }
+# . () {
+#   if [[ ! "$1.zwc" -nt "$1" ]]; then
+#     echo "$1 not compiled"
+#   fi
+#   builtin . $@
+# }
 
 export LANG=ja_JP.UTF-8
 
