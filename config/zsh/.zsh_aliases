@@ -102,12 +102,16 @@ function update_zwc () {
   return 0
 }
 function dot() {
+  local old_dir="$PWD"
   cd $DOTFILES
-  [ $# -ne 0 ] && (eval $@; cd -)
-  run_cmd () { eval "$@" && info "Success: '$@'" || error "Failed: '$@'" }
-  run_cmd "$HOME"/dotfiles/install_all.zsh
-  run_cmd restart
-  run_cmd update_zwc
+  if [ $# -ne 0 ]; then
+    eval "$@"
+    run_cmd () { eval "$@" && info "Success: '$@'" || error "Failed: '$@'" }
+    run_cmd "$HOME"/dotfiles/install_all.zsh
+    run_cmd restart
+    run_cmd update_zwc
+    cd "$old_dir"
+  fi
 }
 
 # .env loading in the shell
