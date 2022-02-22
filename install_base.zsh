@@ -38,17 +38,14 @@ if ! command -v 'python' &>/dev/null || [[ `python -V` =~ 'Python 2.*' ]]; then
 fi
 
 # install haskel interpreter
-if [ ! -d "$XDG_DATA_HOME"/ghcup ] || [ ! command -v cabal &> /dev/null ] || [ ! command -v pandoc &> /dev/null ]; then
+if [ ! -d "$XDG_DATA_HOME"/ghcup ] || ! command -v cabal &>/dev/null || ! command -v pandoc &>/dev/null; then
   info 'Installing `cabal` for haskel and `pandoc`'
   warning 'Answer N->Y->Y to the questions'
   curl --insecure https://get-ghcup.haskell.org | sh
-  stack setup
-  [ -f "$XDG_DATA_HOME/ghcup/env" ] && source "$XDG_DATA_HOME/ghcup/env"
   cabal --version
   cabal new-update
-  cabal new-install pandoc pandoc-citeproc pandoc-crossref --overwrite-policy=always
+  cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
 fi
-[ -f "$XDG_DATA_HOME/ghcup/env" ] && source "$XDG_DATA_HOME/ghcup/env" # ghcup-env
 
 # install zsh shell utils
 mkdir -p "$XDG_DATA_HOME"/zsh
