@@ -19,7 +19,7 @@ unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 for f in $(command ls -Ap | grep -v / | grep -v '\.sh' | grep -v '\.zsh*'); do
   if [[ "$f" =~ (\.git|\.session|test|tmp|local|list|README|LICENSE).* ]]; then continue; fi
   if [ -f "$HOME/$f" ]; then
-    warning "$HOME/$f: Symbolic link already exists."
+    info "$HOME/$f: Symbolic link already exists."
   else
     ln -s "$DOTFILES/$f" "$HOME/$f"
     info "Created a symbolic link of $f in $HOME"
