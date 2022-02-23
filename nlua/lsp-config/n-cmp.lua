@@ -103,15 +103,16 @@ for filepath in string.gmatch(vim.fn.glob(vim.env.XDG_CONFIG_HOME .. "/nvim/spel
 end
 -- add system installed dictionaries
 local share_dict_source = {
-  "wamerican",
-  "wamerican-insane",
-  "wngerman",
+  "american-english", -- wamerican
+  "american-english-insane", -- wamerican-insane
+  "ngerman", -- wngerman
 }
 for _, source in ipairs(share_dict_source) do
   if vim.fn.filereadable(vim.fn.expand("/usr/share/dict/" .. source)) ~= 0 then
     table.insert(dict_source, "/usr/share/dict/" .. source)
   end
 end
+print(vim.inspect(dict_source))
 
 require("cmp_dictionary").setup({
   dic = {
