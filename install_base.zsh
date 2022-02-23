@@ -174,7 +174,11 @@ fi
 checkcommand () {
   if ! command -v "$1" &>/dev/null; then
     warning "Command $1 not found. Installing with following command."
-    info "$2"
+    echo "$ $2"
+    if [[ "$2" == *'sudo'* ]]; then
+      checkyes 'Command includes `sudo`. Do you want to continue?'
+      [ $? -ne 0 ] && return
+    fi
     zsh -c "$2" || error "failed: $2; DO IT YOURSELF"
   fi
 }
@@ -189,9 +193,9 @@ checkcommand 'pylint' 'pip install --user --upgrade pylint'
 checkyes 'Install telescope dependencies?'
 if [ $? -eq 0 ]; then
   checkcommand 'ueberzug' 'pip install ueberzug'
-  checkcommand 'pdftoppm' 'exit 1'
+  checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
   checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
-  checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S poppler'
+  checkcommand 'ffmpegthumbnaile' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
 fi
 
 info "Everything is done. Thx!!"; true
