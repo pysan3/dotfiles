@@ -195,7 +195,7 @@ if [ $? -eq 0 ]; then
   checkcommand 'ueberzug' 'pip install ueberzug'
   checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
   checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
-  checkcommand 'ffmpegthumbnaile' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
+  checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
 fi
 
 info "Everything is done. Thx!!"; true
