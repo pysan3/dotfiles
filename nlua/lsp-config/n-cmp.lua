@@ -98,7 +98,7 @@ cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = 
 -- from cmp-dictionary
 local dict_source = {} -- sudo apt install wamerican
 
-if vim.fn.filereadable("/usr/share/dict/words") then
+if vim.fn.filereadable(vim.fn.expand("/usr/share/dict/words")) ~= 0 then
   table.insert(dict_source, "/usr/share/dict/words")
 end
 -- add my spell lists; $XDG_CONFIG_HOME/nvim/spell/*.add
