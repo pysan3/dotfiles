@@ -105,7 +105,7 @@ end
 local share_dict_source = {
   "american-english", -- wamerican
   "american-english-insane", -- wamerican-insane
-  "ngerman", -- wngerman
+  -- "ngerman", -- wngerman
 }
 for _, source in ipairs(share_dict_source) do
   if vim.fn.filereadable(vim.fn.expand("/usr/share/dict/" .. source)) ~= 0 then
