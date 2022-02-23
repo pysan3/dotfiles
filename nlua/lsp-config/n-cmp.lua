@@ -112,7 +112,6 @@ for _, source in ipairs(share_dict_source) do
     table.insert(dict_source, "/usr/share/dict/" .. source)
   end
 end
-print(vim.inspect(dict_source))
 
 require("cmp_dictionary").setup({
   dic = {
