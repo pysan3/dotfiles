@@ -187,6 +187,8 @@ checkcommand () {
       checkyes 'Command includes `sudo`. Do you want to continue?' || return
     fi
     zsh -c "$2" || error "failed: $2; DO IT YOURSELF"
+  else
+    info "Command '$1' found. Skipping..."
   fi
 }
 
