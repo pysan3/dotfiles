@@ -154,8 +154,7 @@ TPM_INSTALL_DIR="$XDG_DATA_HOME"/tmux/plugins/tpm
 update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm
 
 # install protoc from source
-checkyes 'Install protoc?'
-if [ $? -eq 0 ]; then
+if ! command -v 'protoc' &>/dev/null || [ $(checkyes 'Install protoc?') -eq 0 ]; then
   update_git_repo "$XDG_DATA_HOME"/protoc https://github.com/protocolbuffers/protobuf.git
   cd "$XDG_DATA_HOME"/protoc
   git submodule update --init --recursive
