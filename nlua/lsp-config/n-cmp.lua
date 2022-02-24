@@ -104,7 +104,7 @@ end
 -- add system installed dictionaries
 local share_dict_source = {
   "american-english", -- wamerican
-  "american-english-insane", -- wamerican-insane
+  -- "american-english-insane", -- wamerican-insane
   -- "ngerman", -- wngerman
 }
 for _, source in ipairs(share_dict_source) do
