@@ -71,8 +71,7 @@ if [ ! -d "$RBENV_ROOT" ]; then
   info "Installing ruby and rbenv, mainly for neovim"
   if command -v 'rbenv' &> /dev/null; then
     error 'Command `rbenv` found but not installed to '"$RBENV_ROOT"
-    checkyes "Continue installation? ($(tput setaf 1)THIS WILL TAKE OVER EXISTING ENVS$(tput sgr0))"
-    if [ $? -eq 0 ]; then
+    if checkyes "Continue installation? ($(tput setaf 1)THIS WILL TAKE OVER EXISTING ENVS$(tput sgr0))"; then
       install_ruby=false
       tput setaf 4
       echo "Please delete the following line in $DOTFILES/.zshenv"
@@ -95,8 +94,7 @@ fi
 
 # RUST
 if ! command -v 'cargo' &> /dev/null; then
-  checkyes "Seems you don't have cargo (rust) installed. Install?"
-  if [ $? -eq 0 ]; then
+  if checkyes "Seems you don't have cargo (rust) installed. Install?"; then
     curl -sSf https://sh.rustup.rs | sh
     source "$CARGO_HOME"/env
     cargo install cargo-update && info "Successfully installed cargo"
@@ -129,8 +127,7 @@ while IFS= read -r line; do
     pkg="$alt"
   fi
   if ! command -v $alt &> /dev/null; then
-    checkyes "$alt not installed. Do you want to install with cargo?"
-    if [ $? -eq 0 ]; then
+    if checkyes "$alt not installed. Do you want to install with cargo?"; then
       cargo install -v $pkg -f
     else
       echo "failed to create alias from '$cmd' to '$alt': command not found"
@@ -173,8 +170,7 @@ fi
 
 # install nvim
 warning 'Do you want to reinstall nvim?'
-checkyes 'Install with zap?'
-if [ $? -eq 0 ]; then
+if checkyes 'Install with zap?'; then
   rm "$XDG_DATA_HOME"/zap/v2/index/nvim.json
   zap i --github --from neovim/neovim --executable nvim
 else
@@ -188,8 +184,7 @@ checkcommand () {
     warning "Command $1 not found. Installing with following command."
     echo "$ $2"
     if [[ "$2" == *'sudo'* ]]; then
-      checkyes 'Command includes `sudo`. Do you want to continue?'
-      [ $? -ne 0 ] && return
+      checkyes 'Command includes `sudo`. Do you want to continue?' || return
     fi
     zsh -c "$2" || error "failed: $2; DO IT YOURSELF"
   fi
@@ -202,8 +197,7 @@ checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
 checkcommand 'flake8' 'pip install --user --upgrade flake8'
 checkcommand 'pylint' 'pip install --user --upgrade pylint'
 # telescope
-checkyes 'Install telescope dependencies?'
-if [ $? -eq 0 ]; then
+if checkyes 'Install telescope dependencies?'; then
   checkcommand 'ueberzug' 'pip install ueberzug'
   checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
   checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
