@@ -154,16 +154,16 @@ TPM_INSTALL_DIR="$XDG_DATA_HOME"/tmux/plugins/tpm
 update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm
 
 # install protoc from source
-if ! command -v 'protoc' &>/dev/null || [ $(checkyes 'Install protoc?') -eq 0 ]; then
+if ! command -v 'protoc' &>/dev/null || checkyes 'Install protoc?'; then
   update_git_repo "$XDG_DATA_HOME"/protoc https://github.com/protocolbuffers/protobuf.git
+  current_dir="$PWD"
   cd "$XDG_DATA_HOME"/protoc
   git submodule update --init --recursive
   ./autogen.sh && ./configure
   make -j$(nproc) && make check
   sudo make install && sudo ldconfig
-  cd -
+  cd "$current_dir"
 fi
-
 
 # install and update zap (appimage package manager)
 if ! command -v 'zap' &>/dev/null; then
