@@ -161,11 +161,11 @@ require("fidget").setup({
   },
   fmt = {
     fidget = function(fig_name, spinner)
-      require("autosession.window").add_win_open_timer(500)
+      require("autosession").add_win_open_timer(500)
       return string.format("%s %s", spinner, fig_name)
     end,
     task = function(task_name, msg, perc)
-      require("autosession.window").add_win_open_timer(500)
+      require("autosession").add_win_open_timer(500)
       return string.format("%s%s %s", msg, perc and string.format(" %s%%", perc) or "", task_name)
     end,
   },

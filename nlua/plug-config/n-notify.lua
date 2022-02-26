@@ -1,10 +1,10 @@
 require("notify").setup({
   stages = "static", -- fade_in_slide_out, fade, slide, static
   on_open = function()
-    require("autosession.window").add_win_open()
+    require("autosession").add_win_open()
   end,
   on_close = function()
-    require("autosession.window").close_win_open()
+    require("autosession").close_win_open()
   end,
   render = "default",
   timeout = 800,

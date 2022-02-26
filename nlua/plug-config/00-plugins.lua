@@ -135,6 +135,7 @@ return packer.startup(function(use)
   use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install" })
 
   -- my plugins
+  -- use({ "~/Git/autosession.nvim" })
 
   if PACKER_BOOTSTRAP then
     require("packer").sync()
