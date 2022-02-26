@@ -4,12 +4,12 @@ local basef = require("my-plugins.base-functions")
 local plugin_name = "AutoSession Plugin"
 local plugin_icon = ""
 local plugin_commands = {
+  AutoSessionRestore = "Restore previous session from `.session.vim`.",
   AutoSessionSave = "Create `.session.vim` to store current session.",
   AutoSessionAuto = "Update `.session.vim` if exists.",
   AutoSessionGlobal = "Resigter current session for vim-startify.",
   AutoSessionDelete = "Delete a global session.",
 }
-vim.g.autosession_win_opened = 0
 
 local echo = function(msg, level, ...)
   if not level then
@@ -29,6 +29,88 @@ M.help = function()
   echo(str, "warn", { title = plugin_name .. " Help" })
 end
 
+local DEFAULT_OPTS = {
+  disable_netrw = false,
+  hijack_netrw = true,
+  open_on_setup = false,
+  open_on_tab = false,
+  hijack_directories = {
+    enable = true,
+    auto_open = true,
+  },
+  auto_close = false,
+  auto_reload_on_write = true,
+  hijack_cursor = false,
+  update_cwd = false,
+  hide_root_folder = false,
+  hijack_unnamed_buffer_when_opening = false,
+  update_focused_file = {
+    enable = false,
+    update_cwd = false,
+    ignore_list = {},
+  },
+  ignore_ft_on_setup = {},
+  system_open = {
+    cmd = nil,
+    args = {},
+  },
+  diagnostics = {
+    enable = false,
+    show_on_dirs = false,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    },
+  },
+  filters = {
+    dotfiles = false,
+    custom_filter = {},
+    exclude = {},
+  },
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 400,
+  },
+  actions = {
+    change_dir = {
+      enable = true,
+      global = vim.g.nvim_tree_change_dir_global == 1,
+    },
+    open_file = {
+      quit_on_open = vim.g.nvim_tree_quit_on_open == 1,
+      window_picker = {
+        enable = vim.g.nvim_tree_disable_window_picker ~= 1,
+        chars = vim.g.nvim_tree_window_picker_chars,
+        exclude = vim.g.nvim_tree_window_picker_exclude,
+      },
+    },
+  },
+}
+
+local function merge_options(opts)
+  return vim.tbl_deep_extend("force", DEFAULT_OPTS, opts or {})
+end
+
+M.setup = function(opts)
+  merge_options(opts)
+  M.init_win_open_safe()
+  if opts.msg ~= nil then
+    echo(opts.msg)
+  end
+  if opts.restore_on_startup == true then
+    M.RestoreSession()
+  end
+end
+
+M.init_win_open_safe = function()
+  if vim.g.autosession_win_opened == nil then
+    vim.g.autosession_win_opened = 0
+  end
+end
+
 M.add_win_open_timer = function(wait_for_ms, msg)
   M.add_win_open()
   vim.fn.timer_start(wait_for_ms, function()
@@ -37,6 +119,7 @@ M.add_win_open_timer = function(wait_for_ms, msg)
 end
 
 M.add_win_open = function(msg)
+  M.init_win_open_safe()
   vim.g.autosession_win_opened = vim.g.autosession_win_opened + 1
   if msg ~= nil then
     echo(msg)
@@ -44,20 +127,21 @@ M.add_win_open = function(msg)
 end
 
 M.close_win_open = function(msg)
+  M.init_win_open_safe()
   vim.g.autosession_win_opened = vim.g.autosession_win_opened - 1
   if msg ~= nil then
     echo(msg)
   end
 end
 
-M.SaveSession = function(force)
+M.SaveSession = function(create_new_if_not_exist)
   local cwd = vim.fn.getcwd()
   if basef.FullPath(cwd) == basef.FullPath(vim.env.HOME) then
     echo("Currently working in $HOME directory. Not saving session.")
     return nil
   end
   local sessionpath = basef.FullPath(cwd .. "/.session.vim")
-  if force or basef.file_exist(sessionpath) then
+  if create_new_if_not_exist == true or basef.file_exist(sessionpath) then
     local wait_counter = 1000
     while vim.g.autosession_win_opened > 0 and wait_counter > 0 do
       wait_counter = wait_counter - 1
@@ -173,15 +257,12 @@ command! -bar AutoSessionSave lua require('my-plugins.autosave-session').SaveSes
 command! -bar AutoSessionAuto lua require('my-plugins.autosave-session').SaveSession(false)
 command! -bar AutoSessionGlobal lua require('my-plugins.autosave-session').SaveGlobalSession()
 command! -bar AutoSessionDelete lua require('my-plugins.autosave-session').DeleteSession()
+command! -bar AutoSessionRestore lua require('my-plugins.autosave-session').RestoreSession()
 
 command! Q :AutoSessionAuto <bar> :q
 command! WQ :AutoSessionAuto <bar> :wq
 command! Wq :AutoSessionAuto <bar> :wq
 command! CL AutoSessionAuto <bar> :qa
-
-augroup AutoSessionAugroup
-  autocmd! VimEnter * nested lua require('my-plugins.autosave-session').RestoreSession()
-augroup END
 ]])
 
 return M
