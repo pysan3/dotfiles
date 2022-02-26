@@ -173,12 +173,15 @@ command! -bar AutoSessionSave lua require('my-plugins.autosave-session').SaveSes
 command! -bar AutoSessionAuto lua require('my-plugins.autosave-session').SaveSession(false)
 command! -bar AutoSessionGlobal lua require('my-plugins.autosave-session').SaveGlobalSession()
 command! -bar AutoSessionDelete lua require('my-plugins.autosave-session').DeleteSession()
-autocmd VimEnter * nested lua require('my-plugins.autosave-session').RestoreSession()
 
 command! Q :AutoSessionAuto <bar> :q
 command! WQ :AutoSessionAuto <bar> :wq
 command! Wq :AutoSessionAuto <bar> :wq
 command! CL AutoSessionAuto <bar> :qa
+
+augroup AutoSessionAugroup
+  autocmd! VimEnter * nested lua require('my-plugins.autosave-session').RestoreSession()
+augroup END
 ]])
 
 return M
