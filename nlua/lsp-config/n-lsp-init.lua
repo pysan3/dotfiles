@@ -147,6 +147,7 @@ end
 
 lsp_base.setup()
 require("lsp-config.n-lsp-null")
+require("lsp_signature").setup({})
 require("fidget").setup({
   text = {
     -- spinner list: https://github.com/j-hui/fidget.nvim/blob/main/lua/fidget/spinners.lua

@@ -39,6 +39,7 @@ M.cmp_use = function(use)
   -- LSP
   use({ "neovim/nvim-lspconfig" }) -- enable LSP
   use({ "williamboman/nvim-lsp-installer" }) -- language server installer
+  use({ "ray-x/lsp_signature.nvim" }) -- show hints when writing function arguments
   use({ "jose-elias-alvarez/null-ls.nvim" }) -- linter
 
   -- others
