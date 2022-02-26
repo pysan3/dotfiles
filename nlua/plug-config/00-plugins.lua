@@ -133,6 +133,7 @@ return packer.startup(function(use)
   use({ "godlygeek/tabular" })
   use({ "plasticboy/vim-markdown" })
   use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install" })
+  use({ "jubnzv/mdeval.nvim" })
 
   -- my plugins
   -- use({ "~/Git/autosession.nvim" })
