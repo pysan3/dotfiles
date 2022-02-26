@@ -37,9 +37,9 @@ lua require 'plug-config.zen-mode'
 lua require 'plug-config.startify'
 lua require 'plug-config.distant'
 lua require 'plug-config.vimtex'
+lua require 'plug-config.autosession'
+lua require 'plug-config.n-local-config'
 " SourceIF $HOME/.config/nvim/plug-config/firenvim.vim
 
-lua require 'my-plugins.autosave-session'
 SourceIF $HOME/.config/nvim/local.vim
-lua require 'my-plugins.load-local-config'
 

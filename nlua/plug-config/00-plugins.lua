@@ -91,6 +91,8 @@ return packer.startup(function(use)
 
   -- startify
   use("mhinz/vim-startify")
+  -- restore previous session
+  use({ "pysan3/autosession.nvim" })
   -- quickfix list
   use("romainl/vim-qf")
   -- zenmode
@@ -128,6 +130,8 @@ return packer.startup(function(use)
   use("godlygeek/tabular")
   use("plasticboy/vim-markdown")
   use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install" })
+
+  -- my plugins
 
   if PACKER_BOOTSTRAP then
     require("packer").sync()
