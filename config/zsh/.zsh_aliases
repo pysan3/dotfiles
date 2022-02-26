@@ -220,7 +220,7 @@ function tvim() {
   if [ $# -ge 1 ]; then
     cd "$1"
   fi
-  workdir=$(basename "$PWD")
+  workdir=$(basename "$PWD" | sed -e 's/\.//g')
   if `tmux has-session -t "$workdir" 2> /dev/null`; then
     checkyes "Found a session named $workdir. Delete?"
     if [ $? -eq 0 ]; then
