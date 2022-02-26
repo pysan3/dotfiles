@@ -9,18 +9,18 @@ vim.cmd([[
 
 M.cmp_use = function(use)
   -- cmp plugins
-  use("hrsh7th/nvim-cmp") -- The completion plugin
+  use({ "hrsh7th/nvim-cmp" }) -- The completion plugin
 
   -- cmp completion engines
-  use("hrsh7th/cmp-buffer") -- buffer completions
-  use("hrsh7th/cmp-path") -- path completions
-  use("hrsh7th/cmp-cmdline") -- cmdline completions
-  use("hrsh7th/cmp-nvim-lsp")
-  use("hrsh7th/cmp-nvim-lua") -- nvim lua config completion
-  use("hrsh7th/cmp-calc")
-  use("hrsh7th/cmp-emoji")
-  use("f3fora/cmp-spell")
-  use("uga-rosa/cmp-dictionary")
+  use({ "hrsh7th/cmp-buffer" }) -- buffer completions
+  use({ "hrsh7th/cmp-path" }) -- path completions
+  use({ "hrsh7th/cmp-cmdline" }) -- cmdline completions
+  use({ "hrsh7th/cmp-nvim-lsp" })
+  use({ "hrsh7th/cmp-nvim-lua" }) -- nvim lua config completion
+  use({ "hrsh7th/cmp-calc" })
+  use({ "hrsh7th/cmp-emoji" })
+  use({ "f3fora/cmp-spell" })
+  use({ "uga-rosa/cmp-dictionary" })
 
   -- snippets
   use({
@@ -34,20 +34,20 @@ M.cmp_use = function(use)
       vim.g.UltiSnipsRemoveSelectModeMappings = 0
     end,
   })
-  use("quangnguyen30192/cmp-nvim-ultisnips")
+  use({ "quangnguyen30192/cmp-nvim-ultisnips" })
 
   -- LSP
-  use("neovim/nvim-lspconfig") -- enable LSP
-  use("williamboman/nvim-lsp-installer") -- language server installer
-  use("jose-elias-alvarez/null-ls.nvim") -- linter
+  use({ "neovim/nvim-lspconfig" }) -- enable LSP
+  use({ "williamboman/nvim-lsp-installer" }) -- language server installer
+  use({ "jose-elias-alvarez/null-ls.nvim" }) -- linter
 
   -- others
-  use("numToStr/Comment.nvim")
-  use("JoosepAlviste/nvim-ts-context-commentstring")
+  use({ "numToStr/Comment.nvim" })
+  use({ "JoosepAlviste/nvim-ts-context-commentstring" })
 
   -- fidget https://github.com/j-hui/fidget.nvim
   -- print linting progress
-  use("j-hui/fidget.nvim")
+  use({ "j-hui/fidget.nvim" })
 end
 
 return M

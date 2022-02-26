@@ -32,106 +32,106 @@ local packer = require("packer")
 -- }
 
 return packer.startup(function(use)
-  use("wbthomason/packer.nvim") -- Have packer manage itself
-  use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
-  use("nvim-lua/plenary.nvim") -- Useful lua functions used lots of plugins
+  use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
+  use({ "nvim-lua/popup.nvim" }) -- An implementation of the Popup API from vim in Neovim
+  use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used lots of plugins
 
   -- git
-  use("lewis6991/gitsigns.nvim")
-  use("TimUntersberger/neogit")
-  use("sindrets/diffview.nvim")
-  use("rhysd/conflict-marker.vim")
-  use("tpope/vim-fugitive")
+  use({ "lewis6991/gitsigns.nvim" })
+  use({ "TimUntersberger/neogit" })
+  use({ "sindrets/diffview.nvim" })
+  use({ "rhysd/conflict-marker.vim" })
+  use({ "tpope/vim-fugitive" })
 
   -- telescope
-  use("BurntSushi/ripgrep")
-  use("nvim-telescope/telescope.nvim")
+  use({ "BurntSushi/ripgrep" })
+  use({ "nvim-telescope/telescope.nvim" })
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-  use("nvim-telescope/telescope-media-files.nvim")
+  use({ "nvim-telescope/telescope-media-files.nvim" })
 
   -- treesitter
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-  use("nvim-treesitter/nvim-treesitter-textobjects")
+  use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 
   -- load local config
   use({ "pysan3/nvim-config-local" })
 
   -- cmp and lsp
   require("lsp-config.n-cmp-plug").cmp_use(use)
-  use("windwp/nvim-autopairs")
+  use({ "windwp/nvim-autopairs" })
 
   -- others
-  use("rcarriga/nvim-notify")
-  use("nixon/vim-vmath")
-  use("bronson/vim-trailing-whitespace") -- highlight trailing whitespace
-  use("Yggdroot/indentLine") -- show indent line with |
+  use({ "rcarriga/nvim-notify" })
+  use({ "nixon/vim-vmath" })
+  use({ "bronson/vim-trailing-whitespace" }) -- highlight trailing whitespace
+  use({ "Yggdroot/indentLine" }) -- show indent line with |
   -- better search
-  use("inkarkat/vim-ingo-library")
-  use("inkarkat/vim-SearchHighlighting")
-  use("google/vim-searchindex") -- show how many occurrence [n/N]
+  use({ "inkarkat/vim-ingo-library" })
+  use({ "inkarkat/vim-SearchHighlighting" })
+  use({ "google/vim-searchindex" }) -- show how many occurrence [n/N]
   -- Custom operations
-  use("tpope/vim-repeat") -- better repetition
-  use("christoomey/vim-titlecase") -- gzz
-  use("christoomey/vim-sort-motion") -- gs<motion> eg. gs2j => sort 3 lines
-  use("terryma/vim-expand-region") -- + to expand, _ to shrink
-  use("vim-scripts/ReplaceWithRegister") -- {Visual}["x]gr - replace {Visual} with register x
-  use("unblevable/quick-scope") -- highlights f, t, F, T
-  use("justinmk/vim-sneak") -- s, S to jump anywhere
+  use({ "tpope/vim-repeat" }) -- better repetition
+  use({ "christoomey/vim-titlecase" }) -- gzz
+  use({ "christoomey/vim-sort-motion" }) -- gs<motion> eg. gs2j => sort 3 lines
+  use({ "terryma/vim-expand-region" }) -- + to expand, _ to shrink
+  use({ "vim-scripts/ReplaceWithRegister" }) -- {Visual}["x]gr - replace {Visual} with register x
+  use({ "unblevable/quick-scope" }) -- highlights f, t, F, T
+  use({ "justinmk/vim-sneak" }) -- s, S to jump anywhere
   -- select objects
-  use("tpope/vim-surround") -- s is motion, ys to add
-  -- use("michaeljsmith/vim-indent-object") -- ai, ii, aI, iI: text object of same indent (i; above, a; above and below)
-  -- use("PeterRincker/vim-argumentative")
-  use("wellle/targets.vim") -- 2i, 2a for more inner and outer selection
+  use({ "tpope/vim-surround" }) -- s is motion, ys to add
+  -- use({"michaeljsmith/vim-indent-object"}) -- ai, ii, aI, iI: text object of same indent (i; above, a; above and below)
+  -- use({"PeterRincker/vim-argumentative"})
+  use({ "wellle/targets.vim" }) -- 2i, 2a for more inner and outer selection
   -- dragviduals
-  use("zirrostig/vim-schlepp")
+  use({ "zirrostig/vim-schlepp" })
   -- undo tree
-  use("mbbill/undotree")
+  use({ "mbbill/undotree" })
   -- file explorer
-  use("kyazdani42/nvim-web-devicons")
-  use("kyazdani42/nvim-tree.lua")
+  use({ "kyazdani42/nvim-web-devicons" })
+  use({ "kyazdani42/nvim-tree.lua" })
   -- colorizer
-  use("norcalli/nvim-colorizer.lua")
+  use({ "norcalli/nvim-colorizer.lua" })
 
   -- startify
-  use("mhinz/vim-startify")
+  use({ "mhinz/vim-startify" })
   -- restore previous session
   use({ "pysan3/autosession.nvim" })
   -- quickfix list
-  use("romainl/vim-qf")
+  use({ "romainl/vim-qf" })
   -- zenmode
-  use("folke/zen-mode.nvim")
+  use({ "folke/zen-mode.nvim" })
   -- distant.nvim (remote file edit)
-  use("chipsenkbeil/distant.nvim")
+  use({ "chipsenkbeil/distant.nvim" })
 
   -- terminal
-  use("akinsho/toggleterm.nvim")
+  use({ "akinsho/toggleterm.nvim" })
 
   -- color theme
-  use("lunarvim/darkplus.nvim")
-  use("christianchiarulli/nvcode-color-schemes.vim")
-  use("EdenEast/nightfox.nvim")
-  use("joshdick/onedark.vim")
-  use("ulwlu/elly.vim")
-  use("tomasiser/vim-code-dark")
-  use("arcticicestudio/nord-vim")
-  use("chriskempson/vim-tomorrow-theme")
+  use({ "lunarvim/darkplus.nvim" })
+  use({ "christianchiarulli/nvcode-color-schemes.vim" })
+  use({ "EdenEast/nightfox.nvim" })
+  use({ "joshdick/onedark.vim" })
+  use({ "ulwlu/elly.vim" })
+  use({ "tomasiser/vim-code-dark" })
+  use({ "arcticicestudio/nord-vim" })
+  use({ "chriskempson/vim-tomorrow-theme" })
   -- Airline
   use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" })
   use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } })
 
   -- language specific
-  use("pixelneo/vim-python-docstring")
+  use({ "pixelneo/vim-python-docstring" })
   use({
     "heavenshell/vim-jsdoc",
     ft = { "javascript", "javascript.jsx", "typescript" },
     run = "make install",
   })
-  use("Vimjas/vim-python-pep8-indent")
-  use("uarun/vim-protobuf")
-  use("tikhomirov/vim-glsl")
-  use("lervag/vimtex")
-  use("godlygeek/tabular")
-  use("plasticboy/vim-markdown")
+  use({ "Vimjas/vim-python-pep8-indent" })
+  use({ "uarun/vim-protobuf" })
+  use({ "tikhomirov/vim-glsl" })
+  use({ "lervag/vimtex" })
+  use({ "godlygeek/tabular" })
+  use({ "plasticboy/vim-markdown" })
   use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install" })
 
   -- my plugins
