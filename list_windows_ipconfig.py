@@ -6,7 +6,7 @@ import subprocess as sbpr
 
 def get_configs():
     data = sbpr.Popen(
-        'cmd.exe /c "chcp 437 & ipconfig"',
+        'cmd.exe /c "ipconfig"',
         stdout=sbpr.PIPE,
         stderr=sbpr.DEVNULL,
         shell=True
