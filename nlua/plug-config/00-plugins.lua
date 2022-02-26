@@ -115,6 +115,7 @@ return packer.startup(function(use)
   use({ "tomasiser/vim-code-dark" })
   use({ "arcticicestudio/nord-vim" })
   use({ "chriskempson/vim-tomorrow-theme" })
+  use({ "doki-theme/doki-theme-vim" })
   -- Airline
   use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" })
   use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } })
