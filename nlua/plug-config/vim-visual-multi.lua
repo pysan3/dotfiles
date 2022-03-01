@@ -1,0 +1,72 @@
+local VM_leader = "\\\\"
+vim.g.VM_mouse_mappings = 1
+
+vim.g.VM_maps = {
+  Undo = "u",
+  Redo = "<C-r>",
+  ["Find Under"] = "<C-s>",
+  ["Find Subword Under"] = "<C-s>",
+  ["Select All"] = VM_leader .. "A",
+  ["Start Regex Search"] = VM_leader .. "/",
+  ["Add Cursor Down"] = "<C-Down>",
+  ["Add Cursor Up"] = "<C-Up>",
+  ["Add Cursor At Pos"] = VM_leader .. "\\",
+
+  ["Visual Regex"] = VM_leader .. "/",
+  ["Visual All"] = VM_leader .. "A",
+  ["Visual Add"] = VM_leader .. "a",
+  ["Visual Find"] = VM_leader .. "f",
+  ["Visual Cursors"] = VM_leader .. "c",
+}
+
+local _ = { -- enabled by default
+  ["Switch Mode"] = "<Tab>",
+
+  ["Find Next"] = "]",
+  ["Find Prev"] = "[",
+  ["Goto Next"] = "}",
+  ["Goto Prev"] = "{",
+  ["Seek Next"] = "<C-f>",
+  ["Seek Prev"] = "<C-b>",
+  ["Skip Region"] = "q",
+  ["Remove Region"] = "Q",
+  ["Invert Direction"] = "o",
+  ["Find Operator"] = "m",
+  ["Surround"] = "S",
+  ["Replace Pattern"] = "R",
+
+  ["Tools Menu"] = VM_leader .. "`",
+  ["Show Registers"] = VM_leader .. '"',
+  ["Case Setting"] = VM_leader .. "c",
+  ["Toggle Whole Word"] = VM_leader .. "w",
+  ["Transpose"] = VM_leader .. "t",
+  ["Align"] = VM_leader .. "a",
+  ["Duplicate"] = VM_leader .. "d",
+  ["Rewrite Last Search"] = VM_leader .. "r",
+  ["Merge Regions"] = VM_leader .. "m",
+  ["Split Regions"] = VM_leader .. "s",
+  ["Remove Last Region"] = VM_leader .. "q",
+  ["Visual Subtract"] = VM_leader .. "s",
+  ["Case Conversion Menu"] = VM_leader .. "C",
+  ["Search Menu"] = VM_leader .. "S",
+
+  ["Run Normal"] = VM_leader .. "z",
+  ["Run Last Normal"] = VM_leader .. "Z",
+  ["Run Visual"] = VM_leader .. "v",
+  ["Run Last Visual"] = VM_leader .. "V",
+  ["Run Ex"] = VM_leader .. "x",
+  ["Run Last Ex"] = VM_leader .. "X",
+  ["Run Macro"] = VM_leader .. "@",
+  ["Align Char"] = VM_leader .. "<",
+  ["Align Regex"] = VM_leader .. ">",
+  ["Numbers"] = VM_leader .. "n",
+  ["Numbers Append"] = VM_leader .. "N",
+  ["Zero Numbers"] = VM_leader .. "0n",
+  ["Zero Numbers Append"] = VM_leader .. "0N",
+  ["Shrink"] = VM_leader .. "-",
+  ["Enlarge"] = VM_leader .. "+",
+
+  ["Toggle Block"] = VM_leader .. "<BS>",
+  ["Toggle Single Region"] = VM_leader .. "<CR>",
+  ["Toggle Multiline"] = VM_leader .. "M",
+}

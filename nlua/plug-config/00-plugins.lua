@@ -91,6 +91,8 @@ return packer.startup(function(use)
   use({ "kyazdani42/nvim-tree.lua" })
   -- colorizer
   use({ "norcalli/nvim-colorizer.lua" })
+  -- multi cursors
+  use({ "mg979/vim-visual-multi" })
 
   -- startify
   use({ "mhinz/vim-startify" })
