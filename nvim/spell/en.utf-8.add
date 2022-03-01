@@ -271,3 +271,7 @@ autosession
 nvim
 Neovim
 neovim
+dotfiles
+zsh
+config
+Symlink
