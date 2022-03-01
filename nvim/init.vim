@@ -10,6 +10,7 @@ SourceIF $HOME/.config/nvim/general/settings.vim
 SourceIF $HOME/.config/nvim/keys/mappings.vim
 lua require 'themes.envtheme'
 lua require 'plug-config.bufferline'
+lua require 'plug-config.bullets'
 lua require 'plug-config.lualine'
 lua require 'plug-config.n-notify'
 lua require 'lsp-config.n-cmp'
