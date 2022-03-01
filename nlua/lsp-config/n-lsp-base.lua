@@ -1,6 +1,6 @@
 local M = {}
 
-M.setup = function()
+M.setup = function(_)
   local signs = {
     { name = "DiagnosticSignError", text = "" },
     { name = "DiagnosticSignWarn", text = "" },
@@ -76,7 +76,6 @@ M.lsp_keymaps = function(bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
-M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+M.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 return M
