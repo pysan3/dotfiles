@@ -54,7 +54,7 @@ return packer.startup(function(use)
   use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 
   -- load local config
-  use({ "pysan3/nvim-config-local" })
+  use({ "klen/nvim-config-local" })
 
   -- cmp and lsp
   require("lsp-config.n-cmp-plug").cmp_use(use)
