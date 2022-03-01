@@ -6,4 +6,5 @@ require("autosession").setup({
 
 vim.cmd([[
 command! CL AutoSessionAuto <bar> :qa
+command! A :qa
 ]])
