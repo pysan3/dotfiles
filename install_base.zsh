@@ -198,6 +198,7 @@ checkcommand 'prettier' 'npm install --save-dev -g prettier'
 checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
 checkcommand 'flake8' 'pip install --user --upgrade flake8'
 checkcommand 'pylint' 'pip install --user --upgrade pylint'
+checkcommand 'emmet-ls' 'npm install -g emmet-ls'
 # telescope
 if checkyes 'Install telescope dependencies?'; then
   checkcommand 'ueberzug' 'pip install ueberzug'
