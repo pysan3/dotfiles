@@ -18,6 +18,7 @@ function update_git_repo() {
   fi
   info "Updating $dist"
   git -C "$dist" pull
+  sleep 1
   for file in $@; do
     info "Compiled $dist/$file"
     zcompile "$dist/$file"
@@ -144,7 +145,7 @@ zcompile "$CARGO_ALIAS_CACHE"
 FZF_INSTALL_DIR="$XDG_DATA_HOME"/fzf
 update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh shell/key-bindings.zsh
 "$FZF_INSTALL_DIR"/install --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish
-zcompile "$XDG_CONFIG_HOME"/fzf/fzf.zsh
+sleep 1 && zcompile "$XDG_CONFIG_HOME"/fzf/fzf.zsh
 
 # install tmux plugin manager
 TPM_INSTALL_DIR="$XDG_DATA_HOME"/tmux/plugins/tpm
