@@ -1,14 +1,15 @@
 return {
   setup = {
+    "windwp/nvim-autopairs",
     {
       "numToStr/Comment.nvim",
       requires = "JoosepAlviste/nvim-ts-context-commentstring",
       after = "nvim-treesitter",
     },
-    "windwp/nvim-autopairs",
+    { "SirVer/ultisnips", requires = { { "honza/vim-snippets", rtp = "." } } },
     {
       "hrsh7th/nvim-cmp",
-      after = "nvim-autopairs",
+      after = { "nvim-autopairs", "ultisnips" },
       requires = {
         "hrsh7th/cmp-buffer", -- buffer completions
         "hrsh7th/cmp-path", -- path completions
@@ -18,18 +19,7 @@ return {
         "hrsh7th/cmp-emoji",
         "f3fora/cmp-spell",
         "uga-rosa/cmp-dictionary",
-        -- snippets
-        {
-          "SirVer/ultisnips",
-          requires = { { "honza/vim-snippets", rtp = "." }, "quangnguyen30192/cmp-nvim-ultisnips" },
-          config = function()
-            vim.g.UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
-            vim.g.UltiSnipsJumpForwardTrigger = "<Plug>(ultisnips_jump_forward)"
-            vim.g.UltiSnipsJumpBackwardTrigger = "<Plug>(ultisnips_jump_backward)"
-            vim.g.UltiSnipsListSnippets = "<c-x><c-s>"
-            vim.g.UltiSnipsRemoveSelectModeMappings = 0
-          end,
-        },
+        "quangnguyen30192/cmp-nvim-ultisnips",
       },
     },
     {

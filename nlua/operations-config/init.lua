@@ -6,7 +6,6 @@ return {
   },
   install = {
     "vim-scripts/ReplaceWithRegister", -- {Visual}["x]gr - replace {Visual} with register x
-    -- improved operations
     "tpope/vim-repeat", -- better repetition
     "christoomey/vim-titlecase", -- gzz
     "christoomey/vim-sort-motion", -- gs<motion> eg. gs2j => sort 3 lines
