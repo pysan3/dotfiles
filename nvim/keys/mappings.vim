@@ -22,9 +22,7 @@ inoremap <C-f> <Esc><<a
 nnoremap H :bprevious<CR>
 nnoremap L :bnext<CR>
 
-" Alternate way to save
-nnoremap <C-s> :w<CR>
-" Alternate way to quit
+" save and quit
 nnoremap <C-Q> :wq!<CR>
 inoremap <C-Q> <Esc>:wq!<CR>
 nnoremap <silent> <Leader>w :silent w<CR>
@@ -32,9 +30,6 @@ nnoremap <silent> <Leader>q :silent bd!<CR>
 command! Q :q
 command! WQ :wq
 command! Wq :wq
-" Use control-c instead of escape
-nnoremap <C-c> <Esc>
-inoremap <C-c> <Esc>
 
 " Better tabbing
 vnoremap < <gv
