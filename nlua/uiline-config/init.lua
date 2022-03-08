@@ -23,6 +23,7 @@ return {
         return vim.fn.has("termguicolors") == 1 and vim.cmd("set termguicolors")
       end,
       config = function()
+        require("uiline-config.nvim-icons")
         require("themes.envtheme")
       end,
     },
