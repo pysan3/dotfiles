@@ -13,7 +13,6 @@ __pycache__
 *.code-workspace
 .venv
 .vscode
-.vim
 .session.vim
 pip-selfcheck.json
 
