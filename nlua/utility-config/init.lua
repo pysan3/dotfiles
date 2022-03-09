@@ -17,6 +17,7 @@ return {
   },
   install = {
     "google/vim-searchindex", -- show how many occurrence [n/N]
+    "AndrewRadev/bufferize.vim",
     { "inkarkat/vim-SearchHighlighting", requires = { "inkarkat/vim-ingo-library" } }, -- search word under corsor
   },
 }
