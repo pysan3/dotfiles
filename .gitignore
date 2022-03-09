@@ -13,7 +13,7 @@ __pycache__
 *.code-workspace
 .venv
 .vscode
-.vim/
+.vim/*
 !.vim/local.vim
 pip-selfcheck.json
 
