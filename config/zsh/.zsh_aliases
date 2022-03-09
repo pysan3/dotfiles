@@ -231,7 +231,7 @@ function tvim() {
     fi
   fi
   vimcmd="act && nvim"
-  if [ ! -f "$PWD/.session.vim" ]; then
+  if [ ! -f "$PWD/.vim/session.vim" ]; then
     vimcmd="$vimcmd ."
   fi
   tmux new-session -s "$workdir" -d
