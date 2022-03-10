@@ -127,16 +127,23 @@ while IFS= read -r line; do
   else
     pkg="$alt"
   fi
+  success=false
   if ! command -v $alt &> /dev/null; then
     if checkyes "$alt not installed. Do you want to install with cargo?"; then
-      cargo install -v $pkg -f
+      cargo install -v $pkg -f && success=true
     else
       echo "failed to create alias from '$cmd' to '$alt': command not found"
       continue
     fi
   fi
   if [ $(cat "$CARGO_ALIAS_CACHE" | grep -c "$cmd") -eq 0 ]; then
-    echo "alias $cmd='$issudo$alt'" >> "$CARGO_ALIAS_CACHE"
+    if [ $success = true ]; then
+      echo "alias $cmd='$issudo$alt'" >> "$CARGO_ALIAS_CACHE"
+    fi
+  else
+    if ! [ $success = true ]; then
+      cat "$CARGO_ALIAS_CACHE" | grep -v $cmd > "$CARGO_ALIAS_CACHE"
+    fi
   fi
 done < "$DOTFILES/static/list_rust_packages.txt"
 zcompile "$CARGO_ALIAS_CACHE"
