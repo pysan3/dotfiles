@@ -20,7 +20,7 @@ cmp.setup({
     { name = "nvim_lua" },
     { name = "ultisnips" },
     { name = "buffer" },
-    { name = "dictionary", keyword_length = 3 },
+    { name = "dictionary", keyword_length = 2 },
     { name = "path" },
     { name = "spell" },
     { name = "emoji" },
@@ -125,7 +125,7 @@ require("cmp_dictionary").setup({
     --   ["%.tmux.*%.conf"] = "path/to/tmux.dic"
     -- },
   },
-  exact = 3,
+  exact = 4,
   first_case_insensitive = true,
   async = false,
   capacity = 5,
