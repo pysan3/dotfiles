@@ -216,3 +216,4 @@ if checkyes 'Install telescope dependencies?'; then
 fi
 
 info "Everything is done. Thx!!"; true
+
