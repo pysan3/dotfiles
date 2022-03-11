@@ -63,11 +63,15 @@ with SessionContext(session=${1:session}) as session:
 	$0
 endsnippet
 
-snippet nopylint "disable pylint for current line" w
+snippet none "snippet to insert None"
+None
+endsnippet
+
+snippet nopl "disable pylint for current line" w
 # pylint: disable-all
 endsnippet
 
-snippet notyping "disable pyright type-check for current line" w
+snippet notp "disable pyright type-check for current line" w
 # type: ignore
 endsnippet
 
