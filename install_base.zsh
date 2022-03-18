@@ -112,38 +112,40 @@ fi
 CARGO_ALIAS_CACHE=${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}
 mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"
 touch "$CARGO_ALIAS_CACHE"
-while IFS= read -r line; do
-  if [ 'x#' = x${line:0:1} ]; then continue; fi
-  IFS='=' read -r -A cmdArr <<< "$line"
-  # add one dummy in bash because zsh array is 1-index
-  if [[ x$(basename $SHELL) = x'bash' ]]; then
-    cmdArr="tmp $cmdArr"
-  fi
-  cmd=${cmdArr[1]}
-  alt=${cmdArr[2]}
-  issudo=""
-  if [[ x"$alt" == xsudo* ]]; then
-    alt="${alt:5}"
-    issudo="sudo "
-  fi
-  if [ ${#cmdArr[@]} -gt 2 ]; then
-    pkg=${cmdArr[3]}
-  else
-    pkg="$alt"
-  fi
-  cat "$CARGO_ALIAS_CACHE" | grep -v $cmd | sponge "$CARGO_ALIAS_CACHE"
-  if ! command -v $alt &> /dev/null; then
-    if checkyes "$alt not installed. Do you want to install with cargo?"; then
-      cargo install -v $pkg -f && info "installation $pkg success" || error "installation $pkg failed"
+if checkyes 'Do you want to install cargo cli commands?'; then
+  while IFS= read -r line; do
+    if [ 'x#' = x${line:0:1} ]; then continue; fi
+    IFS='=' read -r -A cmdArr <<< "$line"
+    # add one dummy in bash because zsh array is 1-index
+    if [[ x$(basename $SHELL) = x'bash' ]]; then
+      cmdArr="tmp $cmdArr"
     fi
-  fi
-  if command -v $alt &> /dev/null; then
-    echo "alias $cmd='$issudo$alt'" >> "$CARGO_ALIAS_CACHE"
-  else
-    echo "failed to create alias from '$cmd' to '$alt': command not found"
-    continue
-  fi
-done < "$DOTFILES/static/list_rust_packages.txt"
+    cmd=${cmdArr[1]}
+    alt=${cmdArr[2]}
+    issudo=""
+    if [[ x"$alt" == xsudo* ]]; then
+      alt="${alt:5}"
+      issudo="sudo "
+    fi
+    if [ ${#cmdArr[@]} -gt 2 ]; then
+      pkg=${cmdArr[3]}
+    else
+      pkg="$alt"
+    fi
+    cat "$CARGO_ALIAS_CACHE" | grep -v $cmd | sponge "$CARGO_ALIAS_CACHE"
+    if ! command -v $alt &> /dev/null; then
+      if checkyes "$alt not installed. Do you want to install with cargo?"; then
+        cargo install -v $pkg -f && info "installation $pkg success" || error "installation $pkg failed"
+      fi
+    fi
+    if command -v $alt &> /dev/null; then
+      echo "alias $cmd='$issudo$alt'" >> "$CARGO_ALIAS_CACHE"
+    else
+      echo "failed to create alias from '$cmd' to '$alt': command not found"
+      continue
+    fi
+  done < "$DOTFILES/static/list_rust_packages.txt"
+fi
 zcompile "$CARGO_ALIAS_CACHE"
 info 'cargo cli tools setup done'
 
