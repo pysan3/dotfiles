@@ -149,7 +149,7 @@ while IFS= read -r line; do
     pkg_list="$pkg_list $pkg"
   fi
 done < "$DOTFILES/static/list_rust_packages.txt"
-eval "cargo install -v $pkg_list -f"
+eval "cargo install -v $pkg_list"
 for pkg in $pkg_list; do
   line=$(cat "$DOTFILES/static/list_rust_packages.txt" | grep "$pkg")
   alt=$(cargo_list_line_parse 'alt' $line)
