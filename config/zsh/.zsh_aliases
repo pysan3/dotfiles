@@ -40,10 +40,16 @@ export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_git -F /dev/null'
 alias yay='yay --noconfirm'
 alias restart="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
-alias upgradeall='for lang in py rs js rb hs; do eval upgrade$lang; info "DONE: $(def upgrade$lang)"; done'
+function upgradeall() {
+  upgradecmds='py rs js rb hs zap'
+  for lang in $upgradecmds; do
+    cmd=$(def "upgrade$lang")
+    eval "upgrade$lang" && info "DONE: $cmd" || error "FAIL: $cmd"
+  done
+}
 alias upgradepy='pipupgrade --verbose --latest --yes; poetry self update' # pip install pipupgrade
 alias upgraders='cargo install-update --all' # cargo install cargo-update
-alias upgradejs='sudo npm install -g npm && sudo npm upgrade -g'
+alias upgradejs='npm install -g npm && npm upgrade -g'
 alias upgraderb='gem update'
 alias upgradehs='cabal new-update' # cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
 alias upgradezap='zap upgrade'
