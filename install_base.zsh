@@ -8,6 +8,7 @@ fi
 
 source "$DOTFILES/.zshenv"
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
+setopt sh_word_split
 
 function update_git_repo() {
   dist="$1"; repo_url="$2"

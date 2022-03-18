@@ -76,6 +76,8 @@ setopt magic_equal_subst # コマンドラインの引数で --prefix=/usr な�
 setopt auto_pushd # 遷移したディレクトリをスタックする
 setopt pushd_ignore_dups # 重複したディレクトリはスタックしない
 
+setopt sh_word_split # enable word splitting of unquoted expansion in for loop
+
 # backspace,deleteキーを使えるように
 # stty erase ^H
 stty erase ""
