@@ -43,7 +43,7 @@ fi
 if [ ! -d "$XDG_DATA_HOME"/ghcup ] || ! command -v pandoc &>/dev/null; then
   info 'Installing `cabal` for haskel and `pandoc`'
   warning 'Answer N->Y->Y to the questions'
-  curl --insecure https://get-ghcup.haskell.org | sh
+  curl https://get-ghcup.haskell.org | sh
   cabal --version
   cabal new-update
   cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
@@ -93,7 +93,7 @@ fi
 if "$install_ruby"; then
   export PATH="$RBENV_ROOT/bin:$PATH"
   latest_ruby=$(rbenv install -l 2>/dev/null | grep -v - | tail -1)
-  CONFIGURE_OPTS='--disable-install-rdoc' RUBY_BUILD_CURL_OPTS='--insecure' rbenv install "$latest_ruby"
+  CONFIGURE_OPTS='--disable-install-rdoc' rbenv install "$latest_ruby"
   rbenv global "$latest_ruby" && info "Installed ruby ($latest_ruby) for user: $USER"
 fi
 info 'Ruby setup done'
