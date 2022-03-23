@@ -4,6 +4,7 @@ return {
     "mbbill/undotree", -- undo tree
     "klen/nvim-config-local", -- load local config
     "pysan3/autosession.nvim", -- restore previous session
+    -- "~/Git/autosession.nvim",
     "mhinz/vim-startify", -- startify
     {
       "nvim-telescope/telescope.nvim",
@@ -16,6 +17,7 @@ return {
   },
   install = {
     "google/vim-searchindex", -- show how many occurrence [n/N]
+    "AndrewRadev/bufferize.vim",
     { "inkarkat/vim-SearchHighlighting", requires = { "inkarkat/vim-ingo-library" } }, -- search word under corsor
   },
 }

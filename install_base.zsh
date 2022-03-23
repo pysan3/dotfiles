@@ -8,6 +8,7 @@ fi
 
 source "$DOTFILES/.zshenv"
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
+setopt sh_word_split
 
 function update_git_repo() {
   dist="$1"; repo_url="$2"
@@ -42,11 +43,12 @@ fi
 if [ ! -d "$XDG_DATA_HOME"/ghcup ] || ! command -v pandoc &>/dev/null; then
   info 'Installing `cabal` for haskel and `pandoc`'
   warning 'Answer N->Y->Y to the questions'
-  curl --insecure https://get-ghcup.haskell.org | sh
+  curl https://get-ghcup.haskell.org | sh
   cabal --version
   cabal new-update
   cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
 fi
+info 'Haskell installation done'
 
 # install zsh shell utils
 mkdir -p "$XDG_DATA_HOME"/zsh
@@ -54,6 +56,7 @@ ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR="$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting
 update_git_repo "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting.zsh
 ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME"/zsh/zsh-autosuggestions
 update_git_repo "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git zsh-autosuggestions.zsh
+info 'Zsh extensions installation done'
 
 # install pyenv
 if ! command -v 'pyenv' &>/dev/null; then
@@ -65,6 +68,7 @@ if ! command -v 'poetry' &> /dev/null; then
   info "Installing poetry"
   curl https://install.python-poetry.org | python -
 fi
+info 'python programs installation done'
 
 # install ruby
 install_ruby=true
@@ -89,9 +93,10 @@ fi
 if "$install_ruby"; then
   export PATH="$RBENV_ROOT/bin:$PATH"
   latest_ruby=$(rbenv install -l 2>/dev/null | grep -v - | tail -1)
-  CONFIGURE_OPTS='--disable-install-rdoc' RUBY_BUILD_CURL_OPTS='--insecure' rbenv install "$latest_ruby"
+  CONFIGURE_OPTS='--disable-install-rdoc' rbenv install "$latest_ruby"
   rbenv global "$latest_ruby" && info "Installed ruby ($latest_ruby) for user: $USER"
 fi
+info 'Ruby setup done'
 
 # RUST
 if ! command -v 'cargo' &> /dev/null; then
@@ -105,51 +110,71 @@ if ! command -v 'cargo' &> /dev/null; then
     read tmp
   fi
 fi
-CARGO_ALIAS_CACHE=${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}
-mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"
-touch "$CARGO_ALIAS_CACHE"
-while IFS= read -r line; do
-  if [ 'x#' = x${line:0:1} ]; then continue; fi
-  IFS='=' read -r -A cmdArr <<< "$line"
+
+function cargo_list_line_parse() {
+  return_value="$1"; shift 1
+  IFS='=' read -r -A cmdArr <<< $(echo "$@" | sed -e 's/^#\s*//')
   # add one dummy in bash because zsh array is 1-index
   if [[ x$(basename $SHELL) = x'bash' ]]; then
     cmdArr="tmp $cmdArr"
   fi
-  cmd=${cmdArr[1]}
-  alt=${cmdArr[2]}
-  issudo=""
+  cmd=${cmdArr[1]}; alt=${cmdArr[2]}; issudo=""
+  if [[ x"$return_value" = x'cmd' ]]; then echo "$cmd"; return; fi
   if [[ x"$alt" == xsudo* ]]; then
     alt="${alt:5}"
     issudo="sudo "
   fi
+  if [[ x"$return_value" = x'alt' ]]; then echo "$alt"; return; fi
   if [ ${#cmdArr[@]} -gt 2 ]; then
     pkg=${cmdArr[3]}
   else
     pkg="$alt"
   fi
-  if ! command -v $alt &> /dev/null; then
-    if checkyes "$alt not installed. Do you want to install with cargo?"; then
-      cargo install -v $pkg -f
-    else
-      echo "failed to create alias from '$cmd' to '$alt': command not found"
-      continue
-    fi
-  fi
-  if [ $(cat "$CARGO_ALIAS_CACHE" | grep -c "$cmd") -eq 0 ]; then
-    echo "alias $cmd='$issudo$alt'" >> "$CARGO_ALIAS_CACHE"
+  if [[ x"$return_value" = x'pkg' ]]; then echo "$pkg"; return; fi
+  if [[ x"$return_value" = x'alias' ]]; then echo "alias $cmd='$issudo$alt'"; return; fi
+}
+
+CARGO_ALIAS_CACHE=${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}
+mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
+pkg_list=''; install_all_cargo_cmds=false
+checkyes 'Do you want to install all cargo cli commands?' && install_all_cargo_cmds=true
+while IFS= read -r line; do
+  cmd=$(cargo_list_line_parse 'cmd' $line)
+  alt=$(cargo_list_line_parse 'alt' $line)
+  pkg=$(cargo_list_line_parse 'pkg' $line)
+  cat "$CARGO_ALIAS_CACHE" | grep -v $cmd | sponge "$CARGO_ALIAS_CACHE"
+  if [ 'x#' = x${line:0:1} ]; then continue; fi
+  question="$alt not installed. Do you want to install with cargo?"
+  if command -v $alt &> /dev/null || $install_all_cargo_cmds || checkyes "$question"; then
+    pkg_list="$pkg_list $pkg"
   fi
 done < "$DOTFILES/static/list_rust_packages.txt"
+eval "cargo install -v $pkg_list"
+for pkg in $pkg_list; do
+  line=$(cat "$DOTFILES/static/list_rust_packages.txt" | grep "$pkg")
+  alt=$(cargo_list_line_parse 'alt' $line)
+  alias_cmd=$(cargo_list_line_parse 'alias' $line)
+  if command -v $alt &> /dev/null; then
+    info "installation $pkg success"
+    echo "$alias_cmd" >> "$CARGO_ALIAS_CACHE"
+  else
+    error "installation $pkg failed"
+  fi
+done
 zcompile "$CARGO_ALIAS_CACHE"
+info 'cargo cli tools setup done'
 
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME"/fzf
 update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh shell/key-bindings.zsh
 "$FZF_INSTALL_DIR"/install --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish
 sleep 1 && zcompile "$XDG_CONFIG_HOME"/fzf/fzf.zsh
+info 'fzf setup done'
 
 # install tmux plugin manager
 TPM_INSTALL_DIR="$XDG_DATA_HOME"/tmux/plugins/tpm
 update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm
+info 'tmux setup done'
 
 # install protoc from source
 if ! command -v 'protoc' &>/dev/null || checkyes 'Install protoc?'; then
@@ -162,13 +187,13 @@ if ! command -v 'protoc' &>/dev/null || checkyes 'Install protoc?'; then
   sudo make install && sudo ldconfig
   cd "$current_dir"
 fi
+info 'protoc setup done'
 
 # install and update zap (appimage package manager)
 if ! command -v 'zap' &>/dev/null; then
   info 'Installing zap (appimage package manager)'
   curl https://raw.githubusercontent.com/srevinsaju/zap/main/install.sh | bash -s
 fi
-
 # install nvim
 warning 'Do you want to reinstall nvim?'
 if checkyes 'Install with zap?'; then
@@ -178,6 +203,7 @@ else
   error 'Please install manually.'
   echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
 fi
+info 'zap and nvim installation done'
 
 # nvim dependencies
 checkcommand () {
@@ -209,3 +235,4 @@ if checkyes 'Install telescope dependencies?'; then
 fi
 
 info "Everything is done. Thx!!"; true
+

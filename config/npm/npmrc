@@ -1,4 +1,4 @@
-prefix=/home/takuto/.local/share/npm
-cache=/home/takuto/.cache/npm
-init-module=/home/takuto/.config/npm/config/npm-init.js
+prefix=~/.local/share/npm
+cache=~/.cache/npm
+init-module=~/.config/npm/config/npm-init.js
 strict-ssl=false

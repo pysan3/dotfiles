@@ -35,9 +35,6 @@ return packer.startup(function(use)
   load_sub_dirs("command-config")
   load_sub_dirs("lang-config")
 
-  -- my plugins
-  -- use({ "~/Git/autosession.nvim" })
-
   if PACKER_BOOTSTRAP then
     packer.sync()
   end

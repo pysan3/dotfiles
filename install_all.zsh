@@ -6,9 +6,9 @@ if [[ 'xdotfiles' != x$(basename ${DOTFILES:=$HOME/dotfiles}) ]]; then
   exit
 fi
 
-cd $DOTFILES
+cd ${DOTFILES:=$HOME/dotfiles}
 if [[ x"$PWD" != x"$DOTFILES" ]]; then
-  error "Could not cd to $DOTFILES; PWD=$PWD; Abort"
+  echo "Could not cd to $DOTFILES; PWD=$PWD; Abort"
   exit
 fi
 
@@ -16,7 +16,7 @@ zcompile "$DOTFILES/functions.zsh"
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 
 # create symlink to .zsh* files
-for f in $(command ls -Ap | grep -v / | grep -v '\.sh' | grep -v '\.zsh*'); do
+for f in $(command ls -Ap | grep -v / | grep -v '\.sh' | grep -v '\.zsh$' | grep -v '\.zwc$'); do
   if [[ "$f" =~ (\.git|\.session|test|tmp|local|list|README|LICENSE).* ]]; then continue; fi
   if [ -f "$HOME/$f" ]; then
     info "$HOME/$f: Symbolic link already exists."
