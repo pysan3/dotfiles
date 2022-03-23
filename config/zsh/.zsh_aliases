@@ -24,6 +24,7 @@ alias la='ls -aFh'
 alias l='ls -1F'
 alias tree='tree -a -I "\.DS_Store|\.git|node_modules|vendor\/bundle" -N'
 alias grep='grep --color=auto'
+alias e='exit 0'
 
 alias rm='rm -i --preserve-root'
 alias mv='mv -i'
