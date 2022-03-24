@@ -32,15 +32,19 @@ function update_git_repo() {
   done
 }
 
-if ! command -v 'python' &>/dev/null || [[ `python -V` =~ 'Python 2.*' ]]; then
+if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]]; then
   error 'No python command found'
-  if checkyes 'do you want to create a systemwide symlink to python3?'; then
+  if checkyes 'Do you want to create a systemwide symlink to python3?'; then
     sudo ln -s "$(which python3)" /usr/bin/python
+  elif checkyes 'Do you want to create an alias?'; then
+    alias python='python3'
+  else
+    error 'Please set `python` command to run Python 3.x'
   fi
 fi
 
 # install haskel interpreter
-if ! command -v pandoc &>/dev/null || checkyes "Seems you don't have pandoc installed. Install?"; then
+if ! command -v pandoc &>/dev/null && checkyes "Seems you don't have pandoc installed. Install?"; then
   info 'Installing `cabal` for haskel and `pandoc`'
   warning 'Answer N->Y->Y to the questions'
   curl https://get-ghcup.haskell.org | sh
