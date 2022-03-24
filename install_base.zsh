@@ -38,6 +38,7 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
     sudo ln -s "$(which python3)" /usr/bin/python
   elif checkyes 'Do you want to create an alias?'; then
     alias python='python3'
+    alias pip='pip3'
   else
     error 'Please set `python` command to run Python 3.x'
   fi
