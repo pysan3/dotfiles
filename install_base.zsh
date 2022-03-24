@@ -40,7 +40,7 @@ if ! command -v 'python' &>/dev/null || [[ `python -V` =~ 'Python 2.*' ]]; then
 fi
 
 # install haskel interpreter
-if [ ! -d "$XDG_DATA_HOME"/ghcup ] || ! command -v pandoc &>/dev/null; then
+if ! command -v pandoc &>/dev/null || checkyes "Seems you don't have pandoc installed. Install?"; then
   info 'Installing `cabal` for haskel and `pandoc`'
   warning 'Answer N->Y->Y to the questions'
   curl https://get-ghcup.haskell.org | sh
