@@ -73,7 +73,7 @@ if ! command -v 'poetry' &> /dev/null; then
   info "Installing poetry"
   curl https://install.python-poetry.org | python -
 fi
-pip install pipupgrade
+pip install --user --upgrade pipupgrade
 info 'python programs installation done'
 
 # install ruby
