@@ -182,14 +182,13 @@ update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm
 info 'tmux setup done'
 
 # install protoc from source
-if ! command -v 'protoc' &>/dev/null || checkyes 'Install protoc?'; then
+if ! command -v 'protoc' &>/dev/null || checkyes 'Reinstall protoc?'; then
   update_git_repo "$XDG_DATA_HOME"/protoc https://github.com/protocolbuffers/protobuf.git
   current_dir="$PWD"
   cd "$XDG_DATA_HOME"/protoc
   git submodule update --init --recursive
-  ./autogen.sh && ./configure
-  make -j$(nproc) && make check
-  sudo make install && sudo ldconfig
+  ./autogen.sh && ./configure --prefix="$HOME/.local"
+  make -j$(nproc) && make check && make install && ldconfig
   cd "$current_dir"
 fi
 info 'protoc setup done'
@@ -223,6 +222,16 @@ checkcommand () {
     info "Command '$1' found. Skipping..."
   fi
 }
+
+# ctags
+if ! command -v 'ctags' &>/dev/null || checkyes 'Reinstall ctags?'; then
+  update_git_repo "$XDG_DATA_HOME"/ctags https://github.com/universal-ctags/ctags.git
+  current_dir="$PWD"
+  cd "$XDG_DATA_HOME"/ctags
+  ./autogen.sh && ./configure --prefix="$HOME/.local"
+  make -j$(nproc) && make install && ldconfig
+  cd "$current_dir"
+fi
 
 # null-ls
 checkcommand 'stylua' 'cargo install stylua'

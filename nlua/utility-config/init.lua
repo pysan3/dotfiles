@@ -6,6 +6,7 @@ return {
     "pysan3/autosession.nvim", -- restore previous session
     -- "~/Git/autosession.nvim",
     "mhinz/vim-startify", -- startify
+    "preservim/tagbar",
     {
       "nvim-telescope/telescope.nvim",
       requires = {
