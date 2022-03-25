@@ -73,6 +73,7 @@ if ! command -v 'poetry' &> /dev/null; then
   info "Installing poetry"
   curl https://install.python-poetry.org | python -
 fi
+pip install pipupgrade
 info 'python programs installation done'
 
 # install ruby
@@ -154,7 +155,7 @@ while IFS= read -r line; do
     pkg_list="$pkg_list $pkg"
   fi
 done < "$DOTFILES/static/list_rust_packages.txt"
-($install_all_cargo_cmds || [[ -n "$pkg_list" ]]) && eval "cargo install -v $pkg_list"
+[[ -n "$pkg_list" ]] && eval "cargo install -v $pkg_list"
 while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
   alt=$(cargo_list_line_parse 'alt' $line)
@@ -227,6 +228,8 @@ checkcommand () {
   fi
 }
 
+gem install neovim
+npm i -g neovim
 # ctags
 if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall ctags?'; then
   update_git_repo "$XDG_DATA_HOME"/ctags https://github.com/universal-ctags/ctags.git
