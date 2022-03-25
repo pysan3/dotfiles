@@ -154,7 +154,7 @@ while IFS= read -r line; do
     pkg_list="$pkg_list $pkg"
   fi
 done < "$DOTFILES/static/list_rust_packages.txt"
-eval "cargo install -v $pkg_list"
+($install_all_cargo_cmds || [[ -n "$pkg_list" ]]) && eval "cargo install -v $pkg_list"
 for pkg in $pkg_list; do
   line=$(cat "$DOTFILES/static/list_rust_packages.txt" | grep "$pkg")
   alt=$(cargo_list_line_parse 'alt' $line)
@@ -199,8 +199,11 @@ if ! command -v 'zap' &>/dev/null; then
   curl https://raw.githubusercontent.com/srevinsaju/zap/main/install.sh | bash -s
 fi
 # install nvim
-warning 'Do you want to reinstall nvim?'
-if checkyes 'Install with zap?'; then
+NVIM_UPDATE_ALL=false
+if checkyes 'Do you want to update nvim?'; then
+  NVIM_UPDATE_ALL=true
+fi
+if $NVIM_UPDATE_ALL || ! command -v 'nvim' &>/dev/null && checkyes 'Install nvim with zap?'; then
   rm "$XDG_DATA_HOME"/zap/v2/index/nvim.json
   zap i --github --from neovim/neovim --executable nvim
 else
@@ -211,8 +214,8 @@ info 'zap and nvim installation done'
 
 # nvim dependencies
 checkcommand () {
-  if ! command -v "$1" &>/dev/null; then
-    warning "Command $1 not found. Installing with following command."
+  if ! command -v "$1" &>/dev/null || $NVIM_UPDATE_ALL; then
+    warning "Installing command '$1' with following command."
     echo "$ $2"
     if [[ "$2" == *'sudo'* ]]; then
       checkyes 'Command includes `sudo`. Do you want to continue?' || return
@@ -224,7 +227,7 @@ checkcommand () {
 }
 
 # ctags
-if ! command -v 'ctags' &>/dev/null || checkyes 'Reinstall ctags?'; then
+if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall ctags?'; then
   update_git_repo "$XDG_DATA_HOME"/ctags https://github.com/universal-ctags/ctags.git
   current_dir="$PWD"
   cd "$XDG_DATA_HOME"/ctags
@@ -232,7 +235,8 @@ if ! command -v 'ctags' &>/dev/null || checkyes 'Reinstall ctags?'; then
   make -j$(nproc) && make install && ldconfig
   cd "$current_dir"
 fi
-
+# sad
+checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
 # null-ls
 checkcommand 'stylua' 'cargo install stylua'
 checkcommand 'prettier' 'npm install --save-dev -g prettier'
@@ -241,7 +245,7 @@ checkcommand 'flake8' 'pip install --user --upgrade flake8'
 checkcommand 'pylint' 'pip install --user --upgrade pylint'
 checkcommand 'emmet-ls' 'npm install -g emmet-ls'
 # telescope
-if checkyes 'Install telescope dependencies?'; then
+if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then
   checkcommand 'ueberzug' 'pip install ueberzug'
   checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
   checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
