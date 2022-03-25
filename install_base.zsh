@@ -150,14 +150,15 @@ while IFS= read -r line; do
   cat "$CARGO_ALIAS_CACHE" | grep -v $cmd | sponge "$CARGO_ALIAS_CACHE"
   if [ 'x#' = x${line:0:1} ]; then continue; fi
   question="$alt not installed. Do you want to install with cargo?"
-  if command -v $alt &> /dev/null || $install_all_cargo_cmds || checkyes "$question"; then
+  if ! command -v $alt &> /dev/null && ($install_all_cargo_cmds || checkyes "$question"); then
     pkg_list="$pkg_list $pkg"
   fi
 done < "$DOTFILES/static/list_rust_packages.txt"
 ($install_all_cargo_cmds || [[ -n "$pkg_list" ]]) && eval "cargo install -v $pkg_list"
-for pkg in $pkg_list; do
-  line=$(cat "$DOTFILES/static/list_rust_packages.txt" | grep "$pkg")
+while IFS= read -r line; do
+  if [ 'x#' = x${line:0:1} ]; then continue; fi
   alt=$(cargo_list_line_parse 'alt' $line)
+  pkg=$(cargo_list_line_parse 'pkg' $line)
   alias_cmd=$(cargo_list_line_parse 'alias' $line)
   if command -v $alt &> /dev/null; then
     info "installation $pkg success"
@@ -165,7 +166,7 @@ for pkg in $pkg_list; do
   else
     error "installation $pkg failed"
   fi
-done
+done < "$DOTFILES/static/list_rust_packages.txt"
 zcompile "$CARGO_ALIAS_CACHE"
 info 'cargo cli tools setup done'
 
@@ -251,6 +252,9 @@ if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then
   checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
   checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
 fi
+
+# lookatme (terminal markdown renderer)
+checkcommand 'lookatme' 'pip install --user --upgrade lookatme'
 
 info "Everything is done. Thx!!"; true
 
