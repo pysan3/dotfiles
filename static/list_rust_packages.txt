@@ -11,4 +11,4 @@ iftop=sudo bandwhich
 hexdump=hx
 objdump=bingrep
 lisence=licensor
-# http-server=miniserve
+http-server=miniserve
