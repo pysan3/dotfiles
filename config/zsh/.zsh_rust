@@ -9,8 +9,6 @@ function add_completions() {
 }
 
 # js
-# Preserve MANPATH if you already defined it somewhere in your config.
-# Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
 export PATH="$PATH:$(npm config get prefix)/bin"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
@@ -24,20 +22,11 @@ fi
 
 # Python
 export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$POETRY_HOME/bin:$PATH"
-# add_completions "pyenv init -" "/tmp/pyenv-init-cache"
-# add_completions "pyenv virtualenv-init -" "/tmp/pyenv-virutalenv-init-cache"
 
 # Haskel
-# if [ -f "$XDG_DATA_HOME"/ghcup/env ]; then
-#   source "$XDG_DATA_HOME"/ghcup/env
-# fi
-# export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 export PATH="$PATH:$XDG_CACHE_HOME/cabal/bin"
 
 # ruby
-if [ -d "$RBENV_ROOT" ]; then
-  export PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$XDG_DATA_HOME/gem/bin:$PATH"
-  # add_completions "rbenv init -" "/tmp/rbenv-init-cache"
-fi
+export PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$XDG_DATA_HOME/gem/bin:$PATH"
 
 true
