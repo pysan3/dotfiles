@@ -184,7 +184,7 @@ update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm
 info 'tmux setup done'
 
 # install protoc from source
-if ! command -v 'protoc' &>/dev/null || checkyes 'Reinstall protoc?'; then
+if ! command -v 'protoc' &>/dev/null && checkyes 'Reinstall protoc?'; then
   update_git_repo "$XDG_DATA_HOME"/protoc https://github.com/protocolbuffers/protobuf.git
   current_dir="$PWD"
   cd "$XDG_DATA_HOME"/protoc
@@ -240,6 +240,7 @@ if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall c
   cd "$current_dir"
 fi
 # sad
+checkcommand 'delta' 'cargo install git-delta'
 checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
 # null-ls
 checkcommand 'stylua' 'cargo install stylua'
