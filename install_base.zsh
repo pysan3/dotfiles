@@ -184,7 +184,8 @@ update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm
 info 'tmux setup done'
 
 # install protoc from source
-if ! command -v 'protoc' &>/dev/null && checkyes 'Reinstall protoc?'; then
+command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
+if checkyes 'Reinstall protoc?'; then
   update_git_repo "$XDG_DATA_HOME"/protoc https://github.com/protocolbuffers/protobuf.git
   current_dir="$PWD"
   cd "$XDG_DATA_HOME"/protoc
