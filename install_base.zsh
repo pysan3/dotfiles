@@ -229,6 +229,7 @@ checkcommand () {
   fi
 }
 
+pip install --user --upgrade pynvim
 gem install neovim
 npm i -g neovim
 # ctags
