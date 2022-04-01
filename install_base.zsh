@@ -203,6 +203,7 @@ if checkyes 'Install nvtop from source?'; then
   cmake .. -DCMAKE_INSTALL_PREFIX="$HOME/.local" && make
   make install
 fi
+info 'nvtop setup done'
 
 # install and update zap (appimage package manager)
 if ! command -v 'zap' &>/dev/null; then
