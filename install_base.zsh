@@ -185,7 +185,7 @@ info 'tmux setup done'
 
 # install protoc from source
 command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
-if checkyes 'Reinstall protoc?'; then
+if checkyes 'Install protoc from source?'; then
   update_git_repo "$XDG_DATA_HOME"/protoc https://github.com/protocolbuffers/protobuf.git
   current_dir="$PWD"
   cd "$XDG_DATA_HOME"/protoc
@@ -195,6 +195,14 @@ if checkyes 'Reinstall protoc?'; then
   cd "$current_dir"
 fi
 info 'protoc setup done'
+
+command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found.'
+if checkyes 'Install nvtop from source?'; then
+  update_git_repo "$XDG_DATA_HOME"/nvtop https://github.com/Syllo/nvtop.git
+  mkdir -p "$XDG_DATA_HOME"/nvtop/build && cd "$_"
+  cmake .. -DCMAKE_INSTALL_PREFIX="$HOME/.local" && make
+  make install
+fi
 
 # install and update zap (appimage package manager)
 if ! command -v 'zap' &>/dev/null; then
