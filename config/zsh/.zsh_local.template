@@ -76,5 +76,13 @@ function syncddns () {
   cbw get item mydns.jp | jq '.login' | jq -r '"\(.username):\(.password)"'
   cbw get item mydns.jp | jq '.login' | jq -r '"\(.username):\(.password)"' | { read login; for v in 4 6; do curl -u "$login" "https://ipv$v.mydns.jp/login.html"; done }
 }
+function mount_netd_wsl() {
+  error 'sudo apt install cifs-utils'
+  from="$1"; to="$2"
+  [ $# -ge 3 ] && user="$3" || read -p 'username: ' user
+  [ $# -ge 4 ] && pass="$3" || read -sp 'password: ' pass
+  sudo mkdir -p "$to"
+  sudo mount -t cifs -o user="$user",pass="$pass",vers=1.0 "$from" "$to"
+}
 
 true
