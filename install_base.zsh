@@ -185,8 +185,8 @@ if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
     zcompile "$NVM_DIR"/nvm.sh
     source "$NVM_DIR"/nvm.sh
-    export PATH="$(npm config get prefix)/bin:$PATH"
     nvm install node
+    export PATH="$(npm config get prefix)/bin:$PATH"
   fi
 fi
 
