@@ -1,4 +1,3 @@
-prefix=~/.local/share/npm
 cache=~/.cache/npm
 init-module=~/.config/npm/config/npm-init.js
 strict-ssl=false

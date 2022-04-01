@@ -66,5 +66,15 @@ if [ ! -f ~/texmf/tex/latex/local/pdfpc-commands.sty ]; then
   fi
   info "Installed pdfpc-commands.sty"
 fi
+# npmrc
+npmrc="$XDG_CONFIG_HOME/npm/npmrc"
+[[ -L "$npmrc" ]] && rm "$npmrc"
+mkdir -p "$(dirname $npmrc)" && touch "$npmrc"
+while IFS= read -r line; do
+  if [[ $(cat "$npmrc" | grep "$line" | wc -l) -eq 0 ]]; then
+    echo "$line" >> "$npmrc"
+  fi
+done < "$DOTFILES/static/npm/npmrc"
+info "Installed npmrc"
 
 true

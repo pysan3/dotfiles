@@ -171,6 +171,25 @@ done < "$DOTFILES/static/list_rust_packages.txt"
 zcompile "$CARGO_ALIAS_CACHE"
 info 'cargo cli tools setup done'
 
+# node, npm
+if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes 'Upgrade node / npm?'; then
+  if checkyes 'Can you use sudo?'; then
+    sudo apt install npm -y
+    sudo npm install -g n
+    sudo n stable
+    sudo npm update -g npm
+    npm config set prefix "$XDG_DATA_HOME/npm"
+  else
+    rm -rf "${NVM_DIR:=$XDG_DATA_HOME/nvm}"
+    mkdir -p "$NVM_DIR"
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+    zcompile "$NVM_DIR"/nvm.sh
+    source "$NVM_DIR"/nvm.sh
+    export PATH="$(npm config get prefix)/bin:$PATH"
+    nvm install node
+  fi
+fi
+
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME"/fzf
 update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh shell/key-bindings.zsh
