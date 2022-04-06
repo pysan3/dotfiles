@@ -210,7 +210,7 @@ if checkyes 'Install protoc from source?'; then
   cd "$XDG_DATA_HOME"/protoc
   git submodule update --init --recursive
   ./autogen.sh && ./configure --prefix="$HOME/.local"
-  make -j$(nproc) && make check && make install && ldconfig
+  make -j$(nproc) && make check && make install
   cd "$current_dir"
 fi
 info 'protoc setup done'
@@ -266,7 +266,7 @@ if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall c
   current_dir="$PWD"
   cd "$XDG_DATA_HOME"/ctags
   ./autogen.sh && ./configure --prefix="$HOME/.local"
-  make -j$(nproc) && make install && ldconfig
+  make -j$(nproc) && make install
   cd "$current_dir"
 fi
 # sad
