@@ -283,7 +283,7 @@ checkcommand 'emmet-ls' 'npm install -g emmet-ls'
 if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then
   checkcommand 'ueberzug' 'pip install ueberzug'
   checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
-  checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
+  checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && command exit 1'
   checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
 fi
 
