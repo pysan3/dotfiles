@@ -9,9 +9,9 @@ function add_completions() {
 }
 
 # js
+[ -s "$NVM_DIR"/nvm.sh ] && source "$NVM_DIR"/nvm.sh
 export PATH="$PATH:$(npm config get prefix)/bin"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
-[ -s "$NVM_DIR"/nvm.sh ] && source "$NVM_DIR"/nvm.sh
 
 # alias to command line utils
 export PATH="$CARGO_HOME/bin:$PATH"
