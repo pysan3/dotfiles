@@ -62,6 +62,13 @@ async def ${1}(req: Request, resp: Response):
 	$0
 endsnippet
 
+snippet apiproto "@api.route: snippet for @api.route()" w
+@api.route('/api/${1:route_name}')
+@proto_wrap(REQ${1}, RESP${1})
+async def ${1}(req: Request, resp: Response, *, preq: REQ${1}, presp: RESP${1}):
+	$0
+endsnippet
+
 snippet newsession "make session: SessionContext" w
 with SessionContext(session=${1:session}) as session:
 	$0
