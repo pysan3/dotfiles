@@ -276,6 +276,7 @@ checkcommand 'sad' 'cargo install --locked --all-features --git https://github.c
 checkcommand 'stylua' 'cargo install stylua'
 checkcommand 'prettier' 'npm install --save-dev -g prettier'
 checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
+checkcommand 'pyright' 'pip install --user --upgrade pyright'
 checkcommand 'flake8' 'pip install --user --upgrade flake8'
 checkcommand 'pylint' 'pip install --user --upgrade pylint'
 checkcommand 'emmet-ls' 'npm install -g emmet-ls'
