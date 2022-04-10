@@ -103,7 +103,10 @@ local servers = {
   -- vala_ls = {}, -- Vala
   vimls = {}, -- VimL
   -- volar = {}, -- Vue
-  vuels = {}, -- Vue
+  vuels = {
+    -- https://stackoverflow.com/questions/65913547/ionic-slot-attributes-are-deprecated-eslint-plugin-vue
+    init_options = { config = { vetur = { validation = { template = false } } } },
+  }, -- Vue
   -- lemminx = {}, -- XML
   -- yamlls = {}, -- YAML
   -- zls = {}, -- Zig
