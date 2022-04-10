@@ -33,7 +33,7 @@ for ${1:i} in range(${2:n}):$0
 endsnippet
 
 snippet _column "Column: _column" w
-${1} = Column('${1}', ${0})
+$1 = Column('$1', $0)
 endsnippet
 
 snippet _columnid "ColumnID: id with autoincrement" w
@@ -45,7 +45,7 @@ counter += 1
 endsnippet
 
 snippet flush "flush: print without new line but flush" w
-print(${0}, end='', flush=True)
+print($0, end='', flush=True)
 endsnippet
 
 snippet feq "print message for debugging"
@@ -58,14 +58,14 @@ endsnippet
 
 snippet apiroute "@api.route: snippet for @api.route()" w
 @api.route('/api/${1:route_name}')
-async def ${1}(req: Request, resp: Response):
+async def $1(req: Request, resp: Response):
 	$0
 endsnippet
 
 snippet apiproto "@api.route: snippet for @api.route()" w
 @api.route('/api/${1:route_name}')
-@proto_wrap(REQ${1}, RESP${1})
-async def ${1}(req: Request, resp: Response, *, preq: REQ${1}, presp: RESP${1}):
+@proto_wrap(REQ$1, RESP$1)
+async def $1(_req: Request, _resp: Response, *, preq: REQ$1, presp: RESP$1):
 	$0
 endsnippet
 
