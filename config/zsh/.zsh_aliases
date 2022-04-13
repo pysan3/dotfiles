@@ -377,6 +377,9 @@ function fzf-cdr () {
   if [ -n "$selected_dir" ]; then
     BUFFER="cd ${selected_dir}"
     zle accept-line
+  else
+    BUFFER=''
+    zle accept-line
   fi
 }
 zle -N fzf-cdr
