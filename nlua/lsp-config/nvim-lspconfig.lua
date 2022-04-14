@@ -1,5 +1,5 @@
-require("lsp-config.n-lsp-install").setup({})
 require("lsp-config.n-lsp-base").setup({})
+require("lsp-config.n-lsp-install").setup({})
 require("lsp-config.n-lsp-null").setup({})
 require("lsp_signature").setup({})
 require("fidget").setup({

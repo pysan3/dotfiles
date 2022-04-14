@@ -15,35 +15,6 @@ cmp.setup({
       vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
-  sources = {
-    { name = "nvim_lsp" },
-    { name = "nvim_lua" },
-    { name = "ultisnips" },
-    { name = "buffer" },
-    { name = "dictionary", keyword_length = 2 },
-    { name = "path" },
-    { name = "spell" },
-    { name = "emoji" },
-    { name = "calc" },
-  },
-  formatting = {
-    fields = { "kind", "abbr", "menu" },
-    format = function(entry, vim_item)
-      vim_item.kind = string.format("%s", cmp_icons[vim_item.kind])
-      vim_item.menu = ({
-        nvim_lsp = "[LSP ]",
-        nvim_lua = "[NLUA]",
-        ultisnips = "[Snip]",
-        buffer = "[Buff]",
-        path = "[Path]",
-        dictionary = "[Text]",
-        emoji = "[Text]",
-        spell = "[Spll]",
-        calc = "[Calc]",
-      })[entry.source.name]
-      return vim_item
-    end,
-  },
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -70,16 +41,60 @@ cmp.setup({
       ultimap.jump_backwards(fallback)
     end, { "i", "s" }),
   },
+  sources = cmp.config.sources({
+    { name = "nvim_lsp" },
+    { name = "nvim_lua" },
+    { name = "ultisnips" },
+  }, {
+    {
+      name = "buffer",
+      option = {
+        keyword_length = 2,
+        get_bufnrs = function() -- from all visible buffers
+          local bufs = {}
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            bufs[vim.api.nvim_win_get_buf(win)] = true
+          end
+          return vim.tbl_keys(bufs)
+        end,
+      },
+    },
+    { name = "dictionary", keyword_length = 2 },
+    { name = "path" },
+    { name = "spell" },
+    { name = "emoji" },
+    { name = "calc" },
+  }),
+  formatting = {
+    fields = { "kind", "abbr", "menu" },
+    format = function(entry, vim_item)
+      vim_item.kind = string.format("%s", cmp_icons[vim_item.kind])
+      vim_item.menu = ({
+        nvim_lsp = "[LSP ]",
+        nvim_lua = "[NLUA]",
+        ultisnips = "[Snip]",
+        buffer = "[Buff]",
+        path = "[Path]",
+        dictionary = "[Text]",
+        emoji = "[Text]",
+        spell = "[Spll]",
+        calc = "[Calc]",
+      })[entry.source.name]
+      return vim_item
+    end,
+  },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
   },
-  documentation = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-  },
   experimental = {
     ghost_text = true,
     -- native_menu = true,
+  },
+  window = {
+    documentation = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    },
   },
 })
 
@@ -125,7 +140,7 @@ require("cmp_dictionary").setup({
     --   ["%.tmux.*%.conf"] = "path/to/tmux.dic"
     -- },
   },
-  exact = 4,
+  exact = 2,
   first_case_insensitive = true,
   async = false,
   capacity = 5,
