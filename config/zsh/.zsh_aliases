@@ -70,8 +70,10 @@ alias vlocal="cd; nvim $XDG_CONFIG_HOME/nvim/local.vim; cd - >/dev/null"
 alias dc="docker-compose"
 alias po='poetry'
 alias tm="tmuxinator"
+alias t='tmux'
 alias ta="tmux a"
 alias ts='tmux a -t'
+alias tl="tmux ls"
 alias ttmp="tmux new-session -A -s tmp"
 function tn() { tmux new-session -A -s $(basename "$PWD") }
 alias yt='youtube-dl -ci -f mp4'
