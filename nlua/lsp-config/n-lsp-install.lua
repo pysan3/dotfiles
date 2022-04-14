@@ -77,8 +77,12 @@ local servers = {
   -- puppet = {}, -- Puppet
   -- purescriptls = {}, -- PureScript
   -- jedi_language_server = {}, -- Python
-  pyright = {}, -- Python
-  -- pylsp = {}, -- Python
+  -- pyright = {}, -- Python
+  pylsp = { settings = { pylsp = {
+    plugins = {
+      pycodestyle = { maxLineLength = 120 },
+    },
+  } } }, -- Python
   -- rescriptls = {}, -- ReScript
   -- rome = {}, -- Rome
   -- solargraph = {}, -- Ruby
@@ -134,7 +138,7 @@ M.setup = function(_)
   for server_name, server_opt in pairs(servers) do
     local server_ok, server = lsp_installer.get_server(server_name)
     local is_opt, file_opt = pcall(require, "lsp-config.settings." .. server_name)
-    local opts = vim.tbl_deep_extend("force", is_opt and file_opt or {}, server_opt or {}, global_opts)
+    local opts = vim.tbl_deep_extend("force", global_opts, is_opt and file_opt or {}, server_opt or {})
     if server_ok then
       server:on_ready(function()
         server:setup(opts)
