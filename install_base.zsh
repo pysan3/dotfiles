@@ -210,7 +210,7 @@ if checkyes 'Install protoc from source?'; then
   cd "$XDG_DATA_HOME"/protoc
   git submodule update --init --recursive
   ./autogen.sh && ./configure --prefix="$HOME/.local"
-  make -j$(nproc) && make check && make install
+  make -j$(nproc) && make check -j$(nproc) && make install -j$(nproc)
   cd "$current_dir"
 fi
 info 'protoc setup done'
