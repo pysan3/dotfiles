@@ -78,11 +78,16 @@ local servers = {
   -- purescriptls = {}, -- PureScript
   -- jedi_language_server = {}, -- Python
   -- pyright = {}, -- Python
-  pylsp = { settings = { pylsp = {
-    plugins = {
-      pycodestyle = { maxLineLength = 120 },
+  pylsp = {
+    settings = {
+      pylsp = {
+        plugins = {
+          pycodestyle = { maxLineLength = 120 },
+          pyflakes = { enabled = false },
+        },
+      },
     },
-  } } }, -- Python
+  }, -- Python
   -- rescriptls = {}, -- ReScript
   -- rome = {}, -- Rome
   -- solargraph = {}, -- Ruby
@@ -118,6 +123,7 @@ local servers = {
 
 local stop_lsp_fmt = {
   tsserver = 1,
+  vuels = 1,
   pylsp = 1,
 }
 

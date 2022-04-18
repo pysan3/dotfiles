@@ -12,18 +12,19 @@ M.setup = function(_)
     on_attach = function(client)
       if client.resolved_capabilities.document_formatting then
         vim.cmd([[
-        augroup LspFormatting
-        autocmd! * <buffer>
-        autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 5000)
-        augroup END
-      ]])
+          augroup LspFormatting
+          autocmd! * <buffer>
+          autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 5000)
+          augroup END
+        ]])
       end
     end,
-    debug = false,
+    debug = true,
     sources = {
       -- js, ts
       fmt.prettier,
-      diag.eslint,
+      -- diag.eslint,
+      fmt.eslint,
       -- python
       fmt.autopep8.with({ extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" } }),
       diag.flake8.with({ extra_args = { "--max-line-length=120", "--ignore=F405" } }),
