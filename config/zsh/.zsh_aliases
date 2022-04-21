@@ -69,10 +69,12 @@ alias vh="cd; nvim $ZDOTDIR/.zsh_history; cd - >/dev/null"
 alias vlocal="cd; nvim $XDG_CONFIG_HOME/nvim/local.vim; cd - >/dev/null"
 
 alias dc="docker-compose"
+alias rp='realpath'
 alias po='poetry'
 alias tm="tmuxinator"
 alias t='tmux'
-alias ta='tmux a -t'
+alias ta='tmux a'
+alias tat='tmux a -t'
 alias tl="tmux ls"
 alias ttmp="tmux new-session -A -s tmp"
 function tn() { tmux new-session -A -s $(basename "$PWD") }

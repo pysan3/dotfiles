@@ -234,7 +234,7 @@ NVIM_UPDATE_ALL=false
 if checkyes 'Do you want to update nvim?'; then
   NVIM_UPDATE_ALL=true
 fi
-if $NVIM_UPDATE_ALL || ! command -v 'nvim' &>/dev/null && checkyes 'Install nvim with zap?'; then
+if $NVIM_UPDATE_ALL || ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim with zap?'; then
   rm "$XDG_DATA_HOME"/zap/v2/index/nvim.json
   zap i --github --from neovim/neovim --executable nvim
 else
