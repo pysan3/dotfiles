@@ -190,6 +190,11 @@ if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes
   fi
 fi
 
+# setup clipboard
+if ! command -v 'clipboard' &>/dev/null; then
+  npm i -g clipboard-cli
+fi
+
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME"/fzf
 update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh shell/key-bindings.zsh
