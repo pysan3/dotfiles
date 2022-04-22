@@ -9,6 +9,7 @@ export PIPENV_NO_INHERIT=1
 export PIPENV_IGNORE_VIRTUALENVS=1
 export CLICOLOR=1
 export EDITOR='vim'
+export MAKEFLAGS="-j$(nproc)"
 
 if [ x"$MYENV" = 'x' ]; then
   export MYENV='undefined';
