@@ -23,7 +23,7 @@ M.setup = function(_)
     sources = {
       -- js, ts
       fmt.prettier,
-      -- diag.eslint,
+      diag.eslint,
       fmt.eslint,
       -- python
       fmt.autopep8.with({ extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" } }),

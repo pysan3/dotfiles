@@ -46,7 +46,7 @@ local servers = {
   -- grammarly = {}, -- Grammarly
   -- graphql = {}, -- GraphQL
   -- groovyls = {}, -- Groovy
-  html = {}, -- HTML
+  -- html = {}, -- HTML
   -- hls = {}, -- Haskell
   jsonls = {}, -- JSON
   -- jdtls = {}, -- Java
@@ -124,6 +124,7 @@ local servers = {
 local stop_lsp_fmt = {
   tsserver = 1,
   vuels = 1,
+  eslint = 1,
   pylsp = 1,
 }
 
