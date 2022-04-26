@@ -44,7 +44,7 @@ alias yay='yay --noconfirm'
 alias restart="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
 function upgradeall() {
-  upgradecmds='py rs js rb hs zap'
+  upgradecmds='py rs js rb hs'
   for lang in $upgradecmds; do
     cmd=$(def "upgrade$lang")
     eval "upgrade$lang" && info "DONE: $cmd" || error "FAIL: $cmd"
