@@ -66,9 +66,9 @@ local YELLOW=$'%{^[[1;33m%}'$
 
 # expansion: =mv -> /bin/mv
 # unsetopt equals
-# 複数ファイルのmv 例　zmv *.txt *.txt.bk
-autoload -Uz zmv
-alias zmv='noglob zmv -W'
+# 複数ファイルのmv: zmv *.txt *.txt.bk
+# autoload -Uz zmv
+# alias zmv='noglob zmv -W'
 
 setopt auto_param_slash # ディレクトリ名の補完で末尾に / を付加
 setopt magic_equal_subst # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
@@ -91,23 +91,23 @@ bindkey "^[[3~" delete-char
 # zstyle ':zle:*' word-style unspecified
 
 # 補完を利用
-# autoload -Uz compinit
-# compinit -d $ZDOTDIR/.zcompdump
-# _comp_options+=(globdots)		# Include hidden files.
-# zstyle ':completion:*' use-cache true # キャッシュによる補完の高速化
-# zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
-# zstyle ':completion:*:default' menu select=2 # 補完後、メニュー選択モードになり左右キーで移動が出来る
-# zstyle ':completion:*' completer _expand _complete _history _prefix # 補完の出し方
-# # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完で大文字にもマッチ
-# # zstyle ':completion:*' verbose true # 補完を詳細に表示
-# # zstyle ':completion:*:messages' format '%F{YELLOW}%d%F{DEFAULT}'
-# # zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d%F{DEFAULT}'
-# # zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b%F{DEFAULT}'
-# # zstyle ':completion:*:corrections' format '%F{YELLOW}%B%d ''%F{RED}(errors: %e)%b%F{DEFAULT}'
-# # zstyle ':completion:*:options' description 'yes'
-# # zstyle ':completion:*' group-name ''
-# zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
-# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
+autoload -Uz compinit
+compinit -d $ZDOTDIR/.zcompdump
+_comp_options+=(globdots)		# Include hidden files.
+zstyle ':completion:*' use-cache true # キャッシュによる補完の高速化
+zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
+zstyle ':completion:*:default' menu select=2 # 補完後、メニュー選択モードになり左右キーで移動が出来る
+zstyle ':completion:*' completer _expand _complete _history _prefix # 補完の出し方
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完で大文字にもマッチ
+zstyle ':completion:*' verbose true # 補完を詳細に表示
+zstyle ':completion:*:messages' format '%F{YELLOW}%d%F{DEFAULT}'
+zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d%F{DEFAULT}'
+zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b%F{DEFAULT}'
+zstyle ':completion:*:corrections' format '%F{YELLOW}%B%d ''%F{RED}(errors: %e)%b%F{DEFAULT}'
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*' group-name ''
+zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
 export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # git設定

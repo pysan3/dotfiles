@@ -10,6 +10,7 @@ mkdir -p "$XDG_DATA_HOME"
 mkdir -p "$XDG_STATE_HOME"
 mkdir -p "$XDG_BIN_HOME"
 
+export skip_global_compinit=1
 export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
 export CABAL_CONFIG="$XDG_CONFIG_HOME"/cabal/config
 export CABAL_DIR="$XDG_CACHE_HOME"/cabal
