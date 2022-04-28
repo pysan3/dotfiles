@@ -9,17 +9,12 @@ nnoremap <leader>e :NvimTreeFindFileToggle<CR>
 ]])
 
 require("nvim-tree").setup({
-  hide_root_folder = false,
   hijack_cursor = true,
   hijack_unnamed_buffer_when_opening = true,
   update_cwd = false,
-  -- update_to_buf_dir = {
-  --   enable = true,
-  --   auto_open = true,
-  -- },
   view = {
     -- auto_resize = false,
-    preserve_window_proportions = true,
+    -- preserve_window_proportions = true,
     signcolumn = "no",
     mappings = {
       custom_only = false,
@@ -61,21 +56,9 @@ require("nvim-tree").setup({
     timeout = 500,
   },
   actions = {
-    change_dir = {
-      enable = true,
-      global = false,
-    },
     open_file = {
       quit_on_open = true,
       resize_window = true,
-      window_picker = {
-        enable = true,
-        chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-        exclude = {
-          filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
-          buftype = { "nofile", "terminal", "help" },
-        },
-      },
     },
   },
   trash = {
