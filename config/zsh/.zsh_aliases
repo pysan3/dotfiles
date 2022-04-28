@@ -362,6 +362,13 @@ function ex () {
   done
 }
 
+function sshfs_remote() {
+  if [ -z "$(command ls -A $2)" ]; then
+    tmux has-session -t sshfs 2>/dev/null || tmux new -d -s sshfs
+    tmux send-keys -t sshfs "command sshfs $1 $2 -o allow_other" Enter
+  fi
+}
+
 function happ() {
   trap "echo terminated; git remote rm heroku; return" 1 2 3 15
   heroku git:remote --app $(basename -s .git `git remote get-url origin`)
