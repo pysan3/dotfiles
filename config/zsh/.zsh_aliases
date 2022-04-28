@@ -140,25 +140,6 @@ function cd () {
   dotenv
 }
 
-function dup() {
-  WDIR=$PWD
-  dot
-  g pl
-  g a .
-  if [ $# -ne 0 ]; then
-    g ci "$@"
-  else
-    g ci "updated from $PCNAME";
-  fi
-  git push
-  for f in `command ls -ap | grep -v /`; do
-    echo "$DOTFILES/$f"
-    ln -sf $DOTFILES/$f $HOME/$f
-  done
-  source ~/.zshrc;
-  cd "$WDIR"
-}
-
 function syncit () {
   if ! command -v 'syncthing' &> /dev/null; then
     echo 'install syncthing'

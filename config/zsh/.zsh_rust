@@ -8,26 +8,31 @@ function add_completions() {
   source "$2"
 }
 
+function _prepend() {
+  [[ "$PATH" == *"$1"* ]] || export PATH="$1:$PATH"
+}
+function _append() {
+  [[ "$PATH" == *"$1"* ]] || export PATH="$PATH:$1"
+}
+
 # js
 [ -s "$NVM_DIR"/nvm.sh ] && source "$NVM_DIR"/nvm.sh
-export PATH="$PATH:$(npm config get prefix)/bin"
+_append "$(npm config get prefix)/bin"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
-# alias to command line utils
-export PATH="$CARGO_HOME/bin:$PATH"
-if [ -f "${CARGO_ALIAS_CACHE:=$XDG_CACHE_HOME/cargo/alias_local.zsh}" ]; then
-  source "$CARGO_ALIAS_CACHE"
-else
-  echo '$CARGO_ALIAS_CACHE not found'
-fi
-
-# Python
-export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$POETRY_HOME/bin:$PATH"
-
 # Haskel
-export PATH="$PATH:$XDG_CACHE_HOME/cabal/bin"
+_append "$XDG_CACHE_HOME/cabal/bin"
 
 # ruby
-export PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$XDG_DATA_HOME/gem/bin:$PATH"
+_prepend "$RBENV_ROOT/bin:$RBENV_ROOT/shims:$XDG_DATA_HOME/gem/bin"
 
+# Python
+_prepend "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$POETRY_HOME/bin"
+
+# alias to command line utils
+_append "$CARGO_HOME/bin"
+[ -f "${CARGO_ALIAS_CACHE:=$XDG_CACHE_HOME/cargo/alias_local.zsh}" ] && source "$CARGO_ALIAS_CACHE"
+
+unset -f _prepend
+unset -f _append
 true
