@@ -287,6 +287,7 @@ checkcommand 'pylsp' 'pip install --user --upgrade python-lsp-server'
 checkcommand 'flake8' 'pip install --user --upgrade flake8'
 checkcommand 'pylint' 'pip install --user --upgrade pylint'
 checkcommand 'emmet-ls' 'npm install -g emmet-ls'
+checkcommand 'taplo' 'cargo install taplo-cli'
 # telescope
 if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then
   checkcommand 'ueberzug' 'pip install ueberzug'
