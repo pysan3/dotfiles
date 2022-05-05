@@ -93,14 +93,14 @@ if [ ! -d "$RBENV_ROOT" ]; then
       tput sgr0
     fi
   fi
-  git clone https://github.com/rbenv/rbenv.git "$RBENV_ROOT"
-  git clone https://github.com/rbenv/ruby-build.git "$RBENV_ROOT"/plugins/ruby-build
 fi
 if "$install_ruby"; then
+  update_git_repo "$RBENV_ROOT" https://github.com/rbenv/rbenv.git
+  update_git_repo "$RBENV_ROOT"/plugins/ruby-build https://github.com/rbenv/ruby-build.git
   export PATH="$RBENV_ROOT/bin:$PATH"
   latest_ruby=$(rbenv install -l 2>/dev/null | grep -v - | tail -1)
   CONFIGURE_OPTS='--disable-install-rdoc' rbenv install "$latest_ruby"
-  rbenv global "$latest_ruby" && info "Installed ruby ($latest_ruby) for user: $USER"
+  rbenv global "$latest_ruby" && info "Installed ruby (v: $latest_ruby) for user: $USER"
 fi
 info 'Ruby setup done'
 
