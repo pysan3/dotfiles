@@ -98,8 +98,9 @@ if "$install_ruby"; then
   update_git_repo "$RBENV_ROOT" https://github.com/rbenv/rbenv.git
   update_git_repo "$RBENV_ROOT"/plugins/ruby-build https://github.com/rbenv/ruby-build.git
   export PATH="$RBENV_ROOT/bin:$PATH"
+  PREFIX="$XDG_PREFIX_HOME" "$RBENV_ROOT/plugins/ruby-build/install.sh"
   latest_ruby=$(rbenv install -l 2>/dev/null | grep -v - | tail -1)
-  CONFIGURE_OPTS='--disable-install-rdoc' rbenv install "$latest_ruby"
+  CONFIGURE_OPTS='--disable-install-rdoc' rbenv install -v "$latest_ruby"
   rbenv global "$latest_ruby" && info "Installed ruby (v: $latest_ruby) for user: $USER"
 fi
 info 'Ruby setup done'
@@ -119,7 +120,7 @@ fi
 
 function cargo_list_line_parse() {
   return_value="$1"; shift 1
-  IFS='=' read -r -A cmdArr <<< $(echo "$@" | sed -e 's/^#\s*//')
+  IFS=':' read -r -A cmdArr <<< $(echo "$@" | sed -e 's/^#\s*//')
   # add one dummy in bash because zsh array is 1-index
   if [[ x$(basename $SHELL) = x'bash' ]]; then
     cmdArr="tmp $cmdArr"
@@ -134,7 +135,7 @@ function cargo_list_line_parse() {
   if [ ${#cmdArr[@]} -gt 2 ]; then
     pkg=${cmdArr[3]}
   else
-    pkg="$alt"
+    pkg="${alt%% *}"
   fi
   if [[ x"$return_value" = x'pkg' ]]; then echo "$pkg"; return; fi
   if [[ x"$return_value" = x'alias' ]]; then echo "alias $cmd='$issudo$alt'"; return; fi
@@ -151,7 +152,7 @@ while IFS= read -r line; do
   cat "$CARGO_ALIAS_CACHE" | grep -v $cmd | sponge "$CARGO_ALIAS_CACHE"
   if [ 'x#' = x${line:0:1} ]; then continue; fi
   question="$alt not installed. Do you want to install with cargo?"
-  if ! command -v $alt &> /dev/null && ($install_all_cargo_cmds || checkyes "$question"); then
+  if ! command -v $~alt &> /dev/null && ($install_all_cargo_cmds || checkyes "$question"); then
     pkg_list="$pkg_list $pkg"
   fi
 done < "$DOTFILES/static/list_rust_packages.txt"
@@ -219,7 +220,7 @@ if checkyes 'Install protoc from source?'; then
   current_dir="$PWD"
   cd "$XDG_DATA_HOME"/protoc
   git submodule update --init --recursive
-  ./autogen.sh && ./configure --prefix="$HOME/.local"
+  ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME"
   make -j$(nproc) && make check -j$(nproc) && make install -j$(nproc)
   cd "$current_dir"
 fi
@@ -229,7 +230,7 @@ command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found
 if checkyes 'Install nvtop from source?'; then
   update_git_repo "$XDG_DATA_HOME"/nvtop https://github.com/Syllo/nvtop.git
   mkdir -p "$XDG_DATA_HOME"/nvtop/build && cd "$_"
-  cmake .. -DCMAKE_INSTALL_PREFIX="$HOME/.local" && make
+  cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make
   make install
 fi
 info 'nvtop setup done'
@@ -275,7 +276,7 @@ if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall c
   update_git_repo "$XDG_DATA_HOME"/ctags https://github.com/universal-ctags/ctags.git
   current_dir="$PWD"
   cd "$XDG_DATA_HOME"/ctags
-  ./autogen.sh && ./configure --prefix="$HOME/.local"
+  ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME"
   make -j$(nproc) && make install
   cd "$current_dir"
 fi
