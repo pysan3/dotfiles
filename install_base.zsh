@@ -152,7 +152,7 @@ while IFS= read -r line; do
   cat "$CARGO_ALIAS_CACHE" | grep -v $cmd | sponge "$CARGO_ALIAS_CACHE"
   if [ 'x#' = x${line:0:1} ]; then continue; fi
   question="$alt not installed. Do you want to install with cargo?"
-  if ! command -v $~alt &> /dev/null && ($install_all_cargo_cmds || checkyes "$question"); then
+  if ! command -v ${alt%% *} &> /dev/null && ($install_all_cargo_cmds || checkyes "$question"); then
     pkg_list="$pkg_list $pkg"
   fi
 done < "$DOTFILES/static/list_rust_packages.txt"
@@ -162,7 +162,7 @@ while IFS= read -r line; do
   alt=$(cargo_list_line_parse 'alt' $line)
   pkg=$(cargo_list_line_parse 'pkg' $line)
   alias_cmd=$(cargo_list_line_parse 'alias' $line)
-  if command -v $alt &> /dev/null; then
+  if command -v ${alt%% *} &> /dev/null; then
     info "installation $pkg success"
     echo "$alias_cmd" >> "$CARGO_ALIAS_CACHE"
   else
