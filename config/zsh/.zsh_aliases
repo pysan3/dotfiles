@@ -1,7 +1,7 @@
 export DOTFILES=$HOME/dotfiles
 source "$DOTFILES/functions.zsh"
 
-export PATH="$HOME"/myCommands:"$HOME"/myCommands/bin:$PATH
+# export PATH="$HOME"/myCommands:"$HOME"/myCommands/bin:$PATH
 export FZF_DEFAULT_OPTS='--height=40% --cycle --info=hidden --tabstop=4 --black'
 
 export PIPENV_VENV_IN_PROJECT=1
@@ -42,6 +42,15 @@ alias g='git'
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
 alias yay='yay --noconfirm'
 alias restart="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
+
+function def() {
+  res=$(type $@)
+  case $res in
+    *function*)         echo $res && declare -f $@ ;;
+    *builtin*|*alias*)  run-help $@ ;;
+    *)                  echo $res ;;
+  esac
+}
 
 function upgradeall() {
   upgradecmds='py rs js rb hs'
@@ -94,10 +103,6 @@ alias gignore='curl "https://gist.githubusercontent.com/pysan3/d84715ea0a66f1036
 alias cbw='set -a; source ~/mySecrets.env; set +a; echo $BW_PASSWORD | bw'
 alias bwpass="jq '.login' | jq -r '.password'"
 alias here="$FE . >/dev/null 2>&1 || true"
-
-function def() {
-  alias $@ || declare -f $@ || which $@
-}
 
 function update_zwc () {
   compile_zdot() { [ -f "$1" ] && [ ! "$1.zwc" -nt "$1" ] && zcompile "$1" && info "Compiled $1" }

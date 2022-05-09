@@ -133,7 +133,9 @@ source "$XDG_CONFIG_HOME"/fzf/fzf.zsh
 
 [ -f "$ZDOTDIR/.zsh_script" ] && source "$ZDOTDIR/.zsh_script"
 
-export PATH="$XDG_BIN_HOME:$PATH"
+if ! [[ $PATH == "$XDG_BIN_HOME"* ]]; then
+  export PATH="$XDG_BIN_HOME:$PATH"
+fi
 
 # zprof
 true

@@ -1,5 +1,6 @@
 ls=exa
 ps=procs
+cat=bat --paging=never
 less=bat
 grep=rg=ripgrep
 nano=kibi

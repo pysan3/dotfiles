@@ -171,6 +171,11 @@ done < "$DOTFILES/static/list_rust_packages.txt"
 zcompile "$CARGO_ALIAS_CACHE"
 info 'cargo cli tools setup done'
 
+# use `bat` to display man pages
+if command -v bat &>/dev/null && ! grep -q 'MANPAGER' "$CARGO_ALIAS_CACHE"; then
+  echo "export MANPAGER=\"sh -c 'col -bx | bat -l man -p'\"" >> "$CARGO_ALIAS_CACHE"
+fi
+
 # node, npm
 if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes 'Upgrade node / npm?'; then
   if checkyes 'Can you use sudo?'; then
