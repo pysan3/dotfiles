@@ -1,4 +1,5 @@
-local lsp_installer = require("nvim-lsp-installer")
+require("nvim-lsp-installer").setup({})
+local lspconfig = require("lspconfig")
 local lsp_base = require("lsp-config.n-lsp-base")
 
 local servers = {
@@ -143,17 +144,9 @@ local M = {}
 
 M.setup = function(_)
   for server_name, server_opt in pairs(servers) do
-    local server_ok, server = lsp_installer.get_server(server_name)
     local is_opt, file_opt = pcall(require, "lsp-config.settings." .. server_name)
     local opts = vim.tbl_deep_extend("force", global_opts, is_opt and file_opt or {}, server_opt or {})
-    if server_ok then
-      server:on_ready(function()
-        server:setup(opts)
-      end)
-      if not server:is_installed() then
-        server:install()
-      end
-    end
+    lspconfig[server_name].setup(opts)
   end
 end
 
