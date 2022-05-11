@@ -1,4 +1,3 @@
-require("nvim-lsp-installer").setup({})
 local lspconfig = require("lspconfig")
 local lsp_base = require("lsp-config.n-lsp-base")
 
@@ -122,12 +121,20 @@ local servers = {
   -- zls = {}, -- Zig
 }
 
+local lsp_list = {}
+for k, _ in pairs(servers) do
+  lsp_list[#lsp_list + 1] = k
+end
 local stop_lsp_fmt = {
   tsserver = 1,
   vuels = 1,
   eslint = 1,
   pylsp = 1,
 }
+
+require("nvim-lsp-installer").setup({
+  ensure_installed = lsp_list,
+})
 
 local global_opts = {
   capabilities = lsp_base.capabilities,
