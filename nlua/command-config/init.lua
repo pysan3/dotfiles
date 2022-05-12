@@ -6,8 +6,6 @@ return {
     "romainl/vim-qf", -- quickfix list
     "folke/zen-mode.nvim", -- zenmode
     "chipsenkbeil/distant.nvim", -- distant.nvim (remote file edit)
-  },
-  install = {
-    "bronson/vim-trailing-whitespace", -- highlight trailing whitespace
+    "ntpeters/vim-better-whitespace", -- highlight trailing whitespace
   },
 }
