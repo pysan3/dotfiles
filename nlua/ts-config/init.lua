@@ -2,7 +2,7 @@ return {
   setup = {
     {
       "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
+      run = ":TSUpdateSync",
       requires = "nvim-treesitter/nvim-treesitter-textobjects",
     },
   },
