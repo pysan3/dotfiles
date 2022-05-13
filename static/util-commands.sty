@@ -1,0 +1,101 @@
+% utility packages
+\RequirePackage{etoolbox}
+\RequirePackage{xkeyval}
+\RequirePackage{xparse}
+
+% font packages
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{anyfontsize}
+\RequirePackage{bm}
+\RequirePackage[no-math]{fontspec}
+\RequirePackage[deluxe]{luatexja-fontspec}
+\RequirePackage{mathptmx}
+\RequirePackage{mathrsfs}
+\RequirePackage{pifont}
+
+% font settings
+\setmainfont[Ligatures=TeX]{TeXGyreTermes}
+\setsansfont[Ligatures=TeX]{TeXGyreHeros}
+
+% other packages
+\RequirePackage{algorithmic}
+% \RequirePackage[backend=biber,style=ieee]{biblatex}
+\RequirePackage{booktabs}
+\RequirePackage{comment}
+\RequirePackage[shortlabels,inline]{enumitem}
+\RequirePackage{float}
+% \RequirePackage[a4paper,hmargin=25truemm,vmargin=30truemm]{geometry}
+\RequirePackage{graphicx,xcolor}
+\RequirePackage{hyperref}
+\RequirePackage{cleveref}
+\RequirePackage{indentfirst}
+\RequirePackage{siunitx}
+\RequirePackage{url}
+
+% change width of table \toprule, \bottomrule
+\setlength\heavyrulewidth{0.25ex}
+
+% character style
+\NewDocumentCommand{\trm}{m}{\textrm{#1}}
+\NewDocumentCommand{\tbf}{m}{\textbf{#1}}
+\NewDocumentCommand{\tit}{m}{\textit{#1}}
+\NewDocumentCommand{\tsl}{m}{\textsl{#1}}
+\NewDocumentCommand{\tsf}{m}{\textsf{#1}}
+\NewDocumentCommand{\ttt}{m}{\texttt{#1}}
+\NewDocumentCommand{\tsc}{m}{\textsc{#1}}
+
+% hyperref settings
+\hypersetup{
+  colorlinks=true,
+  citecolor=blue,
+  % linkcolor=[rgb]{0.2,0.2,0.2},
+  linkcolor=blue,
+  urlcolor=cyan,
+  anchorcolor=blue,
+  bookmarksnumbered=true,
+  pdfencoding=auto,
+}
+
+% argmax, argmin
+\DeclareMathOperator*{\argmax}{\mathrm{arg\,max}}
+\DeclareMathOperator*{\argmin}{\mathrm{arg\,min}}
+
+% set
+\NewDocumentCommand{\Nset}{}{\mathbb{N}}
+\NewDocumentCommand{\Zset}{}{\mathbb{Z}}
+\NewDocumentCommand{\Qset}{}{\mathbb{Q}}
+\NewDocumentCommand{\Rset}{}{\mathbb{R}}
+\NewDocumentCommand{\Cset}{}{\mathbb{C}}
+
+% label, ref
+\NewDocumentCommand{\alabel}{m}{\label{algo:#1}}
+\NewDocumentCommand{\elabel}{m}{\label{eq:#1}}
+\NewDocumentCommand{\flabel}{m}{\label{fig:#1}}
+\NewDocumentCommand{\tlabel}{m}{\label{tab:#1}}
+\NewDocumentCommand{\aref}{m}{Algo. \ref{algo:#1}}
+\NewDocumentCommand{\eref}{m}{\eqref{eq:#1}}
+\NewDocumentCommand{\fref}{m}{Fig. \ref{fig:#1}}
+\NewDocumentCommand{\sref}{m}{Sec. \ref{sec:#1}}
+\NewDocumentCommand{\tref}{m}{Tab. \ref{tab:#1}}
+
+% \sectionl: \section with label
+% Usage: \sectionl[*]{section-name}{label}
+% with `*`, remove section number (same as \section)
+\NewDocumentCommand{\sectionl}{s m m}{
+  \IfBooleanTF{#1}{\section*{#2}}{\section{#2}}
+  \label{sec:#3}
+}
+% \subsectionl: \subsection with label
+% Usage: \subsectionl[*]{subsection-name}{label}
+% with `*`, remove subsection number (same as \subsection)
+\NewDocumentCommand{\subsectionl}{s m m}{
+  \IfBooleanTF{#1}{\subsection*{#2}}{\subsection{#2}}
+  \label{sec:#3}
+}
+% \subsubsectionl: \subsubsection with label
+% Usage: \subsubsectionl[*]{subsubsection-name}{label}
+% with `*`, remove subsubsection number (same as \subsubsection)
+\NewDocumentCommand{\subsubsectionl}{s m m}{
+  \IfBooleanTF{#1}{\subsubsection*{#2}}{\subsubsection{#2}}
+  \label{sec:#3}
+}
