@@ -195,10 +195,14 @@ if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes
     export PATH="$(npm config get prefix)/bin:$PATH"
   fi
 fi
+if ! command -v 'pnpm' &>/dev/null || checkyes 'Upgrade pnpm?'; then
+  npm i -g pnpm
+  export PATH="$PNPM_HOME:$PATH"
+fi
 
 # setup clipboard
 if ! command -v 'clipboard' &>/dev/null; then
-  npm i -g clipboard-cli
+  pnpm i -g clipboard-cli
 fi
 
 # install fzf
@@ -270,7 +274,7 @@ checkcommand () {
 
 pip install --user --upgrade pynvim
 gem install neovim
-npm i -g neovim
+pnpm i -g neovim
 # ctags
 if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall ctags?'; then
   update_git_repo "$XDG_DATA_HOME"/ctags https://github.com/universal-ctags/ctags.git
@@ -285,14 +289,14 @@ checkcommand 'delta' 'cargo install git-delta'
 checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
 # null-ls
 checkcommand 'stylua' 'cargo install stylua'
-checkcommand 'prettier' 'npm install --save-dev -g prettier'
-checkcommand 'eslint' 'npm install --save-dev -g eslint'
+checkcommand 'prettier' 'pnpm install --save-dev -g prettier'
+checkcommand 'eslint' 'pnpm install --save-dev -g eslint'
 checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
 checkcommand 'pyright' 'pip install --user --upgrade pyright'
 checkcommand 'pylsp' 'pip install --user --upgrade python-lsp-server'
 checkcommand 'flake8' 'pip install --user --upgrade flake8'
 checkcommand 'pylint' 'pip install --user --upgrade pylint'
-checkcommand 'emmet-ls' 'npm install -g emmet-ls'
+checkcommand 'emmet-ls' 'pnpm install -g emmet-ls'
 checkcommand 'taplo' 'cargo install taplo-cli'
 # telescope
 if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then

@@ -17,7 +17,7 @@ function _append() {
 
 # js
 [ -s "$NVM_DIR"/nvm.sh ] && source "$NVM_DIR"/nvm.sh
-_append "$(npm config get prefix)/bin"
+_append "$PNPM_HOME:$(npm config get prefix)/bin"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 # Haskel
