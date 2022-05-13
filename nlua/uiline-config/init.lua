@@ -3,7 +3,7 @@ return {
     "norcalli/nvim-colorizer.lua",
     { "kyazdani42/nvim-tree.lua", after = "nvim-web-devicons" }, -- nvim tree
     { "akinsho/bufferline.nvim", after = "nvim-web-devicons" }, -- bufferline
-    { "nvim-lualine/lualine.nvim", after = "nvim-web-devicons" }, -- lualine
+    { "nvim-lualine/lualine.nvim", after = { "nvim-web-devicons", "nvim-treesitter" } }, -- lualine
   },
   install = {
     {
