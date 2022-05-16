@@ -1,0 +1,4 @@
+channels:
+  - conda-forge
+  - pytorch
+always_yes: true
