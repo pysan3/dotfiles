@@ -7,5 +7,6 @@ return {
     "folke/zen-mode.nvim", -- zenmode
     "chipsenkbeil/distant.nvim", -- distant.nvim (remote file edit)
     "ntpeters/vim-better-whitespace", -- highlight trailing whitespace
+    { "michaelb/sniprun", run = "bash ./install.sh" },
   },
 }

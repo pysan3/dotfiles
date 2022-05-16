@@ -26,14 +26,14 @@ return packer.startup(function(use)
   use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used lots of plugins
 
   load_sub_dirs("ts-config")
-  load_sub_dirs("uiline-config")
   load_sub_dirs("utility-config")
   load_sub_dirs("git-config")
-  load_sub_dirs("lsp-config")
   load_sub_dirs("terminal-config")
   load_sub_dirs("operations-config")
   load_sub_dirs("command-config")
   load_sub_dirs("lang-config")
+  load_sub_dirs("lsp-config")
+  load_sub_dirs("uiline-config")
 
   if PACKER_BOOTSTRAP then
     packer.sync()
