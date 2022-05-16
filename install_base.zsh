@@ -309,5 +309,10 @@ fi
 # lookatme (terminal markdown renderer)
 checkcommand 'lookatme' 'pip install --user --upgrade lookatme'
 
+# PackerSync
+if $NVIM_UPDATE_ALL || checkyes 'Run :PackerSync?'; then
+  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+fi
+
 info "Everything is done. Thx!!"; true
 
