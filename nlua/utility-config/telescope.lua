@@ -9,6 +9,8 @@ telescope.setup({
         -- cycle through previously done searches
         ["<C-j>"] = actions.cycle_history_next,
         ["<C-k>"] = actions.cycle_history_prev,
+        ["<Down>"] = actions.cycle_history_next,
+        ["<Up>"] = actions.cycle_history_prev,
       },
     },
     cache_picker = { num_pickers = 3 }, -- default 1

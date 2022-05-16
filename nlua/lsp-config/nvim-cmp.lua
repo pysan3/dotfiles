@@ -30,6 +30,9 @@ cmp.setup({
     ["<C-l>"] = cmp.mapping(function(fallback)
       ultimap.compose({ "expand", "jump_forwards" })(fallback)
     end, { "i", "s" }),
+    ["<Right>"] = cmp.mapping(function(fallback)
+      ultimap.compose({ "expand", "jump_forwards" })(fallback)
+    end, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.confirm({ select = true })
