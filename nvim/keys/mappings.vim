@@ -46,11 +46,6 @@ nnoremap g* g*zz
 " // で選択中のテキストを検索
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
-" Better window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 " 入力モードでのカーソル移動
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
