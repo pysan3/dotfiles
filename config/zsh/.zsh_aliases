@@ -206,6 +206,10 @@ function pdflock () {
   qpdf --encrypt "$1" "$1" 40 -- "$F" "$TO"
 }
 
+function pdfcompress () {
+  	ps2pdf -dPDFSETTINGS=/prepress -dCompatibilityLevel=1.4 -sOutputFile="compressed-$1" "$1"
+}
+
 function appearance () {
   cat \
     <(wget -O- 'https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt' 2> /dev/null) \
