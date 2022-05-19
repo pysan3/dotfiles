@@ -3,9 +3,7 @@ return {
     "windwp/nvim-autopairs",
     {
       "numToStr/Comment.nvim",
-      requires = {
-        "JoosepAlviste/nvim-ts-context-commentstring"
-      },
+      requires = "JoosepAlviste/nvim-ts-context-commentstring",
     },
     { "SirVer/ultisnips", requires = { { "honza/vim-snippets", rtp = "." } } },
     {
