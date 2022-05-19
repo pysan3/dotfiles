@@ -133,6 +133,7 @@ local stop_lsp_fmt = {
 }
 
 require("nvim-lsp-installer").setup({
+  log_level = vim.log.levels.WARN,
   ensure_installed = lsp_list,
 })
 
