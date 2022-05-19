@@ -1,16 +1,16 @@
 return {
   setup = {
     "norcalli/nvim-colorizer.lua",
-    { "kyazdani42/nvim-tree.lua", after = "nvim-web-devicons" }, -- nvim tree
-    { "akinsho/bufferline.nvim", after = "nvim-web-devicons" }, -- bufferline
-    { "nvim-lualine/lualine.nvim", after = { "nvim-web-devicons", "nvim-treesitter" } }, -- lualine
+    { "kyazdani42/nvim-tree.lua", requires = "nvim-web-devicons" }, -- nvim tree
+    { "akinsho/bufferline.nvim", requires = "nvim-web-devicons" }, -- bufferline
+    { "nvim-lualine/lualine.nvim", requires = { "nvim-web-devicons", "nvim-treesitter" } }, -- lualine
   },
   install = {
     {
       "kyazdani42/nvim-web-devicons",
       requires = {
         "lunarvim/darkplus.nvim",
-        { "christianchiarulli/nvcode-color-schemes.vim", after = "nvim-treesitter" },
+        { "christianchiarulli/nvcode-color-schemes.vim", requires = "nvim-treesitter" },
         "EdenEast/nightfox.nvim",
         "joshdick/onedark.vim",
         "ulwlu/elly.vim",

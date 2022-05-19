@@ -3,13 +3,13 @@ return {
     "windwp/nvim-autopairs",
     {
       "numToStr/Comment.nvim",
-      requires = "JoosepAlviste/nvim-ts-context-commentstring",
-      after = "nvim-treesitter",
+      requires = {
+        "JoosepAlviste/nvim-ts-context-commentstring"
+      } + { "nvim-treesitter" }
     },
     { "SirVer/ultisnips", requires = { { "honza/vim-snippets", rtp = "." } } },
     {
       "hrsh7th/nvim-cmp",
-      after = { "nvim-autopairs", "ultisnips" },
       requires = {
         "hrsh7th/cmp-buffer", -- buffer completions
         "hrsh7th/cmp-path", -- path completions
@@ -20,18 +20,17 @@ return {
         "f3fora/cmp-spell",
         "uga-rosa/cmp-dictionary",
         "quangnguyen30192/cmp-nvim-ultisnips",
-      },
+      } + { "nvim-autopairs", "ultisnips" },
     },
     {
       "neovim/nvim-lspconfig", -- enable LSP
-      after = "nvim-cmp",
       requires = {
         "hrsh7th/cmp-nvim-lsp",
         "williamboman/nvim-lsp-installer", -- language server installer
         "ray-x/lsp_signature.nvim", -- show hints when writing function arguments
         "jose-elias-alvarez/null-ls.nvim", -- linter
         "j-hui/fidget.nvim", -- print linting progress
-      },
+      } + {  "nvim-cmp" },
     },
   },
 }
