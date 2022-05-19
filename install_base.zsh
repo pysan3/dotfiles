@@ -263,7 +263,7 @@ if ! command -v 'nvim' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Install nvim
   NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
   update_git_repo "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git
   cd "$NVIM_INSTLL_DIR"
-  make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install >/dev/null 2>&1 || error 'NVIM BUILD FAILED'
+  make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install >/dev/null || error 'NVIM BUILD FAILED'
   info 'nvim installed'
   cd -
 fi
