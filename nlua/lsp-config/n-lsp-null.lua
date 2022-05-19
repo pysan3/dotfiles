@@ -10,7 +10,6 @@ local M = {}
 M.setup = function(_)
   null_ls.setup({
     on_attach = function(client)
-      print(vim.inspect(client.server_capabilities))
       if client.server_capabilities.documentFormattingProvider then
         vim.cmd([[
           augroup LspFormatting
