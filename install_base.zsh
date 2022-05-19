@@ -239,24 +239,33 @@ if checkyes 'Install nvtop from source?'; then
 fi
 info 'nvtop setup done'
 
-# install and update zap (appimage package manager)
-if ! command -v 'zap' &>/dev/null; then
-  info 'Installing zap (appimage package manager)'
-  curl https://raw.githubusercontent.com/srevinsaju/zap/main/install.sh | bash -s
-fi
-# install nvim
+# # install and update zap (appimage package manager)
+# if ! command -v 'zap' &>/dev/null; then
+#   info 'Installing zap (appimage package manager)'
+#   curl https://raw.githubusercontent.com/srevinsaju/zap/main/install.sh | bash -s
+# fi
+# # install nvim
 NVIM_UPDATE_ALL=false
 if checkyes 'Do you want to update nvim?'; then
   NVIM_UPDATE_ALL=true
 fi
-if $NVIM_UPDATE_ALL || ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim with zap?'; then
-  rm "$XDG_DATA_HOME"/zap/v2/index/nvim.json
-  zap i --github --from neovim/neovim --executable nvim
-else
-  error 'Please install manually.'
-  echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
+# if $NVIM_UPDATE_ALL || ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim with zap?'; then
+#   rm "$XDG_DATA_HOME"/zap/v2/index/nvim.json
+#   zap i --github --from neovim/neovim --executable nvim
+# else
+#   error 'Please install manually.'
+#   echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
+# fi
+# info 'zap and nvim installation done'
+
+# install nvim from source
+if ! command -v 'nvim' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Install nvim from source?'; then
+  update_git_repo "$XDG_DATA_HOME/nvim-git" https://github.com/neovim/neovim.git
+  cd "$XDG_DATA_HOME/nvim-git"
+  make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install >/dev/null 2>&1 || error 'NVIM BUILD FAILED'
+  info 'nvim installed'
+  cd -
 fi
-info 'zap and nvim installation done'
 
 # nvim dependencies
 checkcommand () {
