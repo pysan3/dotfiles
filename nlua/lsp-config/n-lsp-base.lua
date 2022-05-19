@@ -36,8 +36,7 @@ M.setup = function(_)
 end
 
 M.lsp_highlight_document = function(client)
-  -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentFormattingProvider then
     vim.api.nvim_exec(
       [[
       augroup lsp_document_highlight

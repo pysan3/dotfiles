@@ -141,7 +141,7 @@ local global_opts = {
   capabilities = lsp_base.capabilities,
   on_attach = function(client, bufnr)
     if stop_lsp_fmt[client.name] ~= nil then
-      client.resolved_capabilities.document_formatting = false
+      client.server_capabilities.documentFormattingProvider = false
     end
     lsp_base.lsp_keymaps(bufnr)
     lsp_base.lsp_highlight_document(client)
