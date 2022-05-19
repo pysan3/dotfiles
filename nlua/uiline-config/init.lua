@@ -1,16 +1,11 @@
 return {
   setup = {
     "norcalli/nvim-colorizer.lua",
-    { "kyazdani42/nvim-tree.lua", requires = "nvim-web-devicons" }, -- nvim tree
-    { "akinsho/bufferline.nvim", requires = "nvim-web-devicons" }, -- bufferline
-    { "nvim-lualine/lualine.nvim", requires = { "nvim-web-devicons", "nvim-treesitter" } }, -- lualine
-  },
-  install = {
     {
       "kyazdani42/nvim-web-devicons",
       requires = {
         "lunarvim/darkplus.nvim",
-        { "christianchiarulli/nvcode-color-schemes.vim", requires = "nvim-treesitter" },
+        { "christianchiarulli/nvcode-color-schemes.vim" },
         "EdenEast/nightfox.nvim",
         "joshdick/onedark.vim",
         "ulwlu/elly.vim",
@@ -22,11 +17,12 @@ return {
       setup = function()
         return vim.fn.has("termguicolors") == 1 and vim.cmd("set termguicolors")
       end,
-      config = function()
-        require("uiline-config.nvim-icons")
-        require("themes.envtheme")
-      end,
     },
+    { "kyazdani42/nvim-tree.lua" }, -- nvim tree
+    { "akinsho/bufferline.nvim" }, -- bufferline
+    { "nvim-lualine/lualine.nvim" }, -- lualine
+  },
+  install = {
     "Yggdroot/indentLine", -- show indent line with |
   },
 }

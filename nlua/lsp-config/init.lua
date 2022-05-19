@@ -5,7 +5,7 @@ return {
       "numToStr/Comment.nvim",
       requires = {
         "JoosepAlviste/nvim-ts-context-commentstring"
-      } + { "nvim-treesitter" }
+      },
     },
     { "SirVer/ultisnips", requires = { { "honza/vim-snippets", rtp = "." } } },
     {
@@ -20,7 +20,7 @@ return {
         "f3fora/cmp-spell",
         "uga-rosa/cmp-dictionary",
         "quangnguyen30192/cmp-nvim-ultisnips",
-      } + { "nvim-autopairs", "ultisnips" },
+      },
     },
     {
       "neovim/nvim-lspconfig", -- enable LSP
@@ -30,7 +30,7 @@ return {
         "ray-x/lsp_signature.nvim", -- show hints when writing function arguments
         "jose-elias-alvarez/null-ls.nvim", -- linter
         "j-hui/fidget.nvim", -- print linting progress
-      } + {  "nvim-cmp" },
+      },
     },
   },
 }
