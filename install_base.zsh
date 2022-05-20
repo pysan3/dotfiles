@@ -191,7 +191,11 @@ if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
     zcompile "$NVM_DIR"/nvm.sh
     source "$NVM_DIR"/nvm.sh
-    nvm install node
+    if checkyes 'Use --lts (y) or latest node (N)?'; then
+      nvm install --lts
+    else
+      nvm install node
+    fi
     export PATH="$(npm config get prefix)/bin:$PATH"
   fi
 fi
