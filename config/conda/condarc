@@ -1,4 +1,4 @@
 channels:
   - conda-forge
-  - pytorch
-always_yes: true
+allow_other_channels: True
+always_yes: True

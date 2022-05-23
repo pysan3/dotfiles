@@ -110,8 +110,8 @@ set history=5000 " 保存するコマンド履歴の数
 " Others
 "----------------------------------------------------------
 let g:loaded_python_provider = 0
-let g:python3_host_prog='/usr/bin/python3'
-let g:python_host_prog='usr/bin/python2'
+" let g:python3_host_prog='/usr/bin/python3'
+" let g:python_host_prog='usr/bin/python2'
 
 " You can't stop me
 cmap w!! w !sudo tee %
