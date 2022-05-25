@@ -100,7 +100,7 @@ if "$install_ruby"; then
   export PATH="$RBENV_ROOT/bin:$PATH"
   PREFIX="$XDG_PREFIX_HOME" "$RBENV_ROOT/plugins/ruby-build/install.sh"
   latest_ruby=$(rbenv install -l 2>/dev/null | grep -v - | tail -1)
-  CONFIGURE_OPTS='--disable-install-rdoc' rbenv install -v "$latest_ruby"
+  CONFIGURE_OPTS='--disable-install-rdoc' rbenv install -s -v "$latest_ruby"
   rbenv global "$latest_ruby" && info "Installed ruby (v: $latest_ruby) for user: $USER"
 fi
 info 'Ruby setup done'
