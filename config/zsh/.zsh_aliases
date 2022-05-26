@@ -355,6 +355,7 @@ function ex () {
 function sshfs_remote() {
   if [ -z "$(command ls -A $2)" ]; then
     tmux has-session -t sshfs 2>/dev/null || tmux new -d -s sshfs
+    sleep 2 # wait for tmux to start (especially in WSL)
     tmux send-keys -t sshfs "command sshfs $1 $2 -o allow_other" Enter
   fi
 }
