@@ -19,6 +19,7 @@ return packer.startup(function(use)
       use(plugin)
     end
   end
+
   -- stylua: ignore end
 
   use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
@@ -26,6 +27,7 @@ return packer.startup(function(use)
   use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used lots of plugins
 
   load_sub_dirs("ts-config")
+  load_sub_dirs("uiline-config")
   load_sub_dirs("utility-config")
   load_sub_dirs("git-config")
   load_sub_dirs("terminal-config")
@@ -33,7 +35,7 @@ return packer.startup(function(use)
   load_sub_dirs("command-config")
   load_sub_dirs("lang-config")
   load_sub_dirs("lsp-config")
-  load_sub_dirs("uiline-config")
+  load_sub_dirs("debug-config")
 
   if PACKER_BOOTSTRAP then
     packer.sync()
