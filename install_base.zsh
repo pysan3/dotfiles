@@ -234,34 +234,36 @@ if checkyes 'Install protoc from source?'; then
 fi
 info 'protoc setup done'
 
+# install btop from source
+command -v 'btop' &>/dev/null && info 'btop found' || warning 'btop not found.'
+if checkyes 'Install btop from source?'; then
+  # sudo apt install coreutils sed git build-essential gcc-11 g++-11
+  # gcc-11, g++-11 => gcc-10, g++-10
+  BTOP_INSTALL_DIR="$XDG_DATA_HOME"/btop
+  update_git_repo "$BTOP_INSTALL_DIR" https://github.com/aristocratos/btop.git
+  cd "$BTOP_INSTALL_DIR"
+  checkyes 'Use g++-10 (y) or g++-11 (N)?' && CXX="g++-10" || CXX="g++-11"
+  make QUIET=true ADDFLAGS=-march=native CXX="$CXX" && make install PREFIX="$XDG_PREFIX_HOME"
+  cd -
+fi
+info 'btop installation done'
+
+# install nvtop from source
 command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found.'
 if checkyes 'Install nvtop from source?'; then
   update_git_repo "$XDG_DATA_HOME"/nvtop https://github.com/Syllo/nvtop.git
   mkdir -p "$XDG_DATA_HOME"/nvtop/build && cd "$_"
   cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make
   make install
+  cd -
 fi
 info 'nvtop setup done'
 
-# # install and update zap (appimage package manager)
-# if ! command -v 'zap' &>/dev/null; then
-#   info 'Installing zap (appimage package manager)'
-#   curl https://raw.githubusercontent.com/srevinsaju/zap/main/install.sh | bash -s
-# fi
-# # install nvim
+# install nvim
 NVIM_UPDATE_ALL=false
 if checkyes 'Do you want to update nvim?'; then
   NVIM_UPDATE_ALL=true
 fi
-# if $NVIM_UPDATE_ALL || ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim with zap?'; then
-#   rm "$XDG_DATA_HOME"/zap/v2/index/nvim.json
-#   zap i --github --from neovim/neovim --executable nvim
-# else
-#   error 'Please install manually.'
-#   echo 'https://github.com/neovim/neovim/wiki/Installing-Neovim'
-# fi
-# info 'zap and nvim installation done'
-
 # install nvim from source
 if ! command -v 'nvim' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Install nvim from source?'; then
   NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
