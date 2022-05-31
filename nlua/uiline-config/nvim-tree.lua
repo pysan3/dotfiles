@@ -1,17 +1,8 @@
-vim.g.nvim_tree_git_hl = 1 -- 0 by default, will enable file highlight for git attributes (can be used without the icons).
-vim.g.nvim_tree_show_icons = { git = 0, folders = 1, files = 1, folder_arrows = 1 }
-vim.g.nvim_tree_group_empty = 1 --  0 by default, compact folders that only contain a single folder into one node in the file tree
-vim.g.nvim_tree_respect_buf_cwd = 1 -- 0 by default, will change cwd of nvim-tree to that of new buffer's when opening nvim-tree.
-vim.g.nvim_tree_icons = { default = "" } -- fallback icon for unknown filetypes
-
-vim.cmd([[
-nnoremap <leader>e :NvimTreeFindFileToggle<CR>
-]])
-
 require("nvim-tree").setup({
   hijack_cursor = true,
   hijack_unnamed_buffer_when_opening = true,
   update_cwd = false,
+  respect_buf_cwd = true,
   view = {
     -- auto_resize = false,
     -- preserve_window_proportions = true,
@@ -27,14 +18,18 @@ require("nvim-tree").setup({
     },
   },
   renderer = {
-    indent_markers = {
-      enable = true,
-      icons = {
-        corner = "└ ",
-        edge = "│ ",
-        none = "  ",
+    icons = {
+      show = { git = false, folder = true, file = true, folder_arrow = true },
+      glyphs = {
+        default = "",
       },
     },
+    indent_markers = {
+      enable = true,
+      icons = { corner = "└ ", edge = "│ ", none = "  " },
+    },
+    highlight_git = true,
+    group_empty = true,
   },
   update_focused_file = {
     enable = true,
@@ -66,3 +61,7 @@ require("nvim-tree").setup({
     require_confirm = true,
   },
 })
+
+vim.cmd([[
+nnoremap <leader>e :NvimTreeFindFileToggle<CR>
+]])
