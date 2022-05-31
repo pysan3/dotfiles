@@ -56,10 +56,10 @@ fi
 info 'Haskell installation done'
 
 # install zsh shell utils
-mkdir -p "$XDG_DATA_HOME"/zsh
-ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR="$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting
+mkdir -p "$XDG_DATA_HOME/zsh"
+ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-syntax-highlighting"
 update_git_repo "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting.zsh
-ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME"/zsh/zsh-autosuggestions
+ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-autosuggestions"
 update_git_repo "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git zsh-autosuggestions.zsh
 info 'Zsh extensions installation done'
 
@@ -81,7 +81,7 @@ install_ruby=true
 if [ ! -d "$RBENV_ROOT" ]; then
   info "Installing ruby and rbenv, mainly for neovim"
   if command -v 'rbenv' &> /dev/null; then
-    error 'Command `rbenv` found but not installed to '"$RBENV_ROOT"
+    error 'Command `rbenv` found but not installed to' "$RBENV_ROOT"
     if checkyes "Continue installation? ($(tput setaf 1)THIS WILL TAKE OVER EXISTING ENVS$(tput sgr0))"; then
       install_ruby=false
       tput setaf 4
@@ -96,7 +96,7 @@ if [ ! -d "$RBENV_ROOT" ]; then
 fi
 if "$install_ruby"; then
   update_git_repo "$RBENV_ROOT" https://github.com/rbenv/rbenv.git
-  update_git_repo "$RBENV_ROOT"/plugins/ruby-build https://github.com/rbenv/ruby-build.git
+  update_git_repo "$RBENV_ROOT/plugins/ruby-build" https://github.com/rbenv/ruby-build.git
   export PATH="$RBENV_ROOT/bin:$PATH"
   PREFIX="$XDG_PREFIX_HOME" "$RBENV_ROOT/plugins/ruby-build/install.sh"
   latest_ruby=$(rbenv install -l 2>/dev/null | grep -v - | tail -1)
@@ -109,7 +109,7 @@ info 'Ruby setup done'
 if ! command -v 'cargo' &> /dev/null; then
   if checkyes "Seems you don't have cargo (rust) installed. Install?"; then
     curl -sSf https://sh.rustup.rs | sh
-    source "$CARGO_HOME"/env
+    source "$CARGO_HOME/env"
     cargo install cargo-update && info "Successfully installed cargo"
   else
     echo 'Press C-c to exit and install cargo manually. Or press ENTER to continue.'
@@ -141,7 +141,7 @@ function cargo_list_line_parse() {
   if [[ x"$return_value" = x'alias' ]]; then echo "alias $cmd='$issudo$alt'"; return; fi
 }
 
-CARGO_ALIAS_CACHE=${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}
+CARGO_ALIAS_CACHE="${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}"
 mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
 pkg_list=''; install_all_cargo_cmds=false
 checkyes 'Do you want to install all cargo cli commands?' && install_all_cargo_cmds=true
@@ -189,8 +189,8 @@ if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes
     rm -rf "${NVM_DIR:=$XDG_DATA_HOME/nvm}"
     mkdir -p "$NVM_DIR"
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
-    zcompile "$NVM_DIR"/nvm.sh
-    source "$NVM_DIR"/nvm.sh
+    zcompile "$NVM_DIR/nvm.sh"
+    source "$NVM_DIR/nvm.sh"
     if checkyes 'Use --lts (y) or latest node (N)?'; then
       nvm install --lts
     else
@@ -210,23 +210,23 @@ if ! command -v 'clipboard' &>/dev/null; then
 fi
 
 # install fzf
-FZF_INSTALL_DIR="$XDG_DATA_HOME"/fzf
+FZF_INSTALL_DIR="$XDG_DATA_HOME/fzf"
 update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh shell/key-bindings.zsh
-"$FZF_INSTALL_DIR"/install --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish
-sleep 1 && zcompile "$XDG_CONFIG_HOME"/fzf/fzf.zsh
+"$FZF_INSTALL_DIR/install" --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish
+sleep 1 && zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 info 'fzf setup done'
 
 # install tmux plugin manager
-TPM_INSTALL_DIR="$XDG_DATA_HOME"/tmux/plugins/tpm
+TPM_INSTALL_DIR="$XDG_DATA_HOME/tmux/plugins/tpm"
 update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm
 info 'tmux setup done'
 
 # install protoc from source
 command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
 if checkyes 'Install protoc from source?'; then
-  update_git_repo "$XDG_DATA_HOME"/protoc https://github.com/protocolbuffers/protobuf.git
+  update_git_repo "$XDG_DATA_HOME/protoc" https://github.com/protocolbuffers/protobuf.git
   current_dir="$PWD"
-  cd "$XDG_DATA_HOME"/protoc
+  cd "$XDG_DATA_HOME/protoc"
   git submodule update --init --recursive
   ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME"
   make -j$(nproc) && make check -j$(nproc) && make install -j$(nproc)
@@ -239,7 +239,7 @@ command -v 'btop' &>/dev/null && info 'btop found' || warning 'btop not found.'
 if checkyes 'Install btop from source?'; then
   # sudo apt install coreutils sed git build-essential gcc-11 g++-11
   # gcc-11, g++-11 => gcc-10, g++-10
-  BTOP_INSTALL_DIR="$XDG_DATA_HOME"/btop
+  BTOP_INSTALL_DIR="$XDG_DATA_HOME/btop"
   update_git_repo "$BTOP_INSTALL_DIR" https://github.com/aristocratos/btop.git
   cd "$BTOP_INSTALL_DIR"
   checkyes 'Use g++-10 (y) or g++-11 (N)?' && CXX="g++-10" || CXX="g++-11"
@@ -251,8 +251,8 @@ info 'btop installation done'
 # install nvtop from source
 command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found.'
 if checkyes 'Install nvtop from source?'; then
-  update_git_repo "$XDG_DATA_HOME"/nvtop https://github.com/Syllo/nvtop.git
-  mkdir -p "$XDG_DATA_HOME"/nvtop/build && cd "$_"
+  update_git_repo "$XDG_DATA_HOME/nvtop" https://github.com/Syllo/nvtop.git
+  mkdir -p "$XDG_DATA_HOME/nvtop/build" && cd "$_"
   cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make
   make install
   cd -
@@ -293,9 +293,9 @@ gem install neovim
 pnpm i -g neovim
 # ctags
 if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall ctags?'; then
-  update_git_repo "$XDG_DATA_HOME"/ctags https://github.com/universal-ctags/ctags.git
+  update_git_repo "$XDG_DATA_HOME/ctags" https://github.com/universal-ctags/ctags.git
   current_dir="$PWD"
-  cd "$XDG_DATA_HOME"/ctags
+  cd "$XDG_DATA_HOME/ctags"
   ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME"
   make -j$(nproc) && make install
   cd "$current_dir"
