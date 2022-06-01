@@ -41,3 +41,5 @@
   add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 [pull]
 	rebase = false
+[core]
+    excludeFile = ~/.config/git/ignore
