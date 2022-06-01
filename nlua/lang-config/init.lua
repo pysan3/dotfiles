@@ -6,6 +6,8 @@ return {
     "jubnzv/mdeval.nvim",
   },
   install = {
+    "tpope/vim-abolish",
+    "chip/vim-fat-finger",
     "pixelneo/vim-python-docstring",
     "Vimjas/vim-python-pep8-indent",
     "uarun/vim-protobuf",
