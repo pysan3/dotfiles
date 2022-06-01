@@ -97,7 +97,6 @@ function act() {
   return 0
 }
 act
-alias gignore='curl "https://gist.githubusercontent.com/pysan3/d84715ea0a66f10367ee46ce99421f8b/raw/venv.gitignore" >> .gitignore'
 
 # depends on .zsh_local
 alias cbw='set -a; source ~/mySecrets.env; set +a; echo $BW_PASSWORD | bw'
@@ -251,7 +250,6 @@ function venv() {
   pip install wheel;
   pip install attrdict;
   piplist;
-  gignore
 }
 
 function pinit() {
@@ -267,7 +265,6 @@ function pinit() {
   act;
   pipenv install attrdict rich;
   pipenv install --dev isort pylint autopep8 flake8
-  gignore
   pylint --generate-rcfile > .pylintrc
 }
 
@@ -300,7 +297,6 @@ function tinit () {
   fi
   po add attrdict rich toml
   po add -D isort pylint autopep8 flake8
-  gignore
   act
   pylint --generate-rcfile > .pylintrc
 }
