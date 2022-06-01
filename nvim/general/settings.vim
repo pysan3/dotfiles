@@ -53,6 +53,10 @@ set cmdheight=1                         " More space for displaying messages
 set splitbelow                          " Horizontal splits will automatically be below
 set splitright                          " Vertical splits will automatically be to the right
 set background=dark                     " tell vim what the background color looks like
+if has('nvim')
+  set laststatus=3
+  highlight WinSeparator guibg=None
+endif
 
 "----------------------------------------------------------
 " Search

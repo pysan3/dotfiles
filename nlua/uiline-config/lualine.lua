@@ -13,7 +13,7 @@ require("lualine").setup({
     theme = "auto",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
-    disabled_filetypes = { "NvimTree", "toggleterm" },
+    disabled_filetypes = { "toggleterm" },
     always_divide_middle = false,
   },
   sections = {
