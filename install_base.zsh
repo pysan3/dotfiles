@@ -228,11 +228,11 @@ if checkyes 'Install protoc from source?'; then
   current_dir="$PWD"
   cd "$XDG_DATA_HOME/protoc"
   git submodule update --init --recursive
-  ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME"
-  make -j$(nproc) && make check -j$(nproc) && make install -j$(nproc)
+  ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+    && make -j$(nproc) && make check -j$(nproc) && make install -j$(nproc) \
+    && info 'protoc setup done'
   cd "$current_dir"
 fi
-info 'protoc setup done'
 
 # install btop from source
 command -v 'btop' &>/dev/null && info 'btop found' || warning 'btop not found.'
@@ -243,21 +243,33 @@ if checkyes 'Install btop from source?'; then
   update_git_repo "$BTOP_INSTALL_DIR" https://github.com/aristocratos/btop.git
   cd "$BTOP_INSTALL_DIR"
   checkyes 'Use g++-10 (y) or g++-11 (N)?' && CXX="g++-10" || CXX="g++-11"
-  make QUIET=true ADDFLAGS=-march=native CXX="$CXX" && make install PREFIX="$XDG_PREFIX_HOME"
+  make QUIET=true ADDFLAGS=-march=native CXX="$CXX" && make install PREFIX="$XDG_PREFIX_HOME" \
+    && info 'btop installation done'
   cd -
 fi
-info 'btop installation done'
+
+# install bmon (bandwidth monitor)
+command -v 'bmon' &>/dev/null && info 'bmon found' || warning 'bmon not found.'
+if checkyes 'Install bmon from source?'; then
+  # sudo apt install build-essential make libconfuse-dev libnl-3-dev libnl-route-3-dev libncurses-dev pkg-config dh-autoreconf
+  BMON_INSTALL_DIR="$XDG_DATA_HOME/bmon"
+  update_git_repo "$BMON_INSTALL_DIR" https://github.com/tgraf/bmon.git
+  cd "$BMON_INSTALL_DIR"
+  ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+    && make -j$(nproc) && make install \
+    && info 'bmon installation done'
+  cd -
+fi
 
 # install nvtop from source
 command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found.'
 if checkyes 'Install nvtop from source?'; then
   update_git_repo "$XDG_DATA_HOME/nvtop" https://github.com/Syllo/nvtop.git
   mkdir -p "$XDG_DATA_HOME/nvtop/build" && cd "$_"
-  cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make
-  make install
+  cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make install \
+    && info 'nvtop setup done'
   cd -
 fi
-info 'nvtop setup done'
 
 # install nvim
 NVIM_UPDATE_ALL=false
@@ -296,8 +308,8 @@ if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall c
   update_git_repo "$XDG_DATA_HOME/ctags" https://github.com/universal-ctags/ctags.git
   current_dir="$PWD"
   cd "$XDG_DATA_HOME/ctags"
-  ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME"
-  make -j$(nproc) && make install
+  ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+    && make -j$(nproc) && make install
   cd "$current_dir"
 fi
 # sad
