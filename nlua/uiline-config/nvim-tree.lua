@@ -12,6 +12,7 @@ require("nvim-tree").setup({
       list = {
         { key = { "l", "<CR>", "o" }, action = "edit" },
         { key = "v", action = "vsplit" },
+        { key = "s", action = "split" },
         { key = "h", action = "close_node" },
         { key = "X", action = "trash" },
       },
