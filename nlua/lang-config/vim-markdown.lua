@@ -1,3 +1,13 @@
+-- keybindings
+-- zr: reduces fold level throughout the buffer
+-- zR: opens all folds
+-- zm: increases fold level throughout the buffer
+-- zM: folds everything all the way
+-- za: open a fold your cursor is on
+-- zA: open a fold your cursor is on recursively
+-- zc: close a fold your cursor is on
+-- zC: close a fold your cursor is on recursively
+
 -- item indent set to 2
 vim.g.vim_markdown_new_list_item_indent = 2
 vim.g.vim_markdown_auto_insert_bullets = 1
