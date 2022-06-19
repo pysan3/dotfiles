@@ -240,7 +240,9 @@ if checkyes 'Install lynx from source?'; then
   cd "$XDG_DATA_HOME" && wget -c http://invisible-island.net/datafiles/release/lynx-cur.zip \
     && unzip -o lynx-cur.zip && rm -rf lynx-cur.zip && cd $(ls -d lynx*/ | tail -1) \
     && ./configure --prefix="$XDG_PREFIX_HOME" --exec-prefix="$XDG_PREFIX_HOME" --mandir="$XDG_PREFIX_HOME/man" \
-        --enable-japanese-utf8 --without-cfg-file --with-zlib \
+        --enable-externs --enable-find-leaks --enable-gnutls-compat --enable-gzip-help \
+        --enable-internal-links --enable-ipv6 --enable-japanese-utf8 --enable-local-docs --enable-nested-tables \
+        --enable-nls --enable-widec --with-ssl --with-screen=ncursesw --without-cfg-file --with-zlib \
     && make install && make install-help && make install-doc \
     && info 'lynx setup done' || error 'lynx setup failed'
   cd "$current_dir"
