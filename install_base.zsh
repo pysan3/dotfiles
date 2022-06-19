@@ -12,18 +12,17 @@ setopt sh_word_split
 
 function update_git_repo() {
   dist="$1"; repo_url="$2"
-  shift 2
   if [ ! -d "$dist" ]; then
     info "Installing $dist"
-    mkdir -p "$dist" && git clone --depth 1 "$repo_url" "$dist"
+    mkdir -p "$dist" && git clone --depth 1 "$repo_url" "$dist" \
+      || (error "Failed to clone $repo_url to $dist" && return 1)
   fi
   info "Updating $dist"
-  git -C "$dist" pull
-  sleep 1
-  for file in $@; do
-    info "Compiled $dist/$file"
-    zcompile "$dist/$file"
-  done
+  git -C "$dist" fetch --tags \
+    || (error "Failed to update $dist" && return 1)
+  [ $# -ge 3 ] && tag="$3" || tag=$(git -C "$dist" describe --tags $(git -C "$dist" rev-list --tags --max-count=1)) \
+    && git -C "$dist" checkout "$tag" \
+    || (error "Failed to checkout to tag: $tag in $dist" && return 1)
   for file in $(command find "$dist" -name '*.zsh' -type f); do
     if [ ! "$file.zwc" -nt "$file" ]; then
       info "Found $file -> Compiling"
@@ -58,9 +57,9 @@ info 'Haskell installation done'
 # install zsh shell utils
 mkdir -p "$XDG_DATA_HOME/zsh"
 ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-syntax-highlighting"
-update_git_repo "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting.zsh
+update_git_repo "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" https://github.com/zsh-users/zsh-syntax-highlighting.git
 ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-autosuggestions"
-update_git_repo "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git zsh-autosuggestions.zsh
+update_git_repo "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git
 info 'Zsh extensions installation done'
 
 # install pyenv
@@ -211,7 +210,7 @@ fi
 
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME/fzf"
-update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh shell/key-bindings.zsh
+update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh
 "$FZF_INSTALL_DIR/install" --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish
 sleep 1 && zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 info 'fzf setup done'
@@ -279,7 +278,7 @@ fi
 # install nvim from source
 if ! command -v 'nvim' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Install nvim from source?'; then
   NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
-  update_git_repo "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git
+  update_git_repo "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git stable
   cd "$NVIM_INSTLL_DIR"
   make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install || error 'NVIM BUILD FAILED'
   info 'nvim installed'
