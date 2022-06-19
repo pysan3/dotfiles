@@ -1,21 +1,4 @@
-.Python
-[Bb]in
-[Ii]nclude
-[Ll]ib
-[Ll]ib64
-[Ll]ocal
-[Ss]cripts
-[Ss]hare
-pyvenv.cfg
-__pycache__
-*.cfg
 *.zwc
-*.code-workspace
-.venv
-.vscode
-.vim/*
-!.vim/local.vim
-pip-selfcheck.json
 
 nvim/*
 !nvim/after
@@ -32,3 +15,5 @@ nvim/autoload/plugged
 !nvim/init.vim
 !nvim/syntax
 !nvim/UltiSnips
+
+!lynx.cfg
