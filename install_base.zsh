@@ -233,6 +233,19 @@ if checkyes 'Install protoc from source?'; then
   cd "$current_dir"
 fi
 
+# install lynx from source
+command -v 'lynx' &>/dev/null && info 'lynx found' || warning 'lynx not found.'
+if checkyes 'Install lynx from source?'; then
+  current_dir="$PWD"
+  cd "$XDG_DATA_HOME" && wget -c http://invisible-island.net/datafiles/release/lynx-cur.zip \
+    && unzip -o lynx-cur.zip && rm -rf lynx-cur.zip && cd $(ls -d lynx*/ | tail -1) \
+    && ./configure --prefix="$XDG_PREFIX_HOME" --exec-prefix="$XDG_PREFIX_HOME" --mandir="$XDG_PREFIX_HOME/man" \
+        --enable-japanese-utf8 --without-cfg-file --with-zlib \
+    && make install && make install-help && make install-doc \
+    && info 'lynx setup done' || error 'lynx setup failed'
+  cd "$current_dir"
+fi
+
 # install btop from source
 command -v 'btop' &>/dev/null && info 'btop found' || warning 'btop not found.'
 if checkyes 'Install btop from source?'; then
