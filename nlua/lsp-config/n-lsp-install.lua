@@ -77,17 +77,17 @@ local servers = {
   -- puppet = {}, -- Puppet
   -- purescriptls = {}, -- PureScript
   -- jedi_language_server = {}, -- Python
-  -- pyright = {}, -- Python
-  pylsp = {
-    settings = {
-      pylsp = {
-        plugins = {
-          pycodestyle = { maxLineLength = 120 },
-          pyflakes = { enabled = false },
-        },
-      },
-    },
-  }, -- Python
+  pyright = {}, -- Python
+  -- pylsp = {
+  --   settings = {
+  --     pylsp = {
+  --       plugins = {
+  --         pycodestyle = { maxLineLength = 120 },
+  --         pyflakes = { enabled = false },
+  --       },
+  --     },
+  --   },
+  -- }, -- Python
   -- rescriptls = {}, -- ReScript
   -- rome = {}, -- Rome
   -- solargraph = {}, -- Ruby
