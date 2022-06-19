@@ -18,7 +18,7 @@ function update_git_repo() {
       || (error "Failed to clone $repo_url to $dist" && return 1)
   fi
   info "Updating $dist"
-  git -C "$dist" fetch --tags \
+  git -C "$dist" fetch --tags -f \
     || (error "Failed to update $dist" && return 1)
   [ $# -ge 3 ] && tag="$3" || tag=$(git -C "$dist" describe --tags $(git -C "$dist" rev-list --tags --max-count=1)) \
     && git -C "$dist" checkout "$tag" \
@@ -278,7 +278,7 @@ fi
 # install nvim from source
 if ! command -v 'nvim' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Install nvim from source?'; then
   NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
-  update_git_repo "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git stable
+  update_git_repo "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git nightly
   cd "$NVIM_INSTLL_DIR"
   make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install || error 'NVIM BUILD FAILED'
   info 'nvim installed'
