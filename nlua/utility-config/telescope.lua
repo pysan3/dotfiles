@@ -71,6 +71,7 @@ vim.keymap.set("n", ts_prefix .. "s", ts_builtin.live_grep)
 vim.keymap.set("n", ts_prefix .. "h", ts_builtin.help_tags)
 vim.keymap.set("n", ts_prefix .. "r", ts_builtin.resume)
 vim.keymap.set("n", ts_prefix .. "j", ts_builtin.jumplist)
+vim.keymap.set("n", ts_prefix .. "e", ts_builtin.symbols)
 vim.keymap.set("n", ts_prefix .. "i", telescope.extensions.media_files.media_files)
 
 -- telescope lsp bindings

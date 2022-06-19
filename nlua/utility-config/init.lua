@@ -23,5 +23,6 @@ return {
     { "romainl/vim-cool", config = "vim.g.CoolTotalMatches = 1" },
     "AndrewRadev/bufferize.vim",
     { "inkarkat/vim-SearchHighlighting", requires = { "inkarkat/vim-ingo-library" } }, -- search word under corsor
+    "nvim-telescope/telescope-symbols.nvim",
   },
 }
