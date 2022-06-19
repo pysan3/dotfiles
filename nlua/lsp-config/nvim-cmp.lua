@@ -9,6 +9,19 @@ local cmp_icons = { Text = "", Method = "m", Function = "", Constructor = 
 
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+
+---Check whether `check` and call action or fallback
+---@param check boolean: true -> action(), false -> fallback()
+---@param action function
+---@param fallback function
+---@return any: result of calling action or fallback
+local function call_with_fallback(check, action, fallback)
+  if check then
+    return action()
+  else
+    return fallback()
+  end
+end
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -23,40 +36,35 @@ cmp.setup({
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable, -- disable default keybind
     ["<C-e>"] = cmp.mapping(function(fallback)
-      if luasnip.choice_active() then
-        luasnip.change_choice(true)
-      else
-        fallback()
-      end
+      call_with_fallback(luasnip.choice_active(), function()
+        luasnip.change_choice(-1)
+      end, fallback)
+    end, { "i", "s" }),
+    ["<C-d>"] = cmp.mapping(function(fallback)
+      call_with_fallback(luasnip.choice_active(), function()
+        luasnip.change_choice(1)
+      end, fallback)
     end, { "i", "s" }),
     ["<CR>"] = cmp.mapping.confirm({ select = false }),
     ["<C-l>"] = cmp.mapping(function(fallback)
-      if luasnip.expand_or_jumpable() then
+      call_with_fallback(luasnip.expand_or_jumpable(), function()
         luasnip.expand_or_jump()
-      else
-        fallback()
-      end
+      end, fallback)
     end, { "i", "s" }),
     ["<C-h>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(-1) then
+      call_with_fallback(luasnip.jumpable(-1), function()
         luasnip.jump(-1)
-      else
-        fallback()
-      end
+      end, fallback)
     end, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
+      call_with_fallback(cmp.visible(), function()
         cmp.confirm({ select = true })
-      else
-        fallback()
-      end
+      end, fallback)
     end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
+      call_with_fallback(cmp.visible(), function()
         cmp.select_prev_item()
-      else
-        fallback()
-      end
+      end, fallback)
     end, { "i", "s" }),
   },
   sources = cmp.config.sources({
