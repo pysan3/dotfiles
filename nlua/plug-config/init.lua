@@ -21,6 +21,8 @@ return packer.startup(function(use)
   end
 
   -- stylua: ignore end
+  use({ "lewis6991/impatient.nvim" })
+  require("impatient")
 
   use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
   use({ "nvim-lua/popup.nvim" }) -- An implementation of the Popup API from vim in Neovim
