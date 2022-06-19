@@ -205,6 +205,39 @@ function pdflock () {
   qpdf --encrypt "$1" "$1" 40 -- "$F" "$TO"
 }
 
+function lynx () {
+  command lynx -cfg="$LYNX_CFG" -lss="$LYNX_LSS" --useragent="$LYNX_USERAGENT" $*
+}
+
+function urlencode () {
+  declare str="$*"; declare encoded=""; declare i c x
+  for (( i=0; i<${#str}; i++ )); do
+    c=${str:$i:1}
+    case "$c" in
+      [-_.~a-zA-Z0-9]) x="$c";;
+      *) printf -v x '%%%02x' "'$c";;
+    esac
+    encoded+="$x"
+  done
+  echo "$encoded"
+}
+
+function duck () {
+  declare url=$(urlencode "$*")
+  lynx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=us-en&q=$url"
+}
+alias "?"=duck
+function duckja () {
+  declare url=$(urlencode "$*")
+  lynx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=jp-jp&q=$url"
+}
+alias "??"=duckja
+function google () {
+  declare url=$(urlencode "$*")
+  lynx -cmd_script "$DOTFILES/static/lynx/google.key.log" "https://google.com/search?q=$url"
+}
+alias "?g"=google
+
 function pdfcompress () {
   	ps2pdf -dPDFSETTINGS=/prepress -dCompatibilityLevel=1.4 -sOutputFile="compressed-$1" "$1"
 }
