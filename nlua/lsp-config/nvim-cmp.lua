@@ -22,13 +22,16 @@ cmp.setup({
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable, -- disable default keybind
-    ["<C-e>"] = cmp.mapping({
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
-    }),
+    ["<C-e>"] = cmp.mapping(function(fallback)
+      if luasnip.choice_active() then
+        luasnip.change_choice(true)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
     ["<CR>"] = cmp.mapping.confirm({ select = false }),
     ["<C-l>"] = cmp.mapping(function(fallback)
-      if luasnip.expand_or_locally_jumpable() then
+      if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       else
         fallback()

@@ -1,5 +1,6 @@
 return {
   setup = {
+    -- "smjonas/snippet-converter.nvim", -- Use to convert snippet files. See `nlua/lsp-config/snippet-converter.lua`
     "windwp/nvim-autopairs",
     {
       "numToStr/Comment.nvim",
@@ -10,6 +11,8 @@ return {
       "L3MON4D3/LuaSnip",
       requires = {
         "rafamadriz/friendly-snippets",
+        { "honza/vim-snippets", rtp = "." },
+        "molleweide/LuaSnip-snippets.nvim",
       },
     },
     {
