@@ -30,5 +30,5 @@ require("nvim-treesitter.configs").setup({
 })
 
 vim.cmd([[
-vnoremap gC :normal gcc<CR>
+xnoremap gC :normal gcc<CR>
 ]])

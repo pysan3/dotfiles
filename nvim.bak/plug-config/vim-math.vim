@@ -1,2 +1,2 @@
-vmap <expr>  ++  VMATH_YankAndAnalyse()
+xmap <expr>  ++  VMATH_YankAndAnalyse()
 nmap         ++  vip++

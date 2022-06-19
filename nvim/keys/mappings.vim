@@ -32,8 +32,8 @@ command! WQ :wq
 command! Wq :wq
 
 " Better tabbing
-vnoremap < <gv
-vnoremap > >gv
+xnoremap < <gv
+xnoremap > >gv
 
 " Searching
 nnoremap <ESC><ESC> :silent nohlsearch<CR>
@@ -44,7 +44,7 @@ nnoremap * *Nzz
 nnoremap # #nzz
 nnoremap g* g*zz
 " // で選択中のテキストを検索
-vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+xnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " 入力モードでのカーソル移動
 inoremap <C-j> <Down>
@@ -59,8 +59,8 @@ nnoremap <down> gj
 nnoremap <up> gk
 
 " 選択モードで上下に移動
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+xnoremap J :m '>+1<CR>gv=gv
+xnoremap K :m '<-2<CR>gv=gv
 
 " Toggle spell check
 nnoremap <F6> :set spell! spelllang=en_us,cjk<CR>
@@ -78,8 +78,8 @@ nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
 
 " クリップボードからのペースト
-vnoremap <silent> y y`]
-vnoremap <silent> p p`]
+xnoremap <silent> y y`]
+xnoremap <silent> p p`]
 nnoremap <silent> P P`]
 noremap gV `[v`]
 noremap <Leader>y "+y

@@ -9,5 +9,5 @@ require("sniprun").setup({
 vim.cmd([[
 nmap <leader>rf <Plug>SnipRun
 nmap <leader>r <Plug>SnipRunOperator
-vmap r <Plug>SnipRun
+xmap r <Plug>SnipRun
 ]])

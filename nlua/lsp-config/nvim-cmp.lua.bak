@@ -8,11 +8,11 @@ local cmp_icons = { Text = "", Method = "m", Function = "", Constructor = 
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 local cmp = require("cmp")
-local luasnip = require("luasnip")
+local ultimap = require("cmp_nvim_ultisnips.mappings")
 cmp.setup({
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body)
+      vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
   mapping = {
@@ -28,38 +28,26 @@ cmp.setup({
     }),
     ["<CR>"] = cmp.mapping.confirm({ select = false }),
     ["<C-l>"] = cmp.mapping(function(fallback)
-      if luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
+      ultimap.compose({ "expand", "jump_forwards" })(fallback)
     end, { "i", "s" }),
-    ["<C-h>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
+    ["<Right>"] = cmp.mapping(function(fallback)
+      ultimap.compose({ "expand", "jump_forwards" })(fallback)
     end, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.confirm({ select = true })
       else
-        fallback()
+        ultimap.compose({ "expand", "select_next_item" })(fallback)
       end
     end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
+      ultimap.jump_backwards(fallback)
     end, { "i", "s" }),
   },
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
-    { name = "luasnip" },
+    { name = "ultisnips" },
     { name = "path" },
   }, {
     {
@@ -87,7 +75,7 @@ cmp.setup({
       vim_item.menu = ({
         nvim_lsp = "[LSP ]",
         nvim_lua = "[NLUA]",
-        luasnip = "[Snip]",
+        ultisnips = "[Snip]",
         buffer = "[Buff]",
         path = "[Path]",
         dictionary = "[Text]",
@@ -112,6 +100,14 @@ cmp.setup({
     },
   },
 })
+
+-- from UltiSnips
+require("cmp_nvim_ultisnips").setup({})
+vim.cmd([[
+augroup CMP_NVIM_ULTISNIPS
+  autocmd BufWritePost *.snippets :CmpUltisnipsReloadSnippets
+augroup END
+]])
 
 -- from nvim-autopairs
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")

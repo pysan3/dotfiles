@@ -4,14 +4,14 @@ let g:Schlepp#allowSquishingBlock = 1
 
 let g:Schlepp#trimWS = 0 " do not trim whitespace
 
-vmap <unique> <up>    <Plug>SchleppUp
-vmap <unique> <down>  <Plug>SchleppDown
-vmap <unique> <left>  <Plug>SchleppLeft
-vmap <unique> <right> <Plug>SchleppRight
+xmap <unique> <up>    <Plug>SchleppUp
+xmap <unique> <down>  <Plug>SchleppDown
+xmap <unique> <left>  <Plug>SchleppLeft
+xmap <unique> <right> <Plug>SchleppRight
 
-vmap <unique> D <Plug>SchleppDup
-vmap <unique> Dk <Plug>SchleppDupUp
-vmap <unique> Dj <Plug>SchleppDupDown
-vmap <unique> Dh <Plug>SchleppDupLeft
-vmap <unique> Dl <Plug>SchleppDupRight
+xmap <unique> D <Plug>SchleppDup
+xmap <unique> Dk <Plug>SchleppDupUp
+xmap <unique> Dj <Plug>SchleppDupDown
+xmap <unique> Dh <Plug>SchleppDupLeft
+xmap <unique> Dl <Plug>SchleppDupRight
 
