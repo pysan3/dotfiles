@@ -18,11 +18,10 @@ if [ x"$PCNAME" = 'x' ]; then
   export PCNAME='undefined';
 fi
 
-# alias ls='ls --color=auto'
-alias ll='ls -aFhl'
-alias lr='ls -RFh'
-alias la='ls -aFh'
-alias l='ls -1F'
+alias ll='ls -aFhl --color=auto'
+alias lr='ls -RFh --color=auto'
+alias la='ls -aFh --color=auto'
+alias l='ls -1F --color=auto'
 alias tree='tree -a -I "\.DS_Store|\.git|node_modules|vendor\/bundle" -N'
 alias grep='grep --color=auto'
 alias e='exit 0'
