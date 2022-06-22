@@ -238,7 +238,7 @@ command -v 'lynx' &>/dev/null && info 'lynx found' || warning 'lynx not found.'
 if checkyes 'Install lynx from source?'; then
   current_dir="$PWD"
   cd "$XDG_DATA_HOME" && wget -c http://invisible-island.net/datafiles/release/lynx-cur.zip \
-    && unzip -o lynx-cur.zip && rm -rf lynx-cur.zip && cd $(ls -d lynx*/ | tail -1) \
+    && unzip -o lynx-cur.zip && rm -rf lynx-cur.zip && cd $(ls -d lynx*/ | grep -v lynx_ | tail -1) \
     && ./configure --prefix="$XDG_PREFIX_HOME" --exec-prefix="$XDG_PREFIX_HOME" --mandir="$XDG_PREFIX_HOME/man" \
         --enable-externs --enable-find-leaks --enable-gnutls-compat --enable-gzip-help \
         --enable-internal-links --enable-ipv6 --enable-japanese-utf8 --enable-local-docs --enable-nested-tables \
