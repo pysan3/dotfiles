@@ -31,6 +31,20 @@ function update_git_repo() {
   done
 }
 
+NVIM_UPDATE_ALL=false
+function checkcommand () {
+  if ! command -v "$1" &>/dev/null || $NVIM_UPDATE_ALL; then
+    warning "Installing command '$1' with following command."
+    echo "$ $2"
+    if [[ "$2" == *'sudo'* ]]; then
+      checkyes 'Command includes `sudo`. Do you want to continue?' || return
+    fi
+    eval "$2" || error "failed: $2; DO IT YOURSELF"
+  else
+    info "Command '$1' found. Skipping..."
+  fi
+}
+
 if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]]; then
   error 'No python command found'
   if checkyes 'Do you want to create a systemwide symlink to python3?'; then
@@ -44,22 +58,28 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
 fi
 
 # install haskel interpreter
-if ! command -v pandoc &>/dev/null && checkyes "Seems you don't have pandoc installed. Install?"; then
+function install_pandoc () {
   info 'Installing `cabal` for haskel and `pandoc`'
   warning 'Answer N->Y->Y to the questions'
   curl https://get-ghcup.haskell.org | sh
   cabal --version
   cabal new-update
   cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
+}
+if ! command -v pandoc &>/dev/null && checkyes "Seems you don't have pandoc installed. Install?"; then
+  install_pandoc
 fi
 info 'Haskell installation done'
 
 # install zsh shell utils
-mkdir -p "$XDG_DATA_HOME/zsh"
-ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-syntax-highlighting"
-update_git_repo "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" https://github.com/zsh-users/zsh-syntax-highlighting.git
-ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-autosuggestions"
-update_git_repo "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git
+function install_zsh_shell_utils () {
+  mkdir -p "$XDG_DATA_HOME/zsh"
+  ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-syntax-highlighting"
+  update_git_repo "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" https://github.com/zsh-users/zsh-syntax-highlighting.git
+  ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-autosuggestions"
+  update_git_repo "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git
+}
+install_zsh_shell_utils
 info 'Zsh extensions installation done'
 
 # install pyenv
@@ -203,10 +223,9 @@ if ! command -v 'pnpm' &>/dev/null || checkyes 'Upgrade pnpm?'; then
   export PATH="$PNPM_HOME:$PATH"
 fi
 
-# setup clipboard
-if ! command -v 'clipboard' &>/dev/null; then
-  pnpm i -g clipboard-cli
-fi
+# install useful npm cli commands
+checkcommand 'clipboard' 'pnpm i -g clipboard-cli'
+checkcommand 'bw' 'pnpm i -g @bitwarden/cli'
 
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME/fzf"
@@ -286,7 +305,6 @@ if checkyes 'Install nvtop from source?'; then
 fi
 
 # install nvim
-NVIM_UPDATE_ALL=false
 if checkyes 'Do you want to update nvim?'; then
   NVIM_UPDATE_ALL=true
 fi
@@ -301,19 +319,6 @@ if ! command -v 'nvim' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Install nvim
 fi
 
 # nvim dependencies
-checkcommand () {
-  if ! command -v "$1" &>/dev/null || $NVIM_UPDATE_ALL; then
-    warning "Installing command '$1' with following command."
-    echo "$ $2"
-    if [[ "$2" == *'sudo'* ]]; then
-      checkyes 'Command includes `sudo`. Do you want to continue?' || return
-    fi
-    eval "$2" || error "failed: $2; DO IT YOURSELF"
-  else
-    info "Command '$1' found. Skipping..."
-  fi
-}
-
 pip install --user --upgrade pynvim
 gem install neovim
 pnpm i -g neovim

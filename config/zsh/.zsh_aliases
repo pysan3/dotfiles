@@ -72,7 +72,7 @@ alias va="cd; nvim $ZDOTDIR/.zsh_aliases; cd - >/dev/null"
 alias vr="cd; nvim $ZDOTDIR/.zsh_rust; cd - >/dev/null"
 alias vl="cd; nvim $ZDOTDIR/.zsh_local; cd - >/dev/null"
 alias vs="cd; nvim $ZDOTDIR/.zsh_script; cd - >/dev/null"
-alias vc="cd; nvim ~/mySecrets.env; cd - >/dev/null"
+alias vc="cd; nvim ~/.mySecrets.env; cd - >/dev/null"
 alias ve="cd; nvim .env; cd - >/dev/null"
 alias vh="cd; nvim $ZDOTDIR/.zsh_history; cd - >/dev/null"
 alias vlocal="cd; nvim $XDG_CONFIG_HOME/nvim/local.vim; cd - >/dev/null"
@@ -98,7 +98,13 @@ function act() {
 act
 
 # depends on .zsh_local
-alias cbw='set -a; source ~/mySecrets.env; set +a; echo $BW_PASSWORD | bw'
+function cbw () {
+  ( \
+    set -a && source ~/.mySecrets.env && set +a \
+    && echo $BW_PASSWORD | bw unlock >/dev/null 2>&1;
+    echo $BW_PASSWORD | bw $* 2>/dev/null
+  )
+}
 alias bwpass="jq '.login' | jq -r '.password'"
 alias here="$FE . >/dev/null 2>&1 || true"
 
