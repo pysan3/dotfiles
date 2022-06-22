@@ -101,7 +101,7 @@ act
 function cbw () {
   ( \
     set -a && source ~/.mySecrets.env && set +a \
-    && echo $BW_PASSWORD | bw unlock >/dev/null 2>&1;
+    && bw unlock --passwordenv BW_PASSWORD >/dev/null 2>&1;
     echo $BW_PASSWORD | bw $* 2>/dev/null
   )
 }
