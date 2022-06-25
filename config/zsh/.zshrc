@@ -51,6 +51,7 @@ bindkey '^o' edit-command-line
 setopt share_history # 他ターミナルとヒストリを共有
 setopt hist_ignore_all_dups # ヒストリを重複表示しない
 setopt hist_ignore_space # Ignore histories starting with space
+HISTORY_IGNORE='([bf]g *|cd *|l[alsh]#( *)#|less *|n#vim# *)'
 HISTFILE="$ZDOTDIR/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=10000
