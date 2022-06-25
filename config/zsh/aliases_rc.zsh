@@ -130,7 +130,7 @@ function dot() {
     eval "$@"
     run_cmd () { eval "$@" && info "Success: '$@'" || error "Failed: '$@'" }
     run_cmd "$HOME"/dotfiles/install_all.zsh
-    run_cmd restart
+    run_cmd res
     run_cmd update_zwc
     cd "$old_dir"
   fi
