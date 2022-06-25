@@ -334,10 +334,7 @@ function tinit () {
     done
     fi
   fi
-  po add attrdict rich toml
-  po add -D isort pylint autopep8 flake8
   act
-  pylint --generate-rcfile > .pylintrc
 }
 
 function cinit() {
