@@ -13,6 +13,7 @@ return {
         "rafamadriz/friendly-snippets",
         { "honza/vim-snippets", rtp = "." },
         "molleweide/LuaSnip-snippets.nvim",
+        "gisphm/vim-gitignore",
       },
     },
     {
