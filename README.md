@@ -10,8 +10,6 @@ This installation might cause serious changes to your workflow.
 - zsh
   - [./.zshenv](./.zshenv)
   - [./config/zsh/.zshrc](./config/zsh/.zshrc)
-  - [./config/zsh/.zsh_aliases](./config/zsh/.zsh_aliases)
-  - [./config/zsh/.zsh_rust](./config/zsh/.zsh_rust) (Add various programs to `$PATH`)
 - neovim
   - [./nvim](./nvim)
   - [nvim/lua (./nlua)](./nlua)

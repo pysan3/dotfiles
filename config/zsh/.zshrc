@@ -51,8 +51,8 @@ bindkey '^o' edit-command-line
 setopt share_history # 他ターミナルとヒストリを共有
 setopt hist_ignore_all_dups # ヒストリを重複表示しない
 setopt hist_ignore_space # Ignore histories starting with space
-HISTORY_IGNORE='([bf]g *|cd *|l[alsh]#( *)#|less *|n#vim# *)'
-HISTFILE="$ZDOTDIR/.zsh_history"
+HISTORY_IGNORE='([bf]g *|l[alsh]#( *)#|n#vim# *|conda i*|v[]|(cd|cat|less|dust|git|p|pip|curl|wget|grep|rm|mv|cp|ln) *|v[mzvarlsceh]|vlocal)'
+HISTFILE="$XDG_CACHE_HOME/zsh/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=10000
 HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
@@ -123,16 +123,16 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
-[ -f "$ZDOTDIR/.zsh_local" ] && source "$ZDOTDIR/.zsh_local"
-[ -f "$ZDOTDIR/.zsh_rust" ] && source "$ZDOTDIR/.zsh_rust"
-[ -f "$ZDOTDIR/.zsh_aliases" ] && source "$ZDOTDIR/.zsh_aliases"
+[ -f "$ZDOTDIR/local_rc.zsh" ] && source "$ZDOTDIR/local_rc.zsh"
+[ -f "$ZDOTDIR/rust_rc.zsh" ] && source "$ZDOTDIR/rust_rc.zsh"
+[ -f "$ZDOTDIR/aliases_rc.zsh" ] && source "$ZDOTDIR/aliases_rc.zsh"
 
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source "$XDG_CONFIG_HOME"/fzf/fzf.zsh
 
-[ -f "$ZDOTDIR/.zsh_script" ] && source "$ZDOTDIR/.zsh_script"
+[ -f "$ZDOTDIR/scripts_rc.zsh" ] && source "$ZDOTDIR/scripts_rc.zsh"
 
 if ! [[ $PATH == "$XDG_BIN_HOME"* ]]; then
   export PATH="$XDG_BIN_HOME:$PATH"

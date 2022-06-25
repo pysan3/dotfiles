@@ -41,7 +41,7 @@ alias ..='cd ..'
 alias g='git'
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
 alias yay='yay --noconfirm'
-alias restart="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
+alias res="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
 function def() {
   res=$(type $@)
@@ -69,13 +69,13 @@ alias upgradezap='zap upgrade'
 alias vm="cd; nvim $ZDOTDIR/.vimrc; cd - >/dev/null"
 alias vz="cd; nvim $ZDOTDIR/.zshrc; cd - >/dev/null"
 alias vv="cd; nvim $HOME/.zshenv; cd - >/dev/null"
-alias va="cd; nvim $ZDOTDIR/.zsh_aliases; cd - >/dev/null"
-alias vr="cd; nvim $ZDOTDIR/.zsh_rust; cd - >/dev/null"
-alias vl="cd; nvim $ZDOTDIR/.zsh_local; cd - >/dev/null"
-alias vs="cd; nvim $ZDOTDIR/.zsh_script; cd - >/dev/null"
+alias va="cd; nvim $ZDOTDIR/aliases_rc.zsh; cd - >/dev/null"
+alias vr="cd; nvim $ZDOTDIR/rust_rc.zsh; cd - >/dev/null"
+alias vl="cd; nvim $ZDOTDIR/local_rc.zsh; cd - >/dev/null"
+alias vs="cd; nvim $ZDOTDIR/script_rc.zsh; cd - >/dev/null"
 alias vc="cd; nvim ~/.mySecrets.env; cd - >/dev/null"
 alias ve="cd; nvim .env; cd - >/dev/null"
-alias vh="cd; nvim $ZDOTDIR/.zsh_history; cd - >/dev/null"
+alias vh="cd; nvim $XDG_CACHE_HOME/zsh/.zsh_history; cd - >/dev/null"
 alias vlocal="cd; nvim $XDG_CONFIG_HOME/nvim/local.vim; cd - >/dev/null"
 
 alias dc="docker-compose"
@@ -98,7 +98,7 @@ function act() {
 }
 act
 
-# depends on .zsh_local
+# depends on local_rc.zsh
 function cbw () {
   ( \
     set -a && source ~/.mySecrets.env && set +a \
@@ -114,10 +114,10 @@ function update_zwc () {
   compile_zdot "$HOME/.zshenv"
   # compile_zdot .zprofile
   compile_zdot "$ZDOTDIR/.zshrc"
-  compile_zdot "$ZDOTDIR/.zsh_local"
-  compile_zdot "$ZDOTDIR/.zsh_rust"
-  compile_zdot "$ZDOTDIR/.zsh_aliases"
-  compile_zdot "$ZDOTDIR/.zsh_script"
+  compile_zdot "$ZDOTDIR/local_rc.zsh"
+  compile_zdot "$ZDOTDIR/rust_rc.zsh"
+  compile_zdot "$ZDOTDIR/aliases_rc.zsh"
+  compile_zdot "$ZDOTDIR/script_rc.zsh"
   # compile_zdot .zlogin
   # compile_zdot .zlogout
   compile_zdot "$ZDOTDIR/.zcompdump"

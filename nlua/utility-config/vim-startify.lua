@@ -7,12 +7,6 @@ vim.g.startify_lists = {
   { type = "bookmarks", header = { "   Bookmarks" } },
 }
 
-vim.g.startify_bookmarks = {
-  { i = "~/.config/nvim/init.vim" },
-  { z = "~/.zshrc" },
-  { a = "~/.zsh_aliases" },
-}
-
 vim.g.startify_session_autoload = 1
 vim.g.startify_session_delete_buffers = 1
 vim.g.startify_change_to_vcs_root = 1
