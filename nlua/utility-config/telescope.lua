@@ -82,3 +82,6 @@ vim.keymap.set("n", ts_prefix .. "y", ts_builtin.lsp_workspace_symbols)
 vim.keymap.set("n", ts_prefix .. "gc", ts_builtin.git_commits)
 vim.keymap.set("n", ts_prefix .. "gl", ts_builtin.git_bcommits)
 vim.keymap.set("n", ts_prefix .. "gb", ts_builtin.git_branches)
+
+-- telescope other bindings
+vim.keymap.set("n", "<leader>" .. ts_prefix .. "c", ts_builtin.colorscheme)
