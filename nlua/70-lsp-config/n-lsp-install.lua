@@ -1,5 +1,5 @@
 local lspconfig = require("lspconfig")
-local lsp_base = require("lsp-config.n-lsp-base")
+local lsp_base = require("70-lsp-config.n-lsp-base")
 
 local servers = {
   -- awk_ls = {}, -- AWK
@@ -152,7 +152,7 @@ local M = {}
 
 M.setup = function(_)
   for server_name, server_opt in pairs(servers) do
-    local is_opt, file_opt = pcall(require, "lsp-config.settings." .. server_name)
+    local is_opt, file_opt = pcall(require, "70-lsp-config.settings." .. server_name)
     local opts = vim.tbl_deep_extend("force", global_opts, is_opt and file_opt or {}, server_opt or {})
     lspconfig[server_name].setup(opts)
   end
