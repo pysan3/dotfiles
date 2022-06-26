@@ -19,7 +19,7 @@ return {
     -- "joshdick/onedark.vim",
     "ellisonleao/gruvbox.nvim",
     -- "ulwlu/elly.vim",
-    -- "tomasiser/vim-code-dark",
+    "tomasiser/vim-code-dark",
     -- "arcticicestudio/nord-vim",
     -- "chriskempson/vim-tomorrow-theme",
     -- "doki-theme/doki-theme-vim",
