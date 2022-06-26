@@ -16,6 +16,8 @@ local fmta = require("luasnip.extras.fmt").fmta
 local m = require("luasnip.extras").m
 local lambda = require("luasnip.extras").l
 local postfix = require("luasnip.extras.postfix").postfix
+
+local snippets, autosnippets = {}, {}
 ---@diagnostic enable
 
 local calculate_comment_string = require("Comment.ft").calculate
@@ -118,10 +120,8 @@ local todo_snippet_specs = {
   { { trig = "noteb" }, { "NOTE", "INFO" }, { ctype = 2 } },
 }
 
-local todo_comment_snippets = {}
 for _, v in ipairs(todo_snippet_specs) do
-  -- NOTE: 3rd argument accepts nil
-  table.insert(todo_comment_snippets, todo_snippet(v[1], v[2], v[3]))
+  table.insert(snippets, todo_snippet(v[1], v[2], v[3]))
 end
 
-ls.add_snippets("all", todo_comment_snippets, { type = "snippets", key = "todo_comments" })
+return snippets, autosnippets

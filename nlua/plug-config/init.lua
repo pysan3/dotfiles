@@ -37,6 +37,7 @@ return packer.startup(function(use)
   load_sub_dirs("operations-config")
   load_sub_dirs("command-config")
   load_sub_dirs("lang-config")
+  load_sub_dirs("cmp-config")
   load_sub_dirs("lsp-config")
   load_sub_dirs("debug-config")
 

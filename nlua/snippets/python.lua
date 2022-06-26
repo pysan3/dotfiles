@@ -15,6 +15,8 @@ local fmt = require("luasnip.extras.fmt").fmt
 local m = require("luasnip.extras").m
 local lambda = require("luasnip.extras").l
 local postfix = require("luasnip.extras.postfix").postfix
+
+local snippets, autosnippets = {}, {}
 ---@diagnostic enable
 
 local types = require("luasnip.util.types")
@@ -69,67 +71,29 @@ local function choice_text_node(pos, choices, opts)
   return c(pos, choices, opts)
 end
 
-s(
-  "d",
-  fmt(
-    [[
-            def {func}({args}){ret}:
-                {doc}{body}
-        ]],
-    {
+table.insert(
+  snippets,
+  s(
+    "d",
+    fmt("def {func}({args}){ret}:\n\t{doc}{body}", {
       func = i(1),
       args = i(2),
-      ret = c(3, {
-        t(""),
-        sn(nil, {
-          t(" -> "),
-          i(1),
-        }),
-      }),
+      ret = c(3, { t(""), sn(nil, { t(" -> "), i(1) }) }),
       doc = isn(4, {
         choice_text_node(1, {
           t(""),
-          sn(
-            1,
-            fmt(
-              [[
-                """{desc}"""
-
-                ]],
-              { desc = i(1) }
-            )
-          ),
+          sn(1, fmt('"""{desc}"""\n', { desc = i(1) })),
           sn(
             2,
             fmt(
-              [[
-                """{desc}
-
-                Args:
-                {args}
-
-                Returns:
-                {returns}
-                """
-
-                ]],
-              {
-                desc = i(1),
-                args = i(2),
-                returns = i(3),
-              }
+              '"""{desc}\n\nArgs:\n\t{args}\n\nReturns:\n\t{returns}\n"""',
+              { desc = i(1), args = i(2), returns = i(3) }
             )
           ),
-        }, {
-          texts = {
-            "(no docstring)",
-            "(single line docstring)",
-            "(full docstring)",
-          },
-        }),
+        }, { texts = { "(no docstring)", "(single line docstring)", "(full docstring)" } }),
       }, "$PARENT_INDENT\t"),
       body = i(0),
-    }
+    })
   )
 )
 
@@ -167,10 +131,15 @@ local function to_init_assign(args)
   end
   return sn(nil, tab)
 end
-s(
-  "pyinit",
-  fmt([[def __init__(self{}):{}]], {
-    d(1, py_init),
-    d(2, to_init_assign, { 1 }),
-  })
+table.insert(
+  snippets,
+  s(
+    "pyinit",
+    fmt([[def __init__(self{}):{}]], {
+      d(1, py_init),
+      d(2, to_init_assign, { 1 }),
+    })
+  )
 )
+
+return snippets, autosnippets

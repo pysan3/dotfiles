@@ -1,5 +1,6 @@
 snippet snipinit "require all necessary variables for LuaSnip"
 	---@diagnostic disable
+	-- stylua: ignore start
 	local ls = require("luasnip")
 	local s = ls.snippet
 	local sn = ls.snippet_node
@@ -16,6 +17,21 @@ snippet snipinit "require all necessary variables for LuaSnip"
 	local m = require("luasnip.extras").m
 	local lambda = require("luasnip.extras").l
 	local postfix = require("luasnip.extras.postfix").postfix
+
+	local snippets, autosnippets = {}, {}
+	local e = function(trig, name, dscr, wordTrig, regTrig, docstring, docTrig, hidden, priority)
+	  local ret = { trig = trig, name = name, dscr = dscr }
+	  if wordTrig ~= nil then ret["wordTrig"] = wordTrig end
+	  if regTrig ~= nil then ret["regTrig"] = regTrig end
+	  if docstring ~= nil then ret["docstring"] = docstring end
+	  if docTrig ~= nil then ret["docTrig"] = docTrig end
+	  if hidden ~= nil then ret["hidden"] = hidden end
+	  if priority ~= nil then ret["priority"] = priority end
+	  return ret
+	end
+	-- stylua: ignore end
 	---@diagnostic enable
 
 	$0
+
+	return snippets, autosnippets

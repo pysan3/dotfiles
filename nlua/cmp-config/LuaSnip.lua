@@ -124,32 +124,33 @@ local current_win = nil
 
 local function window_for_choiceNode(choiceNode)
   local buf = vim.api.nvim_create_buf(false, true)
-  local buf_text = {}
-  local row_selection = 0
-  local row_offset = 0
-  local text
-  for _, node in ipairs(choiceNode.choices) do
-    text = node:get_docstring()
-    -- find one that is currently showing
+  local buf_text, buf_text_tmp = {}, {}
+  local row_selection, row_offset = 0, 0
+  for i, node in ipairs(choiceNode.choices) do
+    local text = node:get_docstring()
     if node == choiceNode.active_choice then
-      -- current line is starter from buffer list which is length usually
-      row_selection = #buf_text
-      -- finding how many lines total within a choice selection
+      row_selection = i
       row_offset = #text
     end
-    vim.list_extend(buf_text, text)
+    vim.list_extend(buf_text_tmp, text)
   end
-
+  local w, h = vim.lsp.util._make_floating_popup_size(buf_text_tmp)
+  for _, text in ipairs(buf_text_tmp) do
+    local lines = {}
+    for line in string.gmatch(text ~= "" and text or " ", "[^\n]+") do
+      table.insert(lines, line .. string.rep(" ", w - string.len(line)))
+    end
+    table.insert(buf_text, table.concat(lines, "\n"))
+  end
   vim.api.nvim_buf_set_text(buf, 0, 0, 0, 0, buf_text)
-  local w, h = vim.lsp.util._make_floating_popup_size(buf_text)
 
   -- adding highlight so we can see which one is been selected.
   local extmark = vim.api.nvim_buf_set_extmark(
     buf,
     current_nsid,
-    row_selection,
+    row_selection - 1, -- row_selection is 0-indexed
     0,
-    { hl_group = "incsearch", end_line = row_selection + row_offset }
+    { hl_group = "DiffAdd", end_line = row_selection + row_offset }
   )
 
   -- shows window at a beginning of choiceNode.
@@ -158,6 +159,8 @@ local function window_for_choiceNode(choiceNode)
     width = w,
     height = h,
     bufpos = choiceNode.mark:pos_begin_end(),
+    row = h > 2 and 0 or 1,
+    col = h > 2 and vim.api.nvim_get_option("columns") * 0.6 or 1, -- half of the buffer to the right
     style = "minimal",
     border = "rounded",
   })
@@ -166,7 +169,7 @@ local function window_for_choiceNode(choiceNode)
   return { win_id = win, extmark = extmark, buf = buf }
 end
 
-function LuaSnipChoicePopup(choiceNode)
+local function choice_popup(choiceNode)
   -- build stack for nested choiceNodes.
   if current_win then
     vim.api.nvim_win_close(current_win.win_id, true)
@@ -182,7 +185,7 @@ function LuaSnipChoicePopup(choiceNode)
   }
 end
 
-function LuaSnipUpdateChoicePopup(choiceNode)
+local function update_choice_popup(choiceNode)
   vim.api.nvim_win_close(current_win.win_id, true)
   vim.api.nvim_buf_del_extmark(current_win.buf, current_nsid, current_win.extmark)
   local create_win = window_for_choiceNode(choiceNode)
@@ -191,7 +194,7 @@ function LuaSnipUpdateChoicePopup(choiceNode)
   current_win.buf = create_win.buf
 end
 
-function LuaSnipChoicePopupClose()
+local function choice_popup_close()
   vim.api.nvim_win_close(current_win.win_id, true)
   vim.api.nvim_buf_del_extmark(current_win.buf, current_nsid, current_win.extmark)
   -- now we are checking if we still have previous choice we were in after exit nested choice
@@ -205,11 +208,20 @@ function LuaSnipChoicePopupClose()
   end
 end
 
+vim.api.nvim_create_user_command("LsChoicePopup", function()
+  choice_popup(luasnip.session.event_node)
+end, {})
+vim.api.nvim_create_user_command("LsChoicePopupClose", function()
+  choice_popup_close()
+end, {})
+vim.api.nvim_create_user_command("LsUpdateChoicePopup", function()
+  update_choice_popup(luasnip.session.event_node)
+end, {})
 vim.cmd([[
 augroup LuaSnipChoicePopup
   autocmd!
-  autocmd User LuasnipChoiceNodeEnter lua LuaSnipChoicePopup(require("luasnip").session.event_node)
-  autocmd User LuasnipChoiceNodeLeave lua LuaSnipChoicePopupClose()
-  autocmd User LuasnipChangeChoice lua LuaSnipUpdateChoicePopup(require("luasnip").session.event_node)
+  autocmd User LuasnipChoiceNodeEnter LsChoicePopup
+  autocmd User LuasnipChoiceNodeLeave LsChoicePopupClose
+  autocmd User LuasnipChangeChoice LsUpdateChoicePopup
 augroup END
 ]])

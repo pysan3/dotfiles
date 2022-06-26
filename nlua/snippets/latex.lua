@@ -15,6 +15,8 @@ local fmt = require("luasnip.extras.fmt").fmt
 local m = require("luasnip.extras").m
 local lambda = require("luasnip.extras").l
 local postfix = require("luasnip.extras.postfix").postfix
+
+local snippets, autosnippets = {}, {}
 ---@diagnostic enable
 
 local tex = {}
@@ -35,13 +37,17 @@ tex.rec_ls = function()
     sn(nil, { t({ "", "\t\\item " }), i(1), d(2, tex.rec_ls, {}) }),
   }) })
 end
-s("ls", {
-  t({ "\\begin{itemize}", "\t\\item " }),
-  i(1),
-  d(2, tex.rec_ls, {}),
-  t({ "", "\\end{itemize}" }),
-  i(0),
-})
+table.insert(
+  snippets,
+  s("ls", {
+    t({ "\\begin{itemize}", "\t\\item " }),
+    i(1),
+    d(2, tex.rec_ls, {}),
+    t({ "", "\\end{itemize}" }),
+    i(0),
+  })
+)
+
 -- Endless Table
 tex.table_node = function(args)
   local tabs = {}
@@ -66,25 +72,36 @@ tex.rec_table = function()
     }),
   })
 end
-s("table", {
-  t("\\begin{tabular}{"),
-  i(1, "0"),
-  t({ "}", "" }),
-  d(2, tex.table_node, { 1 }, {}),
-  d(3, tex.rec_table, { 1 }),
-  t({ "", "\\end{tabular}" }),
-})
+table.insert(
+  snippets,
+  s("table", {
+    t("\\begin{tabular}{"),
+    i(1, "0"),
+    t({ "}", "" }),
+    d(2, tex.table_node, { 1 }, {}),
+    d(3, tex.rec_table, { 1 }),
+    t({ "", "\\end{tabular}" }),
+  })
+)
 
 -- Context Aware Expansion
-s("dm", {
-  t({ "\\[", "\t" }),
-  i(1),
-  t({ "", "\\]" }),
-}, { condition = tex.in_text })
-s("bfr", {
-  t({ "\\begin{frame}", "\t\\frametitle{" }),
-  i(1, "frame title"),
-  t({ "}", "\t" }),
-  i(0),
-  t({ "", "\\end{frame}" }),
-}, { condition = tex.in_beamer })
+table.insert(
+  snippets,
+  s("dm", {
+    t({ "\\[", "\t" }),
+    i(1),
+    t({ "", "\\]" }),
+  }, { condition = tex.in_text })
+)
+table.insert(
+  snippets,
+  s("bfr", {
+    t({ "\\begin{frame}", "\t\\frametitle{" }),
+    i(1, "frame title"),
+    t({ "}", "\t" }),
+    i(0),
+    t({ "", "\\end{frame}" }),
+  }, { condition = tex.in_beamer })
+)
+
+return snippets, autosnippets
