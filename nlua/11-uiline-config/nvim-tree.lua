@@ -1,11 +1,12 @@
 require("nvim-tree").setup({
+  disable_netrw = true,
   hijack_cursor = true,
   hijack_unnamed_buffer_when_opening = true,
   update_cwd = false,
   respect_buf_cwd = true,
+  reload_on_bufenter = true,
   view = {
-    -- auto_resize = false,
-    -- preserve_window_proportions = true,
+    width = 40,
     signcolumn = "no",
     mappings = {
       custom_only = false,
