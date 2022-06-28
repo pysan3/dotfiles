@@ -6,19 +6,20 @@ let g:mapleader = "\<Space>"
 "----------------------------------------------------------
 set t_Co=256                            " Set color sceme work properly
 set t_ut=
-syntax enable                           " Enables syntax highlighing
+syntax enable                           " Turn on syntax highlighting
+set termguicolors " Terminal supports more colors
 
 "----------------------------------------------------------
 " Extentions
 "----------------------------------------------------------
-filetype plugin on
+filetype plugin on " Allow plugin loading of file types
 
 "----------------------------------------------------------
 " Fonts and letters
 "----------------------------------------------------------
-set encoding=utf-8                      " The encoding displayed
+set encoding=utf-8                      " Set the character encoding used internally by nvim
 scriptencoding utf-8
-set fileencoding=utf-8                  " The encoding written to file
+set fileencoding=utf-8                  " Set the character encoding of the file where the current buffer is located
 set fileencodings=utf-8,ucs-boms,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
 set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
 set ambiwidth=single " □や○文字が崩れる問題を解決
@@ -28,17 +29,19 @@ set tildeop
 " Cursor
 "----------------------------------------------------------
 set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
-set cursorline " カーソルラインをハイライト
+set cursorline " Highlight the current line
 set backspace=indent,eol,start
 
-set hidden                              " Required to keep multiple buffers open multiple buffers
-" set number
-set relativenumber
-set numberwidth=1
+set hidden                              " Allow switching from unsaved buffers
+" set number " Allow absolute line numbers
+set relativenumber " Allow relative line numbers
+set numberwidth=1 " Set the width of the number column, default is 4
 set mouse=a                             " Enable your mouse
 " set showbreak=↪
 set iskeyword+=-                      	" treat dash separated words as a word text object"
-set scrolloff=12
+set scrolloff=12 " Set how many lines are always displayed on the upper and lower sides of the cursor
+set wrap
+set sidescrolloff=11 " Set how many columns are always displayed to the left and right of the cursor
 
 "----------------------------------------------------------
 " Memory Usage
@@ -48,23 +51,28 @@ set mmp=2000000
 "----------------------------------------------------------
 " Window
 "----------------------------------------------------------
-" set pumheight=10                        " Makes popup menu smaller
+set pumheight=10                        " Set the height of the completion menu
 set cmdheight=1                         " More space for displaying messages
+set showcmd " Show command line
 set splitbelow                          " Horizontal splits will automatically be below
 set splitright                          " Vertical splits will automatically be to the right
-set background=dark                     " tell vim what the background color looks like
-if has('nvim')
-  set laststatus=3
-  highlight WinSeparator guibg=None
-endif
+set background=dark                     " Set background mode
+set title "Allow the window to display the edited filename
+set autoread " Automatically read files modified in other editors
+
+"----------------------------------------------------------
+" Session
+"----------------------------------------------------------
+set sessionoptions=buffers,curdir,folds,help,tabpages,winsize,globals " Set options for saving sessions
 
 "----------------------------------------------------------
 " Search
 "----------------------------------------------------------
-set incsearch " インクリメンタルサーチ. １文字入力毎に検索を行う
-set ignorecase " 検索パターンに大文字小文字を区別しない
-set smartcase " 検索パターンに大文字を含んでいたら大文字小文字を区別する
-set hlsearch " 検索結果をハイライト
+set incsearch " Highlight while searching
+set ignorecase " Ignore case when searching
+set smartcase " Intelligent case sensitivity when searching (if there is upper case, turn off case ignoring)
+set hlsearch " Allow search highlighting
+set wrapscan " Allows to search the entire file repeatedly
 
 "----------------------------------------------------------
 " Tab, Intent
@@ -72,31 +80,36 @@ set hlsearch " 検索結果をハイライト
 set expandtab " タブ入力を複数の空白入力に置き換える
 set tabstop=4 " 画面上でタブ文字が占める幅
 set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
-set autoindent " 改行時に前の行のインデントを継続する
-set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
+set autoindent " Auto-indent, press o on the current line, the new line is always aligned with the current line
+set smartindent " Set smart indent
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 set shiftwidth=4 " smartindentで増減する幅
 set showtabline=2                       " Always show tabs
 set formatoptions-=cro
 set colorcolumn=120
-set signcolumn=yes
+set signcolumn=yes " Set the width of the symbol column, if not set, it will cause an exception when displaying the icon
 
 "----------------------------------------------------------
 " Trailing Spaces
 "----------------------------------------------------------
 set conceallevel=2                      " So that I can see `` in markdown files
 set concealcursor=""
+set foldenable " Open fold
+set foldmethod=indent " Set the folding method
+set foldcolumn=0 " Show collapsed hierarchy in symbol column
+set foldlevel=100 " Maximum folding level
 
 "----------------------------------------------------------
-" Coc configs
+" Backup, Swapfile
 "----------------------------------------------------------
-set nobackup                            " This is recommended by coc
-set nowritebackup                       " This is recommended by coc
+set nobackup                            " Whether to create a backup file
+set nowritebackup                       " Whether to create backups when writing files
+set noswapfile " Whether to create a swap file
 
 "----------------------------------------------------------
 " Vim commands wait time
 "----------------------------------------------------------
-set updatetime=300                      " Faster completion
+set updatetime=100                      " Faster completion
 set timeoutlen=500                      " By default timeoutlen is 1000 ms
 
 "----------------------------------------------------------
@@ -107,7 +120,7 @@ set shortmess=aTcoOsWAIcF
 "----------------------------------------------------------
 " Command mode
 "----------------------------------------------------------
-set wildmenu " コマンドモードの補完
+set wildmenu " Set completion in command mode to appear as a menu
 set history=5000 " 保存するコマンド履歴の数
 
 "----------------------------------------------------------
