@@ -13,7 +13,7 @@ inoremap , <C-g>u,
 
 " new line in insert mode
 imap <C-o> <Esc>A<CR>
-inoremap <C-i> <Esc>A,<Esc>o
+inoremap <C-e> <Esc>A,<Esc>o
 
 " shift in insert mode
 inoremap <C-f> <Esc><<a
