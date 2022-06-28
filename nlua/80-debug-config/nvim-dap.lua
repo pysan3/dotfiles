@@ -1,63 +1,57 @@
 local dap = require("dap")
 
--- require('dap').set_log_level('INFO')
 dap.defaults.fallback.terminal_win_cmd = "20split new"
-vim.fn.sign_define("DapBreakpoint", { text = "🟥", texthl = "", linehl = "", numhl = "" })
-vim.fn.sign_define("DapBreakpointRejected", { text = "🟦", texthl = "", linehl = "", numhl = "" })
-vim.fn.sign_define("DapStopped", { text = "⭐️", texthl = "", linehl = "", numhl = "" })
+vim.fn.sign_define("DapBreakpoint", { text = "🟥", texthl = "LspDiagnosticsSignError", linehl = "", numhl = "" })
+vim.fn.sign_define("DapBreakpointRejected", {
+  text = "🟦",
+  texthl = "LspDiagnosticsSignHint",
+  linehl = "",
+  numhl = "",
+})
+vim.fn.sign_define("DapStopped", {
+  text = "⭐️",
+  texthl = "LspDiagnosticsSignInformation",
+  linehl = "DiagnosticUnderlineInfo",
+  numhl = "LspDiagnosticsSignInformation",
+})
 
-vim.keymap.set("n", "<leader>dh", function()
+-- dap global keymaps (runs everywhere)
+local dap_prefix = "<leader>d"
+vim.keymap.set("n", "<F5>", function()
+  dap.continue()
+end)
+vim.keymap.set("n", dap_prefix .. "b", function()
   dap.toggle_breakpoint()
 end)
-vim.keymap.set("n", "<leader>dH", function()
+vim.keymap.set("n", dap_prefix .. "B", function()
   dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end)
--- vim.keymap.set("n", "<A-k>", function()
---   dap.step_out()
--- end)
--- vim.keymap.set("n", "<A-l>", function()
---   dap.step_into()
--- end)
--- vim.keymap.set("n", "<A-j>", function()
---   dap.step_over()
--- end)
--- vim.keymap.set("n", "<A-h>", function()
---   dap.continue()
--- end)
-vim.keymap.set("n", "<leader>dn", function()
-  dap.run_to_cursor()
-end)
-vim.keymap.set("n", "<leader>dc", function()
-  dap.terminate()
-end)
-vim.keymap.set("n", "<leader>dR", function()
-  dap.clear_breakpoints()
-end)
-vim.keymap.set("n", "<leader>de", function()
+vim.keymap.set("n", dap_prefix .. "e", function()
   dap.set_exception_breakpoints({ "all" })
 end)
--- vim.keymap.set("n", "<leader>da", function()
---   require("debugHelper").attach()
--- end)
--- vim.keymap.set("n", "<leader>dA", function()
---   require("debugHelper").attachToRemote()
--- end)
-vim.keymap.set("n", "<leader>di", function()
-  require("dap.ui.widgets").hover()
+vim.keymap.set("n", dap_prefix .. "r", function()
+  dap.run_last()
 end)
-vim.keymap.set("n", "<leader>d?", function()
-  local widgets = require("dap.ui.widgets")
-  widgets.centered_float(widgets.scopes)
+vim.keymap.set("n", dap_prefix .. "R", function()
+  dap.clear_breakpoints()
 end)
-vim.keymap.set("n", "<leader>dk", ':lua require"dap".up()<CR>zz')
-vim.keymap.set("n", "<leader>dj", ':lua require"dap".down()<CR>zz')
-vim.keymap.set("n", "<leader>dr", ':lua require"dap".repl.toggle({}, "vsplit")<CR><C-w>l')
-vim.keymap.set("n", "<leader>dk", function()
-  dap.up()
+vim.keymap.set("n", dap_prefix .. "g", function()
+  dap.session()
 end)
-vim.keymap.set("n", "<leader>dj", function()
-  dap.down()
+vim.keymap.set("n", dap_prefix .. "a", function()
+  require("debugHelper").attach()
 end)
-vim.keymap.set("n", "<leader>dr", function()
-  dap.repl.toggle({}, "vsplit")
+vim.keymap.set("n", dap_prefix .. "A", function()
+  require("debugHelper").attachToRemote()
 end)
+
+-- language specific configs
+-- follow: https://github.com/Pocco81/dap-buddy.nvim/issues/71 for more updates
+
+-- python
+local dap_python = require("dap-python")
+dap_python.setup(os.getenv("XDG_DATA_HOME") .. "/debugpy/bin/python")
+local dap_prefix_python = dap_prefix .. "p"
+vim.keymap.set("n", dap_prefix_python .. "n", dap_python.test_method)
+vim.keymap.set("n", dap_prefix_python .. "f", dap_python.test_class)
+vim.keymap.set("v", dap_prefix_python .. "s", dap_python.debug_selection)
