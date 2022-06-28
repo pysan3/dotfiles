@@ -1,11 +1,12 @@
 return {
   setup = {
     {
-      "neovim/nvim-lspconfig", -- enable LSP
+      "williamboman/nvim-lsp-installer", -- language server installer
       requires = {
         "hrsh7th/cmp-nvim-lsp",
-        "williamboman/nvim-lsp-installer", -- language server installer
+        "neovim/nvim-lspconfig", -- enable LSP
         "jose-elias-alvarez/null-ls.nvim", -- linter
+        "stevearc/aerial.nvim",
       },
     },
     "ray-x/lsp_signature.nvim", -- show hints when writing function arguments
