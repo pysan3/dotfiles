@@ -1,7 +1,7 @@
 local M = {}
 
-M.setup = function()
-  require("aerial").setup({})
+M.setup = function(opts)
+  require("aerial").setup(opts)
 end
 
 return M
