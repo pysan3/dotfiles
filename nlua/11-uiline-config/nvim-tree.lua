@@ -4,7 +4,6 @@ require("nvim-tree").setup({
   hijack_unnamed_buffer_when_opening = true,
   update_cwd = false,
   respect_buf_cwd = true,
-  reload_on_bufenter = true,
   view = {
     width = 40,
     signcolumn = "no",
