@@ -7,41 +7,41 @@ let g:mapleader = "\<Space>"
 set t_Co=256                            " Set color sceme work properly
 set t_ut=
 syntax enable                           " Turn on syntax highlighting
-set termguicolors " Terminal supports more colors
+set termguicolors                       " Terminal supports more colors
 
 "----------------------------------------------------------
 " Extentions
 "----------------------------------------------------------
-filetype plugin on " Allow plugin loading of file types
+filetype plugin on                      " Allow plugin loading of file types
 
 "----------------------------------------------------------
 " Fonts and letters
 "----------------------------------------------------------
-set encoding=utf-8                      " Set the character encoding used internally by nvim
+set encoding=utf-8                            " Set the character encoding used internally by nvim
 scriptencoding utf-8
-set fileencoding=utf-8                  " Set the character encoding of the file where the current buffer is located
-set fileencodings=utf-8,ucs-boms,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
-set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
-set ambiwidth=single " □や○文字が崩れる問題を解決
+set fileencoding=utf-8                        " Set the character encoding of the file where the current buffer is located
+set fileencodings=utf-8,ucs-boms,euc-jp,cp932 " Order of file encoding guesses
+set fileformats=unix,dos,mac                  " Order of eol type guesses (\r\n, \n)
+set ambiwidth=single                          " Patch for multi-byte letters to appear correctly
 set tildeop
 
 "----------------------------------------------------------
 " Cursor
 "----------------------------------------------------------
-set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
-set cursorline " Highlight the current line
+set whichwrap=b,s,h,l,<,>,[,],~         " Move to the next line with these commands
+set cursorline                          " Highlight the current line
 set backspace=indent,eol,start
 
 set hidden                              " Allow switching from unsaved buffers
-" set number " Allow absolute line numbers
-set relativenumber " Allow relative line numbers
-set numberwidth=1 " Set the width of the number column, default is 4
+" set number                            " Allow absolute line numbers
+set relativenumber                      " Allow relative line numbers
+set numberwidth=1                       " Set the width of the number column, default is 4
 set mouse=a                             " Enable your mouse
 " set showbreak=↪
-set iskeyword+=-                      	" treat dash separated words as a word text object"
-set scrolloff=12 " Set how many lines are always displayed on the upper and lower sides of the cursor
+set iskeyword+=-                      	" treat dash separated words as a word text object
+set scrolloff=12                        " Set how many lines are always displayed on the upper and lower sides of the cursor
 set wrap
-set sidescrolloff=11 " Set how many columns are always displayed to the left and right of the cursor
+set sidescrolloff=11                    " Set how many columns are always displayed to the left and right of the cursor
 
 "----------------------------------------------------------
 " Memory Usage
@@ -53,12 +53,12 @@ set mmp=2000000
 "----------------------------------------------------------
 set pumheight=10                        " Set the height of the completion menu
 set cmdheight=1                         " More space for displaying messages
-set showcmd " Show command line
+set showcmd                             " Show command line
 set splitbelow                          " Horizontal splits will automatically be below
 set splitright                          " Vertical splits will automatically be to the right
 set background=dark                     " Set background mode
-set title "Allow the window to display the edited filename
-set autoread " Automatically read files modified in other editors
+set title                               "Allow the window to display the edited filename
+set autoread                            " Automatically read files modified in other editors
 
 "----------------------------------------------------------
 " Session
@@ -68,43 +68,43 @@ set sessionoptions=buffers,curdir,folds,help,tabpages,winsize,globals " Set opti
 "----------------------------------------------------------
 " Search
 "----------------------------------------------------------
-set incsearch " Highlight while searching
-set ignorecase " Ignore case when searching
-set smartcase " Intelligent case sensitivity when searching (if there is upper case, turn off case ignoring)
-set hlsearch " Allow search highlighting
-set wrapscan " Allows to search the entire file repeatedly
+set incsearch   " Highlight while searching
+set ignorecase  " Ignore case when searching
+set smartcase   " Intelligent case sensitivity when searching (if there is upper case, turn off case ignoring)
+set hlsearch    " Allow search highlighting
+set wrapscan    " Allows to search the entire file repeatedly
 
 "----------------------------------------------------------
 " Tab, Intent
 "----------------------------------------------------------
-set expandtab " タブ入力を複数の空白入力に置き換える
-set tabstop=4 " 画面上でタブ文字が占める幅
-set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
-set autoindent " Auto-indent, press o on the current line, the new line is always aligned with the current line
-set smartindent " Set smart indent
+set expandtab                           " Use spaces instead of tabs
+set tabstop=4                           " Width of a tab displayed
+set softtabstop=4                       " Delete 4 spaces at once
+set autoindent                          " Auto-indent, press o on the current line, the new line is always aligned with the current line
+set smartindent                         " Set smart indent
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
-set shiftwidth=4 " smartindentで増減する幅
+set shiftwidth=4                        " The width of indentation
 set showtabline=2                       " Always show tabs
 set formatoptions-=cro
 set colorcolumn=120
-set signcolumn=yes " Set the width of the symbol column, if not set, it will cause an exception when displaying the icon
+set signcolumn=yes                      " Set the width of the symbol column, if not set, it will cause an exception when displaying the icon
 
 "----------------------------------------------------------
 " Trailing Spaces
 "----------------------------------------------------------
 set conceallevel=2                      " So that I can see `` in markdown files
-set concealcursor=""
-set foldenable " Open fold
-set foldmethod=indent " Set the folding method
-set foldcolumn=0 " Show collapsed hierarchy in symbol column
-set foldlevel=100 " Maximum folding level
+set concealcursor=
+set foldenable                          " Open fold
+set foldmethod=indent                   " Set the folding method
+set foldcolumn=0                        " Show collapsed hierarchy in symbol column
+set foldlevel=100                       " Maximum folding level
 
 "----------------------------------------------------------
 " Backup, Swapfile
 "----------------------------------------------------------
 set nobackup                            " Whether to create a backup file
 set nowritebackup                       " Whether to create backups when writing files
-set noswapfile " Whether to create a swap file
+set noswapfile                          " Whether to create a swap file
 
 "----------------------------------------------------------
 " Vim commands wait time
@@ -120,8 +120,8 @@ set shortmess=aTcoOsWAIcF
 "----------------------------------------------------------
 " Command mode
 "----------------------------------------------------------
-set wildmenu " Set completion in command mode to appear as a menu
-set history=5000 " 保存するコマンド履歴の数
+set wildmenu                            " Set completion in command mode to appear as a menu
+set history=5000                        " Number of command history saved
 
 "----------------------------------------------------------
 " Others
