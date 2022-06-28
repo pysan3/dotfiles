@@ -96,12 +96,15 @@ end
 
 -- auto function with dap
 dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui_set_keybinds()
   dapui.open()
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
   dapui.close()
+  dapui_restore_keybinds()
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
+  dapui_restore_keybinds()
 end
 vim.keymap.set({ "n", "v" }, "<leader>dk", dapui.eval)
