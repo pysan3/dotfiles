@@ -60,6 +60,7 @@ telescope.setup({
 
 telescope.load_extension("fzf")
 telescope.load_extension("media_files")
+telescope.load_extension("dap")
 
 local ts_builtin = require("telescope.builtin")
 local ts_prefix = "<leader>f"
@@ -79,9 +80,28 @@ vim.keymap.set("n", ts_prefix .. "t", ts_builtin.lsp_document_symbols)
 vim.keymap.set("n", ts_prefix .. "y", ts_builtin.lsp_workspace_symbols)
 
 -- telescope git bindings
-vim.keymap.set("n", ts_prefix .. "gc", ts_builtin.git_commits)
-vim.keymap.set("n", ts_prefix .. "gl", ts_builtin.git_bcommits)
-vim.keymap.set("n", ts_prefix .. "gb", ts_builtin.git_branches)
+local ts_prefix_git = ts_prefix .. "g"
+vim.keymap.set("n", ts_prefix_git .. "c", ts_builtin.git_commits)
+vim.keymap.set("n", ts_prefix_git .. "l", ts_builtin.git_bcommits)
+vim.keymap.set("n", ts_prefix_git .. "b", ts_builtin.git_branches)
+
+-- telescope dap bindings
+local ts_prefix_dap = ts_prefix .. "d"
+vim.keymap.set("n", ts_prefix_dap .. "m", function()
+  telescope.extensions.dap.commands({})
+end)
+vim.keymap.set("n", ts_prefix_dap .. "c", function()
+  telescope.extensions.dap.configurations({})
+end)
+vim.keymap.set("n", ts_prefix_dap .. "b", function()
+  telescope.extensions.dap.list_breakpoints({})
+end)
+vim.keymap.set("n", ts_prefix_dap .. "v", function()
+  telescope.extensions.dap.variables({})
+end)
+vim.keymap.set("n", ts_prefix_dap .. "f", function()
+  telescope.extensions.dap.frames({})
+end)
 
 -- telescope other bindings
 vim.keymap.set("n", "<leader>" .. ts_prefix .. "c", ts_builtin.colorscheme)
