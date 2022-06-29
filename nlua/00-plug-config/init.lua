@@ -7,6 +7,9 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 local packer = require("packer")
+packer.init({
+  compile_path = vim.fn.stdpath("cache") .. "/plugin/packer_compiled.lua",
+})
 return packer.startup({
   function(use)
     -- stylua: ignore start
