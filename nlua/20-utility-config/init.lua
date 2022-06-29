@@ -2,6 +2,7 @@ return {
   setup = {
     "rcarriga/nvim-notify", -- notifications
     "mbbill/undotree", -- undo tree
+    "ziontee113/color-picker.nvim",
     "klen/nvim-config-local", -- load local config
     "pysan3/autosession.nvim", -- restore previous session
     -- "~/Git/autosession.nvim",
