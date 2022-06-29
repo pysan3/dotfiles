@@ -29,10 +29,12 @@ return packer.startup({
     use({ "nvim-lua/popup.nvim" }) -- An implementation of the Popup API from vim in Neovim
     use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used lots of plugins
 
+    load_sub_dirs("10-color-config")
     load_sub_dirs("10-ts-config")
     load_sub_dirs("11-uiline-config")
     load_sub_dirs("20-utility-config")
     load_sub_dirs("20-register-config")
+    load_sub_dirs("25-telescope-config")
     load_sub_dirs("30-git-config")
     load_sub_dirs("40-terminal-config")
     load_sub_dirs("50-operations-config")

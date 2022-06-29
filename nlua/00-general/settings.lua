@@ -5,6 +5,10 @@ _G.general_info = {
   real_name = "Takuto Itoi",
 }
 
+vim.g.personal_options = {
+  colorscheme = os.getenv("NVIM_COLOR") or "nvcode",
+}
+
 vim.opt.completeopt = "menuone,noselect"
 
 -- global status line

@@ -13,15 +13,5 @@ return {
   },
   install = {
     "Yggdroot/indentLine", -- show indent line with |
-    -- "lunarvim/darkplus.nvim",
-    "christianchiarulli/nvcode-color-schemes.vim",
-    -- "EdenEast/nightfox.nvim",
-    -- "joshdick/onedark.vim",
-    "ellisonleao/gruvbox.nvim",
-    -- "ulwlu/elly.vim",
-    "tomasiser/vim-code-dark",
-    -- "arcticicestudio/nord-vim",
-    -- "chriskempson/vim-tomorrow-theme",
-    -- "doki-theme/doki-theme-vim",
   },
 }
