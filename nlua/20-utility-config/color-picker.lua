@@ -1,5 +1,5 @@
 local opts = { noremap = true, silent = true }
-local map = "<leader><leader>c"
+local map = "\\\\c"
 vim.keymap.set("n", map, "<cmd>PickColor<cr>", opts)
 vim.keymap.set("i", map, "<cmd>PickColorInsert<cr>", opts)
 
