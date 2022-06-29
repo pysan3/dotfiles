@@ -11,20 +11,10 @@ return {
     "windwp/nvim-spectre", -- better search and replace plugin
     { "ray-x/sad.nvim", requires = "ray-x/guihua.lua" }, -- search and replace with fzf
     "numToStr/Navigator.nvim",
-    {
-      "nvim-telescope/telescope.nvim",
-      requires = {
-        "BurntSushi/ripgrep",
-        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-        "nvim-telescope/telescope-media-files.nvim",
-        "nvim-telescope/telescope-dap.nvim",
-      },
-    },
   },
   install = {
     { "romainl/vim-cool", config = "vim.g.CoolTotalMatches = 1" },
     "AndrewRadev/bufferize.vim",
     { "inkarkat/vim-SearchHighlighting", requires = { "inkarkat/vim-ingo-library" } }, -- search word under corsor
-    "nvim-telescope/telescope-symbols.nvim",
   },
 }
