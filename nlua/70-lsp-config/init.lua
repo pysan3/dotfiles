@@ -6,7 +6,6 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "neovim/nvim-lspconfig", -- enable LSP
         "jose-elias-alvarez/null-ls.nvim", -- linter
-        "jubnzv/virtual-types.nvim",
       },
     },
     "ray-x/lsp_signature.nvim", -- show hints when writing function arguments

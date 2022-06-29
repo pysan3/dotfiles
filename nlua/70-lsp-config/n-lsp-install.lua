@@ -145,7 +145,6 @@ local global_opts = {
     end
     lsp_base.lsp_keymaps(bufnr)
     lsp_base.lsp_highlight_document(client)
-    require("virtualtypes").on_attach(client, bufnr)
     require("aerial").on_attach(client, bufnr)
   end,
 }
