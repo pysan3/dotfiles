@@ -2,7 +2,7 @@ return {
   setup = {
     "terryma/vim-expand-region", -- + to expand, _ to shrink
     -- "unblevable/quick-scope", -- highlights f, t, F, T
-    "justinmk/vim-sneak", -- s, S to jump anywhere
+    -- "justinmk/vim-sneak", -- s, S to jump anywhere
     "phaazon/hop.nvim",
   },
   install = {
