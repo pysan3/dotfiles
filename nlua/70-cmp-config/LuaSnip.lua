@@ -62,6 +62,8 @@ luasnip.config.set_config({
 -- LuaSnip startup config
 local util = require("luasnip.util.util")
 luasnip.config.setup({
+  region_check_events = "CursorMoved", -- "CursorMoved", "CursorHold", "InsertEnter"
+  delete_check_events = "TextChanged",
   -- extend ft snippets to load
   load_ft_func = require("luasnip.extras.filetype_functions").extend_load_ft({
     c = { "cpp" },
@@ -150,7 +152,7 @@ local function window_for_choiceNode(choiceNode)
     current_nsid,
     row_selection - 1, -- row_selection is 0-indexed
     0,
-    { hl_group = "DiffAdd", end_line = row_selection + row_offset }
+    { hl_group = "DiffAdd", end_row = row_selection + row_offset - 1 }
   )
 
   -- shows window at a beginning of choiceNode.
@@ -160,7 +162,7 @@ local function window_for_choiceNode(choiceNode)
     height = h,
     bufpos = choiceNode.mark:pos_begin_end(),
     row = h > 2 and 0 or 1,
-    col = h > 2 and vim.api.nvim_get_option("columns") * 0.6 or 1, -- half of the buffer to the right
+    col = h > 2 and vim.opt.colorcolumn:get() or 1, -- snippet selection window on color column if more than one line
     style = "minimal",
     border = "rounded",
   })
