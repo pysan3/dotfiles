@@ -78,7 +78,7 @@ table.insert(
     fmt("def {func}({args}){ret}:\n\t{doc}{body}", {
       func = i(1),
       args = i(2),
-      ret = c(3, { t(""), sn(nil, { t(" -> "), i(1) }) }),
+      ret = c(3, { sn(nil, { t(" -> "), i(1) }), t("") }),
       doc = isn(4, {
         choice_text_node(1, {
           t(""),

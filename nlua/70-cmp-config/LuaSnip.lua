@@ -47,22 +47,10 @@ vim.api.nvim_create_user_command("LsEditLua", function()
   edit_snippet_files("lua", vim.bo.filetype)
 end, {})
 
--- Virtual Text
-local types = require("luasnip.util.types")
-luasnip.config.set_config({
-  ext_opts = {
-    [types.choiceNode] = {
-      active = {
-        virt_text = { { "o", "GruvboxOrange" } },
-      },
-    },
-  },
-})
-
 -- LuaSnip startup config
 local util = require("luasnip.util.util")
 luasnip.config.setup({
-  region_check_events = "CursorMoved", -- "CursorMoved", "CursorHold", "InsertEnter"
+  region_check_events = "InsertEnter", -- "CursorMoved", "CursorHold", "InsertEnter"
   delete_check_events = "TextChanged",
   -- extend ft snippets to load
   load_ft_func = require("luasnip.extras.filetype_functions").extend_load_ft({
@@ -72,6 +60,13 @@ luasnip.config.setup({
     typescript = { "javascript" },
     all = { "_" },
   }),
+  ext_opts = {
+    [require("luasnip.util.types").choiceNode] = {
+      active = {
+        virt_text = { { "o", "GruvboxOrange" } },
+      },
+    },
+  },
   -- allow nested snippet placeholders
   parser_nested_assembler = function(_, snippet)
     local select = function(snip, no_move)
