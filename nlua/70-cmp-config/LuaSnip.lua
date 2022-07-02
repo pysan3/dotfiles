@@ -157,7 +157,7 @@ local function window_for_choiceNode(choiceNode)
     height = h,
     bufpos = choiceNode.mark:pos_begin_end(),
     row = h > 2 and 0 or 1,
-    col = h > 2 and vim.opt.colorcolumn:get() or 1, -- snippet selection window on color column if more than one line
+    col = h > 2 and vim.fn.max(vim.opt.colorcolumn:get()) - vim.fn.getcurpos()[3] - w - 1 or 1, -- snippet selection window on color column if more than one line
     style = "minimal",
     border = "rounded",
   })
