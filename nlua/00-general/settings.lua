@@ -37,3 +37,10 @@ vim.g.loaded_vimball = 1
 vim.g.loaded_vimballPlugin = 1
 vim.g.loaded_zip = 1
 vim.g.loaded_zipPlugin = 1
+
+-- resize splits automatically for tmux
+local wr_group = vim.api.nvim_create_augroup("WinResize", { clear = true })
+vim.api.nvim_create_autocmd(
+  "VimResized",
+  { group = wr_group, pattern = "*", command = "wincmd =", desc = "resize splits automatically for tmux" }
+)
