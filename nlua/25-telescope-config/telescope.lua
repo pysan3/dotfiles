@@ -70,6 +70,7 @@ local ts_builtin = require("telescope.builtin")
 local ts_prefix = "<leader>f"
 
 -- telescope fzf bindings
+vim.keymap.set("n", ts_prefix .. "b", ts_builtin.buffers)
 vim.keymap.set("n", ts_prefix .. "p", ts_builtin.git_files)
 vim.keymap.set("n", ts_prefix .. "l", ts_builtin.find_files)
 vim.keymap.set("n", ts_prefix .. "s", ts_builtin.live_grep)
