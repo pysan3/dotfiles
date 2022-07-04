@@ -84,6 +84,7 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey '^k' up-history
 bindkey '^j' down-history
+bindkey -M viins '^b' insert-last-word
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
