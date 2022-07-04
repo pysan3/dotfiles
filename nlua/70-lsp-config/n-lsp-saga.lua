@@ -17,7 +17,7 @@ local function set_config(_)
     code_action_num_shortcut = true,
     code_action_lightbulb = {
       enable = true,
-      sign = true,
+      sign = false,
       sign_priority = 20,
       virtual_text = true,
     },
