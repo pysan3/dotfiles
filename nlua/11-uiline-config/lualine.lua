@@ -10,8 +10,7 @@ require("lualine").setup({
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch", "diff", "diagnostics" },
-    -- lualine_c = { { "hostname", icon = "@", color = "DevIconTerminal" }, { "filename", path = 3 } },
-    lualine_c = { { "hostname", icon = "@", color = { fg = "#31b53e" } }, { "filename", path = 3 } },
+    lualine_c = { { "hostname", icon = "@", color = { fg = "#16c60c" } }, { "filename", path = 3 } },
     lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_y = { "progress" },
     lualine_z = { "location" },
