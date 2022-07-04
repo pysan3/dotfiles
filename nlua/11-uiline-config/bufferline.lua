@@ -1,5 +1,4 @@
-local bufferline = require("bufferline")
-bufferline.setup({
+require("bufferline").setup({
   options = {
     -- | "ordinal" | "buffer_id" | "both" | f({ ordinal, id, lower, raise }): string,
     numbers = function(_) -- opts
