@@ -48,7 +48,7 @@ end
 local function set_keybinds()
   local opt_silent = { silent = true }
   local opt_noremap = { silent = true, noremap = true }
-  local lsp_prefix = "<leader>e"
+  local lsp_prefix = "<leader>k"
 
   -- Async lsp finder: lsp finder to find the cursor word definition and reference
   vim.keymap.set("n", lsp_prefix .. "f", require("lspsaga.finder").lsp_finder, opt_noremap)
