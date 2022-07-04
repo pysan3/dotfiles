@@ -39,7 +39,7 @@ local function set_config(_)
     rename_action_quit = "<C-c>",
     definition_preview_icon = "丨  ",
     symbol_in_winbar = false, -- winbar support is too buggy for now
-    winbar_separator = " > ",
+    winbar_separator = " ",
     winbar_show_file = true,
     server_filetype_map = {},
   })

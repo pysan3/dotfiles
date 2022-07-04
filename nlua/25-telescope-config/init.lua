@@ -1,5 +1,6 @@
 return {
   setup = {
+    "stevearc/aerial.nvim",
     {
       "nvim-telescope/telescope.nvim",
       requires = {
@@ -11,12 +12,6 @@ return {
     },
   },
   install = {
-    {
-      "stevearc/aerial.nvim",
-      config = function()
-        require("25-telescope-config.aerial-setup")
-      end,
-    },
     "nvim-telescope/telescope-symbols.nvim",
   },
 }
