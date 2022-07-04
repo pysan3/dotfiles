@@ -114,8 +114,7 @@ cmp.setup({
     select = false,
   },
   experimental = {
-    ghost_text = true,
-    -- native_menu = true,
+    -- ghost_text = true,
   },
   window = {
     documentation = {
