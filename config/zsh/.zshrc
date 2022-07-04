@@ -23,31 +23,6 @@ autoload -Uz colors
 export TERM=screen-256color
 colors
 
-# vi mode
-bindkey -v
-bindkey -M viins '^j' vi-cmd-mode
-export KEYTIMEOUT=1
-
-# Change cursor shape for different vi modes.
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-  elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
-  fi
-}
-zle -N zle-keymap-select
-zle-line-init() {
-  zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-  echo -ne "\e[5 q"
-}
-zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-
-# Edit line in vim with ctrl-o:
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^o' edit-command-line
-
 setopt share_history # 他ターミナルとヒストリを共有
 setopt hist_ignore_all_dups # ヒストリを重複表示しない
 setopt hist_ignore_space # Ignore histories starting with space
@@ -58,60 +33,34 @@ SAVEHIST=10000
 HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
 HISTCONTROL=ignoreboth
 
+setopt auto_param_slash # ディレクトリ名の補完で末尾に / を付加
+setopt magic_equal_subst # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
+setopt auto_pushd # 遷移したディレクトリをスタックする
+setopt pushd_ignore_dups # 重複したディレクトリはスタックしない
+setopt sh_word_split # enable word splitting of unquoted expansion in for loop
+
 # PROMPTの色
 PROMPT="%{${fg_bold[green]}%}@%m%{${fg_bold[yellow]}%}>%{${fg_bold[red]}%}>%{${reset_color}%} "
 
-local DEFAULT=$'%{^[[m%}'$
-local RED=$'%{^[[1;31m%}'$
-local YELLOW=$'%{^[[1;33m%}'$
-
-# expansion: =mv -> /bin/mv
-# unsetopt equals
-# 複数ファイルのmv: zmv *.txt *.txt.bk
-# autoload -Uz zmv
-# alias zmv='noglob zmv -W'
-
-setopt auto_param_slash # ディレクトリ名の補完で末尾に / を付加
-setopt magic_equal_subst # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
-
-setopt auto_pushd # 遷移したディレクトリをスタックする
-setopt pushd_ignore_dups # 重複したディレクトリはスタックしない
-
-setopt sh_word_split # enable word splitting of unquoted expansion in for loop
-
-# backspace,deleteキーを使えるように
-# stty erase ^H
-stty erase ""
-bindkey "^?" backward-delete-char
-bindkey "^[[3~" delete-char
-
-# 区切り文字の設定
-# autoload -Uz select-word-style
-# select-word-style default
-# zstyle ':zle:*' word-chars "_-./;@"
-# zstyle ':zle:*' word-style unspecified
-
-# 補完を利用
+# Completion for files
 autoload -Uz compinit
 compinit -d $ZDOTDIR/.zcompdump
 _comp_options+=(globdots)		# Include hidden files.
+export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 zstyle ':completion:*' use-cache true # キャッシュによる補完の高速化
 zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
 zstyle ':completion:*:default' menu select=2 # 補完後、メニュー選択モードになり左右キーで移動が出来る
 zstyle ':completion:*' completer _expand _complete _history _prefix # 補完の出し方
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完で大文字にもマッチ
+zstyle ':completion:*' matcher-list "m:{a-z}={A-Z}" # 補完で大文字にもマッチ
 zstyle ':completion:*' verbose true # 補完を詳細に表示
-zstyle ':completion:*:messages' format '%F{YELLOW}%d%F{DEFAULT}'
-zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d%F{DEFAULT}'
-zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b%F{DEFAULT}'
-zstyle ':completion:*:corrections' format '%F{YELLOW}%B%d ''%F{RED}(errors: %e)%b%F{DEFAULT}'
+zstyle ':completion:*:messages' format "%{${fg_bold[yellow]}%}%d%{${reset_color}%}"
+zstyle ':completion:*:warnings' format "%{${fg_bold[red]}%}No matches for:%{${fg_bold[yellow]}%} %d%{${reset_color}%}"
+zstyle ':completion:*:descriptions' format "%{${fg_bold[yellow]}%}completing %B%d%b%{${reset_color}%}"
+zstyle ':completion:*:corrections' format "%{${fg_bold[yellow]}%}%B%d ""%{${fg_bold[red]}%}(errors: %e)%b%{${reset_color}%}"
 zstyle ':completion:*:options' description 'yes'
-zstyle ':completion:*' group-name ''
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
-export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-
-# git設定
+# git completions and information
 RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
 autoload -Uz vcs_info
 setopt prompt_subst
@@ -123,6 +72,37 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
+# vi mode
+bindkey -v
+export KEYTIMEOUT=20
+bindkey -M viins 'jk' vi-cmd-mode
+bindkey '^[[Z' reverse-menu-complete # shift-tab to go backward in menu
+# use the vi navigation keys in menu completion
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+} && zle -N zle-keymap-select
+zle-line-init() { echo -ne "\e[5 q" } && zle -N zle-line-init
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+# Edit line in vim with ctrl-o:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^o' edit-command-line
+
+# use BackSpace, Delete key
+stty erase ""
+bindkey "^?" backward-delete-char
+bindkey "^[[3~" delete-char
+
 [ -f "$ZDOTDIR/local_rc.zsh" ] && source "$ZDOTDIR/local_rc.zsh"
 [ -f "$ZDOTDIR/rust_rc.zsh" ] && source "$ZDOTDIR/rust_rc.zsh"
 [ -f "$ZDOTDIR/aliases_rc.zsh" ] && source "$ZDOTDIR/aliases_rc.zsh"
@@ -131,6 +111,8 @@ export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source "$XDG_CONFIG_HOME"/fzf/fzf.zsh
+# keybinds for plugins
+bindkey '^l' autosuggest-accept
 
 [ -f "$ZDOTDIR/scripts_rc.zsh" ] && source "$ZDOTDIR/scripts_rc.zsh"
 
