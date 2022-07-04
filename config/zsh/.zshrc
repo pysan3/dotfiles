@@ -18,11 +18,6 @@ export EDITOR='vim'
 export XDG_CONFIG_HOME="$HOME/.config"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
-# ${fg[blue]}等で色が利用できるようにする
-autoload -Uz colors
-export TERM=screen-256color
-colors
-
 setopt share_history # 他ターミナルとヒストリを共有
 setopt hist_ignore_all_dups # ヒストリを重複表示しない
 setopt hist_ignore_space # Ignore histories starting with space
@@ -39,6 +34,10 @@ setopt auto_pushd # 遷移したディレクトリをスタックする
 setopt pushd_ignore_dups # 重複したディレクトリはスタックしない
 setopt sh_word_split # enable word splitting of unquoted expansion in for loop
 
+# ${fg[blue]}等で色が利用できるようにする
+autoload -Uz colors
+export TERM=screen-256color
+colors
 # PROMPTの色
 PROMPT="%{${fg_bold[green]}%}@%m%{${fg_bold[yellow]}%}>%{${fg_bold[red]}%}>%{${reset_color}%} "
 
