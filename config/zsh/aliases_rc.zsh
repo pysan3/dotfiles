@@ -44,10 +44,11 @@ alias yay='yay --noconfirm'
 alias res="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
 function def() {
-  res=$(type $@)
+  res=$(type $@); lesscmd='less'
+  [ $(alias less &>/dev/null; echo $?) -eq 0 ] && lesscmd="$lesscmd -l zsh -pn"
   case $res in
-    *function*)         echo $res && declare -f $@ ;;
-    *builtin*|*alias*)  run-help $@ ;;
+    *function*)         (echo "$res\n" | sed 's/^/# /' && declare -f $@) | eval "$lesscmd" ;;
+    *builtin*|*alias*)  PAGER=true run-help $@ ;;
     *)                  echo $res ;;
   esac
 }
