@@ -5,10 +5,18 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   print("Installing packer close and reopen Neovim...")
   vim.cmd([[packadd packer.nvim]])
 end
-
+local compile_path = string.format("%s/%s", vim.fn.stdpath("cache"), "plugin/packer_compiled.lua")
 local packer = require("packer")
-return packer.startup({
-  function(use)
+
+packer.reset()
+packer.init({
+  compile_path = compile_path,
+  display = { open_fn = require("packer.util").float },
+  autoremove = true,
+})
+vim.cmd(string.format("luafile %s", compile_path))
+
+return packer.startup(function(use)
     -- stylua: ignore start
     local function load_sub_dirs(dir_name)
       local load_ok, plugin_table = pcall(require, dir_name)
@@ -20,33 +28,31 @@ return packer.startup({
         use(plugin)
       end
     end
-    -- stylua: ignore end
+  -- stylua: ignore end
 
-    use({ "lewis6991/impatient.nvim" })
-    require("impatient")
+  use({ "lewis6991/impatient.nvim" })
+  require("impatient")
 
-    use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
-    use({ "nvim-lua/popup.nvim" }) -- An implementation of the Popup API from vim in Neovim
-    use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used lots of plugins
+  use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
+  use({ "nvim-lua/popup.nvim" }) -- An implementation of the Popup API from vim in Neovim
+  use({ "nvim-lua/plenary.nvim" }) -- Useful lua functions used lots of plugins
 
-    load_sub_dirs("10-color-config")
-    load_sub_dirs("10-ts-config")
-    load_sub_dirs("11-uiline-config")
-    load_sub_dirs("20-utility-config")
-    load_sub_dirs("20-register-config")
-    load_sub_dirs("25-telescope-config")
-    load_sub_dirs("30-git-config")
-    load_sub_dirs("40-terminal-config")
-    load_sub_dirs("50-operations-config")
-    load_sub_dirs("50-command-config")
-    load_sub_dirs("60-lang-config")
-    load_sub_dirs("70-cmp-config")
-    load_sub_dirs("70-lsp-config")
-    load_sub_dirs("80-debug-config")
+  load_sub_dirs("10-color-config")
+  load_sub_dirs("10-ts-config")
+  load_sub_dirs("11-uiline-config")
+  load_sub_dirs("20-utility-config")
+  load_sub_dirs("20-register-config")
+  load_sub_dirs("25-telescope-config")
+  load_sub_dirs("30-git-config")
+  load_sub_dirs("40-terminal-config")
+  load_sub_dirs("50-operations-config")
+  load_sub_dirs("50-command-config")
+  load_sub_dirs("60-lang-config")
+  load_sub_dirs("70-cmp-config")
+  load_sub_dirs("70-lsp-config")
+  load_sub_dirs("80-debug-config")
 
-    if PACKER_BOOTSTRAP then
-      packer.sync()
-    end
-  end,
-  config = { display = { open_fn = require("packer.util").float } },
-})
+  if PACKER_BOOTSTRAP then
+    packer.sync()
+  end
+end)
