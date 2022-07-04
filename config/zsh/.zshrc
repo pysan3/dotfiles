@@ -12,7 +12,7 @@
 #   builtin . $@
 # }
 
-export LANG=ja_JP.UTF-8
+export LANG=en_US.utf8
 
 export EDITOR='vim'
 export XDG_CONFIG_HOME="$HOME/.config"
