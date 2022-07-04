@@ -12,7 +12,6 @@ local function set_config(_)
     show_diagnostic_source = true,
     -- add bracket or something with diagnostic source, just have 2 elements
     diagnostic_source_bracket = {},
-    -- use emoji lightbulb in default
     code_action_icon = "💡",
     -- if true can press number to execute the codeaction in codeaction window
     code_action_num_shortcut = true,
@@ -39,8 +38,8 @@ local function set_config(_)
     },
     rename_action_quit = "<C-c>",
     definition_preview_icon = "丨  ",
-    symbol_in_winbar = false,
-    winbar_separator = ">",
+    symbol_in_winbar = false, -- winbar support is too buggy for now
+    winbar_separator = " > ",
     winbar_show_file = true,
     server_filetype_map = {},
   })
