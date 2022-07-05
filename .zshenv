@@ -5,11 +5,6 @@ export XDG_DATA_HOME="$XDG_PREFIX_HOME/share"
 export XDG_STATE_HOME="$XDG_PREFIX_HOME/state"
 export XDG_BIN_HOME="$XDG_PREFIX_HOME/bin"
 export PATH="$XDG_BIN_HOME:$PATH"
-mkdir -p "$XDG_CONFIG_HOME"
-mkdir -p "$XDG_CACHE_HOME"
-mkdir -p "$XDG_DATA_HOME"
-mkdir -p "$XDG_STATE_HOME"
-mkdir -p "$XDG_BIN_HOME"
 
 export skip_global_compinit=1
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"

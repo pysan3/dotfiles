@@ -12,6 +12,12 @@
 #   builtin . $@
 # }
 
+mkdir -p "$XDG_CONFIG_HOME"
+mkdir -p "$XDG_CACHE_HOME"
+mkdir -p "$XDG_DATA_HOME"
+mkdir -p "$XDG_STATE_HOME"
+mkdir -p "$XDG_BIN_HOME"
+
 export LANG=en_US.utf8
 
 export EDITOR='vim'
