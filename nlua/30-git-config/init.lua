@@ -2,7 +2,7 @@ return {
   setup = {
     "lewis6991/gitsigns.nvim",
     "TimUntersberger/neogit",
-    "tpope/vim-fugitive",
+    { "tpope/vim-fugitive", keys = "<leader>l" },
   },
   install = {
     "sindrets/diffview.nvim",
