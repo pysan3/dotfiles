@@ -70,44 +70,44 @@ local ts_builtin = require("telescope.builtin")
 local ts_prefix = "<leader>f"
 
 -- telescope fzf bindings
-vim.keymap.set("n", ts_prefix .. "b", ts_builtin.buffers)
-vim.keymap.set("n", ts_prefix .. "p", ts_builtin.git_files)
-vim.keymap.set("n", ts_prefix .. "l", ts_builtin.find_files)
-vim.keymap.set("n", ts_prefix .. "s", ts_builtin.live_grep)
-vim.keymap.set("n", ts_prefix .. "h", ts_builtin.help_tags)
-vim.keymap.set("n", ts_prefix .. "r", ts_builtin.resume)
-vim.keymap.set("n", ts_prefix .. "j", ts_builtin.jumplist)
-vim.keymap.set("n", ts_prefix .. "e", ts_builtin.symbols)
-vim.keymap.set("n", ts_prefix .. "i", telescope.extensions.media_files.media_files)
+vim.keymap.set("n", ts_prefix .. "b", ts_builtin.buffers, { desc = "ts.buffers" })
+vim.keymap.set("n", ts_prefix .. "p", ts_builtin.git_files, { desc = "ts.git_files" })
+vim.keymap.set("n", ts_prefix .. "l", ts_builtin.find_files, { desc = "ts.find_files" })
+vim.keymap.set("n", ts_prefix .. "s", ts_builtin.live_grep, { desc = "ts.live_grep" })
+vim.keymap.set("n", ts_prefix .. "h", ts_builtin.help_tags, { desc = "ts.help_tags" })
+vim.keymap.set("n", ts_prefix .. "r", ts_builtin.resume, { desc = "ts.resume" })
+vim.keymap.set("n", ts_prefix .. "j", ts_builtin.jumplist, { desc = "ts.jumplist" })
+vim.keymap.set("n", ts_prefix .. "e", ts_builtin.symbols, { desc = "ts.symbols" })
+vim.keymap.set("n", ts_prefix .. "i", telescope.extensions.media_files.media_files, { desc = "ts.media_files" })
 
 -- telescope lsp bindings
-vim.keymap.set("n", ts_prefix .. "t", ts_builtin.lsp_document_symbols)
-vim.keymap.set("n", ts_prefix .. "y", ts_builtin.lsp_workspace_symbols)
-vim.keymap.set("n", ts_prefix .. "a", telescope.extensions.aerial.aerial)
+vim.keymap.set("n", ts_prefix .. "t", ts_builtin.lsp_document_symbols, { desc = "ts.lsp_document_symbols" })
+vim.keymap.set("n", ts_prefix .. "y", ts_builtin.lsp_workspace_symbols, { desc = "ts.lsp_workspace_symbols" })
+vim.keymap.set("n", ts_prefix .. "a", telescope.extensions.aerial.aerial, { desc = "ts.aerial" })
 
 -- telescope git bindings
 local ts_prefix_git = ts_prefix .. "g"
-vim.keymap.set("n", ts_prefix_git .. "c", ts_builtin.git_commits)
-vim.keymap.set("n", ts_prefix_git .. "l", ts_builtin.git_bcommits)
-vim.keymap.set("n", ts_prefix_git .. "b", ts_builtin.git_branches)
+vim.keymap.set("n", ts_prefix_git .. "c", ts_builtin.git_commits, { desc = "ts.git_commits" })
+vim.keymap.set("n", ts_prefix_git .. "l", ts_builtin.git_bcommits, { desc = "ts.git_bcommits" })
+vim.keymap.set("n", ts_prefix_git .. "b", ts_builtin.git_branches, { desc = "ts.git_branches" })
 
 -- telescope dap bindings
 local ts_prefix_dap = ts_prefix .. "d"
 vim.keymap.set("n", ts_prefix_dap .. "m", function()
   telescope.extensions.dap.commands({})
-end)
+end, { desc = "ts.dap.commands({})" })
 vim.keymap.set("n", ts_prefix_dap .. "c", function()
   telescope.extensions.dap.configurations({})
-end)
+end, { desc = "ts.dap.configurations({})" })
 vim.keymap.set("n", ts_prefix_dap .. "b", function()
   telescope.extensions.dap.list_breakpoints({})
-end)
+end, { desc = "ts.dap.list_breakpoints({})" })
 vim.keymap.set("n", ts_prefix_dap .. "v", function()
   telescope.extensions.dap.variables({})
-end)
+end, { desc = "ts.dap.variables({})" })
 vim.keymap.set("n", ts_prefix_dap .. "f", function()
   telescope.extensions.dap.frames({})
-end)
+end, { desc = "ts.dap.frames({})" })
 
 -- telescope other bindings
-vim.keymap.set("n", "<leader>" .. ts_prefix .. "c", ts_builtin.colorscheme)
+vim.keymap.set("n", "<leader>" .. ts_prefix .. "c", ts_builtin.colorscheme, { desc = "ts.colorscheme" })

@@ -51,20 +51,22 @@ M.lsp_highlight_document = function(client)
 end
 
 M.lsp_keymaps = function(bufnr)
-  local opts = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-  -- vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-  -- vim.keymap.set("n", "<leader>nh", vim.lsp.buf.signature_help, opts)
-  -- vim.keymap.set("n", "<leader>cn", vim.lsp.buf.rename, opts)
-  -- vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, opts)
-  -- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-  -- vim.keymap.set("n", "<leader>k", vim.diagnostic.open_float, opts)
-  -- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-  -- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-  -- vim.keymap.set("n", "gl", vim.diagnostic.open_float)
-  vim.keymap.set("n", "<leader>nl", vim.diagnostic.setloclist, opts)
+  local function getopts(desc)
+    return { noremap = true, silent = true, buffer = bufnr, desc = desc }
+  end
+  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, getopts("vim.lsp.buf.declaration"))
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, getopts("vim.lsp.buf.definition"))
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, getopts("vim.lsp.buf.implementation"))
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, getopts("vim.lsp.buf.hover"))
+  vim.keymap.set("n", "<leader>nh", vim.lsp.buf.signature_help, getopts("vim.lsp.buf.signature_help"))
+  vim.keymap.set("n", "<leader>cn", vim.lsp.buf.rename, getopts("vim.lsp.buf.rename"))
+  vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, getopts("vim.lsp.buf.references"))
+  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, getopts("vim.lsp.buf.code_action"))
+  vim.keymap.set("n", "<leader>k", vim.diagnostic.open_float, getopts("vim.diagnostic.open_float"))
+  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, getopts("vim.diagnostic.goto_prev"))
+  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, getopts("vim.diagnostic.goto_next"))
+  vim.keymap.set("n", "gl", vim.diagnostic.open_float, getopts("vim.diagnostic.open_float"))
+  vim.keymap.set("n", "<leader>nl", vim.diagnostic.setloclist, getopts("vim.diagnostic.setloclist"))
   vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 end
 
