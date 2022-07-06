@@ -63,7 +63,7 @@ def get_windows_gateway(configs):
 if __name__ == "__main__":
     configs = get_configs()
 
-    argv = sys.argv[1]
+    argv = sys.argv[1] if len(sys.argv) >= 2 else None
 
     if argv == 'display':
         print(get_wsl_ipaddress(configs))
