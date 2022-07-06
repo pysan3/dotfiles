@@ -50,8 +50,8 @@ end, {})
 -- LuaSnip startup config
 local util = require("luasnip.util.util")
 luasnip.config.setup({
-  region_check_events = "InsertEnter", -- "CursorMoved", "CursorHold", "InsertEnter"
-  delete_check_events = "TextChanged",
+  region_check_events = "InsertEnter,CursorMoved", -- "CursorMoved", "CursorHold", "InsertEnter"
+  delete_check_events = "TextChanged,CursorMoved",
   -- extend ft snippets to load
   load_ft_func = require("luasnip.extras.filetype_functions").extend_load_ft({
     c = { "cpp" },

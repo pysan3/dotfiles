@@ -31,8 +31,8 @@ cmp.setup({
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
-    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable, -- disable default keybind
     ["<C-e>"] = cmp.mapping(function(fallback)
@@ -56,16 +56,8 @@ cmp.setup({
         luasnip.jump(-1)
       end, fallback)
     end, { "i", "s" }),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      call_with_fallback(cmp.visible(), function()
-        cmp.confirm({ select = true })
-      end, fallback)
-    end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      call_with_fallback(cmp.visible(), function()
-        cmp.select_prev_item()
-      end, fallback)
-    end, { "i", "s" }),
+    ["<Tab>"] = cmp.mapping.confirm({ select = true }),
+    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
   },
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
