@@ -14,7 +14,9 @@ packer.init({
   display = { open_fn = require("packer.util").float },
   autoremove = true,
 })
-vim.cmd(string.format("luafile %s", compile_path))
+if vim.fn.filereadable(compile_path) ~= 0 then
+  vim.cmd(string.format("luafile %s", compile_path))
+end
 
 return packer.startup(function(use)
     -- stylua: ignore start
