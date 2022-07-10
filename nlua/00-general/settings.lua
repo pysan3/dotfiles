@@ -7,6 +7,10 @@ _G.general_info = {
 
 vim.g.personal_options = {
   colorscheme = os.getenv("NVIM_COLOR") or "nvcode",
+  lsp_saga = {
+    enable = true,
+    winbar = false,
+  },
 }
 
 vim.opt.completeopt = "menuone,noselect"

@@ -40,7 +40,7 @@ local function set_config(_)
     definition_preview_icon = "丨  ",
     symbol_in_winbar = {
       in_custom = false,
-      enable = false,
+      enable = vim.g.personal_options.lsp_saga.winbar,
       separator = "  ",
       show_file = true,
       click_support = true,
