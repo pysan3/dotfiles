@@ -8,8 +8,8 @@ local function set_config(_)
     border_style = "rounded", -- "single" | "double" | "rounded" | "bold" | "plus"
     -- { bufnr, code, col, end_col, end_lnum, lnum, message, severity, source }
     diagnostic_header = { " ", " ", " ", "ﴞ " },
-    move_in_saga = { prev = "<C-p>", next = "<C-n>" },
     show_diagnostic_source = true,
+    move_in_saga = { prev = "<C-p>", next = "<C-n>" },
     -- add bracket or something with diagnostic source, just have 2 elements
     diagnostic_source_bracket = {},
     code_action_icon = "💡",
@@ -34,13 +34,17 @@ local function set_config(_)
     },
     code_action_keys = {
       quit = "q",
-      exec = "<CR>",
+      exec = "e",
     },
     rename_action_quit = "<C-c>",
     definition_preview_icon = "丨  ",
-    symbol_in_winbar = false, -- winbar support is too buggy for now
-    winbar_separator = "  ",
-    winbar_show_file = true,
+    symbol_in_winbar = {
+      in_custom = false,
+      enable = false,
+      separator = "  ",
+      show_file = true,
+      click_support = true,
+    },
     server_filetype_map = {},
   })
 end
