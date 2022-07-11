@@ -215,7 +215,6 @@ neotree.setup({
     {
       event = "file_opened",
       handler = function(_)
-        print("file_opened")
         neotree.close_all()
       end,
     },
