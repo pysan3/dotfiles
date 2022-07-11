@@ -17,4 +17,6 @@ nvim/autoload/plugged
 !nvim/snippets
 !nvim/UltiSnips
 
+!nvim.bak/
+
 !lynx.cfg

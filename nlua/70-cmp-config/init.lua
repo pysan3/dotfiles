@@ -6,7 +6,6 @@ return {
       "numToStr/Comment.nvim",
       requires = "JoosepAlviste/nvim-ts-context-commentstring",
     },
-    -- { "SirVer/ultisnips", requires = { { "honza/vim-snippets", rtp = "." } } },
     {
       "L3MON4D3/LuaSnip",
       requires = {
@@ -28,7 +27,6 @@ return {
         "f3fora/cmp-spell",
         "uga-rosa/cmp-dictionary",
         "saadparwaiz1/cmp_luasnip",
-        -- "quangnguyen30192/cmp-nvim-ultisnips",
       },
     },
   },
