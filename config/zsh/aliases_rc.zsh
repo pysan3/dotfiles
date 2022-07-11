@@ -25,6 +25,7 @@ alias l='ls -1F --color=auto'
 alias tree='tree -a -I "\.DS_Store|\.git|node_modules|vendor\/bundle" -N'
 alias grep='grep --color=auto'
 alias e='exit 0'
+alias c='clear'
 alias p='python'
 
 alias rm='rm -i --preserve-root'
