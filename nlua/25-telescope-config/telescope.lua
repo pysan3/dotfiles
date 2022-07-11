@@ -84,6 +84,7 @@ vim.keymap.set("n", ts_prefix .. "i", telescope.extensions.media_files.media_fil
 vim.keymap.set("n", ts_prefix .. "t", ts_builtin.lsp_document_symbols, { desc = "ts.lsp_document_symbols" })
 vim.keymap.set("n", ts_prefix .. "y", ts_builtin.lsp_workspace_symbols, { desc = "ts.lsp_workspace_symbols" })
 vim.keymap.set("n", ts_prefix .. "a", telescope.extensions.aerial.aerial, { desc = "ts.aerial" })
+vim.keymap.set("n", ts_prefix .. "m", "<Cmd>TodoTelescope<CR>", { desc = "TodoTelescope @folke/todo-comments.nvim" })
 
 -- telescope git bindings
 local ts_prefix_git = ts_prefix .. "g"
