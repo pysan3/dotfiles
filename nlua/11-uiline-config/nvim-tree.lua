@@ -7,6 +7,7 @@ require("nvim-tree").setup({
   view = {
     width = 40,
     signcolumn = "no",
+    centralize_selection = true,
     mappings = {
       custom_only = false,
       list = {
@@ -18,11 +19,28 @@ require("nvim-tree").setup({
       },
     },
   },
+  filters = {
+    dotfiles = true,
+    custom = { ".*:Zone\\.Identifier$" },
+  },
   renderer = {
+    full_name = true,
     icons = {
       show = { git = false, folder = true, file = true, folder_arrow = true },
+      git_placement = "after",
       glyphs = {
         default = "",
+        git = {
+          -- added = "✚",
+          deleted = "",
+          -- modified = "",
+          renamed = "凜",
+          untracked = "✚",
+          ignored = "",
+          unstaged = "",
+          staged = "",
+          -- conflict = "",
+        },
       },
     },
     indent_markers = {
@@ -63,6 +81,4 @@ require("nvim-tree").setup({
   },
 })
 
-vim.cmd([[
-nnoremap <leader>e :NvimTreeFindFileToggle<CR>
-]])
+vim.keymap.set("n", "<leader>E", "<Cmd>NvimTreeFindFileToggle<CR>", { remap = false, silent = true })

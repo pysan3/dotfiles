@@ -1,13 +1,17 @@
 return {
   setup = {
     "norcalli/nvim-colorizer.lua",
-    {
-      "kyazdani42/nvim-web-devicons",
-      setup = function()
-        return vim.fn.has("termguicolors") == 1 and vim.cmd("set termguicolors")
-      end,
-    },
+    "kyazdani42/nvim-web-devicons",
     "kyazdani42/nvim-tree.lua", -- nvim tree
+    {
+      "nvim-neo-tree/neo-tree.nvim",
+      -- branch = "v2.x",
+      branch = "main",
+      requires = {
+        "MunifTanjim/nui.nvim",
+        { "s1n7ax/nvim-window-picker", tag = "1.*" },
+      },
+    },
     "akinsho/bufferline.nvim", -- bufferline
     "nvim-lualine/lualine.nvim", -- lualine
   },

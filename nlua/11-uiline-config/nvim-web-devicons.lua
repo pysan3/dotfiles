@@ -1,7 +1,7 @@
 local devicons = require("nvim-web-devicons")
 
 devicons.setup({
-  -- your personnal icons can go here (to override)
+  -- your personal icons can go here (to override)
   -- you can specify color or cterm_color instead of specifying both of them
   -- DevIcon will be appended to `name`
   override = {
@@ -18,7 +18,7 @@ devicons.setup({
     snippets = {
       icon = "",
       color = "#DBC63E",
-      name = "UltiSnips",
+      name = "Snippets",
     },
     ["poetry.lock"] = {
       icon = "",
@@ -35,7 +35,9 @@ local default_icons = devicons.get_icons()
 devicons.set_icon({
   pyi = default_icons.pyd,
   latex = default_icons.tex,
+  [".latexmkrc"] = default_icons.tex,
   sty = default_icons.tex,
   [".pylintrc"] = default_icons.toml,
   [".python-version"] = default_icons.toml,
+  ["Makefile"] = default_icons.makefile,
 })
