@@ -27,6 +27,14 @@ return {
         vim.g.vscode_italic_comment = 1
       end),
     },
+    {
+      "mhartington/oceanic-next",
+      cond = vim.g.personal_options.colorscheme == "OceanicNext",
+      config = set_colorscheme(function()
+        vim.g.oceanic_next_terminal_bold = 1
+        vim.g.oceanic_next_terminal_italic = 1
+      end),
+    },
     -- "EdenEast/nightfox.nvim",
     -- "joshdick/onedark.vim",
     -- "lunarvim/darkplus.nvim",
