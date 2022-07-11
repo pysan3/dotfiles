@@ -174,7 +174,7 @@ neotree.setup({
     },
     bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root
     filtered_items = {
-      visible = true, -- when true, they will just be displayed differently than normal items
+      visible = false, -- when true, they will just be displayed differently than normal items
       force_visible_in_empty_folder = false,
       show_hidden_count = true,
       hide_dotfiles = false,

@@ -4,6 +4,7 @@ return {
     "plasticboy/vim-markdown",
     "dkarter/bullets.vim",
     "jubnzv/mdeval.nvim",
+    { "dhruvasagar/vim-table-mode", ft = { "html", "markdown", "NeogitCommitMessage" } },
   },
   install = {
     "tpope/vim-abolish",
