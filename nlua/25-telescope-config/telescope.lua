@@ -78,7 +78,8 @@ vim.keymap.set("n", ts_prefix .. "h", ts_builtin.help_tags, { desc = "ts.help_ta
 vim.keymap.set("n", ts_prefix .. "r", ts_builtin.resume, { desc = "ts.resume" })
 vim.keymap.set("n", ts_prefix .. "j", ts_builtin.jumplist, { desc = "ts.jumplist" })
 vim.keymap.set("n", ts_prefix .. "e", ts_builtin.symbols, { desc = "ts.symbols" })
-vim.keymap.set("n", ts_prefix .. "c", ts_builtin.commands, { desc = "ts.commands" })
+vim.keymap.set("n", ts_prefix .. "C", ts_builtin.commands, { desc = "ts.commands" })
+vim.keymap.set("n", ts_prefix .. "c", ts_builtin.command_history, { desc = "ts.command_history" })
 vim.keymap.set("n", ts_prefix .. "i", telescope.extensions.media_files.media_files, { desc = "ts.media_files" })
 
 -- telescope lsp bindings
