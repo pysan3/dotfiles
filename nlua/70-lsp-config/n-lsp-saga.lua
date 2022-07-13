@@ -24,13 +24,13 @@ local function set_config(_)
     finder_separator = "  ",
     max_preview_lines = 10,
     finder_action_keys = {
-      open = "o",
+      open = "e",
       vsplit = "s",
       split = "i",
       tabe = "t",
       quit = "q",
       scroll_down = "<C-f>",
-      scroll_up = "<C-b>", -- quit can be a table
+      scroll_up = "<C-b>",
     },
     code_action_keys = {
       quit = "q",

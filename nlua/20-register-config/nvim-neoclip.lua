@@ -38,7 +38,7 @@ require("neoclip").setup({
 require("telescope").load_extension("neoclip")
 
 vim.cmd([[
-nnoremap <leader>fc <cmd>Telescope neoclip<CR>
+nnoremap <leader>fb <cmd>Telescope neoclip<CR>
 nnoremap <leader>fq <cmd>Telescope macroscope<CR>
 inoremap <C-b> <Esc><CMD>Telescope neoclip<CR>
 ]])
