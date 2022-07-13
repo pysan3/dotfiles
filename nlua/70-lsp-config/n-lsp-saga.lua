@@ -43,7 +43,19 @@ local function set_config(_)
       enable = vim.g.personal_options.lsp_saga.winbar,
       separator = "  ",
       show_file = true,
-      click_support = true,
+      click_support = function(node, clicks, button, modifiers)
+        local st = node.range.start
+        local en = node.range["end"]
+        if button == "l" then -- left click: jump to start
+          vim.fn.cursor(st.line + 1, st.character + 1)
+        elseif button == "r" then -- right click: jump to end
+          vim.fn.cursor(en.line + 1, en.character + 1)
+        elseif button == "m" then -- select whole region
+          vim.fn.cursor(st.line + 1, st.character + 1)
+          vim.cmd("normal v")
+          vim.fn.cursor(en.line + 1, en.character + 1)
+        end
+      end,
     },
     server_filetype_map = {},
   })
