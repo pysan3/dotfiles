@@ -26,6 +26,26 @@ for f in $(command ls -Ap | grep -v / | grep -v '\.sh' | grep -v '\.zsh$' | grep
   fi
 done
 
+# create symlink for bin files to $XDG_BIN_HOME
+if [ -z "$XDG_BIN_HOME" ]; then
+  XDG_BIN_HOME="$HOME/.local/bin"
+  info "$(tput setaf 4)XDG_BIN_HOME$(tput sgr0) := $HOME/.local/bin"
+fi
+for f in $(command find "bin" -type f); do
+  file=${f#"bin/"}
+  if [ ! -f "$XDG_BIN_HOME/$file" ]; then
+    dir_name=$(dirname "$XDG_BIN_HOME/$file")
+    mkdir -p "$dir_name"
+    warning "Created dir: $dir_name"
+    ln -s "$DOTFILES/$f" "$XDG_BIN_HOME/$file"
+    info "Created a symbolic link of $f in $dir_name"
+  elif [ "$XDG_BIN_HOME/$file" -ef "$DOTFILES/$f" ]; then
+    info "Symlink to $f is already set"
+  else
+    error "$XDG_CONFIG_HOME/$f already exists. Cannot overwrite"
+  fi
+done
+
 # create and copy configs in $XDG_CONFIG_HOME
 if [ -z "$XDG_CONFIG_HOME" ]; then
   XDG_CONFIG_HOME="$HOME/.config"

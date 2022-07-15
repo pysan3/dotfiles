@@ -239,6 +239,17 @@ TPM_INSTALL_DIR="$XDG_DATA_HOME/tmux/plugins/tpm"
 update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm
 info 'tmux setup done'
 
+function install_log_rotate () {
+  update_git_repo "$XDG_DATA_HOME/log_rotate" https://github.com/ShawnFeng0/log_rotate.git
+  current_dir="$PWD"
+  cd "$XDG_DATA_HOME/log_rotate"
+  git submodule update --init --recursive
+  cmake -B build && make -C build
+  ln -s $(realpath build/log_rotate) "$XDG_BIN_HOME"
+  cd "$current_dir"
+}
+command -v 'log_rotate' &>/dev/null && info 'log_rotate found' || install_log_rotate
+
 # install protoc from source
 command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
 if checkyes 'Install protoc from source?'; then
