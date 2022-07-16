@@ -7,6 +7,7 @@ return {
         "neovim/nvim-lspconfig", -- enable LSP
         "jose-elias-alvarez/null-ls.nvim", -- linter
         { "glepnir/lspsaga.nvim", branch = "main" },
+        "andrewferrier/textobj-diagnostic.nvim",
       },
     },
     "ray-x/lsp_signature.nvim", -- show hints when writing function arguments
