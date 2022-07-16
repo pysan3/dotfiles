@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+if ! command -v "log_rotate" &>/dev/null; then
+  source "$DOTFILES/functions.zsh"
+  error 'Command `log_rotate` not found.'
+  exit
+fi
+
+# Load the default settings
+LOGROT_DIR_PATH="${LOGROT_DIR_PATH:-/tmp/logrot}"
+LOGROT_FILE_PATH="${LOGROT_FILE_PATH:-$LOGROT_DIR_PATH/$(basename $PWD).log}"
+
+LOGROT_FILE_SIZE="${LOGROT_FILE_SIZE:-1000000}" # 1MB
+LOGROT_FILE_NUMBER="${LOGROT_FILE_NUMBER:-10}"
+
+# Overwrite with command line arguments
+LOGROT_FILE_PATH="${1:-$LOGROT_FILE_PATH}"
+LOGROT_FILE_SIZE="${2:-$LOGROT_FILE_SIZE}"
+LOGROT_FILE_NUMBER="${3:-$LOGROT_FILE_NUMBER}"
+
+log_rotate --file_path "$LOGROT_FILE_PATH" --file_size "$LOGROT_FILE_SIZE" --file_number "$LOGROT_FILE_NUMBER"
