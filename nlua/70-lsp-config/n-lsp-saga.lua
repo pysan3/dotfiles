@@ -6,22 +6,14 @@ local action = require("lspsaga.codeaction")
 local function set_config(_)
   saga.init_lsp_saga({
     border_style = "rounded", -- "single" | "double" | "rounded" | "bold" | "plus"
-    -- { bufnr, code, col, end_col, end_lnum, lnum, message, severity, source }
     diagnostic_header = { " ", " ", " ", "ﴞ " },
     show_diagnostic_source = true,
     move_in_saga = { prev = "<C-p>", next = "<C-n>" },
     -- add bracket or something with diagnostic source, just have 2 elements
     diagnostic_source_bracket = {},
-    code_action_icon = "💡",
-    -- if true can press number to execute the codeaction in codeaction window
-    code_action_num_shortcut = true,
     code_action_lightbulb = {
-      enable = true,
       sign = false,
-      sign_priority = 20,
-      virtual_text = true,
     },
-    finder_separator = "  ",
     max_preview_lines = 10,
     finder_action_keys = {
       open = "e",
