@@ -24,7 +24,8 @@ neotree.setup({
     batch_delay = 10,
     max_lines = 10000,
   },
-  hide_root_node = false,
+  hide_root_node = true,
+  retain_hidden_root_indent = false,
   resize_timer_interval = -1, -- in ms, needed for containers to redraw right aligned and faded content
   sort_case_insensitive = true,
   default_component_configs = {
