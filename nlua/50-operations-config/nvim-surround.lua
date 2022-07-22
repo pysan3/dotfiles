@@ -1,8 +1,23 @@
+-- Since `vim.fn.input()` does not handle keyboard interrupts, we use a protected call to check whether the user has
+-- used `<C-c>` to cancel the input. This is not needed if `<Esc>` is used to cancel the input.
+local get_input = function(prompt)
+  local ok, result = pcall(vim.fn.input, { prompt = prompt })
+  if not ok then
+    return nil
+  end
+  return result
+end
+
 require("nvim-surround").setup({
-  keymaps = { -- vim-surround style keymaps
-    insert = "ys",
-    insert_line = "yss",
+  keymaps = {
+    insert = "<C-g>s",
+    insert_line = "<C-g>S",
+    normal = "ys",
+    normal_cur = "yss",
+    normal_line = "yS",
+    normal_cur_line = "ySS",
     visual = "S",
+    visual_line = "gS",
     delete = "ds",
     change = "cs",
   },
@@ -16,15 +31,20 @@ require("nvim-surround").setup({
       [">"] = { "<", ">" },
       ["["] = { "[ ", " ]" },
       ["]"] = { "[", "]" },
-      -- Define pairs based on function evaluations!
       ["i"] = function()
-        return {
-          require("nvim-surround.utils").get_input("Enter the left delimiter: "),
-          require("nvim-surround.utils").get_input("Enter the right delimiter: "),
-        }
+        local left_delimiter = get_input("Enter the left delimiter: ")
+        if left_delimiter then
+          local right_delimiter = get_input("Enter the right delimiter: ")
+          if right_delimiter then
+            return { left_delimiter, right_delimiter }
+          end
+        end
       end,
       ["f"] = function()
-        return { string.format("%s (", require("nvim-surround.utils").get_input("Enter the function name: ")), ")" }
+        local result = get_input("Enter the function name: ")
+        if result then
+          return { result .. "(", ")" }
+        end
       end,
     },
     separators = {
@@ -33,20 +53,20 @@ require("nvim-surround").setup({
       ["`"] = { "`", "`" },
     },
     HTML = {
-      ["t"] = "type", -- Change just the tag type
-      ["T"] = "whole", -- Change the whole tag contents
+      ["t"] = "type",
+      ["T"] = "whole",
     },
     aliases = {
-      ["a"] = ">", -- Single character aliases apply everywhere
+      ["a"] = ">",
       ["b"] = ")",
       ["B"] = "}",
       ["r"] = "]",
-      -- Table aliases only apply for changes/deletions
-      ["q"] = { '"', "'", "`" }, -- Any quote character
-      ["s"] = { ")", "]", "}", ">", "'", '"', "`" }, -- Any surrounding delimiter
+      ["q"] = { '"', "'", "`" },
+      ["s"] = { "}", "]", ")", ">", '"', "'", "`" },
     },
   },
-  highlight_motion = { -- Highlight before inserting/changing surrounds
+  highlight_motion = {
     duration = 0,
   },
+  move_cursor = "begin",
 })
