@@ -28,6 +28,9 @@ neotree.setup({
   retain_hidden_root_indent = false,
   resize_timer_interval = -1, -- in ms, needed for containers to redraw right aligned and faded content
   sort_case_insensitive = true,
+  source_selector = {
+    winbar = true,
+  },
   default_component_configs = {
     container = {
       enable_character_fade = true,
