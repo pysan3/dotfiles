@@ -21,6 +21,7 @@ require("mason").setup({
       apply_language_filter = "<C-f>",
     },
   },
+  max_concurrent_installers = 8,
 })
 require("70-lsp-config.n-lsp-base").setup({})
 require("70-lsp-config.n-mason-lsp").setup({})

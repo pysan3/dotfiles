@@ -1,10 +1,23 @@
 local tools = {
   -- LSP
-  { "bash-language-server", auto_update = true },
+  -- "bash-language-server",
+  "cmake-language-server",
+  -- "clangd",
+  "dockerfile-language-server",
+  -- "emmet-ls",
+  "eslint-lsp",
   "html-lsp",
+  "jdtls",
+  -- "json-lsp",
   "lua-language-server",
-  "vim-language-server",
-  "vue-language-server",
+  "opencl-language-server",
+  -- "pyright",
+  -- "taplo",
+  -- "texlab",
+  -- "typescript-language-server",
+  -- "vim-language-server",
+  "vetur-vls",
+  -- "vue-language-server",
   "yaml-language-server",
 
   -- DAP
@@ -18,9 +31,13 @@ local tools = {
   "flake8",
   "luacheck",
   "markdownlint",
+  "pylint",
+  "yamllint",
 
   -- Formatter
   "cmakelang",
+  "isort",
+  "luaformatter",
   "prettier",
   "shfmt",
   "stylua",
