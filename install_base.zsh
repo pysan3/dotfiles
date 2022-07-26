@@ -227,11 +227,35 @@ fi
 checkcommand 'clipboard' 'pnpm i -g clipboard-cli'
 checkcommand 'bw' 'pnpm i -g @bitwarden/cli'
 
+# lua, luarocks
+function install_lua () {
+  current_dir="$PWD"; tmp_file=$(mktemp); LUA_INSTALL_DIR="$XDG_DATA_HOME/lua-${LOCAL_LUA_VERSION:=5.1.5}"
+  wget -O "$tmp_file" https://www.lua.org/ftp/lua-$LOCAL_LUA_VERSION.tar.gz \
+    && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
+    && make -C "$LUA_INSTALL_DIR" linux && make -C "$LUA_INSTALL_DIR" install INSTALL_TOP="$XDG_PREFIX_HOME" \
+    && info "lua-$LOCAL_LUA_VERSION install done" || error "lua-$LOCAL_LUA_VERSION install FAILED!!"
+  LUAROCKS_INSTALL_DIR="$XDG_DATA_HOME/luarocks"
+  update_git_repo "$LUAROCKS_INSTALL_DIR" https://github.com/luarocks/luarocks \
+    && cd "$LUAROCKS_INSTALL_DIR" && ./configure --with-lua="$XDG_PREFIX_HOME" --prefix="$XDG_PREFIX_HOME" \
+    && make && make install \
+    && info "luarocks installed successfully" || error "luarocks install FAILED"
+}
+(! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null || checkyes 'Upgrade lua?') && install_lua
+
+function install_golang () {
+  tmp_file=$(mktemp)
+  wget -O "$tmp_file" "https://go.dev/dl/$(wget -O- 'https://go.dev/VERSION?m=text').linux-amd64.tar.gz" \
+    && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
+    && ln -s "$XDG_DATA_HOME/go/bin/"* "$XDG_BIN_HOME" \
+    && info "go installed successfully" || error "go install FAILED"
+}
+(! command -v 'go' &>/dev/null || checkyes 'Upgrade golang?') && install_golang
+
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME/fzf"
 update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh
 "$FZF_INSTALL_DIR/install" --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish
-sleep 1 && zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh"
+zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 info 'fzf setup done'
 
 # install tmux plugin manager
