@@ -258,6 +258,11 @@ function appearance () {
     | less
 }
 
+function getcv2 () {
+  wget https://raw.githubusercontent.com/bschnurr/python-type-stubs/add-opencv/cv2/__init__.pyi \
+    -O $(python -c 'import cv2, os; print(os.path.dirname(cv2.__file__))')/cv2.pyi
+}
+
 function tvim() {
   if [ $# -ge 1 ]; then
     cd "$1"
