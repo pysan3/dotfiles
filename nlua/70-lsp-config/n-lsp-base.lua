@@ -54,10 +54,12 @@ M.lsp_keymaps = function(bufnr)
   local function getopts(desc)
     return { noremap = true, silent = true, buffer = bufnr, desc = desc }
   end
+
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, getopts("vim.lsp.buf.declaration"))
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, getopts("vim.lsp.buf.definition"))
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, getopts("vim.lsp.buf.implementation"))
   vim.keymap.set("n", "<leader>kl", vim.diagnostic.setloclist, getopts("vim.diagnostic.setloclist"))
+  vim.keymap.set("n", "<leader>kD", vim.diagnostic.open_float, getopts("vim.diagnostic.open_float"))
   vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
   -- conflicting keybinds with lspsaga
   if not vim.g.personal_options.lsp_saga.enable then
@@ -68,7 +70,6 @@ M.lsp_keymaps = function(bufnr)
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, getopts("vim.lsp.buf.code_action"))
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, getopts("vim.diagnostic.goto_prev"))
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, getopts("vim.diagnostic.goto_next"))
-    vim.keymap.set("n", "gl", vim.diagnostic.open_float, getopts("vim.diagnostic.open_float"))
   end
 end
 
