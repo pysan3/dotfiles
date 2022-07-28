@@ -215,6 +215,7 @@ if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes
     else
       nvm install node
     fi
+    nvm install-latest-npm
     export PATH="$(npm config get prefix)/bin:$PATH"
   fi
 fi
