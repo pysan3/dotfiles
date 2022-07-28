@@ -347,6 +347,7 @@ fi
 if ! command -v 'nvim' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Install nvim from source?'; then
   NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
   update_git_repo "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git "${NVIM_BUILD_TAG:-stable}"
+  git -C "$NVIM_INSTLL_DIR" submodule update --init --recursive
   cd "$NVIM_INSTLL_DIR"
   make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install || error 'NVIM BUILD FAILED'
   info 'nvim installed'
