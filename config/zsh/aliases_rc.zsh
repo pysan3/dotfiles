@@ -259,8 +259,9 @@ function appearance () {
 }
 
 function getcv2 () {
-  wget https://raw.githubusercontent.com/bschnurr/python-type-stubs/add-opencv/cv2/__init__.pyi \
-    -O $(python -c 'import cv2, os; print(os.path.dirname(cv2.__file__))')/cv2.pyi
+  cv2_path="$(python -c 'import cv2, os; print(os.path.dirname(cv2.__file__))')"
+  wget https://raw.githubusercontent.com/microsoft/python-type-stubs/main/cv2/__init__.pyi -O "$cv2_path/__init__.pyi"
+  yes | cp "$cv2_path/__init__.pyi" "$cv2_path/cv2.pyi"
 }
 
 function tvim() {
