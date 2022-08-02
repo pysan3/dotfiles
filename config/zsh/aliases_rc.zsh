@@ -54,13 +54,6 @@ function def() {
   esac
 }
 
-function upgradeall() {
-  upgradecmds='py rs js rb hs'
-  for lang in $upgradecmds; do
-    cmd=$(def "upgrade$lang")
-    eval "upgrade$lang" && info "DONE: $cmd" || error "FAIL: $cmd"
-  done
-}
 alias upgradepy='pipupgrade --verbose --latest --yes && poetry self update' # pip install pipupgrade
 alias upgraders='rustup update && cargo install-update --all' # cargo install cargo-update
 alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
@@ -68,6 +61,13 @@ alias upgraderb='gem update --system && gem update'
 alias upgradehs='cabal new-update' # cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
 alias upgradezap='zap upgrade'
 alias packersync="nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'"
+function upgradeall() {
+  upgradecmds='py rs js rb hs'
+  for lang in $upgradecmds; do
+    cmd=$(def "upgrade$lang")
+    eval "upgrade$lang" && info "DONE: $cmd" || error "FAIL: $cmd"
+  done
+}
 
 alias vm="cd; nvim $ZDOTDIR/.vimrc; cd - >/dev/null"
 alias vz="cd; nvim $ZDOTDIR/.zshrc; cd - >/dev/null"
@@ -256,6 +256,12 @@ function appearance () {
     <(wget -O- 'https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt' 2> /dev/null) \
     <(wget -O- 'https://unicode.org/Public/emoji/13.0/emoji-test.txt' 2> /dev/null) \
     | less
+}
+
+function getcv2 () {
+  cv2_path="$(python -c 'import cv2, os; print(os.path.dirname(cv2.__file__))')"
+  wget https://raw.githubusercontent.com/microsoft/python-type-stubs/main/cv2/__init__.pyi -O "$cv2_path/__init__.pyi"
+  yes | cp "$cv2_path/__init__.pyi" "$cv2_path/cv2.pyi"
 }
 
 function tvim() {

@@ -57,6 +57,7 @@ local function set_keybinds()
   local function getopts(is_noremap, desc)
     return { silent = true, noremap = is_noremap, desc = desc }
   end
+
   local lsp_prefix = "<leader>k"
 
   -- Async lsp finder: lsp finder to find the cursor word definition and reference
