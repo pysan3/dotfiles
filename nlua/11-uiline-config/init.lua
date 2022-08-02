@@ -2,7 +2,7 @@ return {
   setup = {
     "norcalli/nvim-colorizer.lua",
     "kyazdani42/nvim-web-devicons",
-    "kyazdani42/nvim-tree.lua", -- nvim tree
+    -- "kyazdani42/nvim-tree.lua", -- nvim tree
     {
       "nvim-neo-tree/neo-tree.nvim",
       -- branch = "v2.x",
