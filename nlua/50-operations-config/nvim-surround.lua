@@ -21,7 +21,7 @@ require("nvim-surround").setup({
     delete = "ds",
     change = "cs",
   },
-  delimiters = {
+  surrounds = {
     pairs = {
       ["("] = { "( ", " )" },
       [")"] = { "(", ")" },
@@ -65,7 +65,7 @@ require("nvim-surround").setup({
       ["s"] = { "}", "]", ")", ">", '"', "'", "`" },
     },
   },
-  highlight_motion = {
+  highlight = {
     duration = 0,
   },
   move_cursor = "begin",
