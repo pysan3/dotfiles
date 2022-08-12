@@ -391,14 +391,6 @@ if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then
   checkcommand 'rg' 'cargo install ripgrep' # https://www.linode.com/docs/guides/ripgrep-linux-installation/
   checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
 fi
-# nvim-dap
-if $NVIM_UPDATE_ALL || checkyes 'Install nvim-dap dependencies?'; then
-  # python
-  cd "$XDG_DATA_HOME"
-  python -m venv debugpy
-  debugpy/bin/python -m pip install debugpy
-  cd -
-fi
 
 # lookatme (terminal markdown renderer)
 checkcommand 'lookatme' 'pip install --user --upgrade lookatme'
