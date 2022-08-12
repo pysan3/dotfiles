@@ -22,6 +22,7 @@ local function call_with_fallback(check, action, fallback)
     return fallback()
   end
 end
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -47,8 +48,8 @@ cmp.setup({
     end, { "i", "s" }),
     ["<CR>"] = cmp.mapping.confirm({ select = false }),
     ["<C-l>"] = cmp.mapping(function(fallback)
-      call_with_fallback(luasnip.expand_or_jumpable(), function()
-        luasnip.expand_or_jump()
+      call_with_fallback(luasnip.in_snippet() and luasnip.jumpable(), function()
+        luasnip.jump(1)
       end, fallback)
     end, { "i", "s" }),
     ["<C-h>"] = cmp.mapping(function(fallback)
