@@ -54,7 +54,7 @@ function def() {
   esac
 }
 
-alias upgradepy='pipupgrade --verbose --latest --yes && poetry self update' # pip install pipupgrade
+alias upgradepy='pip install --upgrade --user pip && pipupgrade --verbose --latest --yes && poetry self update' # pip install pipupgrade
 alias upgraders='rustup update && cargo install-update --all' # cargo install cargo-update
 alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
 alias upgraderb='gem update --system -N --no-ri --no-rdoc && gem update -N --no-ri --no-rdoc'

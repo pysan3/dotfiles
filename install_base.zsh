@@ -56,6 +56,7 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
     error 'Please set `python` command to run Python 3.x'
   fi
 fi
+pip install --upgrade --user pip
 
 # install haskel interpreter
 function install_pandoc () {
