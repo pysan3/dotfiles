@@ -57,7 +57,7 @@ function def() {
 alias upgradepy='pip install --upgrade --user pip && pipupgrade --verbose --latest --yes && poetry self update' # pip install pipupgrade
 alias upgraders='rustup update && cargo install-update --all' # cargo install cargo-update
 alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
-alias upgraderb='gem update --system -N --no-ri --no-rdoc && gem update -N --no-ri --no-rdoc'
+alias upgraderb='gem update --system -N && gem update -N'
 alias upgradehs='cabal new-update' # cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
 alias upgradezap='zap upgrade'
 alias packersync="nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'"
