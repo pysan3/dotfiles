@@ -35,6 +35,7 @@ local tools = {
   "yamllint",
 
   -- Formatter
+  "autopep8",
   "cmakelang",
   "isort",
   "luaformatter",
