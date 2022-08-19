@@ -23,8 +23,10 @@ return {
       "Mofiqul/vscode.nvim",
       cond = vim.g.personal_options.colorscheme == "vscode",
       config = set_colorscheme(function()
-        vim.g.vscode_transparent = 1
-        vim.g.vscode_italic_comment = 1
+        require("vscode").setup({
+          transparent = true, -- Enable transparent background
+          italic_comments = true, -- Enable italic comment
+        })
       end),
     },
     {
