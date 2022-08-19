@@ -4,6 +4,7 @@ return {
     "andymass/vim-matchup",
     {
       "nvim-treesitter/nvim-treesitter",
+      run = ":TSUpdate",
       requires = {
         "nvim-treesitter/nvim-treesitter-textobjects",
         "andymass/vim-matchup",
