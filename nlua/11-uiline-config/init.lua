@@ -12,7 +12,7 @@ return {
         { "s1n7ax/nvim-window-picker", tag = "1.*" },
       },
     },
-    "akinsho/bufferline.nvim", -- bufferline
+    --[[ "akinsho/bufferline.nvim", -- bufferline ]]
     "nvim-lualine/lualine.nvim", -- lualine
   },
   install = {
