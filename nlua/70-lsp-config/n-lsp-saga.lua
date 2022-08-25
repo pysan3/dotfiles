@@ -82,12 +82,12 @@ local function set_keybinds()
   end, getopts(false, "lspsaga.codeaction.smart_scroll_with_saga(-1)"))
 
   -- show signature help
-  vim.keymap.set(
-    "n",
-    lsp_prefix .. "s",
-    require("lspsaga.signaturehelp").signature_help,
-    getopts(true, "lspsaga.signature_help")
-  )
+  -- vim.keymap.set(
+  --   "n",
+  --   lsp_prefix .. "s",
+  --   require("lspsaga.signaturehelp").signature_help,
+  --   getopts(true, "lspsaga.signature_help")
+  -- )
 
   -- rename
   vim.keymap.set("n", lsp_prefix .. "r", require("lspsaga.rename").lsp_rename, getopts(true, "lspsaga.lsp_rename"))
