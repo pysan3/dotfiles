@@ -19,17 +19,18 @@ if vim.fn.filereadable(compile_path) ~= 0 then
 end
 
 return packer.startup(function(use)
-    -- stylua: ignore start
-    local function load_sub_dirs(dir_name)
-      local load_ok, plugin_table = pcall(require, dir_name)
-      if not load_ok then return false end
-      for _, plugin in ipairs(plugin_table.install or {}) do use(plugin) end
-      for _, plugin in ipairs(plugin_table.setup or {}) do
-        if type(plugin) ~= "table" then plugin = { plugin } end
-        plugin.config = string.format([[require("%s.%s")]], dir_name, plugin[1]:gsub(".*/([^.]*)%.?.*$", "%1"))
-        use(plugin)
-      end
+  -- stylua: ignore start
+  local function load_sub_dirs(dir_name)
+    local load_ok, plugin_table = pcall(require, dir_name)
+    if not load_ok then return false end
+    for _, plugin in ipairs(plugin_table.install or {}) do use(plugin) end
+    for _, plugin in ipairs(plugin_table.setup or {}) do
+      if type(plugin) ~= "table" then plugin = { plugin } end
+      plugin.config = string.format([[require("%s.%s")]], dir_name, plugin[1]:gsub(".*/([^.]*)%.?.*$", "%1"))
+      use(plugin)
     end
+  end
+
   -- stylua: ignore end
 
   use({ "lewis6991/impatient.nvim" })
