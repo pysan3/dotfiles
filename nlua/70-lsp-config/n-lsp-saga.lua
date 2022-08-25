@@ -95,7 +95,7 @@ local function set_keybinds()
   vim.keymap.set(
     "n",
     lsp_prefix .. "k",
-    require("lspsaga.definition").preview_definition,
+    "<Cmd>Lspsaga preview_definition<CR>",
     getopts(true, "lspsaga.preview_definition")
   )
 
