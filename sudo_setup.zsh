@@ -10,7 +10,7 @@ source "$DOTFILES/.zshenv"
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 setopt sh_word_split
 
-if checkyes 'apt-get available?'; then
+if command -v 'apt-get' &>/dev/null || checkyes 'apt-get available?'; then
   # python build dependencies
   sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
   # btop dependencies
@@ -20,9 +20,11 @@ if checkyes 'apt-get available?'; then
   sudo apt-get install -y build-essential make libconfuse-dev libnl-3-dev libnl-route-3-dev libncurses-dev pkg-config dh-autoreconf
   # nvim dependencies
   sudo apt-get -y install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+  # tmux dependencies
+  sudo apt-get install -y libevent ncurses libevent-dev ncurses-dev build-essential bison pkg-config
 fi
 
-if checkyes 'pacman available?'; then
+if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
   # nvim dependencies
   sudo pacman -S base-devel cmake unzip ninja tree-sitter curl
 fi
