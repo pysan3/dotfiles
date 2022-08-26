@@ -9,6 +9,7 @@ fi
 source "$DOTFILES/.zshenv"
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 setopt sh_word_split
+current_dir="$PWD"
 
 function update_git_repo() {
   dist="$1"; repo_url="$2"
@@ -17,8 +18,9 @@ function update_git_repo() {
     mkdir -p "$dist" && git clone --depth 1 "$repo_url" "$dist" \
       || (error "Failed to clone $repo_url to $dist" && return 1)
   fi
-  info "Updating $dist"
-  git -C "$dist" fetch --tags -f \
+  info "Updating $dist" \
+    && git -C "$dist" submodule update --init --recursive \
+    && git -C "$dist" fetch --tags -f \
     || (error "Failed to update $dist" && return 1)
   [ $# -ge 3 ] && tag="$3" || tag=$(git -C "$dist" describe --tags $(git -C "$dist" rev-list --tags --max-count=1)) \
     && git -C "$dist" checkout "$tag" \
@@ -231,7 +233,7 @@ checkcommand 'bw' 'pnpm i -g @bitwarden/cli'
 
 # lua, luarocks
 function install_lua () {
-  current_dir="$PWD"; tmp_file=$(mktemp); LUA_INSTALL_DIR="$XDG_DATA_HOME/lua-${LOCAL_LUA_VERSION:=5.1.5}"
+  tmp_file=$(mktemp); LUA_INSTALL_DIR="$XDG_DATA_HOME/lua-${LOCAL_LUA_VERSION:=5.1.5}"
   wget -O "$tmp_file" https://www.lua.org/ftp/lua-$LOCAL_LUA_VERSION.tar.gz \
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
     && make -C "$LUA_INSTALL_DIR" linux && make -C "$LUA_INSTALL_DIR" install INSTALL_TOP="$XDG_PREFIX_HOME" \
@@ -241,6 +243,7 @@ function install_lua () {
     && cd "$LUAROCKS_INSTALL_DIR" && ./configure --with-lua="$XDG_PREFIX_HOME" --prefix="$XDG_PREFIX_HOME" \
     && make && make install \
     && info "luarocks installed successfully" || error "luarocks install FAILED"
+  cd "$current_dir"
 }
 (! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null || checkyes 'Upgrade lua?') && install_lua
 
@@ -264,9 +267,7 @@ info 'fzf setup done'
 command -v 'tmux' &>/dev/null && info 'tmux found' || warning 'tmux not found.'
 if checkyes 'Install tmux from source?'; then
   update_git_repo "$XDG_DATA_HOME/tmux-git" https://github.com/tmux/tmux.git
-  current_dir="$PWD"
-  cd "$XDG_DATA_HOME/tmux-git"
-  ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+  cd "$XDG_DATA_HOME/tmux-git" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
     && make -j$(nproc) && make install
   cd "$current_dir"
 fi
@@ -278,12 +279,8 @@ info 'tmux setup done'
 
 function install_log_rotate () {
   update_git_repo "$XDG_DATA_HOME/log_rotate" https://github.com/ShawnFeng0/log_rotate.git
-  current_dir="$PWD"
-  cd "$XDG_DATA_HOME/log_rotate"
-  git submodule update --init --recursive
-  cmake -B build && make -C build
-  ln -s $(realpath build/log_rotate) "$XDG_BIN_HOME"
-  cd "$current_dir"
+  cmake -B "$XDG_DATA_HOME/log_rotate/build" && make -C "$XDG_DATA_HOME/log_rotate/build"
+  ln -s "$XDG_DATA_HOME/log_rotate/build/log_rotate" "$XDG_BIN_HOME"
 }
 command -v 'log_rotate' &>/dev/null && info 'log_rotate found' || install_log_rotate
 
@@ -291,10 +288,7 @@ command -v 'log_rotate' &>/dev/null && info 'log_rotate found' || install_log_ro
 command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
 if checkyes 'Install protoc from source?'; then
   update_git_repo "$XDG_DATA_HOME/protoc" https://github.com/protocolbuffers/protobuf.git
-  current_dir="$PWD"
-  cd "$XDG_DATA_HOME/protoc"
-  git submodule update --init --recursive
-  ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+  cd "$XDG_DATA_HOME/protoc" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
     && make -j$(nproc) && make check -j$(nproc) && make install -j$(nproc) \
     && info 'protoc setup done'
   cd "$current_dir"
@@ -303,7 +297,6 @@ fi
 # install lynx from source
 command -v 'lynx' &>/dev/null && info 'lynx found' || warning 'lynx not found.'
 if checkyes 'Install lynx from source?'; then
-  current_dir="$PWD"
   cd "$XDG_DATA_HOME" && wget -c http://invisible-island.net/datafiles/release/lynx-cur.zip \
     && unzip -o lynx-cur.zip && rm -rf lynx-cur.zip && cd $(ls -d lynx*/ | grep -v lynx_ | tail -1) \
     && ./configure --prefix="$XDG_PREFIX_HOME" --exec-prefix="$XDG_PREFIX_HOME" --mandir="$XDG_PREFIX_HOME/man" \
@@ -322,11 +315,10 @@ if checkyes 'Install btop from source?'; then
   # gcc-11, g++-11 => gcc-10, g++-10
   BTOP_INSTALL_DIR="$XDG_DATA_HOME/btop"
   update_git_repo "$BTOP_INSTALL_DIR" https://github.com/aristocratos/btop.git
-  cd "$BTOP_INSTALL_DIR"
   checkyes 'Use g++-10 (y) or g++-11 (N)?' && CXX="g++-10" || CXX="g++-11"
-  make QUIET=true ADDFLAGS=-march=native CXX="$CXX" && make install PREFIX="$XDG_PREFIX_HOME" \
+  make -C "$BTOP_INSTALL_DIR" QUIET=true ADDFLAGS=-march=native CXX="$CXX" \
+    && make install PREFIX="$XDG_PREFIX_HOME" \
     && info 'btop installation done'
-  cd -
 fi
 
 # install bmon (bandwidth monitor)
@@ -335,11 +327,10 @@ if checkyes 'Install bmon from source?'; then
   # sudo apt install build-essential make libconfuse-dev libnl-3-dev libnl-route-3-dev libncurses-dev pkg-config dh-autoreconf
   BMON_INSTALL_DIR="$XDG_DATA_HOME/bmon"
   update_git_repo "$BMON_INSTALL_DIR" https://github.com/tgraf/bmon.git
-  cd "$BMON_INSTALL_DIR"
-  ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+  cd "$BMON_INSTALL_DIR" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
     && make -j$(nproc) && make install \
     && info 'bmon installation done'
-  cd -
+  cd "$current_dir"
 fi
 
 # install nvtop from source
@@ -349,7 +340,7 @@ if checkyes 'Install nvtop from source?'; then
   mkdir -p "$XDG_DATA_HOME/nvtop/build" && cd "$_"
   cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make install \
     && info 'nvtop setup done'
-  cd -
+  cd "$current_dir"
 fi
 
 # install nvim
@@ -360,7 +351,6 @@ fi
 if ! command -v 'nvim' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Install nvim from source?'; then
   NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
   update_git_repo "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git "${NVIM_BUILD_TAG:-stable}"
-  git -C "$NVIM_INSTLL_DIR" submodule update --init --recursive
   cd "$NVIM_INSTLL_DIR"
   make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install || error 'NVIM BUILD FAILED'
   info 'nvim installed'
@@ -374,9 +364,7 @@ pnpm i -g neovim
 # ctags
 if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall ctags?'; then
   update_git_repo "$XDG_DATA_HOME/ctags" https://github.com/universal-ctags/ctags.git
-  current_dir="$PWD"
-  cd "$XDG_DATA_HOME/ctags"
-  ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+  cd "$XDG_DATA_HOME/ctags" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
     && make -j$(nproc) && make install
   cd "$current_dir"
 fi
