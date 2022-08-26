@@ -6,6 +6,7 @@ telescope.setup({
     mappings = {
       i = {
         ["<esc>"] = actions.close,
+        ["jk"] = actions.close,
         -- cycle through previously done searches
         ["<C-j>"] = actions.cycle_history_next,
         ["<C-k>"] = actions.cycle_history_prev,
