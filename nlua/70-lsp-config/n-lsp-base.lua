@@ -36,18 +36,18 @@ M.setup = function(_)
 end
 
 M.lsp_highlight_document = function(client)
-  if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_exec(
-      [[
-      augroup lsp_document_highlight
-      autocmd! * <buffer>
-      autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]],
-      false
-    )
-  end
+  -- if client.server_capabilities.documentFormattingProvider then
+  --   vim.api.nvim_exec(
+  --     [[
+  --     augroup lsp_document_highlight
+  --     autocmd! * <buffer>
+  --     autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+  --     autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+  --     augroup END
+  --   ]],
+  --     false
+  --   )
+  -- end
 end
 
 M.lsp_keymaps = function(bufnr)
