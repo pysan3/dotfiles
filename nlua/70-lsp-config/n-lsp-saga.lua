@@ -53,25 +53,29 @@ local function set_config(_)
   })
 end
 
+local function getopts(is_noremap, desc)
+  return { silent = true, noremap = is_noremap, desc = desc }
+end
+
 local function set_keybinds()
-  local function getopts(is_noremap, desc)
-    return { silent = true, noremap = is_noremap, desc = desc }
+  local function cmd(c)
+    return string.format("<Cmd>Lspsaga %s<CR>", c)
   end
 
   local lsp_prefix = "<leader>k"
 
   -- Async lsp finder: lsp finder to find the cursor word definition and reference
-  vim.keymap.set("n", lsp_prefix .. "f", require("lspsaga.finder").lsp_finder, getopts(true, "lspsaga.lsp_finder"))
+  vim.keymap.set("n", lsp_prefix .. "f", cmd("lsp_finder"), getopts(true, "lspsaga.lsp_finder"))
 
   -- Code Action
-  vim.keymap.set("n", lsp_prefix .. "c", action.code_action, getopts(true, "lspsaga.codeaction.code_action"))
+  vim.keymap.set("n", lsp_prefix .. "c", cmd("code_action"), getopts(true, "lspsaga.codeaction.code_action"))
   vim.keymap.set("v", lsp_prefix .. "c", function()
     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
-    action.range_code_action()
+    vim.cmd("<Cmd><C-U>Lspsaga range_code_action<CR>")
   end, getopts(true, "lspsaga.codeaction.range_code_action()"))
 
   -- show hover doc
-  vim.keymap.set("n", "K", require("lspsaga.hover").render_hover_doc, getopts(false, "lspsaga.hover.render_hover_doc"))
+  vim.keymap.set("n", "K", cmd("hover_doc"), getopts(false, "lspsaga.hover.render_hover_doc"))
   -- scroll down hover doc or scroll in definition preview
   vim.keymap.set("n", "<C-f>", function()
     action.smart_scroll_with_saga(1)
@@ -90,25 +94,15 @@ local function set_keybinds()
   -- )
 
   -- rename
-  vim.keymap.set("n", lsp_prefix .. "r", require("lspsaga.rename").lsp_rename, getopts(true, "lspsaga.lsp_rename"))
+  vim.keymap.set("n", lsp_prefix .. "r", cmd("rename"), getopts(true, "lspsaga.lsp_rename"))
   -- preview definition
-  vim.keymap.set(
-    "n",
-    lsp_prefix .. "k",
-    "<Cmd>Lspsaga preview_definition<CR>",
-    getopts(true, "lspsaga.preview_definition")
-  )
+  vim.keymap.set("n", lsp_prefix .. "k", cmd("preview_definition"), getopts(true, "lspsaga.preview_definition"))
 
   -- diagnostic
-  vim.keymap.set(
-    "n",
-    lsp_prefix .. "d",
-    require("lspsaga.diagnostic").show_line_diagnostics,
-    getopts(true, "lspsaga.show_line_diagnostics")
-  )
+  vim.keymap.set("n", lsp_prefix .. "d", cmd("show_line_diagnostics"), getopts(true, "lspsaga.show_line_diagnostics"))
   -- jump diagnostic
-  vim.keymap.set("n", "[d", require("lspsaga.diagnostic").goto_prev, getopts(true, "lspsaga.diagnostic.goto_prev"))
-  vim.keymap.set("n", "]d", require("lspsaga.diagnostic").goto_next, getopts(true, "lspsaga.diagnostic.goto_next"))
+  vim.keymap.set("n", "[d", cmd("diagnostic_jump_prev"), getopts(true, "lspsaga.diagnostic.goto_prev"))
+  vim.keymap.set("n", "]d", cmd("diagnostic_jump_next"), getopts(true, "lspsaga.diagnostic.goto_next"))
 end
 
 M.setup = function(opts)
