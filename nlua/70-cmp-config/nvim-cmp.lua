@@ -81,7 +81,6 @@ cmp.setup({
     },
     { name = "dictionary", keyword_length = 2 },
     { name = "spell" },
-    { name = "emoji" },
     { name = "calc" },
   }),
   formatting = {
@@ -95,7 +94,6 @@ cmp.setup({
         buffer = "[Buff]",
         path = "[Path]",
         dictionary = "[Text]",
-        emoji = "[Text]",
         spell = "[Spll]",
         calc = "[Calc]",
       })[entry.source.name]

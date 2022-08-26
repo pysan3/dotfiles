@@ -23,7 +23,6 @@ return {
         "hrsh7th/cmp-cmdline", -- cmdline completions
         "hrsh7th/cmp-nvim-lua", -- nvim lua config completion
         "hrsh7th/cmp-calc",
-        "hrsh7th/cmp-emoji",
         "f3fora/cmp-spell",
         "uga-rosa/cmp-dictionary",
         "saadparwaiz1/cmp_luasnip",
