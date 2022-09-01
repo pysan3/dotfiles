@@ -24,6 +24,7 @@ return {
         "hrsh7th/cmp-nvim-lua", -- nvim lua config completion
         "hrsh7th/cmp-calc",
         "f3fora/cmp-spell",
+        "hrsh7th/cmp-cmdline",
         "uga-rosa/cmp-dictionary",
         "saadparwaiz1/cmp_luasnip",
       },
