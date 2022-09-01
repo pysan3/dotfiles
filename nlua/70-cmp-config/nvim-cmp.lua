@@ -8,6 +8,8 @@ local cmp_icons = { Text = "", Method = "m", Function = "", Constructor = 
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 local cmp = require("cmp")
+local types = require("cmp.types")
+local compare = require("cmp.config.compare")
 local luasnip = require("luasnip")
 
 ---Check whether `check` and call action or fallback
@@ -21,6 +23,15 @@ local function call_with_fallback(check, action, fallback)
   else
     return fallback()
   end
+end
+
+local modified_priority = {
+  [6] = 2, -- Variable -> Method
+  [15] = 0, -- Snippet -> Top
+  [1] = 100, -- Text -> Bottom
+}
+local function modified_kind(kind)
+  return modified_priority[kind] or kind
 end
 
 cmp.setup({
@@ -99,6 +110,28 @@ cmp.setup({
       })[entry.source.name]
       return vim_item
     end,
+  },
+  sorting = {
+    comparators = {
+      compare.offset,
+      compare.exact,
+      compare.score,
+      function(entry1, entry2) -- sort by compare kind (Variable, Function etc)
+        local kind1 = modified_kind(entry1:get_kind())
+        local kind2 = modified_kind(entry2:get_kind())
+        if kind1 ~= kind2 then
+          local diff = kind1 - kind2
+          if diff < 0 then
+            return true
+          elseif diff > 0 then
+            return false
+          end
+        end
+      end,
+      compare.sort_text,
+      compare.length,
+      compare.order,
+    },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
