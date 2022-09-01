@@ -116,6 +116,7 @@ cmp.setup({
       compare.offset,
       compare.exact,
       compare.score,
+      compare.length,
       function(entry1, entry2) -- sort by compare kind (Variable, Function etc)
         local kind1 = modified_kind(entry1:get_kind())
         local kind2 = modified_kind(entry2:get_kind())
@@ -129,7 +130,6 @@ cmp.setup({
         end
       end,
       compare.sort_text,
-      compare.length,
       compare.order,
     },
   },
