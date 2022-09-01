@@ -25,11 +25,13 @@ local function call_with_fallback(check, action, fallback)
   end
 end
 
+---@type table<integer, integer>
 local modified_priority = {
-  [6] = 2, -- Variable -> Method
-  [15] = 0, -- Snippet -> Top
-  [1] = 100, -- Text -> Bottom
+  [types.lsp.CompletionItemKind.Variable] = types.lsp.CompletionItemKind.Method,
+  [types.lsp.CompletionItemKind.Snippet] = 0, -- top
+  [types.lsp.CompletionItemKind.Text] = 100, -- bottom
 }
+---@param kind integer: kind of completion entry
 local function modified_kind(kind)
   return modified_priority[kind] or kind
 end
@@ -121,12 +123,7 @@ cmp.setup({
         local kind1 = modified_kind(entry1:get_kind())
         local kind2 = modified_kind(entry2:get_kind())
         if kind1 ~= kind2 then
-          local diff = kind1 - kind2
-          if diff < 0 then
-            return true
-          elseif diff > 0 then
-            return false
-          end
+          return kind1 - kind2 < 0
         end
       end,
       compare.sort_text,
