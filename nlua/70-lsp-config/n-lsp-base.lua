@@ -57,7 +57,7 @@ M.lsp_keymaps = function(bufnr)
 
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, getopts("vim.lsp.buf.declaration"))
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, getopts("vim.lsp.buf.definition"))
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, getopts("vim.lsp.buf.implementation"))
+  vim.keymap.set("n", "gI", vim.lsp.buf.implementation, getopts("vim.lsp.buf.implementation"))
   vim.keymap.set("n", "<leader>kl", vim.diagnostic.setloclist, getopts("vim.diagnostic.setloclist"))
   vim.keymap.set("n", "<leader>kD", vim.diagnostic.open_float, getopts("vim.diagnostic.open_float"))
   vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
