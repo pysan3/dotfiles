@@ -1,11 +1,13 @@
 -- https://github.com/phaazon/hop.nvim/wiki/Configuration
-require("hop").setup({
+local hop = require("hop")
+hop.setup({
   { keys = "qwertyuiopasdfghjklzxcvbnm" },
   jump_on_sole_occurrence = true,
   multi_windows = true,
+  uppercase_labels = true,
 })
 
-vim.keymap.set({ "n", "v" }, "<leader>jw", "<Cmd>HopWord<CR>", { silent = true, desc = "<Cmd>HopWord<CR>" })
-vim.keymap.set({ "n", "v" }, "<leader>jl", "<Cmd>HopLine<CR>", { silent = true, desc = "<Cmd>HopLine<CR>" })
-vim.keymap.set({ "n", "v" }, "S", "<Cmd>HopChar1<CR>", { silent = true, desc = "<Cmd>HopChar1<CR>" })
-vim.keymap.set({ "n", "v" }, "s", "<Cmd>HopChar2<CR>", { silent = true, desc = "<Cmd>HopChar2<CR>" })
+vim.keymap.set({ "n", "v" }, "<leader>jw", hop.hint_words, { silent = true, desc = "<Cmd>HopWord<CR>" })
+vim.keymap.set({ "n", "v" }, "<leader>jl", hop.hint_lines, { silent = true, desc = "<Cmd>HopLine<CR>" })
+vim.keymap.set({ "n", "v" }, "S", hop.hint_char1, { silent = true, desc = "<Cmd>HopChar1<CR>" })
+vim.keymap.set({ "n", "v" }, "s", hop.hint_char2, { silent = true, desc = "<Cmd>HopChar2<CR>" })
