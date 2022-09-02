@@ -66,7 +66,7 @@ zstyle ':completion:*:options' description 'yes'
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
 # git completions and information
-RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
+RPROMPT="%{${fg[cyan]}%}[%~]%{${fg[blue]}%}[%*]%{${reset_color}%}"
 autoload -Uz vcs_info
 setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
