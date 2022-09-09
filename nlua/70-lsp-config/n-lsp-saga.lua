@@ -7,14 +7,9 @@ local function set_config(_)
   saga.init_lsp_saga({
     border_style = "rounded", -- "single" | "double" | "rounded" | "bold" | "plus"
     diagnostic_header = { " ", " ", " ", "ﴞ " },
-    show_diagnostic_source = true,
-    move_in_saga = { prev = "<C-p>", next = "<C-n>" },
-    -- add bracket or something with diagnostic source, just have 2 elements
-    diagnostic_source_bracket = {},
     code_action_lightbulb = {
       sign = false,
     },
-    max_preview_lines = 10,
     finder_action_keys = {
       open = "e",
       vsplit = "s",
@@ -28,8 +23,6 @@ local function set_config(_)
       quit = "q",
       exec = "e",
     },
-    rename_action_quit = "<C-c>",
-    definition_preview_icon = "丨  ",
     symbol_in_winbar = {
       in_custom = false,
       enable = vim.g.personal_options.lsp_saga.winbar,
@@ -49,7 +42,10 @@ local function set_config(_)
         end
       end,
     },
-    server_filetype_map = {},
+    show_outline = {
+      jump_key = "o",
+      auto_refresh = true,
+    },
   })
 end
 
@@ -85,13 +81,8 @@ local function set_keybinds()
     action.smart_scroll_with_saga(-1)
   end, getopts(false, "lspsaga.codeaction.smart_scroll_with_saga(-1)"))
 
-  -- show signature help
-  -- vim.keymap.set(
-  --   "n",
-  --   lsp_prefix .. "s",
-  --   require("lspsaga.signaturehelp").signature_help,
-  --   getopts(true, "lspsaga.signature_help")
-  -- )
+  -- Outline
+  vim.keymap.set("n", lsp_prefix .. "o", "<Cmd>LSoutlineToggle<CR>", getopts(true, "lspsaga.outline_toggle"))
 
   -- rename
   vim.keymap.set("n", lsp_prefix .. "r", cmd("rename"), getopts(true, "lspsaga.lsp_rename"))
