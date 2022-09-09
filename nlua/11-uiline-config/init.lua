@@ -14,8 +14,6 @@ return {
     },
     "akinsho/bufferline.nvim", -- bufferline
     "nvim-lualine/lualine.nvim", -- lualine
-  },
-  install = {
     "Yggdroot/indentLine", -- show indent line with |
   },
 }
