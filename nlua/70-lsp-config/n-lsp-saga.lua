@@ -45,6 +45,7 @@ local function set_config(_)
     show_outline = {
       jump_key = "o",
       auto_refresh = true,
+      win_width = 40,
     },
   })
 end
