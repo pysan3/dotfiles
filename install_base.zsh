@@ -263,6 +263,14 @@ update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/com
 zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 info 'fzf setup done'
 
+# install gh from source
+command -v 'gh' &>/dev/null && info 'gh found' || warning 'gh not found.'
+if checkyes 'Install gh from source?'; then
+  update_git_repo "$XDG_DATA_HOME/gh-cli" https://github.com/cli/cli.git
+  cd "$XDG_DATA_HOME/gh-cli" && make install prefix="$XDG_PREFIX_HOME"
+  cd "$current_dir"
+fi
+
 # install tmux from source
 command -v 'tmux' &>/dev/null && info 'tmux found' || warning 'tmux not found.'
 if checkyes 'Install tmux from source?'; then
