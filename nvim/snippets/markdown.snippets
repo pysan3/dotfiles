@@ -16,3 +16,20 @@ snippet des add des: <!-- description$0 -->
 	<!-- description$0 -->
 snippet enddescription add enddescription: body
 	<!-- enddescription -->
+snippet wikimdx "meta information of the page"
+	---
+	title: $1
+	date: $2
+	tags: [${4:"neovim", "nvim", "setup", "Japanese", "セットアップ"}]
+	type: ${5:post}
+	description: ${6} [${7}]
+	spoiler: $8
+	---
+snippet wikinext "<hr/> for mdx file"
+	***
+
+	<span style={{ textAlign: "center" }}>
+	[次回]($1)は$2
+	</span>
+
+	***
