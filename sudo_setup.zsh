@@ -25,6 +25,13 @@ if command -v 'apt-get' &>/dev/null || checkyes 'apt-get available?'; then
 fi
 
 if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
+  # basics
+  sudo pacman -S base-devel neofetch git tmux vim curl moreutils
   # nvim dependencies
   sudo pacman -S base-devel cmake unzip ninja tree-sitter curl
+  # python dependencies
+  sudo pacman -S base-devel openssl zlib xz tk python python-pip python-virtualenv python-pipenv \
+    python-gobject python-wxpython
+  # texlive
+  sudo pacman -S texlive-full
 fi
