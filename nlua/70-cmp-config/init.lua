@@ -27,6 +27,7 @@ return {
         "hrsh7th/cmp-cmdline",
         "uga-rosa/cmp-dictionary",
         "saadparwaiz1/cmp_luasnip",
+        "petertriho/cmp-git",
       },
     },
   },

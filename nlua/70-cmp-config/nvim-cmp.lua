@@ -36,6 +36,20 @@ local function modified_kind(kind)
   return modified_priority[kind] or kind
 end
 
+local buffers = {
+  name = "buffer",
+  option = {
+    keyword_length = 2,
+    get_bufnrs = function() -- from all visible buffers
+      local bufs = {}
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        bufs[vim.api.nvim_win_get_buf(win)] = true
+      end
+      return vim.tbl_keys(bufs)
+    end,
+  },
+}
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -74,24 +88,13 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping.select_prev_item(),
   },
   sources = cmp.config.sources({
+    { name = "git" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "luasnip" },
     { name = "path" },
   }, {
-    {
-      name = "buffer",
-      option = {
-        keyword_length = 2,
-        get_bufnrs = function() -- from all visible buffers
-          local bufs = {}
-          for _, win in ipairs(vim.api.nvim_list_wins()) do
-            bufs[vim.api.nvim_win_get_buf(win)] = true
-          end
-          return vim.tbl_keys(bufs)
-        end,
-      },
-    },
+    buffers,
     { name = "dictionary", keyword_length = 2 },
     { name = "spell" },
     { name = "calc" },
@@ -147,6 +150,11 @@ cmp.setup({
 -- from nvim-autopairs
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+
+-- from cmp-git
+require("cmp_git").setup({
+  filetypes = { "NeogitCommitMessage", "gitcommit", "octo" },
+})
 
 -- from cmdline
 cmp.setup.cmdline(":", {
