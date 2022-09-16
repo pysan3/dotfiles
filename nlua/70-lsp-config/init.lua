@@ -14,6 +14,6 @@ return {
     },
     "ray-x/lsp_signature.nvim", -- show hints when writing function arguments
     "j-hui/fidget.nvim", -- print linting progress
-    {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+    { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" },
   },
 }
