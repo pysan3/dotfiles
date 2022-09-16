@@ -251,7 +251,7 @@ function install_golang () {
   tmp_file=$(mktemp)
   wget -O "$tmp_file" "https://go.dev/dl/$(wget -O- 'https://go.dev/VERSION?m=text').linux-amd64.tar.gz" \
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
-    && ln -s "$XDG_DATA_HOME/go/bin/"* "$XDG_BIN_HOME" \
+    && ln -sf "$XDG_DATA_HOME/go/bin/"* "$XDG_BIN_HOME" \
     && info "go installed successfully" || error "go install FAILED"
 }
 (! command -v 'go' &>/dev/null || checkyes 'Upgrade golang?') && install_golang
