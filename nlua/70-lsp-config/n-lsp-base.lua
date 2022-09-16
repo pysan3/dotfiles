@@ -78,6 +78,7 @@ capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
   lineFoldingOnly = true,
 }
+capabilities.offsetEncoding = { "utf-16" }
 M.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 return M
