@@ -88,7 +88,7 @@ local function set_keybinds()
   -- rename
   vim.keymap.set("n", lsp_prefix .. "r", cmd("rename"), getopts(true, "lspsaga.lsp_rename"))
   -- preview definition
-  vim.keymap.set("n", lsp_prefix .. "k", cmd("preview_definition"), getopts(true, "lspsaga.preview_definition"))
+  vim.keymap.set("n", lsp_prefix .. "k", cmd("peek_definition"), getopts(true, "lspsaga.preview_definition"))
 
   -- diagnostic
   vim.keymap.set("n", lsp_prefix .. "d", cmd("show_line_diagnostics"), getopts(true, "lspsaga.show_line_diagnostics"))
