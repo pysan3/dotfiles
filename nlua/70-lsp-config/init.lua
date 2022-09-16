@@ -7,7 +7,10 @@ return {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "neovim/nvim-lspconfig", -- enable LSP
-        "jose-elias-alvarez/null-ls.nvim", -- linter
+        {
+          "jose-elias-alvarez/null-ls.nvim", -- linter
+          commit = "76d0573fc159839a9c4e62a0ac4f1046845cdd50",
+        },
         { "glepnir/lspsaga.nvim", branch = "main" },
         "andrewferrier/textobj-diagnostic.nvim",
       },
