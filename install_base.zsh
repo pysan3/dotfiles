@@ -178,7 +178,7 @@ while IFS= read -r line; do
     pkg_list="$pkg_list $pkg"
   fi
 done < "$DOTFILES/static/list_rust_packages.txt"
-[[ -n "$pkg_list" ]] && eval "cargo install -v $pkg_list"
+[[ -n "$pkg_list" ]] && eval "cargo install $pkg_list"
 while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
   alt=$(cargo_list_line_parse 'alt' $line)
@@ -325,7 +325,7 @@ if checkyes 'Install btop from source?'; then
   update_git_repo "$BTOP_INSTALL_DIR" https://github.com/aristocratos/btop.git
   checkyes 'Use g++-10 (y) or g++-11 (N)?' && CXX="g++-10" || CXX="g++-11"
   make -C "$BTOP_INSTALL_DIR" QUIET=true ADDFLAGS=-march=native CXX="$CXX" \
-    && make install PREFIX="$XDG_PREFIX_HOME" \
+    && make -C "$BTOP_INSTALL_DIR" install PREFIX="$XDG_PREFIX_HOME" \
     && info 'btop installation done'
 fi
 
