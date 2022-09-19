@@ -31,7 +31,7 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
   sudo pacman -S base-devel cmake unzip ninja tree-sitter curl
   # python dependencies
   sudo pacman -S base-devel openssl zlib xz tk python python-pip python-virtualenv python-pipenv \
-    python-gobject python-wxpython
+    python-gobject python-wxpython python-yaml python-xlib python-utils python-pyopenssl
   # texlive
   sudo pacman -S texlive-full
 fi
