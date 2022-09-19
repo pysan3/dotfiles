@@ -1,129 +1,41 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator.
-
-# Import additional configuration files
-#
-# Imports are loaded in order, skipping all missing files, with the importing
-# file being loaded last. If a field is already present in a previous import, it
-# will be replaced.
-#
-# All imports must either be absolute paths starting with `/`, or paths relative
-# to the user's home directory starting with `~/`.
-#import:
-#  - /path/to/alacritty.yml
-
-# Any items in the `env` entry below will be added as
-# environment variables. Some entries may override variables
-# set by alacritty itself.
 env:
-  # TERM variable
-  #
-  # This value is used to set the `$TERM` environment variable for
-  # each instance of Alacritty. If it is not present, alacritty will
-  # check the local terminfo database and use `alacritty` if it is
-  # available, otherwise `xterm-256color` is used.
   TERM: alacritty
 
 window:
-  # Window dimensions (changes require restart)
-  #
-  # Number of lines/columns (not pixels) in the terminal. The number of columns
-  # must be at least `2`, while using a value of `0` for columns and lines will
-  # fall back to the window manager's recommended size.
-  #dimensions:
-  #  columns: 0
-  #  lines: 0
-
-  # Background opacity
-  #
-  # Window opacity as a floating point number from `0.0` to `1.0`.
-  # The value `0.0` is completely transparent and `1.0` is opaque.
   opacity: 0.8
-
-  # Window position (changes require restart)
-  #
-  # Specified in number of pixels.
-  # If the position is not set, the window manager will handle the placement.
-  #position:
-  #  x: 0
-  #  y: 0
-
-  # Window padding (changes require restart)
-  #
-  # Blank space added around the window in pixels. This padding is scaled
-  # by DPI and the specified value is always added at both opposing sides.
-  #padding:
-  #  x: 0
-  #  y: 0
-
-  # Spread additional padding evenly around the terminal content.
-  #dynamic_padding: false
-
-  # Window decorations
-  #
-  # Values for `decorations`:
-  #     - full: Borders and title bar
-  #     - none: Neither borders nor title bar
-  #
-  # Values for `decorations` (macOS only):
-  #     - transparent: Title bar, transparent background and title bar buttons
-  #     - buttonless: Title bar, transparent background and no title bar buttons
+  # opacity: 1.0
   decorations: full
-  # decorations: none
-
-  # Startup Mode (changes require restart)
-  #
-  # Values for `startup_mode`:
-  #   - Windowed
-  #   - Maximized
-  #   - Fullscreen
-  #
-  # Values for `startup_mode` (macOS only):
-  #   - SimpleFullscreen
-  #startup_mode: Windowed
-
-  # Window title
-  #title: Alacritty
-
-  # Allow terminal applications to change Alacritty's window title.
   dynamic_title: true
 
-  # Window class (Linux/BSD only):
-  #class:
-  # Application instance name
-  #instance: Alacritty
-  # General application class
-  #general: Alacritty
-
-  # GTK theme variant (Linux/BSD only)
-  #
-  # Override the variant of the GTK theme. Commonly supported values are `dark`
-  # and `light`. Set this to `None` to use the default theme variant.
-  #gtk_theme_variant: None
-
 scrolling:
-  # Maximum number of lines in the scrollback buffer.
-  # Specifying '0' will disable scrolling.
   history: 10000
-
-  # Scrolling distance multiplier.
   multiplier: 3
 
-# Font configuration
 font:
   normal:
     family: PlemolJP Console NF
     style: Regular
 
-# If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: false
+hints:
+  alphabet: "jfkdls;ahgurieowpq"
+  enabled:
+    - regex:
+        "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
+        [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+      hyperlinks: true
+      command: xdg-open
+      post_processing: true
+      mouse:
+        enabled: true
+        mods: Control
+      binding:
+        key: U
+        mods: Control|Shift
 
-# Colors (Tomorrow Night)
 colors:
-  # Default colors
   primary:
     background: "0x000000"
     foreground: "0xffffff"
-  # Normal colors
   normal:
     black: "0x000000"
     red: "0xcd0000"
@@ -133,8 +45,6 @@ colors:
     magenta: "0xcd00cd"
     cyan: "0x00cdcd"
     white: "0xe5e5e5"
-
-  # Bright colors
   bright:
     black: "0x7f7f7f"
     red: "0xff0000"
@@ -145,181 +55,26 @@ colors:
     cyan: "0x00ffff"
     white: "0xffffff"
 
-# Bell
-#
-# The bell is rung every time the BEL control character is received.
 bell:
-  # Visual Bell Animation
-  #
-  # Animation effect for flashing the screen when the visual bell is rung.
-  #
-  # Values for `animation`:
-  #   - Ease
-  #   - EaseOut
-  #   - EaseOutSine
-  #   - EaseOutQuad
-  #   - EaseOutCubic
-  #   - EaseOutQuart
-  #   - EaseOutQuint
-  #   - EaseOutExpo
-  #   - EaseOutCirc
-  #   - Linear
-  #animation: EaseOutExpo
-
-  # Duration of the visual bell flash in milliseconds. A `duration` of `0` will
-  # disable the visual bell animation.
-  #duration: 0
-
-  # Visual bell animation color.
-  #color: '#ffffff'
-
-  # Bell Command
-  #
-  # This program is executed whenever the bell is rung.
-  #
-  # When set to `command: None`, no command will be executed.
-  #
-  # Example:
-  #   command:
-  #     program: notify-send
-  #     args: ["Hello, World!"]
-  #
   command: None
 
 selection:
-  # This string contains all characters that are used as separators for
-  # "semantic words" in Alacritty.
-  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-
-  # When set to `true`, selected text will be copied to the primary clipboard.
-  save_to_clipboard: false
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+  save_to_clipboard: true
 
 cursor:
-  # Cursor style
   style:
-    # Cursor shape
-    #
-    # Values for `shape`:
-    #   - ▇ Block
-    #   - _ Underline
-    #   - | Beam
-    #shape: Block
-
-    # Cursor blinking state
-    #
-    # Values for `blinking`:
-    #   - Never: Prevent the cursor from ever blinking
-    #   - Off: Disable blinking by default
-    #   - On: Enable blinking by default
-    #   - Always: Force the cursor to always blink
     blinking: On
-
-  # Vi mode cursor style
-  #
-  # If the vi mode cursor style is `None` or not specified, it will fall back to
-  # the style of the active value of the normal cursor.
-  #
-  # See `cursor.style` for available options.
   vi_mode_style: None
-
-  # Cursor blinking interval in milliseconds.
   blink_interval: 750
-
-  # If this is `true`, the cursor will be rendered as a hollow box when the
-  # window is not focused.
   unfocused_hollow: true
 
-  # Thickness of the cursor relative to the cell width as floating point number
-  # from `0.0` to `1.0`.
-  #thickness: 0.15
-
-# Live config reload (changes require restart)
 live_config_reload: true
 
-# Shell
-#
-# You can set `shell.program` to the path of your favorite shell, e.g.
-# `/bin/fish`. Entries in `shell.args` are passed unmodified as arguments to the
-# shell.
-#
-# Default:
-#   - (macOS) /bin/bash --login
-#   - (Linux/BSD) user login shell
-#   - (Windows) powershell
-#shell:
-#  program: /bin/bash
-#  args:
-#    - --login
-
-# Startup directory
-#
-# Directory the shell is started in. If this is unset, or `None`, the working
-# directory of the parent process will be used.
 working_directory: None
 
-# Send ESC (\x1b) before characters when alt is pressed.
-#alt_send_esc: true
-
 mouse:
-  # Click settings
-  #
-  # The `double_click` and `triple_click` settings control the time
-  # alacritty should wait for accepting multiple clicks as one double
-  # or triple click.
-  #double_click: { threshold: 300 }
-  #triple_click: { threshold: 300 }
-
-  # If this is `true`, the cursor is temporarily hidden when typing.
   hide_when_typing: false
-
-  # url:
-  # URL launcher
-  #
-  # This program is executed when clicking on a text which is recognized as a
-  # URL. The URL is always added to the command as the last parameter.
-  #
-  # When set to `launcher: None`, URL launching will be disabled completely.
-  #
-  # Default:
-  #   - (macOS) open
-  #   - (Linux/BSD) xdg-open
-  #   - (Windows) explorer
-  # launcher:
-  #   program: xdg-open
-  #   args: []
-
-  # URL modifiers
-  #
-  # These are the modifiers that need to be held down for opening URLs when
-  # clicking on them. The available modifiers are documented in the key
-  # binding section.
-  # modifiers: None
-
-# Mouse bindings
-#
-# Mouse bindings are specified as a list of objects, much like the key
-# bindings further below.
-#
-# To trigger mouse bindings when an application running within Alacritty
-# captures the mouse, the `Shift` modifier is automatically added as a
-# requirement.
-#
-# Each mouse binding will specify a:
-#
-# - `mouse`:
-#
-#   - Middle
-#   - Left
-#   - Right
-#   - Numeric identifier such as `5`
-#
-# - `action` (see key bindings)
-#
-# And optionally:
-#
-# - `mods` (see key bindings)
-#mouse_bindings:
-#  - { mouse: Middle, action: PasteSelection }
 
 # Key bindings
 #
@@ -616,47 +371,6 @@ key_bindings:
   - { key: Minus, mods: Control, action: DecreaseFontSize }
   - { key: NumpadSubtract, mods: Control, action: DecreaseFontSize }
 
-  # (Windows only)
-  #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
-
-  # (macOS only)
-  #- { key: K,              mods: Command, mode: ~Vi|~Search, chars: "\x0c"            }
-  #- { key: K,              mods: Command, mode: ~Vi|~Search, action: ClearHistory     }
-  #- { key: Key0,           mods: Command,                    action: ResetFontSize    }
-  #- { key: Equals,         mods: Command,                    action: IncreaseFontSize }
-  #- { key: Plus,           mods: Command,                    action: IncreaseFontSize }
-  #- { key: NumpadAdd,      mods: Command,                    action: IncreaseFontSize }
-  #- { key: Minus,          mods: Command,                    action: DecreaseFontSize }
-  #- { key: NumpadSubtract, mods: Command,                    action: DecreaseFontSize }
-  #- { key: V,              mods: Command,                    action: Paste            }
-  #- { key: C,              mods: Command,                    action: Copy             }
-  #- { key: C,              mods: Command, mode: Vi|~Search,  action: ClearSelection   }
-  #- { key: H,              mods: Command,                    action: Hide             }
-  #- { key: M,              mods: Command,                    action: Minimize         }
-  #- { key: Q,              mods: Command,                    action: Quit             }
-  #- { key: W,              mods: Command,                    action: Quit             }
-  #- { key: N,              mods: Command,                    action: SpawnNewInstance }
-  #- { key: F,              mods: Command|Control,            action: ToggleFullscreen }
-  #- { key: F,              mods: Command, mode: ~Search,     action: SearchForward    }
-  #- { key: B,              mods: Command, mode: ~Search,     action: SearchBackward   }
-
 debug:
-  # Display the time it takes to redraw each frame.
-  #render_timer: false
-
-  # Keep the log file after quitting Alacritty.
   persistent_logging: false
-
-  # Log level
-  #
-  # Values for `log_level`:
-  #   - Off
-  #   - Error
-  #   - Warn
-  #   - Info
-  #   - Debug
-  #   - Trace
   log_level: Warn
-
-  # Print all received window events.
-  #print_events: false
