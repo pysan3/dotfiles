@@ -288,7 +288,7 @@ info 'tmux setup done'
 function install_log_rotate () {
   update_git_repo "$XDG_DATA_HOME/log_rotate" https://github.com/ShawnFeng0/log_rotate.git
   cmake -B "$XDG_DATA_HOME/log_rotate/build" && make -C "$XDG_DATA_HOME/log_rotate/build"
-  ln -s "$XDG_DATA_HOME/log_rotate/build/log_rotate" "$XDG_BIN_HOME"
+  ln -sf "$XDG_DATA_HOME/log_rotate/build/log_rotate" "$XDG_BIN_HOME"
 }
 command -v 'log_rotate' &>/dev/null && info 'log_rotate found' || install_log_rotate
 
