@@ -12,7 +12,7 @@ setopt sh_word_split
 
 if command -v 'apt-get' &>/dev/null || checkyes 'apt-get available?'; then
   # python build dependencies
-  sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+  sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git python3-distutils-extra python-distutils-extra
   # btop dependencies
   sudo apt-get install -y coreutils sed git build-essential
   sudo apt-get install -y gcc-11 g++-11 || sudo apt-get install -y gcc-10 g++-10
@@ -31,7 +31,8 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
   sudo pacman -S base-devel cmake unzip ninja tree-sitter curl
   # python dependencies
   sudo pacman -S base-devel openssl zlib xz tk python python-pip python-virtualenv python-pipenv \
-    python-gobject python-wxpython python-yaml python-xlib python-utils python-pyopenssl
+    python-gobject python-wxpython python-yaml python-xlib python-utils python-pyopenssl \
+    poppler-glib python-distutils-extra python-pip python-gobject gtk3 python-cairo libhandy
   # texlive
   sudo pacman -S texlive-full
 fi
