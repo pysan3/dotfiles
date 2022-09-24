@@ -1,7 +1,4 @@
 return {
-  install = {
-    "vim-scripts/ReplaceWithRegister", -- {Visual}["x]gr - replace {Visual} with register x
-  },
   setup = {
     {
       "AckslD/nvim-neoclip.lua",
