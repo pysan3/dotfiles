@@ -121,12 +121,18 @@ cmp.setup({
       compare.offset,
       compare.exact,
       compare.score,
-      compare.length,
       function(entry1, entry2) -- sort by compare kind (Variable, Function etc)
         local kind1 = modified_kind(entry1:get_kind())
         local kind2 = modified_kind(entry2:get_kind())
         if kind1 ~= kind2 then
           return kind1 - kind2 < 0
+        end
+      end,
+      function(entry1, entry2)
+        local len1 = string.len(string.gsub(entry1.completion_item.label, "[=~]", ""))
+        local len2 = string.len(string.gsub(entry2.completion_item.label, "[=~]", ""))
+        if len1 ~= len2 then
+          return len1 - len2 < 0
         end
       end,
       compare.sort_text,
