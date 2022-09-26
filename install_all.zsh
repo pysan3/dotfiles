@@ -60,9 +60,9 @@ for f in $(command find "config" -type f); do
     ln -s "$DOTFILES/$f" "$XDG_CONFIG_HOME/$file"
     info "Created a symbolic link of $f in $dir_name"
   elif [ "$XDG_CONFIG_HOME/$file" -ef "$DOTFILES/$f" ]; then
-    info "Symlink to $f is already set"
+    info "Symlink to $DOTFILES/$f is already set"
   else
-    error "$XDG_CONFIG_HOME/$f already exists. Cannot overwrite"
+    error "$XDG_CONFIG_HOME/$file already exists. Cannot overwrite"
   fi
 done
 
@@ -86,6 +86,7 @@ if [ ! -f ~/texmf/tex/latex/local/pdfpc-commands.sty ]; then
   fi
   info "Installed pdfpc-commands.sty"
 fi
+
 # npmrc
 npmrc="$XDG_CONFIG_HOME/npm/npmrc"
 [[ -L "$npmrc" ]] && rm "$npmrc"
@@ -96,5 +97,15 @@ while IFS= read -r line; do
   fi
 done < "$DOTFILES/static/npm/npmrc"
 info "Installed npmrc"
+
+# firefox userChrome.css
+ff_profile_dir=$(echo ~/.mozilla/firefox/*.default-release)
+mkdir -p "$ff_profile_dir/chrome"
+if [[ ! -f "$ff_profile_dir/chrome/userChrome.css" ]]; then
+  ln -s "$DOTFILES/static/firefox/userChrome.css" "$ff_profile_dir/chrome/" \
+    && info "Installed firefox userChrome.css" || error "Failed to install firefox userChrome.css"
+else
+  info "firefox userChrome.css already installed"
+fi
 
 true
