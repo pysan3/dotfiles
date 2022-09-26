@@ -36,6 +36,8 @@ M.setup = function(_)
           "--quote-style=AutoPreferDouble",
         },
       }),
+      -- rust
+      fmt.rustfmt,
     },
   })
 end
