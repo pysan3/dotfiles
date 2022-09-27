@@ -22,6 +22,8 @@ if command -v 'apt-get' &>/dev/null || checkyes 'apt-get available?'; then
   sudo apt-get -y install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
   # tmux dependencies
   sudo apt-get install -y libevent ncurses libevent-dev ncurses-dev build-essential bison pkg-config
+  # nix dependencies
+  sudo apt-get install -y autoconf automake libtool m4 autoconf-archive pkg-config libboost-all-dev libarchive-dev bison flex libsodium-dev libseccomp-dev sqlite3 curl libgc-dev libgtest-dev
 fi
 
 if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
