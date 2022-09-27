@@ -100,12 +100,20 @@ info "Installed npmrc"
 
 # firefox userChrome.css
 ff_profile_dir=$(echo ~/.mozilla/firefox/*.default-release)
-mkdir -p "$ff_profile_dir/chrome"
-if [[ ! -f "$ff_profile_dir/chrome/userChrome.css" ]]; then
+if [ ! -z "$ff_profile_dir" ] && [[ ! -f "$ff_profile_dir/chrome/userChrome.css" ]]; then
+  mkdir -p "$ff_profile_dir/chrome"
   ln -s "$DOTFILES/static/firefox/userChrome.css" "$ff_profile_dir/chrome/" \
     && info "Installed firefox userChrome.css" || error "Failed to install firefox userChrome.css"
 else
-  info "firefox userChrome.css already installed"
+  info "firefox userChrome.css is invalid or already installed"
+fi
+# install for windows
+if [[ -d /mnt/c/Users ]]; then
+  ff_profile_dir=$(echo /mnt/c/Users/i84203609/AppData/Roaming/Mozilla/Firefox/Profiles/*.default-release)
+  [ ! -z "$ff_profile_dir" ] && mkdir -p "$ff_profile_dir/chrome" \
+    && cp -f "$DOTFILES/static/firefox/userChrome.css" "$ff_profile_dir/chrome/" \
+    && info "Installed firefox userChrome.css for Windows" \
+    || error "Failed to install firefox userChrome.css in Windows"
 fi
 
 true
