@@ -12,7 +12,7 @@ scrolling:
   multiplier: 3
 
 font:
-  size: 7
+  size: 10
   normal:
     family: PlemolJP Console NF
     style: Regular

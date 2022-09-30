@@ -43,3 +43,5 @@
 	rebase = false
 [core]
     excludeFile = ~/.config/git/ignore
+[init]
+    defaultBranch = main
