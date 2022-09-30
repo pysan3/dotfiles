@@ -12,7 +12,7 @@ from libqtile.dgroups import simple_key_binder
 
 import colorConfig
 
-color = colorConfig.xterm
+color = colorConfig.paperdark
 
 modKey = "mod4"
 mod = [modKey]
