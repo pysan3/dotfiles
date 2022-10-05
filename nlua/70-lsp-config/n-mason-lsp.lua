@@ -36,6 +36,7 @@ local servers = {
   -- elmls = {}, -- Elm
   -- ember = {}, -- Ember
   emmet_ls = {}, -- Emmet
+  erg_language_server = {}, -- Erg
   -- erlangls = {}, -- Erlang
   -- fsautocomplete = {}, -- F#
   -- flux_lsp = {}, -- Flux
