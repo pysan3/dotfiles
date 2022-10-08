@@ -1,6 +1,8 @@
 " I hate escape more than anything else
 inoremap <silent> jk <Esc>
 tmap <silent> jk <Esc>
+inoremap <silent> ｊｋ <Esc>
+tmap <silent> ｊｋ <Esc>
 
 " jump to the last edited file
 nnoremap <C-6> <C-^>
