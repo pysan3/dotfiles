@@ -145,7 +145,6 @@ local global_opts = {
       client.server_capabilities.documentFormattingProvider = false
     end
     lsp_base.lsp_keymaps(bufnr)
-    lsp_base.lsp_highlight_document(client)
     require("aerial").on_attach(client, bufnr)
   end,
 }
