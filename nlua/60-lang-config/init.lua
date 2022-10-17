@@ -16,6 +16,6 @@ return {
     "godlygeek/tabular",
     { "iamcco/markdown-preview.nvim", run = "cd app && npm install" },
     { "heavenshell/vim-jsdoc", run = "make install", ft = { "javascript", "javascript.jsx", "typescript" } },
-    { 'h-hg/fcitx.nvim', cond = vim.fn.executable("fcitx5-remote") == 1 },
+    { "h-hg/fcitx.nvim", cond = vim.fn.executable("fcitx5-remote") == 1 },
   },
 }

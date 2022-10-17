@@ -29,7 +29,7 @@ M.setup = function(_)
       fmt.autopep8.with({ extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" } }),
       diag.flake8.with({ extra_args = { "--max-line-length=120", "--ignore=F405" } }),
       -- lua
-      fmt.stylua,
+      fmt.stylua.with({ extra_args = { "--search-parent-directories" } }),
       -- rust
       fmt.rustfmt,
     },
