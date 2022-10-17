@@ -414,18 +414,6 @@ fi
 # sad
 checkcommand 'delta' 'cargo install git-delta'
 checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
-# null-ls
-checkcommand 'stylua' 'cargo install stylua'
-checkcommand 'prettier' 'pnpm install --save-dev -g prettier'
-checkcommand 'eslint' 'pnpm install --save-dev -g eslint'
-checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
-checkcommand 'pyright' 'pip install --user --upgrade pyright'
-checkcommand 'pylsp' 'pip install --user --upgrade python-lsp-server'
-checkcommand 'flake8' 'pip install --user --upgrade flake8'
-checkcommand 'pylint' 'pip install --user --upgrade pylint'
-checkcommand 'emmet-ls' 'pnpm install -g emmet-ls'
-checkcommand 'taplo' 'cargo install taplo-cli'
-checkcommand 'bash-language-server' 'pnpm i -g bash-language-server'
 # telescope
 if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then
   checkcommand 'ueberzug' 'pip install ueberzug'
