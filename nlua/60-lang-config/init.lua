@@ -11,7 +11,7 @@ return {
     "chip/vim-fat-finger",
     "pixelneo/vim-python-docstring",
     "Vimjas/vim-python-pep8-indent",
-    "uarun/vim-protobuf",
+    "wfxr/protobuf.vim",
     "tikhomirov/vim-glsl",
     "godlygeek/tabular",
     { "iamcco/markdown-preview.nvim", run = "cd app && npm install" },
