@@ -1,15 +1,3 @@
-require("window-picker").setup({
-  autoselect_one = true,
-  include_current = false,
-  filter_rules = {
-    bo = {
-      filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
-      buftype = { "terminal" },
-    },
-  },
-  other_win_hl_color = "#e35e4f",
-})
-
 vim.g.neo_tree_remove_legacy_commands = 1
 local neotree = require("neo-tree")
 neotree.setup({
@@ -24,9 +12,11 @@ neotree.setup({
     batch_delay = 10,
     max_lines = 10000,
   },
-  hide_root_node = true,
-  retain_hidden_root_indent = false,
+  -- hide_root_node = true,
+  -- retain_hidden_root_indent = false,
   resize_timer_interval = -1, -- in ms, needed for containers to redraw right aligned and faded content
+  log_level = "trace",
+  log_to_file = true,
   sort_case_insensitive = true,
   source_selector = {
     winbar = true,
@@ -124,7 +114,7 @@ neotree.setup({
   },
   nesting_rules = {},
   window = { -- see https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/popup for
-    position = "float",
+    position = "left",
     width = 40,
     mapping_options = {
       noremap = true,
@@ -134,10 +124,9 @@ neotree.setup({
       ["<space>"] = { "toggle_node", nowait = false },
       ["<2-LeftMouse>"] = "open",
       ["<cr>"] = "open",
-      -- ["<cr>"] = "open_with_window_picker",
-      ["l"] = "open_with_window_picker",
-      ["s"] = "split_with_window_picker",
-      ["v"] = "vsplit_with_window_picker",
+      ["l"] = "open",
+      ["s"] = "open_split",
+      ["v"] = "open_vsplit",
       ["t"] = "open_tabnew",
       ["C"] = "close_node",
       ["h"] = "close_node",
