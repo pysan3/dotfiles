@@ -124,7 +124,7 @@ neotree.setup({
   },
   nesting_rules = {},
   window = { -- see https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/popup for
-    position = "left",
+    position = "float",
     width = 40,
     mapping_options = {
       noremap = true,
