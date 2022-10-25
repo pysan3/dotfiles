@@ -132,6 +132,7 @@ neotree.setup({
       ["h"] = "close_node",
       ["z"] = "close_all_nodes",
       ["R"] = "refresh",
+      ["P"] = { "toggle_preview", config = { use_float = true } },
       ["a"] = { "add", config = { show_path = "relative" } },
       ["A"] = "add_directory",
       ["d"] = "delete",
