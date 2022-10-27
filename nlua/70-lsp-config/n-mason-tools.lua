@@ -1,25 +1,4 @@
 local tools = {
-  -- LSP
-  "bash-language-server",
-  "cmake-language-server",
-  "clangd",
-  "dockerfile-language-server",
-  "emmet-ls",
-  "eslint-lsp",
-  "html-lsp",
-  "jdtls",
-  "json-lsp",
-  "lua-language-server",
-  "opencl-language-server",
-  "pyright",
-  "taplo",
-  "texlab",
-  "typescript-language-server",
-  "vim-language-server",
-  "vetur-vls",
-  "vue-language-server",
-  "yaml-language-server",
-
   -- DAP
   "debugpy",
   -- "node-debug2-adapter",

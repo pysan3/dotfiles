@@ -135,7 +135,7 @@ local stop_lsp_fmt = {
 
 require("mason-lspconfig").setup({
   ensure_installed = lsp_list,
-  automatic_installation = false,
+  automatic_installation = true,
 })
 
 local global_opts = {
