@@ -5,8 +5,8 @@ return {
     -- "kyazdani42/nvim-tree.lua", -- nvim tree
     {
       "nvim-neo-tree/neo-tree.nvim",
-      -- branch = "v2.x",
-      branch = "main",
+      branch = "v2.x",
+      -- branch = "main",
       requires = {
         "MunifTanjim/nui.nvim",
         { "s1n7ax/nvim-window-picker", tag = "1.*" },

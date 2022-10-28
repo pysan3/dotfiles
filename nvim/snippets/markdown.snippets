@@ -33,3 +33,8 @@ snippet wikinext "<hr/> for mdx file"
 	</span>
 
 	***
+snippet gifsrc "import gif file to mdx"
+	import Image from "next/image";
+	import gif from "$1";
+
+	<Image src={gif} width={${2:852}} height={${3:480}} />

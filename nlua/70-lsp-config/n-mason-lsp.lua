@@ -135,7 +135,7 @@ local stop_lsp_fmt = {
 
 require("mason-lspconfig").setup({
   ensure_installed = lsp_list,
-  automatic_installation = false,
+  automatic_installation = true,
 })
 
 local global_opts = {
@@ -145,7 +145,6 @@ local global_opts = {
       client.server_capabilities.documentFormattingProvider = false
     end
     lsp_base.lsp_keymaps(bufnr)
-    require("aerial").on_attach(client, bufnr)
   end,
 }
 

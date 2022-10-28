@@ -144,7 +144,7 @@ cmp.setup({
     select = false,
   },
   experimental = {
-    -- ghost_text = true,
+    ghost_text = true,
   },
   window = {
     documentation = {
