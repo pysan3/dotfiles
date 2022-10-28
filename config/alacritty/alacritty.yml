@@ -2,8 +2,8 @@ env:
   TERM: alacritty
 
 window:
-  opacity: 0.8
-  # opacity: 1.0
+  # opacity: 0.8
+  opacity: 1.0
   decorations: full
   dynamic_title: true
 
@@ -12,6 +12,7 @@ scrolling:
   multiplier: 3
 
 font:
+  size: 10
   normal:
     family: PlemolJP Console NF
     style: Regular
@@ -32,28 +33,229 @@ hints:
         key: U
         mods: Control|Shift
 
+# Colors (xterm)
 colors:
   primary:
-    background: "0x000000"
-    foreground: "0xffffff"
+    background: "#000000"
+    foreground: "#ffffff"
   normal:
-    black: "0x000000"
-    red: "0xcd0000"
-    green: "0x00cd00"
-    yellow: "0xcdcd00"
-    blue: "0x0000ee"
-    magenta: "0xcd00cd"
-    cyan: "0x00cdcd"
-    white: "0xe5e5e5"
+    black: "#000000"
+    red: "#cd0000"
+    green: "#00cd00"
+    yellow: "#cdcd00"
+    blue: "#0000ee"
+    magenta: "#cd00cd"
+    cyan: "#00cdcd"
+    white: "#e5e5e5"
   bright:
-    black: "0x7f7f7f"
-    red: "0xff0000"
-    green: "0x00ff00"
-    yellow: "0xffff00"
-    blue: "0x5c5cff"
-    magenta: "0xff00ff"
-    cyan: "0x00ffff"
-    white: "0xffffff"
+    black: "#7f7f7f"
+    red: "#ff0000"
+    green: "#00ff00"
+    yellow: "#ffff00"
+    blue: "#5c5cff"
+    magenta: "#ff00ff"
+    cyan: "#00ffff"
+    white: "#ffffff"
+
+# # Colors (iTerm 2 default theme)
+# colors:
+#   # Default colors
+#   primary:
+#     # background: "#101421"
+#     background: "#000000"
+#     foreground: "#fffbf6"
+#   # Normal colors
+#   normal:
+#     black: "#2e2e2e"
+#     red: "#eb4129"
+#     green: "#abe047"
+#     yellow: "#f6c744"
+#     blue: "#47a0f3"
+#     magenta: "#7b5cb0"
+#     cyan: "#64dbed"
+#     white: "#e5e9f0"
+#   # Bright colors
+#   bright:
+#     black: "#565656"
+#     red: "#ec5357"
+#     green: "#c0e17d"
+#     yellow: "#f9da6a"
+#     blue: "#49a4f8"
+#     magenta: "#a47de9"
+#     cyan: "#99faf2"
+#     white: "#ffffff"
+
+# # Colors (Terminal.app)
+# colors:
+#   # Default colors
+#   primary:
+#     background: "#000000"
+#     foreground: "#b6b6b6"
+#   # Normal colors
+#   normal:
+#     black: "#000000"
+#     red: "#990000"
+#     green: "#00a600"
+#     yellow: "#999900"
+#     blue: "#0000b2"
+#     magenta: "#b200b2"
+#     cyan: "#00a6b2"
+#     white: "#bfbfbf"
+#   # Bright colors
+#   bright:
+#     black: "#666666"
+#     red: "#e50000"
+#     green: "#00d900"
+#     yellow: "#e5e500"
+#     blue: "#0000ff"
+#     magenta: "#e500e5"
+#     cyan: "#00e5e5"
+#     white: "#e5e5e5"
+
+# Colors (PaperColor - Dark)
+colors:
+  # Default colors
+  primary:
+    background: "#1c1c1c"
+    foreground: "#d0d0d0"
+  cursor:
+    text: "#1c1c1c"
+    cursor: "#808080"
+  # Normal colors
+  normal:
+    black: "#1c1c1c"
+    red: "#af005f"
+    green: "#5faf00"
+    yellow: "#d7af5f"
+    blue: "#5fafd7"
+    magenta: "#808080"
+    cyan: "#20a5ba"
+    white: "#d0d0d0"
+  # Bright colors
+  bright:
+    black: "#585858"
+    red: "#5faf5f"
+    green: "#afd700"
+    yellow: "#af87d7"
+    blue: "#ffaf00"
+    magenta: "#ffaf00"
+    cyan: "#4fb8cc"
+    white: "#5f8787"
+
+# # Colors (Pencil Dark)
+# colors:
+#   # Default Colors
+#   primary:
+#     background: "#212121"
+#     foreground: "#f1f1f1"
+#   # Normal colors
+#   normal:
+#     black: "#212121"
+#     red: "#c30771"
+#     green: "#10a778"
+#     yellow: "#a89c14"
+#     blue: "#008ec4"
+#     magenta: "#523c79"
+#     cyan: "#20a5ba"
+#     white: "#e0e0e0"
+#   # Bright colors
+#   bright:
+#     black: "#818181"
+#     red: "#fb007a"
+#     green: "#5fd7af"
+#     yellow: "#f3e430"
+#     blue: "#20bbfc"
+#     magenta: "#6855de"
+#     cyan: "#4fb8cc"
+#     white: "#f1f1f1"
+
+# # Colors (Hyper)
+# colors:
+#   # Default colors
+#   primary:
+#     background: "#000000"
+#     foreground: "#ffffff"
+#   cursor:
+#     text: "#F81CE5"
+#     cursor: "#ffffff"
+#   # Normal colors
+#   normal:
+#     black: "#000000"
+#     red: "#fe0100"
+#     green: "#33ff00"
+#     yellow: "#feff00"
+#     blue: "#0066ff"
+#     magenta: "#cc00ff"
+#     cyan: "#00ffff"
+#     white: "#d0d0d0"
+#   # Bright colors
+#   bright:
+#     black: "#808080"
+#     red: "#fe0100"
+#     green: "#33ff00"
+#     yellow: "#feff00"
+#     blue: "#0066ff"
+#     magenta: "#cc00ff"
+#     cyan: "#00ffff"
+#     white: "#FFFFFF"
+
+# # Colors (Tomorrow Night Bright)
+# colors:
+#   # Default colors
+#   primary:
+#     background: "#000000"
+#     foreground: "#eaeaea"
+#   # Normal colors
+#   normal:
+#     black: "#000000"
+#     red: "#d54e53"
+#     green: "#b9ca4a"
+#     yellow: "#e6c547"
+#     blue: "#7aa6da"
+#     magenta: "#c397d8"
+#     cyan: "#70c0ba"
+#     white: "#424242"
+#   # Bright colors
+#   bright:
+#     black: "#666666"
+#     red: "#ff3334"
+#     green: "#9ec400"
+#     yellow: "#e7c547"
+#     blue: "#7aa6da"
+#     magenta: "#b77ee0"
+#     cyan: "#54ced6"
+#     white: "#2a2a2a"
+
+# # Colors (Tomorrow Night)
+# colors:
+#   # Default colors
+#   primary:
+#     background: "#1d1f21"
+#     foreground: "#c5c8c6"
+#   # Colors the cursor will use if `custom_cursor_colors` is true
+#   cursor:
+#     text: "#1d1f21"
+#     cursor: "#ffffff"
+#   # Normal colors
+#   normal:
+#     black: "#1d1f21"
+#     red: "#cc6666"
+#     green: "#b5bd68"
+#     yellow: "#e6c547"
+#     blue: "#81a2be"
+#     magenta: "#b294bb"
+#     cyan: "#70c0ba"
+#     white: "#373b41"
+#   # Bright colors
+#   bright:
+#     black: "#666666"
+#     red: "#ff3334"
+#     green: "#9ec400"
+#     yellow: "#f0c674"
+#     blue: "#81a2be"
+#     magenta: "#b77ee0"
+#     cyan: "#54ced6"
+#     white: "#282a2e"
 
 bell:
   command: None

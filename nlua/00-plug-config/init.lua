@@ -26,7 +26,7 @@ return packer.startup(function(use)
     for _, plugin in ipairs(plugin_table.install or {}) do use(plugin) end
     for _, plugin in ipairs(plugin_table.setup or {}) do
       if type(plugin) ~= "table" then plugin = { plugin } end
-      plugin.config = string.format([[require("%s.%s")]], dir_name, plugin[1]:gsub(".*/([^.]*)%.?.*$", "%1"))
+      plugin.config = string.format([[require("%s.%s")]], dir_name, plugin[1]:gsub(".*/([^.]*)%.?.*/?$", "%1"))
       use(plugin)
     end
   end

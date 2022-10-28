@@ -412,18 +412,6 @@ fi
 # sad
 checkcommand 'delta' 'cargo install git-delta'
 checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
-# null-ls
-checkcommand 'stylua' 'cargo install stylua'
-checkcommand 'prettier' 'pnpm install --save-dev -g prettier'
-checkcommand 'eslint' 'pnpm install --save-dev -g eslint'
-checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
-checkcommand 'pyright' 'pip install --user --upgrade pyright'
-checkcommand 'pylsp' 'pip install --user --upgrade python-lsp-server'
-checkcommand 'flake8' 'pip install --user --upgrade flake8'
-checkcommand 'pylint' 'pip install --user --upgrade pylint'
-checkcommand 'emmet-ls' 'pnpm install -g emmet-ls'
-checkcommand 'taplo' 'cargo install taplo-cli'
-checkcommand 'bash-language-server' 'pnpm i -g bash-language-server'
 # telescope
 if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then
   checkcommand 'ueberzug' 'pip install ueberzug'
@@ -431,6 +419,10 @@ if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then
   checkcommand 'rg' 'cargo install ripgrep' # https://www.linode.com/docs/guides/ripgrep-linux-installation/
   checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
 fi
+# uninstall mason programs
+cargo uninstall stylua taplo-cli
+pnpm uninstall -g prettier eslint emmet-ls bash-language-server
+pip uninstall autopep8 pyright python-lsp-server flake8 pylint
 
 # lookatme (terminal markdown renderer)
 checkcommand 'lookatme' 'pip install --user --upgrade lookatme'

@@ -144,7 +144,7 @@ cmp.setup({
     select = false,
   },
   experimental = {
-    -- ghost_text = true,
+    ghost_text = true,
   },
   window = {
     documentation = {
@@ -180,6 +180,7 @@ for filepath in string.gmatch(vim.fn.glob(vim.env.XDG_CONFIG_HOME .. "/nvim/spel
 end
 -- add system installed dictionaries
 local share_dict_source = {
+  "words",
   "american-english", -- wamerican
   -- "american-english-insane", -- wamerican-insane
   -- "ngerman", -- wngerman

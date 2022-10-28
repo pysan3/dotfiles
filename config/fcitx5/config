@@ -1,6 +1,12 @@
 [Hotkey]
 # トリガーキーを押すたびに切り替える
 EnumerateWithTriggerKeys=True
+# 一時的に第1入力メソッドに切り替える
+AltTriggerKeys=
+# 次の入力メソッドに切り替える
+EnumerateForwardKeys=
+# 前の入力メソッドに切り替える
+EnumerateBackwardKeys=
 # 切り替え時は第1入力メソッドをスキップする
 EnumerateSkipFirst=False
 
@@ -8,16 +14,6 @@ EnumerateSkipFirst=False
 0=Control+Alt+K
 1=Zenkaku_Hankaku
 2=Hangul
-3=Control+space
-
-[Hotkey/AltTriggerKeys]
-0=Shift_L
-
-[Hotkey/EnumerateForwardKeys]
-0=Control+Shift_L
-
-[Hotkey/EnumerateBackwardKeys]
-0=Control+Shift_R
 
 [Hotkey/EnumerateGroupForwardKeys]
 0=Tab
