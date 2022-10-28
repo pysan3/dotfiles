@@ -356,8 +356,7 @@ command -v 'nix' &>/dev/null && info 'nix found' || warning 'nix not found.'
 if checkyes 'Install nix from source?'; then
   # editline
   update_git_repo "$XDG_DATA_HOME/editline" https://github.com/troglobit/editline.git
-  mkdir -p "$XDG_DATA_HOME/editline/build" && cd "$_"
-  cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make all && make install \
+  ./configure --prefix="$XDG_PREFIX_HOME" && make all && make install \
     && ldconfig "$XDG_PREFIX_HOME" -n \
     && export PKG_CONFIG_LIBDIR="$XDG_PREFIX_HOME/lib/pkgconfig:$PKG_CONFIG_LIBDIR" \
     && info 'editline setup done'
@@ -370,11 +369,10 @@ if checkyes 'Install nix from source?'; then
     && info 'nholmann/json setup done'
   # lowdown
   update_git_repo "$XDG_DATA_HOME/lowdown" https://github.com/kristapsdz/lowdown.git
-  mkdir -p "$XDG_DATA_HOME/lowdown/build" && cd "$_"
-  cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make regress && make install install_libs \
+  ./configure --prefix="$XDG_PREFIX_HOME" && make && make regress && make install install_libs \
     && ldconfig "$XDG_PREFIX_HOME" -n \
     && export PKG_CONFIG_LIBDIR="$XDG_PREFIX_HOME/share/pkgconfig:$PKG_CONFIG_LIBDIR" \
-    && info 'nholmann/lowdown setup done'
+    && info 'lowdown setup done'
   # brotli
   update_git_repo "$XDG_DATA_HOME/brotli" https://github.com/google/brotli.git
   mkdir -p "$XDG_DATA_HOME/brotli/build" && cd "$_"
