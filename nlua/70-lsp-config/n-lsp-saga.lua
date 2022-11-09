@@ -55,46 +55,45 @@ local function getopts(is_noremap, desc)
 end
 
 local function set_keybinds()
-  local function cmd(c)
-    return string.format("<Cmd>Lspsaga %s<CR>", c)
+  local lsp_prefix = "<leader>k"
+  ---kmapset
+  -- Set keybinds for lspsaga
+  ---@param key string: key for keybind
+  ---@param c string: command
+  ---@param skip_prefix boolean | nil: if true, `lsp_prefix` not added to keybind
+  local function kmapset(key, c, skip_prefix)
+    vim.keymap.set('n', (skip_prefix and '' or lsp_prefix) .. key,
+      string.sub(string.lower(c), 1, 5) == '<cmd>' and c or string.format("<Cmd>Lspsaga %s<CR>", c),
+      getopts(true, c))
   end
 
-  local lsp_prefix = "<leader>k"
-
   -- Async lsp finder: lsp finder to find the cursor word definition and reference
-  vim.keymap.set("n", lsp_prefix .. "f", cmd("lsp_finder"), getopts(true, "lspsaga.lsp_finder"))
+  kmapset('f', 'lsp_finder')
 
   -- Code Action
-  vim.keymap.set("n", lsp_prefix .. "c", cmd("code_action"), getopts(true, "lspsaga.codeaction.code_action"))
+  kmapset('c', 'code_action')
   vim.keymap.set("v", lsp_prefix .. "c", function()
     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
     vim.cmd("<Cmd><C-U>Lspsaga range_code_action<CR>")
   end, getopts(true, "lspsaga.codeaction.range_code_action()"))
 
   -- show hover doc
-  vim.keymap.set("n", "K", cmd("hover_doc"), getopts(false, "lspsaga.hover.render_hover_doc"))
-  -- scroll down hover doc or scroll in definition preview
-  vim.keymap.set("n", "<C-f>", function()
-    action.smart_scroll_with_saga(1)
-  end, getopts(false, "lspsaga.codeaction.smart_scroll_with_saga(1)"))
-  -- scroll up hover doc
-  vim.keymap.set("n", "<C-b>", function()
-    action.smart_scroll_with_saga(-1)
-  end, getopts(false, "lspsaga.codeaction.smart_scroll_with_saga(-1)"))
+  -- kmapset('K', 'hover_doc', true)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 
   -- Outline
-  vim.keymap.set("n", lsp_prefix .. "o", "<Cmd>LSoutlineToggle<CR>", getopts(true, "lspsaga.outline_toggle"))
+  kmapset('o', "<Cmd>LSoutlineToggle<CR>")
 
   -- rename
-  vim.keymap.set("n", lsp_prefix .. "r", cmd("rename"), getopts(true, "lspsaga.lsp_rename"))
+  kmapset('r', 'rename')
   -- preview definition
-  vim.keymap.set("n", lsp_prefix .. "k", cmd("peek_definition"), getopts(true, "lspsaga.preview_definition"))
+  kmapset('k', 'peek_definition')
 
   -- diagnostic
-  vim.keymap.set("n", lsp_prefix .. "d", cmd("show_line_diagnostics"), getopts(true, "lspsaga.show_line_diagnostics"))
+  kmapset('d', 'show_line_diagnostics')
   -- jump diagnostic
-  vim.keymap.set("n", "[d", cmd("diagnostic_jump_prev"), getopts(true, "lspsaga.diagnostic.goto_prev"))
-  vim.keymap.set("n", "]d", cmd("diagnostic_jump_next"), getopts(true, "lspsaga.diagnostic.goto_next"))
+  kmapset('[d', 'diagnostic_jump_prev', true)
+  kmapset(']d', 'diagnostic_jump_next', true)
 end
 
 M.setup = function(opts)
