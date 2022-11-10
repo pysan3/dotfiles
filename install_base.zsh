@@ -287,8 +287,11 @@ info 'tmux setup done'
 
 function install_log_rotate () {
   update_git_repo "$XDG_DATA_HOME/log_rotate" https://github.com/ShawnFeng0/log_rotate.git
-  cmake -B "$XDG_DATA_HOME/log_rotate/build" && make -C "$XDG_DATA_HOME/log_rotate/build"
-  ln -sf "$XDG_DATA_HOME/log_rotate/build/log_rotate" "$XDG_BIN_HOME"
+  mkdir -p "$XDG_DATA_HOME/log_rotate/build" && cd "$_" \
+    && cmake .. && make \
+    && ln -sf "$XDG_DATA_HOME/log_rotate/build/log_rotate" "$XDG_BIN_HOME" \
+    && info 'log_rotate setup done'
+  cd "$current_dir"
 }
 command -v 'log_rotate' &>/dev/null && info 'log_rotate found' || install_log_rotate
 
