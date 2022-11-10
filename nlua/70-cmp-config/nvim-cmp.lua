@@ -40,12 +40,15 @@ local buffers = {
   name = "buffer",
   option = {
     keyword_length = 2,
-    get_bufnrs = function() -- from all visible buffers
+    get_bufnrs = function() -- from all buffers (less than 1MB)
       local bufs = {}
-      for _, win in ipairs(vim.api.nvim_list_wins()) do
-        bufs[vim.api.nvim_win_get_buf(win)] = true
+      for _, bufn in ipairs(vim.api.nvim_list_bufs()) do
+        local buf_size = vim.api.nvim_buf_get_offset(bufn, vim.api.nvim_buf_line_count(bufn))
+        if buf_size < 1024 * 1024 then
+          table.insert(bufs, bufn)
+        end
       end
-      return vim.tbl_keys(bufs)
+      return bufs
     end,
   },
 }
