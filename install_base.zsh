@@ -47,6 +47,17 @@ function checkcommand () {
   fi
 }
 
+# install pyenv
+if ! command -v 'pyenv' &>/dev/null; then
+  info "Installing pyenv"
+  curl https://pyenv.run | bash
+fi
+# install poetry
+if ! command -v 'poetry' &> /dev/null; then
+  info "Installing poetry"
+  curl https://install.python-poetry.org | python -
+fi
+
 if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]]; then
   error 'No python command found'
   if checkyes 'Do you want to create a systemwide symlink to python3?'; then
@@ -59,6 +70,8 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
   fi
 fi
 pip install --upgrade --user pip
+pip install --upgrade --user pipupgrade rich pyreadline
+info 'python programs installation done'
 
 # install haskel interpreter
 function install_pandoc () {
@@ -84,19 +97,6 @@ function install_zsh_shell_utils () {
 }
 install_zsh_shell_utils
 info 'Zsh extensions installation done'
-
-# install pyenv
-if ! command -v 'pyenv' &>/dev/null; then
-  info "Installing pyenv"
-  curl https://pyenv.run | bash
-fi
-# install poetry
-if ! command -v 'poetry' &> /dev/null; then
-  info "Installing poetry"
-  curl https://install.python-poetry.org | python -
-fi
-pip install --user --upgrade pipupgrade rich pyreadline
-info 'python programs installation done'
 
 # install ruby
 install_ruby=true
