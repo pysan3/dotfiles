@@ -37,6 +37,8 @@ alias tlist='trash-list'
 alias tres='trash-restore'
 alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
 
+alias exportenv='while read -r f; do echo "${(q)f}"; done <<(env) > .env'
+
 alias ..='cd ..'
 
 alias g='git'
