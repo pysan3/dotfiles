@@ -98,22 +98,24 @@ while IFS= read -r line; do
 done < "$DOTFILES/static/npm/npmrc"
 info "Installed npmrc"
 
-# firefox userChrome.css
+# firefox configurations
 ff_profile_dir=$(echo ~/.mozilla/firefox/*.default-release)
-if [ ! -z "$ff_profile_dir" ] && [[ ! -f "$ff_profile_dir/chrome/userChrome.css" ]]; then
-  mkdir -p "$ff_profile_dir/chrome"
-  ln -s "$DOTFILES/static/firefox/userChrome.css" "$ff_profile_dir/chrome/" \
-    && info "Installed firefox userChrome.css" || error "Failed to install firefox userChrome.css"
+if [ ! -z "$ff_profile_dir" ]; then
+  mkdir -p "$ff_profile_dir/chrome" \
+    && ln -sf "$DOTFILES/static/firefox/userChrome.css" "$ff_profile_dir/chrome/" \
+    && ln -sf "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
+    && info "Installed firefox configurations" || error "Failed to install firefox configurations"
 else
-  info "firefox userChrome.css is invalid or already installed"
+  info "firefox configurations is invalid or already installed"
 fi
 # install for windows
 if [[ -d /mnt/c/Users ]]; then
   ff_profile_dir=$(echo /mnt/c/Users/i84203609/AppData/Roaming/Mozilla/Firefox/Profiles/*.default-release)
   [ ! -z "$ff_profile_dir" ] && mkdir -p "$ff_profile_dir/chrome" \
     && cp -f "$DOTFILES/static/firefox/userChrome.css" "$ff_profile_dir/chrome/" \
-    && info "Installed firefox userChrome.css for Windows" \
-    || error "Failed to install firefox userChrome.css in Windows"
+    && cp -f "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
+    && info "Installed firefox configurations for Windows" \
+    || error "Failed to install firefox configurations in Windows"
 fi
 
 true
