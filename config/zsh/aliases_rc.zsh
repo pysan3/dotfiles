@@ -38,6 +38,8 @@ alias tres='trash-restore'
 alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
 
 alias exportenv='while read -r f; do echo "${(q)f}"; done <<(env) > .env'
+alias nowrap='setterm --linewrap off'
+alias wrap='setterm --linewrap on'
 
 alias ..='cd ..'
 
