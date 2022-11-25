@@ -1,7 +1,7 @@
 " I hate escape more than anything else
-lnoremap <silent> jk <Esc>
+inoremap <silent> jk <Esc>
 tnoremap <silent> jk <Esc>
-lnoremap <silent> ｊｋ <Esc>
+inoremap <silent> ｊｋ <Esc>
 tnoremap <silent> ｊｋ <Esc>
 
 " jump to the last edited file
@@ -26,7 +26,7 @@ noremap L $
 
 " save and quit
 noremap <C-Q> :wq!<CR>
-lnoremap <C-Q> <Esc>:wq!<CR>
+inoremap <C-Q> <Esc>:wq!<CR>
 nnoremap <silent> <Leader>w :silent w<CR>
 nnoremap <silent> <Leader>q :silent bd!<CR>
 command! Q :q
