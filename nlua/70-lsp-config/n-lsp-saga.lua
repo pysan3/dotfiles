@@ -6,8 +6,8 @@ local function set_config(_)
   saga.init_lsp_saga({
     border_style = "rounded", -- "single" | "double" | "rounded" | "bold" | "plus"
     diagnostic_header = { " ", " ", " ", "ﴞ " },
-    preview_lines_above = 10,
-    max_preview_lines = 30,
+    preview_lines_above = 4,
+    max_preview_lines = 20,
     code_action_lightbulb = {
       sign = false,
     },
