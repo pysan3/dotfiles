@@ -13,6 +13,7 @@ return {
         },
         { "glepnir/lspsaga.nvim", branch = "main" },
         "andrewferrier/textobj-diagnostic.nvim",
+        "folke/neodev.nvim", -- sumneko_lua extension for nvim development
       },
     },
     "ray-x/lsp_signature.nvim", -- show hints when writing function arguments
