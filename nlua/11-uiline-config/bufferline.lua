@@ -57,7 +57,7 @@ nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
 nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
 nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 
-nnoremap <silent>L :BufferLineCycleNext<CR>
-nnoremap <silent>H :BufferLineCyclePrev<CR>
+nnoremap <silent><C-l> :BufferLineCycleNext<CR>
+nnoremap <silent><C-h> :BufferLineCyclePrev<CR>
 nnoremap <silent>F :BufferLinePick<CR>
 ]])
