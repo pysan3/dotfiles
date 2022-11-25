@@ -28,7 +28,6 @@ npairs.add_rules({
       :with_move(cond.none())-- don't delete if the next character is xx
       :with_del(cond.not_after_regex("xx"))-- disable adding a newline when you press <cr>
       :with_cr(cond.none()),
-  Rule("a", "a", "-vim")
 })
 
 npairs.add_rules({
