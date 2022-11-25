@@ -120,11 +120,12 @@ cmp.setup({
     end,
   },
   sorting = {
+    -- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/compare.lua
     comparators = {
       compare.offset,
       compare.exact,
       compare.score,
-      function(entry1, entry2)
+      function(entry1, entry2) -- sort by length ignoring "=~"
         local len1 = string.len(string.gsub(entry1.completion_item.label, "[=~]", ""))
         local len2 = string.len(string.gsub(entry2.completion_item.label, "[=~]", ""))
         if len1 ~= len2 then
@@ -138,7 +139,13 @@ cmp.setup({
           return kind1 - kind2 < 0
         end
       end,
-      compare.sort_text,
+      function(entry1, entry2) -- sort by alphabetic order
+        local t1 = entry1.completion_item.sortText
+        local t2 = entry2.completion_item.sortText
+        if t1 ~= nil and t2 ~= nil and t1 ~= t2 then
+          return t1 < t2
+        end
+      end,
       compare.order,
     },
   },
