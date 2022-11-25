@@ -37,6 +37,10 @@ command! Wq :wq
 xnoremap < <gv
 xnoremap > >gv
 
+" Move to center of the screen on jump
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
+
 " Searching
 nnoremap <ESC><ESC> :silent nohlsearch<CR>
 " 検索語が画面の真ん中に来るようにする
