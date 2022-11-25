@@ -65,7 +65,7 @@ cmp.setup({
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete({}), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable, -- disable default keybind
     ["<C-e>"] = cmp.mapping(function(fallback)
       call_with_fallback(luasnip.choice_active(), function()
@@ -79,7 +79,7 @@ cmp.setup({
     end, { "i", "s" }),
     ["<CR>"] = cmp.mapping.confirm({ select = false }),
     ["<C-l>"] = cmp.mapping(function(fallback)
-      call_with_fallback(luasnip.in_snippet() and luasnip.jumpable(), function()
+      call_with_fallback(luasnip.in_snippet() and luasnip.jumpable() or false, function()
         luasnip.jump(1)
       end, fallback)
     end, { "i", "s" }),

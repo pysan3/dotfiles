@@ -86,11 +86,10 @@ end
 
 --- Generate a TODO comment snippet with an automatic description and docstring
 ---@param context table merged with the generated context table `trig` must be specified
----@param aliases string[]|string of aliases for the todo comment (ex.: {FIX, ISSUE, FIXIT, BUG})
+---@param aliases string[] of aliases for the todo comment (ex.: {FIX, ISSUE, FIXIT, BUG})
 ---@param opts table merged with the snippet opts table
 local todo_snippet = function(context, aliases, opts)
   opts = opts or {}
-  aliases = type(aliases) == "string" and { aliases } or aliases -- if we do not have aliases, be smart about the function parameters
   context = context or {}
   if not context.trig then
     return error("context doesn't include a `trig` key which is mandatory", 2) -- all we need from the context is the trigger
@@ -105,16 +104,16 @@ local todo_snippet = function(context, aliases, opts)
 end
 
 local todo_snippet_specs = {
-  { { trig = "todo" }, "TODO" },
+  { { trig = "todo" }, { "TODO" } },
   { { trig = "fix" }, { "FIX", "BUG", "ISSUE", "FIXIT" } },
-  { { trig = "hack" }, "HACK" },
+  { { trig = "hack" }, { "HACK" } },
   { { trig = "warn" }, { "WARN", "WARNING", "XXX" } },
   { { trig = "perf" }, { "PERF", "PERFORMANCE", "OPTIM", "OPTIMIZE" } },
   { { trig = "note" }, { "NOTE", "INFO" } },
   -- NOTE: Block commented todo-comments <kunzaatko>
-  { { trig = "todob" }, "TODO", { ctype = 2 } },
+  { { trig = "todob" }, { "TODO" }, { ctype = 2 } },
   { { trig = "fixb" }, { "FIX", "BUG", "ISSUE", "FIXIT" }, { ctype = 2 } },
-  { { trig = "hackb" }, "HACK", { ctype = 2 } },
+  { { trig = "hackb" }, { "HACK" }, { ctype = 2 } },
   { { trig = "warnb" }, { "WARN", "WARNING", "XXX" }, { ctype = 2 } },
   { { trig = "perfb" }, { "PERF", "PERFORMANCE", "OPTIM", "OPTIMIZE" }, { ctype = 2 } },
   { { trig = "noteb" }, { "NOTE", "INFO" }, { ctype = 2 } },
