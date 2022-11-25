@@ -29,6 +29,7 @@ end
 local modified_priority = {
   [types.lsp.CompletionItemKind.Variable] = types.lsp.CompletionItemKind.Method,
   [types.lsp.CompletionItemKind.Snippet] = 0, -- top
+  [types.lsp.CompletionItemKind.Keyword] = 0, -- top
   [types.lsp.CompletionItemKind.Text] = 100, -- bottom
 }
 ---@param kind integer: kind of completion entry
@@ -124,7 +125,7 @@ cmp.setup({
     comparators = {
       compare.offset,
       compare.exact,
-      compare.score,
+      compare.recently_used,
       function(entry1, entry2) -- sort by length ignoring "=~"
         local len1 = string.len(string.gsub(entry1.completion_item.label, "[=~]", ""))
         local len2 = string.len(string.gsub(entry2.completion_item.label, "[=~]", ""))
@@ -139,13 +140,14 @@ cmp.setup({
           return kind1 - kind2 < 0
         end
       end,
-      function(entry1, entry2) -- sort by alphabetic order
+      function(entry1, entry2) -- score by lsp, if available
         local t1 = entry1.completion_item.sortText
         local t2 = entry2.completion_item.sortText
         if t1 ~= nil and t2 ~= nil and t1 ~= t2 then
           return t1 < t2
         end
       end,
+      compare.score,
       compare.order,
     },
   },
@@ -218,4 +220,6 @@ require("cmp_dictionary").setup({
   async = false,
   capacity = 5,
   debug = false,
+  document = true,
+  max_items = 10,
 })
