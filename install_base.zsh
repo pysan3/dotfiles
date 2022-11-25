@@ -69,7 +69,7 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
     error 'Please set `python` command to run Python 3.x'
   fi
 fi
-pip install --upgrade --user pip
+python -m ensurepip --upgrade
 pip install --upgrade --user pipupgrade rich pyreadline
 info 'python programs installation done'
 
