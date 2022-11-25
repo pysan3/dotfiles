@@ -230,6 +230,7 @@ fi
 # install useful npm cli commands
 checkcommand 'clipboard' 'pnpm i -g clipboard-cli'
 checkcommand 'bw' 'pnpm i -g @bitwarden/cli'
+checkcommand 'tldr' 'pnpm i -g tldr'
 
 # lua, luarocks
 function install_lua () {
