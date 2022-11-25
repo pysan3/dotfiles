@@ -56,16 +56,12 @@ telescope.setup({
       filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "pdf" },
       find_cmd = "rg",
     },
-    aerial = {
-      show_nesting = true,
-    },
   },
 })
 
 telescope.load_extension("fzf")
 telescope.load_extension("media_files")
 telescope.load_extension("dap")
-telescope.load_extension("aerial")
 
 local ts_builtin = require("telescope.builtin")
 local ts_prefix = "<leader>f"
@@ -86,7 +82,6 @@ vim.keymap.set("n", ts_prefix .. "i", telescope.extensions.media_files.media_fil
 -- telescope lsp bindings
 vim.keymap.set("n", ts_prefix .. "t", ts_builtin.lsp_document_symbols, { desc = "ts.lsp_document_symbols" })
 vim.keymap.set("n", ts_prefix .. "y", ts_builtin.lsp_workspace_symbols, { desc = "ts.lsp_workspace_symbols" })
-vim.keymap.set("n", ts_prefix .. "a", telescope.extensions.aerial.aerial, { desc = "ts.aerial" })
 vim.keymap.set("n", ts_prefix .. "m", "<Cmd>TodoTelescope<CR>", { desc = "TodoTelescope @folke/todo-comments.nvim" })
 
 -- telescope git bindings
