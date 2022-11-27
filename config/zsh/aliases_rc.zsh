@@ -94,7 +94,9 @@ alias tat='tmux a -t'
 alias tl="tmux ls"
 alias ttmp="tmux new-session -A -s tmp"
 function tn() { tmux new-session -A -s $(basename "$PWD") }
-alias yt='youtube-dl -ci -f mp4'
+alias yt='yt-dlp --sponsorblock-remove default --part --format "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]"'
+alias ytaudio='yt --extract-audio --audio-format mp3 --audio-quality 0 --write-thumbnail'
+alias op='xdg-open'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
 function act() {

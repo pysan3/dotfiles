@@ -71,6 +71,7 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
 fi
 python -m ensurepip --upgrade
 pip install --upgrade --user pipupgrade rich pyreadline
+pip install --upgrade --user yt-dlp
 info 'python programs installation done'
 
 # install haskel interpreter
