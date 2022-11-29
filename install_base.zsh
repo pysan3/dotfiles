@@ -259,7 +259,7 @@ if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
   # ctags
   update_git_repo "$XDG_DATA_HOME/ctags" https://github.com/universal-ctags/ctags.git \
     && cd "$XDG_DATA_HOME/ctags" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
-    && make -j$(nproc) && make install
+    && make -j$(nproc) && make install \
     && info 'ctags installed' || err_exit 'ctags setup failed'
   cd "$current_dir"
   # sad
