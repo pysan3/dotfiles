@@ -47,15 +47,14 @@ function checkcommand () {
   fi
 }
 
-# install pyenv
-if ! command -v 'pyenv' &>/dev/null; then
+# install pyenv and poetry
+if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
   info "Installing pyenv"
   curl https://pyenv.run | bash
-fi
-# install poetry
-if ! command -v 'poetry' &> /dev/null; then
   info "Installing poetry"
   curl https://install.python-poetry.org | python -
+  warning "Install the appropriate python version first. Aborting."
+  exit 0
 fi
 
 if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]]; then
@@ -69,24 +68,10 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
     error 'Please set `python` command to run Python 3.x'
   fi
 fi
-python -m ensurepip --upgrade
-pip install --upgrade --user pipupgrade rich pyreadline
-pip install --upgrade --user yt-dlp
+python -m ensurepip -U && pip install -U pip
+pip install -U --user pipupgrade rich pyreadline lookatme
+pip install -U --user yt-dlp
 info 'python programs installation done'
-
-# install haskel interpreter
-function install_pandoc () {
-  info 'Installing `cabal` for haskel and `pandoc`'
-  warning 'Answer N->Y->Y to the questions'
-  curl https://get-ghcup.haskell.org | sh
-  cabal --version
-  cabal new-update
-  cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
-}
-if ! command -v pandoc &>/dev/null && checkyes "Seems you don't have pandoc installed. Install?"; then
-  install_pandoc
-fi
-info 'Haskell installation done'
 
 # install zsh shell utils
 function install_zsh_shell_utils () {
@@ -166,8 +151,7 @@ function cargo_list_line_parse() {
 
 CARGO_ALIAS_CACHE="${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}"
 mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
-pkg_list=''; install_all_cargo_cmds=false
-checkyes 'Do you want to install all cargo cli commands?' && install_all_cargo_cmds=true
+pkg_list=''; install_all_cargo_cmds=true
 while IFS= read -r line; do
   cmd=$(cargo_list_line_parse 'cmd' $line)
   alt=$(cargo_list_line_parse 'alt' $line)
@@ -201,8 +185,8 @@ if command -v bat &>/dev/null && ! grep -q 'MANPAGER' "$CARGO_ALIAS_CACHE"; then
 fi
 
 # node, npm
-if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes 'Upgrade node / npm?'; then
-  if checkyes 'Can you use sudo?'; then
+if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null; then
+  if checkyes 'Installing node / npm. Can you use sudo?'; then
     sudo apt install npm -y
     sudo npm install -g n
     sudo n stable
@@ -223,15 +207,12 @@ if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes
     export PATH="$(npm config get prefix)/bin:$PATH"
   fi
 fi
-if ! command -v 'pnpm' &>/dev/null || checkyes 'Upgrade pnpm?'; then
+if ! command -v 'pnpm' &>/dev/null; then
   npm i -g pnpm
   export PATH="$PNPM_HOME:$PATH"
 fi
-
-# install useful npm cli commands
-checkcommand 'clipboard' 'pnpm i -g clipboard-cli'
-checkcommand 'bw' 'pnpm i -g @bitwarden/cli'
-checkcommand 'tldr' 'pnpm i -g tldr'
+# install necessary npm cli commands
+pnpm i -g clipboard-cli @bitwarden/cli tldr
 
 # lua, luarocks
 function install_lua () {
@@ -247,7 +228,7 @@ function install_lua () {
     && info "luarocks installed successfully" || error "luarocks install FAILED"
   cd "$current_dir"
 }
-(! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null || checkyes 'Upgrade lua?') && install_lua
+(false || ! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null) && install_lua
 
 function install_golang () {
   tmp_file=$(mktemp)
@@ -256,14 +237,93 @@ function install_golang () {
     && ln -sf "$XDG_DATA_HOME/go/bin/"* "$XDG_BIN_HOME" \
     && info "go installed successfully" || error "go install FAILED"
 }
-(! command -v 'go' &>/dev/null || checkyes 'Upgrade golang?') && install_golang
+(false || ! command -v 'go' &>/dev/null) && install_golang
+
+# install nvim
+if checkyes 'Do you want to update nvim?'; then
+  NVIM_UPDATE_ALL=true
+fi
+# install nvim from source
+if ! command -v 'nvim' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Install nvim from source?'; then
+  NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
+  update_git_repo "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git "${NVIM_BUILD_TAG:-stable}"
+  cd "$NVIM_INSTLL_DIR"
+  make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install || error 'NVIM BUILD FAILED'
+  info 'nvim installed'
+  cd -
+fi
+
+# nvim dependencies
+pip install --user -U pynvim
+gem install neovim
+pnpm i -g neovim
+# ctags
+if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall ctags?'; then
+  update_git_repo "$XDG_DATA_HOME/ctags" https://github.com/universal-ctags/ctags.git
+  cd "$XDG_DATA_HOME/ctags" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+    && make -j$(nproc) && make install
+  cd "$current_dir"
+fi
+# sad
+checkcommand 'delta' 'cargo install git-delta'
+checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
+# telescope
+if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then
+  checkcommand 'ueberzug' 'pip install ueberzug'
+  checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
+  checkcommand 'rg' 'cargo install ripgrep' # https://www.linode.com/docs/guides/ripgrep-linux-installation/
+  checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
+fi
+
+# PackerSync
+if $NVIM_UPDATE_ALL || checkyes 'Run :PackerSync?'; then
+  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+fi
 
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME/fzf"
-update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh
-"$FZF_INSTALL_DIR/install" --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish
-zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh"
-info 'fzf setup done'
+function install_fzf () {
+  update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh
+  "$FZF_INSTALL_DIR/install" --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish
+  zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh"
+  info 'fzf setup done'
+}
+(false || ! command -v 'fzf' &>/dev/null) && install_fzf
+
+# install log_rotate
+function install_log_rotate () {
+  update_git_repo "$XDG_DATA_HOME/log_rotate" https://github.com/ShawnFeng0/log_rotate.git
+  mkdir -p "$XDG_DATA_HOME/log_rotate/build" && cd "$_" \
+    && cmake .. && make \
+    && ln -sf "$XDG_DATA_HOME/log_rotate/build/log_rotate" "$XDG_BIN_HOME" \
+    && info 'log_rotate setup done'
+  cd "$current_dir"
+}
+command -v 'log_rotate' &>/dev/null && info 'log_rotate found' || install_log_rotate
+
+# install lynx from source
+command -v 'lynx' &>/dev/null && info 'lynx found' || warning 'lynx not found.'
+if checkyes 'Install lynx from source?'; then
+  cd "$XDG_DATA_HOME" && wget -c http://invisible-island.net/datafiles/release/lynx-cur.zip \
+    && unzip -o lynx-cur.zip && rm -rf lynx-cur.zip && cd $(ls -d lynx*/ | grep -v lynx_ | tail -1) \
+    && ./configure --prefix="$XDG_PREFIX_HOME" --exec-prefix="$XDG_PREFIX_HOME" --mandir="$XDG_PREFIX_HOME/man" \
+        --enable-externs --enable-find-leaks --enable-gnutls-compat --enable-gzip-help \
+        --enable-internal-links --enable-ipv6 --enable-japanese-utf8 --enable-local-docs --enable-nested-tables \
+        --enable-nls --enable-widec --with-ssl --with-screen=ncursesw --without-cfg-file --with-zlib \
+    && make install && make install-help && make install-doc \
+    && info 'lynx setup done' || error 'lynx setup failed'
+  cd "$current_dir"
+fi
+
+# install nvtop from source
+command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found.'
+if checkyes 'Install nvtop from source?'; then
+  update_git_repo "$XDG_DATA_HOME/nvtop" https://github.com/Syllo/nvtop.git
+  mkdir -p "$XDG_DATA_HOME/nvtop/build" && cd "$_"
+  cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make install \
+    && info 'nvtop setup done'
+  cd "$current_dir"
+fi
 
 # install gh from source
 command -v 'gh' &>/dev/null && info 'gh found' || warning 'gh not found.'
@@ -286,40 +346,6 @@ fi
 TPM_INSTALL_DIR="$XDG_DATA_HOME/tmux/plugins/tpm"
 update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm
 info 'tmux setup done'
-
-function install_log_rotate () {
-  update_git_repo "$XDG_DATA_HOME/log_rotate" https://github.com/ShawnFeng0/log_rotate.git
-  mkdir -p "$XDG_DATA_HOME/log_rotate/build" && cd "$_" \
-    && cmake .. && make \
-    && ln -sf "$XDG_DATA_HOME/log_rotate/build/log_rotate" "$XDG_BIN_HOME" \
-    && info 'log_rotate setup done'
-  cd "$current_dir"
-}
-command -v 'log_rotate' &>/dev/null && info 'log_rotate found' || install_log_rotate
-
-# install protoc from source
-command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
-if checkyes 'Install protoc from source?'; then
-  update_git_repo "$XDG_DATA_HOME/protoc" https://github.com/protocolbuffers/protobuf.git
-  cd "$XDG_DATA_HOME/protoc" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
-    && make -j$(nproc) && make check -j$(nproc) && make install -j$(nproc) \
-    && info 'protoc setup done'
-  cd "$current_dir"
-fi
-
-# install lynx from source
-command -v 'lynx' &>/dev/null && info 'lynx found' || warning 'lynx not found.'
-if checkyes 'Install lynx from source?'; then
-  cd "$XDG_DATA_HOME" && wget -c http://invisible-island.net/datafiles/release/lynx-cur.zip \
-    && unzip -o lynx-cur.zip && rm -rf lynx-cur.zip && cd $(ls -d lynx*/ | grep -v lynx_ | tail -1) \
-    && ./configure --prefix="$XDG_PREFIX_HOME" --exec-prefix="$XDG_PREFIX_HOME" --mandir="$XDG_PREFIX_HOME/man" \
-        --enable-externs --enable-find-leaks --enable-gnutls-compat --enable-gzip-help \
-        --enable-internal-links --enable-ipv6 --enable-japanese-utf8 --enable-local-docs --enable-nested-tables \
-        --enable-nls --enable-widec --with-ssl --with-screen=ncursesw --without-cfg-file --with-zlib \
-    && make install && make install-help && make install-doc \
-    && info 'lynx setup done' || error 'lynx setup failed'
-  cd "$current_dir"
-fi
 
 # install btop from source
 command -v 'btop' &>/dev/null && info 'btop found' || warning 'btop not found.'
@@ -346,13 +372,13 @@ if checkyes 'Install bmon from source?'; then
   cd "$current_dir"
 fi
 
-# install nvtop from source
-command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found.'
-if checkyes 'Install nvtop from source?'; then
-  update_git_repo "$XDG_DATA_HOME/nvtop" https://github.com/Syllo/nvtop.git
-  mkdir -p "$XDG_DATA_HOME/nvtop/build" && cd "$_"
-  cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make install \
-    && info 'nvtop setup done'
+# install protoc from source
+command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
+if checkyes 'Install protoc from source?'; then
+  update_git_repo "$XDG_DATA_HOME/protoc" https://github.com/protocolbuffers/protobuf.git
+  cd "$XDG_DATA_HOME/protoc" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+    && make -j$(nproc) && make check -j$(nproc) && make install -j$(nproc) \
+    && info 'protoc setup done'
   cd "$current_dir"
 fi
 
@@ -396,50 +422,6 @@ if checkyes 'Install nix from source?'; then
     && make && make install \
     && info 'nix installed' || error 'nix installation failed'
   cd "$current_dir"
-fi
-
-# install nvim
-if checkyes 'Do you want to update nvim?'; then
-  NVIM_UPDATE_ALL=true
-fi
-# install nvim from source
-if ! command -v 'nvim' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Install nvim from source?'; then
-  NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
-  update_git_repo "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git "${NVIM_BUILD_TAG:-stable}"
-  cd "$NVIM_INSTLL_DIR"
-  make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install || error 'NVIM BUILD FAILED'
-  info 'nvim installed'
-  cd -
-fi
-
-# nvim dependencies
-pip install --user --upgrade pynvim
-gem install neovim
-pnpm i -g neovim
-# ctags
-if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall ctags?'; then
-  update_git_repo "$XDG_DATA_HOME/ctags" https://github.com/universal-ctags/ctags.git
-  cd "$XDG_DATA_HOME/ctags" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
-    && make -j$(nproc) && make install
-  cd "$current_dir"
-fi
-# sad
-checkcommand 'delta' 'cargo install git-delta'
-checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
-# telescope
-if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then
-  checkcommand 'ueberzug' 'pip install ueberzug'
-  checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
-  checkcommand 'rg' 'cargo install ripgrep' # https://www.linode.com/docs/guides/ripgrep-linux-installation/
-  checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
-fi
-
-# lookatme (terminal markdown renderer)
-checkcommand 'lookatme' 'pip install --user --upgrade lookatme'
-
-# PackerSync
-if $NVIM_UPDATE_ALL || checkyes 'Run :PackerSync?'; then
-  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 fi
 
 info "Everything is done. Thx!!"; true
