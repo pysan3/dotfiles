@@ -37,6 +37,10 @@ alias tlist='trash-list'
 alias tres='trash-restore'
 alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
 
+alias exportenv='while read -r f; do echo "${(q)f}"; done <<(env) > .env'
+alias nowrap='setterm --linewrap off'
+alias wrap='setterm --linewrap on'
+
 alias ..='cd ..'
 
 alias g='git'
@@ -90,7 +94,9 @@ alias tat='tmux a -t'
 alias tl="tmux ls"
 alias ttmp="tmux new-session -A -s tmp"
 function tn() { tmux new-session -A -s $(basename "$PWD") }
-alias yt='youtube-dl -ci -f mp4'
+alias yt='yt-dlp --sponsorblock-remove default --part --format "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]"'
+alias ytaudio='yt --extract-audio --audio-format mp3 --audio-quality 0 --write-thumbnail'
+alias op='xdg-open'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
 function act() {
@@ -252,10 +258,26 @@ function pdfcompress () {
   	ps2pdf -dPDFSETTINGS=/prepress -dCompatibilityLevel=1.4 -sOutputFile="compressed-$1" "$1"
 }
 
+function colortest () {
+  T='gYw'   # The test text
+  echo 'Color Test'
+  echo '‾‾‾‾‾‾‾‾‾‾'
+  echo -e "                 40m     41m     42m     43m     44m     45m     46m     47m"
+  for FGs in '    m' '   1m' '  30m' '1;30m' '  31m' '1;31m' '  32m' \
+             '1;32m' '  33m' '1;33m' '  34m' '1;34m' '  35m' '1;35m' \
+             '  36m' '1;36m' '  37m' '1;37m'; do
+    FG=${FGs// /}
+    echo -en " $FGs \033[$FG  $T  "
+    for BG in 40m 41m 42m 43m 44m 45m 46m 47m; do echo -en "$EINS \033[$FG\033[$BG  $T  \033[0m"; done
+    echo;
+  done
+}
+
 function appearance () {
   cat \
-    <(wget -O- 'https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt' 2> /dev/null) \
+    <(colortest) \
     <(wget -O- 'https://unicode.org/Public/emoji/13.0/emoji-test.txt' 2> /dev/null) \
+    <(wget -O- 'https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt' 2> /dev/null) \
     | less
 }
 

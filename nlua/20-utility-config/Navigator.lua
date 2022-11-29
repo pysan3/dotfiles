@@ -1,4 +1,4 @@
-require("Navigator").setup()
+require("Navigator").setup({})
 
 -- Keybindings
 local all_modes = { "n", "v", "o", "i", "c", "t" }

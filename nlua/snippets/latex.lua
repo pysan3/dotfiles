@@ -27,7 +27,7 @@ tex.in_text = function()
   return not tex.in_mathzone()
 end
 tex.in_beamer = function()
-  return vim.b.vimtex["documentclass"] == "beamer"
+  return vim.b.vimtex["documentclass"] == "beamer" ---@diagnostic disable-line
 end
 
 -- Endless Itemize
@@ -52,8 +52,8 @@ table.insert(
 tex.table_node = function(args)
   local tabs = {}
   local count
-  table = args[1][1]:gsub("%s", ""):gsub("|", "")
-  count = string.len(table)
+  local node = args[1][1]:gsub("%s", ""):gsub("|", "")
+  count = string.len(node)
   for j = 1, count do
     local iNode
     iNode = i(j)

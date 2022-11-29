@@ -6,6 +6,7 @@ return {
     {
       "nvim-neo-tree/neo-tree.nvim",
       branch = "v2.x",
+      -- "~/Git/neo-tree.nvim",
       -- branch = "main",
       requires = {
         "MunifTanjim/nui.nvim",

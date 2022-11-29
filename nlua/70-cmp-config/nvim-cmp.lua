@@ -29,6 +29,7 @@ end
 local modified_priority = {
   [types.lsp.CompletionItemKind.Variable] = types.lsp.CompletionItemKind.Method,
   [types.lsp.CompletionItemKind.Snippet] = 0, -- top
+  [types.lsp.CompletionItemKind.Keyword] = 0, -- top
   [types.lsp.CompletionItemKind.Text] = 100, -- bottom
 }
 ---@param kind integer: kind of completion entry
@@ -64,7 +65,7 @@ cmp.setup({
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete({}), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable, -- disable default keybind
     ["<C-e>"] = cmp.mapping(function(fallback)
       call_with_fallback(luasnip.choice_active(), function()
@@ -78,7 +79,7 @@ cmp.setup({
     end, { "i", "s" }),
     ["<CR>"] = cmp.mapping.confirm({ select = false }),
     ["<C-l>"] = cmp.mapping(function(fallback)
-      call_with_fallback(luasnip.in_snippet() and luasnip.jumpable(), function()
+      call_with_fallback(luasnip.in_snippet() and luasnip.jumpable() or false, function()
         luasnip.jump(1)
       end, fallback)
     end, { "i", "s" }),
@@ -98,7 +99,7 @@ cmp.setup({
     { name = "path" },
   }, {
     buffers,
-    { name = "dictionary", keyword_length = 2 },
+    { name = "dictionary", keyword_length = 3 },
     { name = "spell" },
     { name = "calc" },
   }),
@@ -120,11 +121,12 @@ cmp.setup({
     end,
   },
   sorting = {
+    -- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/compare.lua
     comparators = {
       compare.offset,
       compare.exact,
-      compare.score,
-      function(entry1, entry2)
+      compare.recently_used,
+      function(entry1, entry2) -- sort by length ignoring "=~"
         local len1 = string.len(string.gsub(entry1.completion_item.label, "[=~]", ""))
         local len2 = string.len(string.gsub(entry2.completion_item.label, "[=~]", ""))
         if len1 ~= len2 then
@@ -138,7 +140,14 @@ cmp.setup({
           return kind1 - kind2 < 0
         end
       end,
-      compare.sort_text,
+      function(entry1, entry2) -- score by lsp, if available
+        local t1 = entry1.completion_item.sortText
+        local t2 = entry2.completion_item.sortText
+        if t1 ~= nil and t2 ~= nil and t1 ~= t2 then
+          return t1 < t2
+        end
+      end,
+      compare.score,
       compare.order,
     },
   },
@@ -197,18 +206,9 @@ end
 require("cmp_dictionary").setup({
   dic = {
     ["*"] = dict_source,
-    -- ["lua"] = "path/to/lua.dic",
-    -- ["javascript,typescript"] = { "path/to/js.dic", "path/to/js2.dic" },
-    -- filename = {
-    --   ["xmake.lua"] = { "path/to/xmake.dic", "path/to/lua.dic" },
-    -- },
-    -- filepath = {
-    --   ["%.tmux.*%.conf"] = "path/to/tmux.dic"
-    -- },
   },
-  exact = 2,
   first_case_insensitive = true,
-  async = false,
+  async = true,
   capacity = 5,
-  debug = false,
+  max_items = -1,
 })

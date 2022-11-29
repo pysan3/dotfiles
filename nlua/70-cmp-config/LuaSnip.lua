@@ -40,6 +40,7 @@ local function edit_snippet_files(sniptype, ft)
   end
   return file_found
 end
+
 vim.api.nvim_create_user_command("LsEditSnip", function()
   edit_snippet_files("snipmate", vim.bo.filetype)
 end, {})
@@ -102,6 +103,7 @@ luasnip.config.setup({
         end
       end
     end
+
     function snippet:jump_from(dir, no_move)
       if dir == 1 then
         return self.inner_first:jump_into(dir, no_move)
@@ -110,6 +112,7 @@ luasnip.config.setup({
         return self.prev:jump_into(dir, no_move)
       end
     end
+
     return snippet
   end,
 })
@@ -131,7 +134,7 @@ local function window_for_choiceNode(choiceNode)
     end
     vim.list_extend(buf_text_tmp, text)
   end
-  local w, h = vim.lsp.util._make_floating_popup_size(buf_text_tmp)
+  local w, h = vim.lsp.util._make_floating_popup_size(buf_text_tmp, {})
   for _, text in ipairs(buf_text_tmp) do
     local lines = {}
     for line in string.gmatch(text ~= "" and text or " ", "[^\n]+") do

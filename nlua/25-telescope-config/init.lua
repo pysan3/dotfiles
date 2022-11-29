@@ -1,6 +1,5 @@
 return {
   setup = {
-    "stevearc/aerial.nvim",
     {
       "nvim-telescope/telescope.nvim",
       requires = {

@@ -112,6 +112,7 @@ local function py_init()
     })
   )
 end
+
 local function to_init_assign(args)
   local tab = {}
   local a = args[1][1]
@@ -131,6 +132,7 @@ local function to_init_assign(args)
   end
   return sn(nil, tab)
 end
+
 table.insert(
   snippets,
   s(

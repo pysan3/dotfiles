@@ -1,10 +1,7 @@
 require("bufferline").setup({
   options = {
     -- | "ordinal" | "buffer_id" | "both" | f({ ordinal, id, lower, raise }): string,
-    numbers = function(_) -- opts
-      -- return string.format("%s", opts.ordinal)
-      return ""
-    end,
+    numbers = "",
     close_command = "bd %d",
     right_mouse_command = "bd %d",
     left_mouse_command = "buffer %d",
@@ -21,9 +18,9 @@ require("bufferline").setup({
     diagnostics_update_in_insert = false,
     diagnostics_indicator = function(_, _, diag, _)
       return (diag.error and " " .. diag.error .. " " or "")
-        .. (diag.warning and " " .. diag.warning or "")
-        .. (diag.info and "" .. diag.info or "")
-        .. (diag.hint and "" .. diag.hint or "")
+          .. (diag.warning and " " .. diag.warning or "")
+          .. (diag.info and "" .. diag.info or "")
+          .. (diag.hint and "" .. diag.hint or "")
     end,
     show_buffer_icons = true,
     show_buffer_close_icons = true,
@@ -33,7 +30,7 @@ require("bufferline").setup({
     separator_style = "slant",
     enforce_regular_tabs = false,
     always_show_bufferline = true,
-    sort_by = function(a, b)
+    sort_by = function(a, b) ---@diagnostic disable-line
       -- sort by modified time (newer to left)
       local mod_a = vim.loop.fs_stat(a.path)
       local mod_b = vim.loop.fs_stat(b.path)

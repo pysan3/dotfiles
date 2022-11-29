@@ -1,8 +1,8 @@
 " I hate escape more than anything else
 inoremap <silent> jk <Esc>
-tmap <silent> jk <Esc>
+tnoremap <silent> jk <Esc>
 inoremap <silent> ｊｋ <Esc>
-tmap <silent> ｊｋ <Esc>
+tnoremap <silent> ｊｋ <Esc>
 
 " jump to the last edited file
 nnoremap <C-6> <C-^>
@@ -20,12 +20,16 @@ inoremap <C-e> <Esc>A,<Esc>o
 " shift in insert mode
 inoremap <C-f> <Esc><<a
 
+" move to start / end of line
+noremap <C-h> 0w
+noremap <C-l> $
+
 " move to next / previous buffer
 nnoremap H :bprevious<CR>
 nnoremap L :bnext<CR>
 
 " save and quit
-nnoremap <C-Q> :wq!<CR>
+noremap <C-Q> :wq!<CR>
 inoremap <C-Q> <Esc>:wq!<CR>
 nnoremap <silent> <Leader>w :silent w<CR>
 nnoremap <silent> <Leader>q :silent bd!<CR>
@@ -36,6 +40,10 @@ command! Wq :wq
 " Better tabbing
 xnoremap < <gv
 xnoremap > >gv
+
+" Move to center of the screen on jump
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
 
 " Searching
 nnoremap <ESC><ESC> :silent nohlsearch<CR>
@@ -59,6 +67,10 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <down> gj
 nnoremap <up> gk
+xnoremap j gj
+xnoremap k gk
+xnoremap <down> gj
+xnoremap <up> gk
 
 " 選択モードで上下に移動
 xnoremap J :m '>+1<CR>gv=gv
@@ -91,9 +103,3 @@ noremap <Leader>P "+P
 " ノーマルモードのときにxキー、sキーで削除した文字をヤンクしない
 nnoremap x "_x
 " nnoremap s "_s
-
-" Trailing Spaces
-command! T FixWhitespace
-
-" Python Docs
-nnoremap <Leader>ss :Docstring<CR>

@@ -23,6 +23,7 @@ require("mason").setup({
   },
   max_concurrent_installers = 8,
 })
+require("neodev").setup({})
 require("70-lsp-config.n-lsp-base").setup({})
 require("70-lsp-config.n-mason-lsp").setup({})
 require("70-lsp-config.n-mason-tools").setup({})

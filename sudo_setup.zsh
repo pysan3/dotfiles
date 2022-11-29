@@ -24,9 +24,13 @@ if command -v 'apt-get' &>/dev/null || checkyes 'apt-get available?'; then
   sudo apt-get install -y libevent ncurses libevent-dev ncurses-dev build-essential bison pkg-config
   # nix dependencies >= 20.04
   sudo apt-get install -y autoconf automake libtool m4 autoconf-archive pkg-config libboost-all-dev libarchive-dev bison flex libsodium-dev libseccomp-dev sqlite3 curl libgc-dev libgtest-dev jq libcrypto cpuidtool libcpuid-dev
+  # pandoc
+  sudo apt-get install -y pandoc
 fi
 
 if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
+  set -x
+  sudo pacman -Syu
   # basics
   sudo pacman -S base-devel neofetch git tmux vim curl moreutils
   # nvim dependencies
@@ -39,4 +43,9 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
   sudo pacman -S texlive-full
   # nix
   sudo pacman -S libcpuid jq libseccomp gtest
+  # pandoc
+  sudo pacman -S pandoc
+  # delete all cache
+  sudo pacman -Scc
+  set +x
 fi

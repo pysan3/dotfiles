@@ -24,8 +24,15 @@ export EDITOR='vim'
 export XDG_CONFIG_HOME="$HOME/.config"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
-setopt share_history # 他ターミナルとヒストリを共有
-setopt hist_ignore_all_dups # ヒストリを重複表示しない
+
+# History
+# dont store duplicate lines in the history file
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+# write and import history on every command
+setopt SHARE_HISTORY
+setopt HIST_FIND_NO_DUPS
+# Ignore histories starting with space
 setopt hist_ignore_space # Ignore histories starting with space
 HISTORY_IGNORE='([bf]g *|l[alsh]#( *)#|n#vim# *|conda i*|v[]|(cd|cat|less|dust|git|p|pip|curl|wget|grep|rm|mv|cp|ln) *|v[mzvarlsceh]|vlocal)'
 HISTFILE="$XDG_CACHE_HOME/zsh/.zsh_history"
@@ -34,11 +41,19 @@ SAVEHIST=10000
 HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
 HISTCONTROL=ignoreboth
 
-setopt auto_param_slash # ディレクトリ名の補完で末尾に / を付加
+# Other
+setopt auto_param_slash # if completed parameter is a directory, add a trailing slash
 setopt magic_equal_subst # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
 setopt auto_pushd # 遷移したディレクトリをスタックする
 setopt pushd_ignore_dups # 重複したディレクトリはスタックしない
 setopt sh_word_split # enable word splitting of unquoted expansion in for loop
+setopt AUTO_LIST # automatically list choices on ambiguous completion
+setopt AUTO_MENU # show completion menu on a successive tab press
+setopt COMPLETE_IN_WORD # complete from the cursor rather than from the end of the word
+setopt NO_MENU_COMPLETE # do not autoselect the first completion entry
+setopt ALWAYS_TO_END # Always place the cursor to the end of the word completed.
+setopt INTERACTIVE_COMMENTS # allow comments in command line
+setopt NO_FLOW_CONTROL  # Disable Ctrl+S and Ctrl+Q
 
 # ${fg[blue]}等で色が利用できるようにする
 autoload -Uz colors
@@ -91,6 +106,17 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey '^k' up-history
 bindkey '^j' down-history
 bindkey -M viins '^b' insert-last-word
+# Disable keybinds starting with <Esc>
+bindkey -M vicmd '^[' undefined-key
+bindkey -M vicmd -r "^[OA"    # up-line-or-history
+bindkey -M vicmd -r "^[OB"    # down-line-or-history
+bindkey -M vicmd -r "^[OC"    # vi-forward-char
+bindkey -M vicmd -r "^[OD"    # vi-backward-char
+bindkey -M vicmd -r "^[[200~" # bracketed-paste
+bindkey -M vicmd -r "^[[A"    # up-line-or-history
+bindkey -M vicmd -r "^[[B"    # down-line-or-history
+bindkey -M vicmd -r "^[[C"    # vi-forward-char
+bindkey -M vicmd -r "^[[D"    # vi-backward-char
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -102,9 +128,9 @@ function zle-keymap-select {
 } && zle -N zle-keymap-select
 zle-line-init() { echo -ne "\e[5 q" } && zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
-# Edit line in vim with ctrl-o:
+# Edit line in vim with ctrl-q:
 autoload edit-command-line; zle -N edit-command-line
-bindkey '^o' edit-command-line
+bindkey '^q' edit-command-line
 
 # use BackSpace, Delete key
 stty erase ""

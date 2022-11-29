@@ -11,6 +11,11 @@ unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 setopt sh_word_split
 current_dir="$PWD"
 
+function err_exit () {
+  error "$@"
+  exit 1
+}
+
 function update_git_repo() {
   dist="$1"; repo_url="$2"
   if [ ! -d "$dist" ]; then
@@ -31,21 +36,29 @@ function update_git_repo() {
       zcompile "$file"
     fi
   done
+  return 0
 }
 
-NVIM_UPDATE_ALL=false
 function checkcommand () {
-  if ! command -v "$1" &>/dev/null || $NVIM_UPDATE_ALL; then
+  if ! command -v "$1" &>/dev/null; then
     warning "Installing command '$1' with following command."
     echo "$ $2"
     if [[ "$2" == *'sudo'* ]]; then
       checkyes 'Command includes `sudo`. Do you want to continue?' || return
     fi
-    eval "$2" || error "failed: $2; DO IT YOURSELF"
+    eval "$2" || err_exit "failed: $2; DO IT YOURSELF"
   else
     info "Command '$1' found. Skipping..."
   fi
 }
+
+# install pyenv and poetry
+if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
+  info "Installing pyenv" && curl https://pyenv.run | bash
+  info "Installing poetry" && curl https://install.python-poetry.org | python -
+  err_exit "Install the appropriate python version first. Aborting."
+  exit 0
+fi
 
 if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]]; then
   error 'No python command found'
@@ -55,24 +68,13 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
     alias python='python3'
     alias pip='pip3'
   else
-    error 'Please set `python` command to run Python 3.x'
+    err_exit 'Please set `python` command to run Python 3.x'
   fi
 fi
-pip install --upgrade --user pip
-
-# install haskel interpreter
-function install_pandoc () {
-  info 'Installing `cabal` for haskel and `pandoc`'
-  warning 'Answer N->Y->Y to the questions'
-  curl https://get-ghcup.haskell.org | sh
-  cabal --version
-  cabal new-update
-  cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
-}
-if ! command -v pandoc &>/dev/null && checkyes "Seems you don't have pandoc installed. Install?"; then
-  install_pandoc
-fi
-info 'Haskell installation done'
+python -m ensurepip -U && pip install -U pip
+pip install -U --user pipupgrade rich pyreadline lookatme
+pip install -U --user yt-dlp
+info 'python programs installation done'
 
 # install zsh shell utils
 function install_zsh_shell_utils () {
@@ -82,21 +84,9 @@ function install_zsh_shell_utils () {
   ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-autosuggestions"
   update_git_repo "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git
 }
-install_zsh_shell_utils
-info 'Zsh extensions installation done'
-
-# install pyenv
-if ! command -v 'pyenv' &>/dev/null; then
-  info "Installing pyenv"
-  curl https://pyenv.run | bash
-fi
-# install poetry
-if ! command -v 'poetry' &> /dev/null; then
-  info "Installing poetry"
-  curl https://install.python-poetry.org | python -
-fi
-pip install --user --upgrade pipupgrade rich pyreadline
-info 'python programs installation done'
+install_zsh_shell_utils \
+  && info 'Zsh extensions installation done' \
+  || error 'Zsh extensions installation failed'
 
 # install ruby
 install_ruby=true
@@ -165,8 +155,7 @@ function cargo_list_line_parse() {
 
 CARGO_ALIAS_CACHE="${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}"
 mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
-pkg_list=''; install_all_cargo_cmds=false
-checkyes 'Do you want to install all cargo cli commands?' && install_all_cargo_cmds=true
+pkg_list=''; install_all_cargo_cmds=true
 while IFS= read -r line; do
   cmd=$(cargo_list_line_parse 'cmd' $line)
   alt=$(cargo_list_line_parse 'alt' $line)
@@ -200,8 +189,8 @@ if command -v bat &>/dev/null && ! grep -q 'MANPAGER' "$CARGO_ALIAS_CACHE"; then
 fi
 
 # node, npm
-if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes 'Upgrade node / npm?'; then
-  if checkyes 'Can you use sudo?'; then
+if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null; then
+  if checkyes 'Installing node / npm. Can you use sudo?'; then
     sudo apt install npm -y
     sudo npm install -g n
     sudo n stable
@@ -222,14 +211,12 @@ if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null || checkyes
     export PATH="$(npm config get prefix)/bin:$PATH"
   fi
 fi
-if ! command -v 'pnpm' &>/dev/null || checkyes 'Upgrade pnpm?'; then
+if ! command -v 'pnpm' &>/dev/null; then
   npm i -g pnpm
   export PATH="$PNPM_HOME:$PATH"
 fi
-
-# install useful npm cli commands
-checkcommand 'clipboard' 'pnpm i -g clipboard-cli'
-checkcommand 'bw' 'pnpm i -g @bitwarden/cli'
+# install necessary npm cli commands
+pnpm i -g clipboard-cli @bitwarden/cli tldr
 
 # lua, luarocks
 function install_lua () {
@@ -237,73 +224,77 @@ function install_lua () {
   wget -O "$tmp_file" https://www.lua.org/ftp/lua-$LOCAL_LUA_VERSION.tar.gz \
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
     && make -C "$LUA_INSTALL_DIR" linux && make -C "$LUA_INSTALL_DIR" install INSTALL_TOP="$XDG_PREFIX_HOME" \
-    && info "lua-$LOCAL_LUA_VERSION install done" || error "lua-$LOCAL_LUA_VERSION install FAILED!!"
+    && info "lua-$LOCAL_LUA_VERSION install done" || err_exit "lua-$LOCAL_LUA_VERSION install FAILED!!"
   LUAROCKS_INSTALL_DIR="$XDG_DATA_HOME/luarocks"
   update_git_repo "$LUAROCKS_INSTALL_DIR" https://github.com/luarocks/luarocks \
     && cd "$LUAROCKS_INSTALL_DIR" && ./configure --with-lua="$XDG_PREFIX_HOME" --prefix="$XDG_PREFIX_HOME" \
     && make && make install \
-    && info "luarocks installed successfully" || error "luarocks install FAILED"
+    && info "luarocks installed successfully" || err_exit "luarocks install FAILED"
   cd "$current_dir"
 }
-(! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null || checkyes 'Upgrade lua?') && install_lua
+(false || ! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null) && install_lua
 
 function install_golang () {
   tmp_file=$(mktemp)
   wget -O "$tmp_file" "https://go.dev/dl/$(wget -O- 'https://go.dev/VERSION?m=text').linux-amd64.tar.gz" \
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
     && ln -sf "$XDG_DATA_HOME/go/bin/"* "$XDG_BIN_HOME" \
-    && info "go installed successfully" || error "go install FAILED"
+    && info "go installed successfully" || err_exit "go install FAILED"
 }
-(! command -v 'go' &>/dev/null || checkyes 'Upgrade golang?') && install_golang
+(false || ! command -v 'go' &>/dev/null) && install_golang
+
+# install nvim from source
+if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
+  NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
+  update_git_repo "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git "${NVIM_BUILD_TAG:-stable}" \
+    && cd "$NVIM_INSTLL_DIR" \
+    && make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install  \
+    && info 'nvim installed' || err_exit 'NVIM BUILD FAILED'
+  cd "$current_dir"
+
+  # nvim dependencies
+  pip install --user -U pynvim
+  gem install neovim
+  pnpm i -g neovim
+  # ctags
+  update_git_repo "$XDG_DATA_HOME/ctags" https://github.com/universal-ctags/ctags.git \
+    && cd "$XDG_DATA_HOME/ctags" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+    && make -j$(nproc) && make install \
+    && info 'ctags installed' || err_exit 'ctags setup failed'
+  cd "$current_dir"
+  # sad
+  checkcommand 'delta' 'cargo install git-delta'
+  checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
+  # telescope
+  checkcommand 'ueberzug' 'pip install ueberzug'
+  checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
+  checkcommand 'rg' 'cargo install ripgrep' # https://www.linode.com/docs/guides/ripgrep-linux-installation/
+  checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
+
+  # PackerSync
+  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+fi
 
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME/fzf"
-update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh
-"$FZF_INSTALL_DIR/install" --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish
-zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh"
-info 'fzf setup done'
+function install_fzf () {
+  update_git_repo "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh \
+    && "$FZF_INSTALL_DIR/install" --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish \
+    && zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh" \
+    && info 'fzf setup done' || err_exit 'fzf setup failed'
+}
+(false || ! command -v 'fzf' &>/dev/null) && install_fzf
 
-# install gh from source
-command -v 'gh' &>/dev/null && info 'gh found' || warning 'gh not found.'
-if checkyes 'Install gh from source?'; then
-  update_git_repo "$XDG_DATA_HOME/gh-cli" https://github.com/cli/cli.git
-  cd "$XDG_DATA_HOME/gh-cli" && make install prefix="$XDG_PREFIX_HOME"
-  cd "$current_dir"
-fi
-
-# install tmux from source
-command -v 'tmux' &>/dev/null && info 'tmux found' || warning 'tmux not found.'
-if checkyes 'Install tmux from source?'; then
-  update_git_repo "$XDG_DATA_HOME/tmux-git" https://github.com/tmux/tmux.git
-  cd "$XDG_DATA_HOME/tmux-git" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
-    && make -j$(nproc) && make install
-  cd "$current_dir"
-fi
-
-# install tmux plugin manager
-TPM_INSTALL_DIR="$XDG_DATA_HOME/tmux/plugins/tpm"
-update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm
-info 'tmux setup done'
-
+# install log_rotate
 function install_log_rotate () {
   update_git_repo "$XDG_DATA_HOME/log_rotate" https://github.com/ShawnFeng0/log_rotate.git
   mkdir -p "$XDG_DATA_HOME/log_rotate/build" && cd "$_" \
     && cmake .. && make \
     && ln -sf "$XDG_DATA_HOME/log_rotate/build/log_rotate" "$XDG_BIN_HOME" \
-    && info 'log_rotate setup done'
+    && info 'log_rotate setup done' || err_exit 'log_rotate setup failed'
   cd "$current_dir"
 }
 command -v 'log_rotate' &>/dev/null && info 'log_rotate found' || install_log_rotate
-
-# install protoc from source
-command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
-if checkyes 'Install protoc from source?'; then
-  update_git_repo "$XDG_DATA_HOME/protoc" https://github.com/protocolbuffers/protobuf.git
-  cd "$XDG_DATA_HOME/protoc" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
-    && make -j$(nproc) && make check -j$(nproc) && make install -j$(nproc) \
-    && info 'protoc setup done'
-  cd "$current_dir"
-fi
 
 # install lynx from source
 command -v 'lynx' &>/dev/null && info 'lynx found' || warning 'lynx not found.'
@@ -315,8 +306,42 @@ if checkyes 'Install lynx from source?'; then
         --enable-internal-links --enable-ipv6 --enable-japanese-utf8 --enable-local-docs --enable-nested-tables \
         --enable-nls --enable-widec --with-ssl --with-screen=ncursesw --without-cfg-file --with-zlib \
     && make install && make install-help && make install-doc \
-    && info 'lynx setup done' || error 'lynx setup failed'
+    && info 'lynx setup done' || err_exit 'lynx setup failed'
   cd "$current_dir"
+fi
+
+# install nvtop from source
+command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found.'
+if checkyes 'Install nvtop from source?'; then
+  update_git_repo "$XDG_DATA_HOME/nvtop" https://github.com/Syllo/nvtop.git \
+    && mkdir -p "$XDG_DATA_HOME/nvtop/build" && cd "$_" \
+    && cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make install \
+    && info 'nvtop setup done' || err_exit 'nvtop setup failed'
+  cd "$current_dir"
+fi
+
+# install gh from source
+command -v 'gh' &>/dev/null && info 'gh found' || warning 'gh not found.'
+if checkyes 'Install gh from source?'; then
+  update_git_repo "$XDG_DATA_HOME/gh-cli" https://github.com/cli/cli.git \
+    && cd "$XDG_DATA_HOME/gh-cli" && make install prefix="$XDG_PREFIX_HOME" \
+    && info 'gh setup done' || err_exit 'gh setup failed'
+  cd "$current_dir"
+fi
+
+# install tmux from source
+command -v 'tmux' &>/dev/null && info 'tmux found' || warning 'tmux not found.'
+if checkyes 'Install tmux from source?'; then
+  update_git_repo "$XDG_DATA_HOME/tmux-git" https://github.com/tmux/tmux.git
+  cd "$XDG_DATA_HOME/tmux-git" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+    && make -j$(nproc) && make install \
+    && info 'tmux setup done' || err_exit 'tmux setup failed'
+  cd "$current_dir"
+
+  # install tmux plugin manager
+  TPM_INSTALL_DIR="$XDG_DATA_HOME/tmux/plugins/tpm"
+  update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm \
+    && info 'tmux plugmngr setup done' || err_exit 'tmux plugmngr setup failed'
 fi
 
 # install btop from source
@@ -329,7 +354,7 @@ if checkyes 'Install btop from source?'; then
   checkyes 'Use g++-10 (y) or g++-11 (N)?' && CXX="g++-10" || CXX="g++-11"
   make -C "$BTOP_INSTALL_DIR" QUIET=true ADDFLAGS=-march=native CXX="$CXX" \
     && make -C "$BTOP_INSTALL_DIR" install PREFIX="$XDG_PREFIX_HOME" \
-    && info 'btop installation done'
+    && info 'btop setup done' || err_exit 'btop setup failed'
 fi
 
 # install bmon (bandwidth monitor)
@@ -340,17 +365,17 @@ if checkyes 'Install bmon from source?'; then
   update_git_repo "$BMON_INSTALL_DIR" https://github.com/tgraf/bmon.git
   cd "$BMON_INSTALL_DIR" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
     && make -j$(nproc) && make install \
-    && info 'bmon installation done'
+    && info 'bmon setup done' || err_exit 'bmon setup failed'
   cd "$current_dir"
 fi
 
-# install nvtop from source
-command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found.'
-if checkyes 'Install nvtop from source?'; then
-  update_git_repo "$XDG_DATA_HOME/nvtop" https://github.com/Syllo/nvtop.git
-  mkdir -p "$XDG_DATA_HOME/nvtop/build" && cd "$_"
-  cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make install \
-    && info 'nvtop setup done'
+# install protoc from source
+command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
+if checkyes 'Install protoc from source?'; then
+  update_git_repo "$XDG_DATA_HOME/protoc" https://github.com/protocolbuffers/protobuf.git
+  cd "$XDG_DATA_HOME/protoc" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+    && make -j$(nproc) && make check -j$(nproc) && make install -j$(nproc) \
+    && info 'protoc setup done' || err_exit 'protoc setup failed'
   cd "$current_dir"
 fi
 
@@ -363,21 +388,21 @@ if checkyes 'Install nix from source?'; then
     && ./configure --prefix="$XDG_PREFIX_HOME" && make all && make install \
     && ldconfig "$XDG_PREFIX_HOME" -n \
     && export PKG_CONFIG_LIBDIR="$XDG_PREFIX_HOME/lib/pkgconfig:$PKG_CONFIG_LIBDIR" \
-    && info 'editline setup done'
+    && info 'editline setup done' || err_exit 'editline setup failed'
   # json
   update_git_repo "$XDG_DATA_HOME/json" https://github.com/nlohmann/json.git
   mkdir -p "$XDG_DATA_HOME/json/build" && cd "$_" \
     && cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make install \
     && ldconfig "$XDG_PREFIX_HOME" -n \
     && export PKG_CONFIG_LIBDIR="$XDG_PREFIX_HOME/lib/pkgconfig:$PKG_CONFIG_LIBDIR" \
-    && info 'nholmann/json setup done'
+    && info 'nholmann/json setup done' || err_exit 'nholmann/json setup failed'
   # lowdown
   update_git_repo "$XDG_DATA_HOME/lowdown" https://github.com/kristapsdz/lowdown.git
   cd "$XDG_DATA_HOME/lowdown" \
     && ./configure --prefix="$XDG_PREFIX_HOME" && make && make regress && make install install_libs \
     && ldconfig "$XDG_PREFIX_HOME" -n \
     && export PKG_CONFIG_LIBDIR="$XDG_PREFIX_HOME/share/pkgconfig:$PKG_CONFIG_LIBDIR" \
-    && info 'lowdown setup done'
+    && info 'lowdown setup done' || err_exit 'lowdown setup failed'
   # brotli
   update_git_repo "$XDG_DATA_HOME/brotli" https://github.com/google/brotli.git
   mkdir -p "$XDG_DATA_HOME/brotli/build" && cd "$_" \
@@ -385,59 +410,15 @@ if checkyes 'Install nix from source?'; then
     && cmake --build . --config Release --target install \
     && ldconfig "$XDG_PREFIX_HOME" -n \
     && export PKG_CONFIG_LIBDIR="$XDG_PREFIX_HOME/lib/pkgconfig:$PKG_CONFIG_LIBDIR" \
-    && info 'brotli setup done'
+    && info 'brotli setup done' || err_exit 'brotli setup failed'
   update_git_repo "$XDG_DATA_HOME/nix" https://github.com/NixOS/nix
   mkdir -p "XDG_CACHE_HOME/nix" && cd "$XDG_DATA_HOME/nix" \
     && ./bootstrap.sh \
     && ./configure --prefix="$XDG_PREFIX_HOME" \
       --with-store-dir="$XDG_CACHE_HOME/nix/store" --localstatedir="$XDG_CACHE_HOME/nix/var" \
     && make && make install \
-    && info 'nix installed' || error 'nix installation failed'
+    && info 'nix installed' || err_exit 'nix installation failed'
   cd "$current_dir"
-fi
-
-# install nvim
-if checkyes 'Do you want to update nvim?'; then
-  NVIM_UPDATE_ALL=true
-fi
-# install nvim from source
-if ! command -v 'nvim' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Install nvim from source?'; then
-  NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
-  update_git_repo "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git "${NVIM_BUILD_TAG:-stable}"
-  cd "$NVIM_INSTLL_DIR"
-  make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install || error 'NVIM BUILD FAILED'
-  info 'nvim installed'
-  cd -
-fi
-
-# nvim dependencies
-pip install --user --upgrade pynvim
-gem install neovim
-pnpm i -g neovim
-# ctags
-if ! command -v 'ctags' &>/dev/null || $NVIM_UPDATE_ALL || checkyes 'Reinstall ctags?'; then
-  update_git_repo "$XDG_DATA_HOME/ctags" https://github.com/universal-ctags/ctags.git
-  cd "$XDG_DATA_HOME/ctags" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
-    && make -j$(nproc) && make install
-  cd "$current_dir"
-fi
-# sad
-checkcommand 'delta' 'cargo install git-delta'
-checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
-# telescope
-if $NVIM_UPDATE_ALL || checkyes 'Install telescope dependencies?'; then
-  checkcommand 'ueberzug' 'pip install ueberzug'
-  checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
-  checkcommand 'rg' 'cargo install ripgrep' # https://www.linode.com/docs/guides/ripgrep-linux-installation/
-  checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
-fi
-
-# lookatme (terminal markdown renderer)
-checkcommand 'lookatme' 'pip install --user --upgrade lookatme'
-
-# PackerSync
-if $NVIM_UPDATE_ALL || checkyes 'Run :PackerSync?'; then
-  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 fi
 
 info "Everything is done. Thx!!"; true
