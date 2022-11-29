@@ -1,6 +1,7 @@
 ### Global ###
 tmp*
 test*
+*secret*
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
