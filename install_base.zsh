@@ -86,7 +86,7 @@ function install_zsh_shell_utils () {
 }
 install_zsh_shell_utils \
   && info 'Zsh extensions installation done' \
-  && error 'Zsh extensions installation failed'
+  || error 'Zsh extensions installation failed'
 
 # install ruby
 install_ruby=true
