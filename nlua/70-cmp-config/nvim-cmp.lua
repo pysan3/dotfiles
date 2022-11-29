@@ -99,7 +99,7 @@ cmp.setup({
     { name = "path" },
   }, {
     buffers,
-    { name = "dictionary", keyword_length = 2 },
+    { name = "dictionary", keyword_length = 3 },
     { name = "spell" },
     { name = "calc" },
   }),
@@ -206,20 +206,9 @@ end
 require("cmp_dictionary").setup({
   dic = {
     ["*"] = dict_source,
-    -- ["lua"] = "path/to/lua.dic",
-    -- ["javascript,typescript"] = { "path/to/js.dic", "path/to/js2.dic" },
-    -- filename = {
-    --   ["xmake.lua"] = { "path/to/xmake.dic", "path/to/lua.dic" },
-    -- },
-    -- filepath = {
-    --   ["%.tmux.*%.conf"] = "path/to/tmux.dic"
-    -- },
   },
-  exact = 2,
   first_case_insensitive = true,
-  async = false,
+  async = true,
   capacity = 5,
-  debug = false,
-  document = true,
-  max_items = 10,
+  max_items = -1,
 })
