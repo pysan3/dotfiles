@@ -21,8 +21,12 @@ inoremap <C-e> <Esc>A,<Esc>o
 inoremap <C-f> <Esc><<a
 
 " move to start / end of line
-noremap H 0w
-noremap L $
+noremap <C-h> 0w
+noremap <C-l> $
+
+" move to next / previous buffer
+nnoremap H :bprevious<CR>
+nnoremap L :bnext<CR>
 
 " save and quit
 noremap <C-Q> :wq!<CR>
