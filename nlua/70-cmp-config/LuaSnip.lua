@@ -132,7 +132,7 @@ local function window_for_choiceNode(choiceNode)
       row_selection = i
       row_offset = #text
     end
-    vim.list_extend(buf_text_tmp, text)
+    vim.list_extend(buf_text_tmp, text, 1, #text)
   end
   local w, h = vim.lsp.util._make_floating_popup_size(buf_text_tmp, {})
   for _, text in ipairs(buf_text_tmp) do
