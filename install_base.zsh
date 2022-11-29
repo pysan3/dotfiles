@@ -324,7 +324,7 @@ fi
 command -v 'gh' &>/dev/null && info 'gh found' || warning 'gh not found.'
 if checkyes 'Install gh from source?'; then
   update_git_repo "$XDG_DATA_HOME/gh-cli" https://github.com/cli/cli.git \
-    && cd "$XDG_DATA_HOME/gh-cli" && make install prefix="$XDG_PREFIX_HOME"
+    && cd "$XDG_DATA_HOME/gh-cli" && make install prefix="$XDG_PREFIX_HOME" \
     && info 'gh setup done' || err_exit 'gh setup failed'
   cd "$current_dir"
 fi
@@ -334,7 +334,7 @@ command -v 'tmux' &>/dev/null && info 'tmux found' || warning 'tmux not found.'
 if checkyes 'Install tmux from source?'; then
   update_git_repo "$XDG_DATA_HOME/tmux-git" https://github.com/tmux/tmux.git
   cd "$XDG_DATA_HOME/tmux-git" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
-    && make -j$(nproc) && make install
+    && make -j$(nproc) && make install \
     && info 'tmux setup done' || err_exit 'tmux setup failed'
   cd "$current_dir"
 
