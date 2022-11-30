@@ -67,7 +67,7 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
   fi
 fi
 python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
-pip install -U --user pipupgrade rich pyreadline lookatme
+pip install -U --user pipupgrade rich pyreadline lookatme trash-cli
 pip install -U --user yt-dlp
 info 'python programs installation done'
 
