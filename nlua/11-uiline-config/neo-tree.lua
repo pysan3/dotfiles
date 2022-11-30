@@ -136,6 +136,7 @@ neotree.setup({
       ["a"] = { "add", config = { show_path = "relative" } },
       ["A"] = "add_directory",
       ["d"] = "delete",
+      ["D"] = "trash",
       ["r"] = "rename",
       ["y"] = "copy_to_clipboard",
       ["x"] = "cut_to_clipboard",
@@ -151,7 +152,6 @@ neotree.setup({
       mappings = {
         ["H"] = "toggle_hidden",
         ["/"] = "fuzzy_finder",
-        ["D"] = "fuzzy_finder_directory",
         ["f"] = "filter_on_submit",
         ["<C-x>"] = "clear_filter",
         ["<bs>"] = "navigate_up",
@@ -165,6 +165,16 @@ neotree.setup({
       system_open = function(state)
         vim.api.nvim_command(string.format("silent !xdg-open '%s'", state.tree:get_node():get_id()))
       end,
+      trash = function(state)
+        local inputs = require("neo-tree.ui.inputs")
+        local path = state.tree:get_node().path
+        local msg = "Are you sure you want to delete " .. path
+        inputs.confirm(msg, function(confirmed)
+          if not confirmed then return end
+          vim.fn.system({ "trash-put", vim.fn.fnameescape(path) })
+          require("neo-tree.sources.manager").refresh(state.name)
+        end)
+      end
     },
     bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root
     filtered_items = {

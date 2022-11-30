@@ -7,7 +7,7 @@ hop.setup({
   uppercase_labels = true,
 })
 
-vim.keymap.set({ "n", "v" }, "<leader>jw", hop.hint_words, { silent = true, desc = "<Cmd>HopWord<CR>" })
-vim.keymap.set({ "n", "v" }, "<leader>jl", hop.hint_lines, { silent = true, desc = "<Cmd>HopLine<CR>" })
-vim.keymap.set({ "n", "v" }, "S", hop.hint_char1, { silent = true, desc = "<Cmd>HopChar1<CR>" })
-vim.keymap.set({ "n", "v" }, "s", hop.hint_char2, { silent = true, desc = "<Cmd>HopChar2<CR>" })
+vim.keymap.set({ "n", "x" }, "<leader>jw", hop.hint_words, { silent = true, desc = "<Cmd>HopWord<CR>" })
+vim.keymap.set({ "n", "x" }, "<leader>jl", hop.hint_lines, { silent = true, desc = "<Cmd>HopLine<CR>" })
+vim.keymap.set({ "n", "x" }, "S", hop.hint_char1, { silent = true, desc = "<Cmd>HopChar1<CR>" })
+vim.keymap.set({ "n", "x" }, "s", hop.hint_char2, { silent = true, desc = "<Cmd>HopChar2<CR>" })
