@@ -129,9 +129,7 @@ function cargo_list_line_parse() {
   return_value="$1"; shift 1
   IFS=':' read -r -A cmdArr <<< $(echo "$@" | sed -e 's/^#\s*//')
   # add one dummy in bash because zsh array is 1-index
-  if [[ x$(basename $SHELL) = x'bash' ]]; then
-    cmdArr="tmp $cmdArr"
-  fi
+  [[ x$(basename $SHELL) = x'bash' ]] && cmdArr="tmp $cmdArr"
   cmd=${cmdArr[1]}; alt=${cmdArr[2]}; issudo=""
   if [[ x"$return_value" = x'cmd' ]]; then echo "$cmd"; return; fi
   if [[ x"$alt" == xsudo* ]]; then
@@ -149,31 +147,23 @@ function cargo_list_line_parse() {
 }
 
 CARGO_ALIAS_CACHE="${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}"
-mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
-pkg_list=''; install_all_cargo_cmds=true
+pkg_list=''; mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
 while IFS= read -r line; do
   cmd=$(cargo_list_line_parse 'cmd' $line)
-  alt=$(cargo_list_line_parse 'alt' $line)
+  alt=$(cargo_list_line_parse 'alt' $line | cut -d ' ' -f 1)
   pkg=$(cargo_list_line_parse 'pkg' $line)
-  cat "$CARGO_ALIAS_CACHE" | grep -v $cmd | sponge "$CARGO_ALIAS_CACHE"
+  [ x_ = x$cmd ] || cat "$CARGO_ALIAS_CACHE" | grep -v $cmd | sponge "$CARGO_ALIAS_CACHE"
   if [ 'x#' = x${line:0:1} ]; then continue; fi
-  question="$alt not installed. Do you want to install with cargo?"
-  if ! command -v ${alt%% *} &> /dev/null && ($install_all_cargo_cmds || checkyes "$question"); then
-    pkg_list="$pkg_list $pkg"
-  fi
+  command -v ${alt} &>/dev/null || pkg_list="$pkg_list $pkg"
 done < "$DOTFILES/static/list_rust_packages.txt"
-[[ -n "$pkg_list" ]] && eval "cargo install $pkg_list"
+[[ -n "$pkg_list" ]] && checkyes "Execute: 'cargo install $pkg_list'?" && eval "cargo install $pkg_list"
 while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
-  alt=$(cargo_list_line_parse 'alt' $line)
+  alt=$(cargo_list_line_parse 'alt' $line | cut -d ' ' -f 1)
   pkg=$(cargo_list_line_parse 'pkg' $line)
-  alias_cmd=$(cargo_list_line_parse 'alias' $line)
-  if command -v ${alt%% *} &> /dev/null; then
-    info "installation $pkg success"
-    echo "$alias_cmd" >> "$CARGO_ALIAS_CACHE"
-  else
-    error "installation $pkg failed"
-  fi
+  command -v ${alt} &>/dev/null || (error "installation $pkg failed" && continue)
+  [ x_ = x$(cargo_list_line_parse 'cmd' $line) ] && continue
+  echo "$(cargo_list_line_parse 'alias' $line)" >> "$CARGO_ALIAS_CACHE"
 done < "$DOTFILES/static/list_rust_packages.txt"
 zcompile "$CARGO_ALIAS_CACHE"
 info 'cargo cli tools setup done'
