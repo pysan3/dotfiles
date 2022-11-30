@@ -11,11 +11,6 @@ unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 setopt sh_word_split
 current_dir="$PWD"
 
-function err_exit () {
-  error "$@"
-  exit 1
-}
-
 function update_git_repo() {
   dist="$1"; repo_url="$2"
   if [ ! -d "$dist" ]; then

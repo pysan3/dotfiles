@@ -12,6 +12,11 @@ function info () {
   tput setaf 2; echo -n "INFO; "; tput sgr0; echo "$@"
 }
 
+function err_exit () {
+  error "$@"
+  exit 1
+}
+
 # warning 'dotfiles/functions.zsh is being loaded'
 
 function checkyes() {
