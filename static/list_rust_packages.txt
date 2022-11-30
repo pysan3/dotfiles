@@ -13,3 +13,4 @@ hexdump:hx
 objdump:bingrep
 lisence:licensor
 http-server:miniserve
+_:tldr:tealdeer

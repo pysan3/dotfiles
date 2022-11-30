@@ -49,12 +49,15 @@ alias yay='yay --noconfirm'
 alias res="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
 function def() {
-  res=$(type $@); lesscmd='less'
+  cmd="${@[$#]}" # last argument
+  res=$(whence -v "$cmd"); raw=$(whence "$cmd" | cut -d ' ' -f 1); lesscmd='less'
+  [ x"$cmd" = x"$raw" ] && res=${res//an alias/a recursive}
   [ $(alias less &>/dev/null; echo $?) -eq 0 ] && lesscmd="$lesscmd -l zsh -pn"
+  echo "$res"; draw_help () { c=$(basename $1); tldr $c 2>/dev/null || eval "$1 --help | $MANPAGER || man $c" }
   case $res in
-    *function*)         (echo "$res\n" | sed 's/^/# /' && declare -f $@) | eval "$lesscmd" ;;
-    *builtin*|*alias*)  PAGER=true run-help $@ ;;
-    *)                  echo $res ;;
+    *function*) whence -f "$raw" | eval "$lesscmd" ;;
+    *alias*)    def "$raw" ;;
+    *)          draw_help "$raw"; whence "$raw" ;; # binary, builtin
   esac
 }
 
@@ -120,10 +123,7 @@ alias bwpass="jq '.login' | jq -r '.password'"
 alias here="$FE . >/dev/null 2>&1 || true"
 
 function update_zwc () {
-  compile_zdot() { [ -f "$1" ] && [ ! "$1.zwc" -nt "$1" ] && zcompile "$1" && info "Compiled $1" }
-  compile_zdot "$HOME/.zshenv"
-  # compile_zdot .zprofile
-  compile_zdot "$ZDOTDIR/.zshrc"
+  compile_zdot() { [ -f "$1" ] && zcompile "$1" && info "Compiled $1" }
   compile_zdot "$ZDOTDIR/local_rc.zsh"
   compile_zdot "$ZDOTDIR/rust_rc.zsh"
   compile_zdot "$ZDOTDIR/aliases_rc.zsh"
@@ -131,8 +131,12 @@ function update_zwc () {
   # compile_zdot .zlogin
   # compile_zdot .zlogout
   compile_zdot "$ZDOTDIR/.zcompdump"
+  compile_zdot "$HOME/.zshenv"
+  # compile_zdot .zprofile
+  compile_zdot "$ZDOTDIR/.zshrc"
   return 0
 }
+
 function dot() {
   local old_dir="$PWD"
   cd $DOTFILES

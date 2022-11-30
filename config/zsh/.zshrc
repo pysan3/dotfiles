@@ -24,6 +24,9 @@ export EDITOR='vim'
 export XDG_CONFIG_HOME="$HOME/.config"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
+# load better run-help
+alias run-help &>/dev/null && unalias run-help
+autoload run-help
 
 # History
 # dont store duplicate lines in the history file
