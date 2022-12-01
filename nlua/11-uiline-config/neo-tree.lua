@@ -136,7 +136,6 @@ neotree.setup({
       ["a"] = { "add", config = { show_path = "relative" } },
       ["A"] = "add_directory",
       ["d"] = "delete",
-      ["D"] = "trash",
       ["r"] = "rename",
       ["y"] = "copy_to_clipboard",
       ["x"] = "cut_to_clipboard",
@@ -159,6 +158,7 @@ neotree.setup({
         ["[g"] = "prev_git_modified",
         ["]g"] = "next_git_modified",
         ["o"] = "system_open",
+        ["D"] = "trash",
       },
     },
     commands = {
