@@ -20,6 +20,7 @@ neotree.setup({
   sort_case_insensitive = true,
   source_selector = {
     winbar = true,
+    separator = { left = '▍', right = '▐', override = "active" },
   },
   default_component_configs = {
     container = {
