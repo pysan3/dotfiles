@@ -242,6 +242,22 @@ user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
 
 /*** POCKET ***/
 user_pref("extensions.pocket.enabled", false);
+user_pref("extensions.pocket.api", "0.0.0.0");
+user_pref("extensions.pocket.loggedOutVariant", "");
+user_pref("extensions.pocket.oAuthConsumerKey", "");
+user_pref("extensions.pocket.onSaveRecs", false);
+user_pref("extensions.pocket.onSaveRecs.locales", "");
+user_pref("extensions.pocket.showHome", false);
+user_pref("extensions.pocket.site", "0.0.0.0");
+user_pref("browser.newtabpage.activity-stream.pocketCta", "");
+user_pref(
+  "browser.newtabpage.activity-stream.section.highlights.includePocket",
+  false
+);
+user_pref(
+  "services.sync.prefs.sync.browser.newtabpage.activity-stream.section.highlights.includePocket",
+  false
+);
 
 /** DOWNLOADS ***/
 user_pref("browser.download.useDownloadDir", false);
