@@ -55,9 +55,10 @@ function def() {
   [ $(alias less &>/dev/null; echo $?) -eq 0 ] && lesscmd="$lesscmd -l zsh -pn"
   echo "$res"; draw_help () { c=$(basename $1); tldr $c 2>/dev/null || eval "$1 --help | $MANPAGER || man $c" }
   case $res in
-    *function*) whence -f "$raw" | eval "$lesscmd" ;;
-    *alias*)    def "$raw" ;;
-    *)          draw_help "$raw"; whence "$raw" ;; # binary, builtin
+    *'not found'*)  checkyes "Google it?" && ?g "linux cli $cmd";;
+    *function*)     whence -f "$raw" | eval "$lesscmd" ;;
+    *alias*)        def "$raw" ;;
+    *)              draw_help "$raw"; whence "$raw" ;; # binary, builtin
   esac
 }
 
