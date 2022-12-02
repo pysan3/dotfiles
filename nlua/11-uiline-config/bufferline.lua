@@ -1,7 +1,5 @@
 require("bufferline").setup({
   options = {
-    -- | "ordinal" | "buffer_id" | "both" | f({ ordinal, id, lower, raise }): string,
-    numbers = "",
     close_command = "bd %d",
     right_mouse_command = "bd %d",
     left_mouse_command = "buffer %d",
