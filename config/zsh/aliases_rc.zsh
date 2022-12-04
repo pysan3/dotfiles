@@ -33,8 +33,8 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
 alias tp='trash-put'
-alias tlist='trash-list'
-alias tres='trash-restore'
+alias tls='trash-list'
+alias tre='trash-restore'
 alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
 
 alias exportenv='while read -r f; do echo "${(q)f}"; done <<(env) > .env'
