@@ -1,4 +1,15 @@
-require("lualine").setup({
+local lualine = require("lualine")
+
+local function show_macro_recording()
+  local recording_register = vim.fn.reg_recording()
+  if recording_register == "" then
+    return ""
+  else
+    return "Recording @" .. recording_register
+  end
+end
+
+lualine.setup({
   options = {
     icons_enabled = true,
     theme = "auto",
@@ -11,7 +22,7 @@ require("lualine").setup({
     lualine_a = { "mode" },
     lualine_b = { "branch", "diff", "diagnostics" },
     lualine_c = { { "hostname", icon = "@", color = { fg = "#16c60c" } }, { "filename", path = 3 } },
-    lualine_x = { "encoding", "fileformat", "filetype" },
+    lualine_x = { { "macro-recording", fmt = show_macro_recording }, "encoding", "fileformat", "filetype" },
     lualine_y = { "progress" },
     lualine_z = { "location" },
   },
@@ -25,4 +36,25 @@ require("lualine").setup({
   },
   tabline = {},
   extensions = {},
+})
+
+vim.api.nvim_create_autocmd("RecordingEnter", {
+  callback = function()
+    lualine.refresh({
+      place = { "statusline" },
+    })
+  end,
+})
+
+vim.api.nvim_create_autocmd("RecordingLeave", {
+  callback = function()
+    local timer = vim.loop.new_timer()
+    timer:start(50, 0,
+      vim.schedule_wrap(function()
+        lualine.refresh({
+          place = { "statusline" },
+        })
+      end)
+    )
+  end,
 })
