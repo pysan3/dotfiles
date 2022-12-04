@@ -6,12 +6,8 @@ require("neogit").setup({
   disable_insert_on_commit = false,
   auto_refresh = true,
   disable_builtin_notifications = true,
-  commit_popup = {
-    kind = "split",
-  },
-  -- Change the default way of opening neogit
+  commit_popup = { kind = "split" },
   kind = "split",
-  -- customize displayed signs
   signs = {
     -- { CLOSED, OPENED }
     section = { ">", "v" },
@@ -21,7 +17,6 @@ require("neogit").setup({
   integrations = {
     diffview = true,
   },
-  -- Setting any section to `false` will make the section not render at all
   sections = {
     untracked = { folded = false },
     unstaged = { folded = false },
