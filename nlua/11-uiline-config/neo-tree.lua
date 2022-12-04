@@ -12,8 +12,8 @@ neotree.setup({
     batch_delay = 10,
     max_lines = 10000,
   },
-  -- hide_root_node = true,
-  -- retain_hidden_root_indent = false,
+  hide_root_node = true,
+  retain_hidden_root_indent = false,
   resize_timer_interval = -1, -- in ms, needed for containers to redraw right aligned and faded content
   log_level = "trace",
   log_to_file = true,
@@ -201,7 +201,7 @@ neotree.setup({
     group_empty_dirs = true,
     follow_current_file = true,
     hijack_netrw_behavior = "open_default",
-    -- use_libuv_file_watcher = true,
+    use_libuv_file_watcher = true,
   },
   git_status = {
     window = {
