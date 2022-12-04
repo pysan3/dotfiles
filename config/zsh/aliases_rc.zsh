@@ -224,7 +224,7 @@ function pdflock () {
   qpdf --encrypt "$1" "$1" 40 -- "$F" "$TO"
 }
 
-function lynxf () {
+function lx () {
   command lynx -cfg="$LYNX_CFG" -lss="$LYNX_LSS" --useragent="$LYNX_USERAGENT" $*
 }
 
@@ -243,17 +243,17 @@ function urlencode () {
 
 function duck () {
   declare url=$(urlencode "$*")
-  lynxf -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=us-en&q=$url"
+  lx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=us-en&q=$url"
 }
 alias "?"=duck
 function duckja () {
   declare url=$(urlencode "$*")
-  lynxf -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=jp-jp&q=$url"
+  lx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=jp-jp&q=$url"
 }
 alias "??"=duckja
 function google () {
   declare url=$(urlencode "$*")
-  lynxf -cmd_script "$DOTFILES/static/lynx/google.key.log" "https://google.com/search?q=$url"
+  lx -cmd_script "$DOTFILES/static/lynx/google.key.log" "https://google.com/search?q=$url"
 }
 alias "?g"=google
 
