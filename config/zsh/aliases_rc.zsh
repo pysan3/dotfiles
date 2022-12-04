@@ -53,12 +53,12 @@ function def() {
   res=$(whence -v "$cmd"); raw=$(whence "$cmd" | cut -d ' ' -f 1); lesscmd='less'
   [ x"$cmd" = x"$raw" ] && res=${res//an alias/a recursive}
   [ $(alias less &>/dev/null; echo $?) -eq 0 ] && lesscmd="$lesscmd -l zsh -pn"
-  echo "$res"; draw_help () { c=$(basename $1); tldr $c 2>/dev/null || eval "$1 --help | $MANPAGER || man $c" }
+  echo "$res"; draw_help () { c=$(basename $1); tldr $c 2>/dev/null || eval "$1 --help | $MANPAGER" || man $c }
   case $res in
     *'not found'*)  checkyes "Google it?" && eval "?g linux cli $cmd";;
     *function*)     whence -f "$raw" | eval "$lesscmd" ;;
     *alias*)        def "$raw" ;;
-    *)              draw_help "$raw"; whence "$raw" ;; # binary, builtin
+    *)              echo; draw_help "$raw"; whence "$raw" ;; # binary, builtin
   esac
 }
 
