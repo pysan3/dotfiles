@@ -1,9 +1,7 @@
 local function getopts(desc)
   return { noremap = true, silent = true, desc = desc }
 end
-local map = "\\\\c"
-vim.keymap.set("n", map, "<cmd>PickColor<cr>", getopts("<cmd>PickColor<cr>"))
-vim.keymap.set("i", map, "<cmd>PickColorInsert<cr>", getopts("<cmd>PickColorInsert<cr>"))
+vim.keymap.set("n", "<leader><leader>c", "<cmd>PickColor<cr>", getopts("<cmd>PickColor<cr>"))
 
 require("color-picker").setup({
   ["keymap"] = {
