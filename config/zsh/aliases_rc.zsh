@@ -74,17 +74,17 @@ function upgradeall() {
   done
 }
 
-alias vm="cd; nvim $ZDOTDIR/.vimrc; cd - >/dev/null"
-alias vz="cd; nvim $ZDOTDIR/.zshrc; cd - >/dev/null"
-alias vv="cd; nvim $HOME/.zshenv; cd - >/dev/null"
-alias va="cd; nvim $ZDOTDIR/aliases_rc.zsh; cd - >/dev/null"
-alias vr="cd; nvim $ZDOTDIR/rust_rc.zsh; cd - >/dev/null"
-alias vl="cd; nvim $ZDOTDIR/local_rc.zsh; cd - >/dev/null"
-alias vs="cd; nvim $ZDOTDIR/script_rc.zsh; cd - >/dev/null"
-alias vc="cd; nvim ~/.mySecrets.env; cd - >/dev/null"
-alias ve="cd; nvim .env; cd - >/dev/null"
-alias vh="cd; nvim $XDG_CACHE_HOME/zsh/.zsh_history; cd - >/dev/null"
-alias vlocal="cd; nvim $XDG_CONFIG_HOME/nvim/local.vim; cd - >/dev/null"
+alias vm="dot nvim $DOTFILES/.vimrc"
+alias vz="dot nvim $ZDOTDIR/.zshrc"
+alias vv="dot nvim $ZDOTDIR/.zshenv"
+alias va="dot nvim $ZDOTDIR/aliases_rc.zsh"
+alias vr="dot nvim $ZDOTDIR/rust_rc.zsh"
+alias vl="dot nvim $ZDOTDIR/local_rc.zsh"
+alias vs="dot nvim $ZDOTDIR/script_rc.zsh"
+alias vc="nvim ~/.mySecrets.env"
+alias ve="nvim .env"
+alias vh="nvim $XDG_CACHE_HOME/zsh/.zsh_history"
+alias vlocal="dot nvim $XDG_CONFIG_HOME/nvim/local.vim"
 
 alias dc="docker-compose"
 alias rp='realpath'
