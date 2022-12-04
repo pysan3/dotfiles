@@ -20,3 +20,4 @@ nvim/autoload/plugged
 !nvim.bak/
 
 !lynx.cfg
+!static/lynx/*.log
