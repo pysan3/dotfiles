@@ -210,5 +210,5 @@ require("cmp_dictionary").setup({
   first_case_insensitive = true,
   async = true,
   capacity = 5,
-  max_items = -1,
+  max_items = 1000,
 })
