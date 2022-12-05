@@ -1,5 +1,26 @@
+---Check if path exists in filesystem
+---@param path string: path to check
+---@param is_config boolean?: if true, path is treated in a lua require format
+---@return boolean
+local function exists(path, is_config)
+  if is_config then
+    path = string.format("%s/lua/%s.lua", vim.fn.stdpath("config"), string.gsub(path, "%.", "/"))
+  end
+  local st = vim.loop.fs_stat(path)
+  return st and true or false
+end
+
+---return filename to require plugin config
+---@param plugin_name string
+---@param dir_name string?: if nil, returns setup path
+---@return string
+local function require_name(plugin_name, dir_name)
+  dir_name = dir_name or "99-plug-setup"
+  return string.format("%s.%s", dir_name, plugin_name)
+end
+
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if vim.loop.fs_stat(install_path) then
+if not exists(install_path) then
   local git_path = "https://github.com/wbthomason/packer.nvim"
   PACKER_BOOTSTRAP = vim.fn.system({ "git", "clone", "--depth", "1", git_path, install_path })
   print("Installing packer close and reopen Neovim...")
@@ -14,10 +35,26 @@ local function load_plugins(use)
   local function load_sub_dirs(dir_name)
     local load_ok, plugin_table = pcall(require, dir_name)
     if not load_ok then return false end
-    for _, plugin in ipairs(plugin_table.install or {}) do use(plugin) end
-    for _, plugin in ipairs(plugin_table.setup or {}) do
-      if type(plugin) ~= "table" then plugin = { plugin } end
-      plugin.config = string.format([[require("%s.%s")]], dir_name, plugin[1]:gsub(".*/([^.]*)%.?.*/?$", "%1"))
+    if not vim.tbl_islist(plugin_table) then -- FIX: keep for backwards compatibility
+      local tmp = {}
+      tmp = vim.list_extend(tmp, plugin_table.install or {}) ---@diagnostic disable-line
+      tmp = vim.list_extend(tmp, plugin_table.setup or {}) ---@diagnostic disable-line
+      plugin_table = tmp
+    end
+    for _, plugin in ipairs(plugin_table) do
+      if type(plugin) ~= "table" then
+        plugin = { plugin }
+      end
+      local plugin_name = plugin[1]:gsub(".*/([^.]*)%.?.*/?$", "%1")
+      local setup_lua = require_name(plugin_name, nil)
+      local config_lua = require_name(plugin_name, dir_name)
+      if plugin.setup == nil and exists(setup_lua, true) then
+        plugin.setup = string.format([[require("%s")]], setup_lua)
+        vim.pretty_print('setup', setup_lua)
+      end
+      if plugin.config == nil and exists(config_lua, true) then
+        plugin.config = string.format([[require("%s")]], config_lua)
+      end
       use(plugin)
     end
   end
@@ -59,6 +96,7 @@ local function packer_call()
       disable_commands = true,
       display = { open_fn = require("packer.util").float },
       autoremove = true,
+      log = { level = "trace" },
     })
     packer.reset()
 
@@ -94,6 +132,6 @@ vim.api.nvim_create_user_command("PackerLoad", function(opts)
   packer_run("loader")(unpack(opts))
 end, { bang = true, complete = packer_run("loader_complete"), desc = "[Packer] Load plugins", nargs = "+" })
 
-if vim.loop.fs_stat(compile_path) then
+if exists(compile_path) then
   vim.cmd("luafile " .. compile_path)
 end
