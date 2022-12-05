@@ -37,3 +37,7 @@ snippet snipinit "require all necessary variables for LuaSnip"
 	return snippets, autosnippets
 snippet nodi "disable diagnostic for current line"
 	---@diagnostic disable-line
+snippet f "function with no name"
+	function $1($2)
+	  $0
+	end
