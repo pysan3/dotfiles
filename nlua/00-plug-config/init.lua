@@ -50,7 +50,6 @@ local function load_plugins(use)
       local config_lua = require_name(plugin_name, dir_name)
       if plugin.setup == nil and exists(setup_lua, true) then
         plugin.setup = string.format([[require("%s")]], setup_lua)
-        vim.pretty_print('setup', setup_lua)
       end
       if plugin.config == nil and exists(config_lua, true) then
         plugin.config = string.format([[require("%s")]], config_lua)
@@ -96,7 +95,6 @@ local function packer_call()
       disable_commands = true,
       display = { open_fn = require("packer.util").float },
       autoremove = true,
-      log = { level = "trace" },
     })
     packer.reset()
 
