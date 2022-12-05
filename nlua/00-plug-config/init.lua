@@ -1,24 +1,15 @@
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+if vim.loop.fs_stat(install_path) then
   local git_path = "https://github.com/wbthomason/packer.nvim"
   PACKER_BOOTSTRAP = vim.fn.system({ "git", "clone", "--depth", "1", git_path, install_path })
   print("Installing packer close and reopen Neovim...")
   vim.cmd([[packadd packer.nvim]])
 end
 local compile_path = string.format("%s/%s", vim.fn.stdpath("cache"), "plugin/packer_compiled.lua")
-local packer = require("packer")
 
-packer.reset()
-packer.init({
-  compile_path = compile_path,
-  display = { open_fn = require("packer.util").float },
-  autoremove = true,
-})
-if vim.fn.filereadable(compile_path) ~= 0 then
-  vim.cmd(string.format("luafile %s", compile_path))
-end
+local packer = nil
 
-return packer.startup(function(use)
+local function load_plugins(use)
   -- stylua: ignore start
   local function load_sub_dirs(dir_name)
     local load_ok, plugin_table = pcall(require, dir_name)
@@ -34,6 +25,7 @@ return packer.startup(function(use)
   -- stylua: ignore end
 
   use({ "lewis6991/impatient.nvim" })
+  use({ "dstein64/vim-startuptime" })
   require("impatient")
 
   use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
@@ -54,8 +46,54 @@ return packer.startup(function(use)
   load_sub_dirs("70-cmp-config")
   load_sub_dirs("70-lsp-config")
   load_sub_dirs("80-debug-config")
+end
 
-  if PACKER_BOOTSTRAP then
-    packer.sync()
+local function packer_call()
+  if not packer then
+    vim.cmd.packadd("packer.nvim")
+    packer = require("packer")
+    packer.init({
+      compile_path = compile_path,
+      compile_on_sync = true,
+      profile = { enable = false, threshold = 1 },
+      disable_commands = true,
+      display = { open_fn = require("packer.util").float },
+      autoremove = true,
+    })
+    packer.reset()
+
+    load_plugins(packer.use)
+    if PACKER_BOOTSTRAP then
+      packer.sync()
+    end
   end
-end)
+  return packer
+end
+
+local function packer_run(method)
+  return function(opts)
+    packer_call()[method](opts)
+  end
+end
+
+vim.api.nvim_create_user_command("PackerInstall", packer_run("install"), { desc = "[Packer] Install plugins" })
+vim.api.nvim_create_user_command("PackerUpdate", packer_run("update"), { desc = "[Packer] Update plugins" })
+vim.api.nvim_create_user_command("PackerClean", packer_run("clean"), { desc = "[Packer] Clean plugins" })
+vim.api.nvim_create_user_command("PackerStatus", packer_run("status"), { desc = "[Packer] Output plugins status" })
+vim.api.nvim_create_user_command("PackerCompile", packer_run("compile"),
+  { desc = "[Packer] Output plugins status", nargs = "*" })
+vim.api.nvim_create_user_command("PackerProfile", packer_run("profile_output"),
+  { desc = "[Packer] Output plugins profile" })
+vim.api.nvim_create_user_command("PackerSync", function()
+  vim.notify("Sync started")
+  packer_run("sync")()
+end, { desc = "[Packer] Output plugins status" })
+vim.api.nvim_create_user_command("PackerLoad", function(opts)
+  local args = vim.split(opts.args, " ", {})
+  table.insert(args, opts.bang)
+  packer_run("loader")(unpack(opts))
+end, { bang = true, complete = packer_run("loader_complete"), desc = "[Packer] Load plugins", nargs = "+" })
+
+if vim.loop.fs_stat(compile_path) then
+  vim.cmd("luafile " .. compile_path)
+end
