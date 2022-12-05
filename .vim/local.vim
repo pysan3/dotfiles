@@ -8,10 +8,11 @@ endfunction
 
 augroup packer_user_config
   autocmd!
-  autocmd BufWritePost *config/init.lua call RemoveRequireCache(expand("<afile>:p:h:t")) | PackerSync
+  autocmd BufWritePost *config/init.lua call RemoveRequireCache(expand("<afile>:p:h:t"))
 augroup end
 
 nnoremap <leader><leader>r :PackerSync<CR>
+nnoremap <leader><leader>x :PackerCompile<CR>
 
 lua <<EOF
 local aug = vim.api.nvim_create_augroup("DisableNullUserJS", {})
