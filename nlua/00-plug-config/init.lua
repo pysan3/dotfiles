@@ -116,8 +116,9 @@ vim.api.nvim_create_user_command("PackerInstall", packer_run("install"), { desc 
 vim.api.nvim_create_user_command("PackerUpdate", packer_run("update"), { desc = "[Packer] Update plugins" })
 vim.api.nvim_create_user_command("PackerClean", packer_run("clean"), { desc = "[Packer] Clean plugins" })
 vim.api.nvim_create_user_command("PackerStatus", packer_run("status"), { desc = "[Packer] Output plugins status" })
-vim.api.nvim_create_user_command("PackerCompile", packer_run("compile"),
-  { desc = "[Packer] Output plugins status", nargs = "*" })
+vim.api.nvim_create_user_command("PackerCompile", function()
+  packer_call()["compile"]("")
+end, { desc = "[Packer] Output plugins status", nargs = "*" })
 vim.api.nvim_create_user_command("PackerProfile", packer_run("profile_output"),
   { desc = "[Packer] Output plugins profile" })
 vim.api.nvim_create_user_command("PackerSync", function()
