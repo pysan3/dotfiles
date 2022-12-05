@@ -6,9 +6,6 @@ end
 return {
   {
     "williamboman/mason.nvim",
-    module = "mason",
-    event = { "BufReadPre", "FocusLost", "CursorHold" },
-    cmd = { "Mason" },
     requires = {
       { "williamboman/mason-lspconfig.nvim", module = "mason-lspconfig" },
       onhold({ "WhoIsSethDaniel/mason-tool-installer.nvim", module = "mason-tool-installer" }),
