@@ -1,5 +1,5 @@
 local function c(plugin)
-  plugin.event = { "InsertEnter", "CursorHold", "FocusLost", "BufRead", "BufNewFile" }
+  plugin.event = { "InsertEnter", "CmdlineEnter", "CursorHold", "FocusLost", "BufRead", "BufNewFile" }
   return plugin
 end
 
