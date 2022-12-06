@@ -23,7 +23,13 @@ require("noice").setup({
   },
   routes = {
     { -- route long messages to split
-      filter = { event = "msg_show", min_height = 5 },
+      filter = {
+        event = "msg_show",
+        any = { { min_height = 5 }, { min_width = 200 } },
+        ["not"] = {
+          kind = { "confirm", "confirm_sub", "return_prompt", "quickfix", "" },
+        },
+      },
       view = "messages",
       opts = { stop = true },
     },
