@@ -10,7 +10,7 @@ return {
     "numToStr/Comment.nvim",
     module = "Comment",
     requires = { { "JoosepAlviste/nvim-ts-context-commentstring", opt = true } },
-    wants = { "nvim-ts-context-commentstring" },
+    wants = { "nvim-treesitter", "nvim-ts-context-commentstring" },
   }),
   c({
     "L3MON4D3/LuaSnip",
