@@ -5,16 +5,16 @@ end
 
 return {
   -- "smjonas/snippet-converter.nvim", -- Use to convert snippet files. See `nlua/lsp-config/snippet-converter.lua`
-  c({ "windwp/nvim-autopairs", module = "nvim-autopairs" }),
+  c({ "windwp/nvim-autopairs", module = { "nvim-autopairs" } }),
   c({
     "numToStr/Comment.nvim",
-    module = "Comment",
+    module = { "Comment" },
     requires = { { "JoosepAlviste/nvim-ts-context-commentstring", opt = true } },
     wants = { "nvim-treesitter", "nvim-ts-context-commentstring" },
   }),
   c({
     "L3MON4D3/LuaSnip",
-    module = "luasnip",
+    module = { "luasnip" },
     requires = {
       { "rafamadriz/friendly-snippets", opt = true },
       { "honza/vim-snippets", rtp = ".", opt = true },
@@ -25,7 +25,7 @@ return {
   }),
   {
     "hrsh7th/nvim-cmp",
-    module = "cmp",
+    module = { "cmp" },
     requires = {
       c({ "hrsh7th/cmp-buffer" }), -- buffer completions
       c({ "hrsh7th/cmp-path" }), -- path completions

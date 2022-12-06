@@ -1,13 +1,13 @@
 return {
   {
     "mfussenegger/nvim-dap",
-    module = "dap",
+    module = { "dap" },
     requires = { { "mfussenegger/nvim-dap-python", opt = true } },
     wants = { "nvim-dap-python" },
   },
   {
     "rcarriga/nvim-dap-ui",
-    module = "dapui",
+    module = { "dapui" },
     after = { "nvim-dap" },
   },
   {
