@@ -1,5 +1,9 @@
 return {
   {
+    "nvim-telescope/telescope-dap.nvim",
+    wants = { "nvim-dap", "telescope.nvim" },
+  },
+  {
     "mfussenegger/nvim-dap",
     module = { "dap" },
     requires = { { "mfussenegger/nvim-dap-python", opt = true } },

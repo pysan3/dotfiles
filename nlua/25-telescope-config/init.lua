@@ -1,19 +1,18 @@
 return {
-  setup = {
-    {
-      "nvim-telescope/telescope.nvim",
-      requires = {
-        "BurntSushi/ripgrep",
-        {
-          "nvim-telescope/telescope-fzf-native.nvim",
-          run = "make",
-        },
-        "nvim-telescope/telescope-media-files.nvim",
-        "nvim-telescope/telescope-dap.nvim",
-      },
+  {
+    "nvim-telescope/telescope.nvim",
+    module = { "telescope" },
+    requires = {
+      { "BurntSushi/ripgrep", opt = true },
+      { "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },
+      { "nvim-telescope/telescope-media-files.nvim", opt = true },
+      { "nvim-telescope/telescope-symbols.nvim", opt = true },
     },
-  },
-  install = {
-    "nvim-telescope/telescope-symbols.nvim",
+    wants = {
+      "ripgrep",
+      "telescope-fzf-native.nvim",
+      "telescope-media-files.nvim",
+      "telescope-symbols.nvim"
+    },
   },
 }
