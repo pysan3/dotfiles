@@ -24,7 +24,7 @@ return {
   {
     "ray-x/lsp_signature.nvim", -- show hints when writing function arguments
     wants = { "mason.nvim" },
-    event = { "InsertEnter" },
+    event = { "InsertEnter", "FocusLost", "CursorHold" },
   },
   {
     "j-hui/fidget.nvim", -- print linting progress
@@ -33,8 +33,7 @@ return {
   },
   {
     "kevinhwang91/nvim-ufo",
-    module = { "ufo" },
-    event = { "BufReadPre" },
+    event = { "BufRead" },
     requires = { { "kevinhwang91/promise-async", opt = true } },
     wants = { "promise-async" },
   },
