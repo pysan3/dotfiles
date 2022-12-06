@@ -1,5 +1,8 @@
 return {
-  { "terryma/vim-expand-region" }, -- + to expand, _ to shrink
+  {
+    "terryma/vim-expand-region", -- + to expand, _ to shrink
+    keys = { "<Plug>(expand_region_expand)", "<Plug>(expand_region_shrink)" },
+  },
   { "kylechui/nvim-surround" }, -- s is motion, ys to add
   { "ggandor/leap.nvim" }, -- s, S to jump anywhere
   { "tpope/vim-repeat" }, -- better repetition
