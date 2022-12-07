@@ -1,3 +1,3 @@
 vim.cmd([[
-nmap <F8> :TagbarToggle<CR>
+nmap <F8> <Cmd>TagbarToggle<CR>
 ]])
