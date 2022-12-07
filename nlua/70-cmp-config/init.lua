@@ -21,7 +21,7 @@ return {
       { "molleweide/LuaSnip-snippets.nvim", opt = true },
       { "gisphm/vim-gitignore", opt = true },
     },
-    wants = { "friendly-snippets", "vim-snippets", "LuaSnip-snippets.nvim", "vim-gitignore" },
+    wants = { "nvim-treesitter", "friendly-snippets", "vim-snippets", "LuaSnip-snippets.nvim", "vim-gitignore" },
   }),
   {
     "hrsh7th/nvim-cmp",
