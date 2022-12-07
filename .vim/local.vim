@@ -2,8 +2,6 @@ autocmd FileType sh,bash,zsh,fish,vim setlocal shiftwidth=2
 
 function! RemoveRequireCache(name)
   lua package.loaded[vim.api.nvim_eval("a:name")] = nil
-  lua require("packer").reset()
-  source nlua/00-plug-config/init.lua
 endfunction
 
 augroup packer_user_config
