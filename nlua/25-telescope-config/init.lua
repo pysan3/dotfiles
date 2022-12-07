@@ -2,6 +2,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     module = { "telescope" },
+    cmd = { "Telescope" },
     requires = {
       { "BurntSushi/ripgrep", opt = true },
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },
