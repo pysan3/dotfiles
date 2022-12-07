@@ -1,8 +1,13 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
-    module = { "telescope" },
-    cmd = { "Telescope" },
+    module_pattern = {
+      "^telescope$",
+      "^telescope%.builtin$",
+      "^telescope%.actions%.",
+      "^telescope%.from_entry$",
+      "^telescope%.previewers%.",
+    },
     requires = {
       { "BurntSushi/ripgrep", opt = true },
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },

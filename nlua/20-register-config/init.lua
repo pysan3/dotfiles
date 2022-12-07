@@ -7,7 +7,5 @@ return {
     },
     wants = { "sqlite.lua", "telescope.nvim" },
     module = { "neoclip" },
-    cmd = { "Telescope" },
-    event = { "InsertEnter" },
   },
 }
