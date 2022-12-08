@@ -1,6 +1,15 @@
 local telescope = require("telescope")
 local actions = require("telescope.actions")
 
+local function stopinsert(callback)
+  return function(prompt_bufnr)
+    vim.cmd.stopinsert()
+    vim.schedule(function()
+      callback(prompt_bufnr)
+    end)
+  end
+end
+
 telescope.setup({
   defaults = {
     mappings = {
@@ -12,6 +21,11 @@ telescope.setup({
         ["<C-k>"] = actions.cycle_history_prev,
         ["<Down>"] = actions.cycle_history_next,
         ["<Up>"] = actions.cycle_history_prev,
+        -- workaround for telescope file selection
+        ["<CR>"] = stopinsert(actions.select_default),
+        ["<C-x>"] = stopinsert(actions.select_horizontal),
+        ["<C-v>"] = stopinsert(actions.select_vertical),
+        ["<C-t>"] = stopinsert(actions.select_tab)
       },
     },
     cache_picker = { num_pickers = 3 }, -- default 1
