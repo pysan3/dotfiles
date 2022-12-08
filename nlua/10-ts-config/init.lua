@@ -1,15 +1,29 @@
+local function be(plugin)
+  plugin.event = { "BufRead", "BufNewFile", "BufEnter" }
+  return plugin
+end
+
 return {
-  setup = {
+  be({
     "folke/todo-comments.nvim",
-    "andymass/vim-matchup",
-    {
-      "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
-      requires = {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        "andymass/vim-matchup",
-      },
+    wants = { "plenary.nvim" },
+    module = { "todo-comments" },
+  }),
+  be({ "andymass/vim-matchup" }),
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = { "BufRead", "BufNewFile", "InsertEnter" },
+    run = ":TSUpdate",
+    module = { "nvim-treesitter" },
+    requires = {
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
     },
-    "m-demare/hlargs.nvim",
+    wants = { "nvim-treesitter-textobjects", "vim-matchup" },
   },
+  {
+    "m-demare/hlargs.nvim",
+    wants = { "nvim-treesitter" },
+    event = { "BufRead", "BufNewFile", "InsertEnter" },
+    module = { "hlargs" },
+  }
 }

@@ -225,5 +225,3 @@ neotree.setup({
     },
   },
 })
-
-vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>", { remap = false, silent = true })

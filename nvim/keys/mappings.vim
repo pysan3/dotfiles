@@ -8,8 +8,8 @@ tnoremap <silent> ｊｋ <Esc>
 nnoremap <C-6> <C-^>
 
 " save undos on every space
-inoremap <space> <C-g>u<space>
-inoremap <CR> <C-g>u<CR>
+inoremap <space> <C-]><C-g>u<space>
+inoremap <CR> <C-]><C-g>u<CR>
 inoremap . <C-g>u.
 inoremap , <C-g>u,
 

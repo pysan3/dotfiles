@@ -1,21 +1,22 @@
+local function md(plugin)
+  plugin.ft = { "markdown", "html", "NeogitCommitMessage", "gitcommit", "octo" }
+  return plugin
+end
+
 return {
-  setup = {
-    "lervag/vimtex",
-    "plasticboy/vim-markdown",
-    "dkarter/bullets.vim",
-    "jubnzv/mdeval.nvim",
-    { "dhruvasagar/vim-table-mode", ft = { "html", "markdown", "NeogitCommitMessage" } },
-  },
-  install = {
-    "tpope/vim-abolish",
-    "chip/vim-fat-finger",
-    "pixelneo/vim-python-docstring",
-    "Vimjas/vim-python-pep8-indent",
-    "wfxr/protobuf.vim",
-    "tikhomirov/vim-glsl",
-    "godlygeek/tabular",
-    { "iamcco/markdown-preview.nvim", run = "cd app && npm install" },
-    { "heavenshell/vim-jsdoc", run = "make install", ft = { "javascript", "javascript.jsx", "typescript" } },
-    { "h-hg/fcitx.nvim", cond = vim.fn.executable("fcitx5-remote") == 1 },
-  },
+  { "lervag/vimtex", ft = { "latex", "tex" } },
+  md({ "plasticboy/vim-markdown" }),
+  md({ "dkarter/bullets.vim" }),
+  md({ "jubnzv/mdeval.nvim", cmd = "MdEval", module = { "mdeval" } }),
+  md({ "dhruvasagar/vim-table-mode" }),
+  md({ "godlygeek/tabular" }),
+  md({ "iamcco/markdown-preview.nvim", run = "cd app && npm install" }),
+  { "tpope/vim-abolish", cmd = { "Abolish", "Subvert" }, event = { "CmdlineEnter" } },
+  md({ "chip/vim-fat-finger", event = { "InsertEnter", "CmdlineEnter", "CursorHold", "FocusLost" } }),
+  { "pixelneo/vim-python-docstring", ft = { "python" } },
+  { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
+  { "wfxr/protobuf.vim", ft = { "proto" } },
+  { "tikhomirov/vim-glsl", ft = { "glsl" } },
+  { "heavenshell/vim-jsdoc", run = "make install", ft = { "javascript", "javascript.jsx", "typescript" } },
+  { "h-hg/fcitx.nvim", cond = vim.fn.executable("fcitx5-remote") == 1 },
 }

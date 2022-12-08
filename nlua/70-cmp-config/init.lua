@@ -1,53 +1,48 @@
+local function c(plugin)
+  plugin.event = { "InsertEnter", "CmdlineEnter", "CursorHold", "FocusLost" }
+  return plugin
+end
+
 return {
   -- "smjonas/snippet-converter.nvim", -- Use to convert snippet files. See `nlua/lsp-config/snippet-converter.lua`
-  {
-    "windwp/nvim-autopairs",
-    module = "nvim-autopairs",
-    event = { "InsertEnter" },
-  },
-  {
+  c({ "windwp/nvim-autopairs", module = { "nvim-autopairs" } }),
+  c({
     "numToStr/Comment.nvim",
-    module = "Comment",
-    event = { "BufReadPre", "FocusLost", "CursorHold" },
+    module = { "Comment" },
     requires = { { "JoosepAlviste/nvim-ts-context-commentstring", opt = true } },
-    wants = { "nvim-ts-context-commentstring" },
-  },
-  {
+    wants = { "nvim-treesitter", "nvim-ts-context-commentstring" },
+  }),
+  c({
     "L3MON4D3/LuaSnip",
-    module = "luasnip",
-    event = { "InsertEnter" },
+    module = { "luasnip" },
     requires = {
       { "rafamadriz/friendly-snippets", opt = true },
       { "honza/vim-snippets", rtp = ".", opt = true },
       { "molleweide/LuaSnip-snippets.nvim", opt = true },
       { "gisphm/vim-gitignore", opt = true },
     },
-    wants = { "friendly-snippets", "vim-snippets", "LuaSnip-snippets.nvim", "vim-gitignore" },
-  },
+    wants = { "nvim-treesitter", "friendly-snippets", "vim-snippets", "LuaSnip-snippets.nvim", "vim-gitignore" },
+  }),
   {
     "hrsh7th/nvim-cmp",
-    module = "cmp",
+    module = { "cmp" },
     requires = {
-      { "hrsh7th/cmp-buffer", event = { "InsertEnter" } }, -- buffer completions
-      { "hrsh7th/cmp-path", event = { "InsertEnter" } }, -- path completions
-      { "hrsh7th/cmp-cmdline", event = { "InsertEnter" } }, -- cmdline completions
-      { "hrsh7th/cmp-nvim-lua", event = { "InsertEnter" } }, -- nvim lua config completion
-      { "hrsh7th/cmp-calc", event = { "InsertEnter" } },
-      { "f3fora/cmp-spell", event = { "InsertEnter" } },
-      { "hrsh7th/cmp-cmdline", event = { "InsertEnter" } },
-      { "saadparwaiz1/cmp_luasnip", event = { "InsertEnter" } },
+      c({ "hrsh7th/cmp-buffer" }), -- buffer completions
+      c({ "hrsh7th/cmp-path" }), -- path completions
+      c({ "hrsh7th/cmp-cmdline" }), -- cmdline completions
+      c({ "hrsh7th/cmp-nvim-lua" }), -- nvim lua config completion
+      c({ "hrsh7th/cmp-calc" }),
+      c({ "f3fora/cmp-spell" }),
+      c({ "hrsh7th/cmp-cmdline" }),
+      c({ "saadparwaiz1/cmp_luasnip" }),
     },
     wants = { "nvim-autopairs", "LuaSnip" },
   },
-  {
-    "uga-rosa/cmp-dictionary",
-    event = { "InsertEnter" }
-  },
-  {
+  c({ "uga-rosa/cmp-dictionary" }),
+  c({
     "petertriho/cmp-git",
-    event = { "InsertEnter" },
     config = function()
       require("cmp_git").setup({ filetypes = { "NeogitCommitMessage", "gitcommit", "octo" } })
     end,
-  },
+  }),
 }

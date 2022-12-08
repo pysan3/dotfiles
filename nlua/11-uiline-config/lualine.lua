@@ -1,5 +1,3 @@
-local lualine = require("lualine")
-
 local function show_macro_recording()
   local recording_register = vim.fn.reg_recording()
   if recording_register == "" then
@@ -9,7 +7,7 @@ local function show_macro_recording()
   end
 end
 
-lualine.setup({
+require("lualine").setup({
   options = {
     icons_enabled = true,
     theme = "auto",
@@ -40,7 +38,7 @@ lualine.setup({
 
 vim.api.nvim_create_autocmd("RecordingEnter", {
   callback = function()
-    lualine.refresh({
+    require("lualine").refresh({
       place = { "statusline" },
     })
   end,
@@ -51,7 +49,7 @@ vim.api.nvim_create_autocmd("RecordingLeave", {
     local timer = vim.loop.new_timer()
     timer:start(50, 0,
       vim.schedule_wrap(function()
-        lualine.refresh({
+        require("lualine").refresh({
           place = { "statusline" },
         })
       end)

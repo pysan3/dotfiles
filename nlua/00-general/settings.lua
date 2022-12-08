@@ -11,6 +11,9 @@ vim.g.personal_options = {
     enable = true,
     winbar = true,
   },
+  telescope = {
+    prefix = "<Leader>f",
+  },
 }
 
 vim.opt.completeopt = "menuone,noselect"
