@@ -27,7 +27,7 @@ hints:
         enabled: true
         mods: Control
       binding:
-        key: U
+        key: O
         mods: Control|Shift
 
 # Colors (xterm)
