@@ -27,7 +27,7 @@ require("noice").setup({
         event = "msg_show",
         any = { { min_height = 5 }, { min_width = 200 } },
         ["not"] = {
-          kind = { "confirm", "confirm_sub", "return_prompt", "quickfix", "" },
+          kind = { "confirm", "confirm_sub", "return_prompt", "quickfix" },
         },
       },
       view = "messages",
