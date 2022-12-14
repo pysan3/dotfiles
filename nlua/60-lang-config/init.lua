@@ -18,5 +18,5 @@ return {
   { "wfxr/protobuf.vim", ft = { "proto" } },
   { "tikhomirov/vim-glsl", ft = { "glsl" } },
   { "heavenshell/vim-jsdoc", run = "make install", ft = { "javascript", "javascript.jsx", "typescript" } },
-  { "h-hg/fcitx.nvim", cond = vim.fn.executable("fcitx5-remote") == 1 },
+  { "pysan3/fcitx5.nvim", cond = vim.fn.executable("fcitx5-remote") == 1, event = { "ModeChanged" } },
 }
