@@ -114,8 +114,8 @@ act
 function cbw () {
   ( \
     set -a && source ~/.mySecrets.env && set +a \
-    && bw unlock --passwordenv BW_PASSWORD >/dev/null 2>&1;
-    echo $BW_PASSWORD | bw $* 2>/dev/null
+    && bw unlock --passwordenv BW_PASSWORD >/dev/null;
+    echo $BW_PASSWORD | bw $*
   )
 }
 alias bwpass="jq '.login' | jq -r '.password'"
