@@ -7,9 +7,8 @@ return {
   be({ "norcalli/nvim-colorizer.lua" }),
   {
     "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
+    branch = "main",
     -- "~/Git/neo-tree.nvim",
-    -- branch = "main",
     requires = {
       { "MunifTanjim/nui.nvim", module = { "nui" } },
       { "kyazdani42/nvim-web-devicons", module = { "nvim-web-devicons" } },
