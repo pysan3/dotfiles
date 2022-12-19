@@ -70,7 +70,7 @@ alias packersync="nvim --headless -c 'autocmd User PackerComplete quitall' -c 'P
 function upgradeall() {
   upgradecmds='py rs js rb'
   for lang in $upgradecmds; do
-    eval "upgrade$lang" && alias "upgrade$lang" || error "FAIL: upgrade$lang"
+    eval "upgrade$lang" && info "Success: $(alias upgrade$lang)" || error "FAIL: $(alias upgrade$lang)"
   done
 }
 
