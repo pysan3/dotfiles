@@ -419,6 +419,30 @@ function ex () {
   done
 }
 
+function bak () {
+  for filename in $@; do
+    bak_file="$filename.bak"
+    if [ -f "$filename" ]; then
+      mv -i "$filename" "$bak_file"
+      [ -f "$filename" ] && warning "Skipping $filename"
+    fi
+  done
+}
+
+function rebak () {
+  for filename in $@; do
+    if ! [[ x"$filename" =~ .*bak ]]; then
+      error "$filename does not end with '.bak'. Skipping."
+      continue
+    fi
+    bak_file="${filename:r}"
+    if [ -f "$filename" ]; then
+      mv -i "$filename" "${bak_file}"
+      [ -f "$filename" ] && warning "Skipping $filename"
+    fi
+  done
+}
+
 function sshfs_remote() {
   if [ -z "$(command ls -A $2)" ]; then
     tmux has-session -t sshfs 2>/dev/null || tmux new -d -s sshfs
