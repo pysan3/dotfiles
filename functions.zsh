@@ -9,7 +9,7 @@ function warning () {
 }
 
 function info () {
-  tput setaf 2; echo -n "INFO; "; tput sgr0; echo "$@"
+  tput setaf 2; echo -n "INFO; " 1>&2; tput sgr0; echo "$@" 1>&2
 }
 
 function err_exit () {
