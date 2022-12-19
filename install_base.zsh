@@ -11,7 +11,7 @@ unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 setopt sh_word_split
 current_dir="$PWD"
 
-function update_git_repo() {
+function update_git_repo () {
   dist="$1"; repo_url="$2"
   if [ ! -d "$dist" ]; then
     info "Installing $dist"
@@ -34,6 +34,18 @@ function update_git_repo() {
   return 0
 }
 
+function get_latest_release () {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" \
+    | grep '"tag_name":' \
+    | sed -E 's/.*"([^"]+)".*/\1/'
+}
+
+function download_release () {
+  repo="$1"; file="$2"; dest="$3"
+  info "Downloading https://github.com/$repo/releases/download/$file to $dest"
+  curl -gL "https://github.com/$repo/releases/download/$file" -o "$dest"
+}
+
 function checkcommand () {
   if ! command -v "$1" &>/dev/null; then
     warning "Installing command '$1' with following command."
@@ -46,6 +58,21 @@ function checkcommand () {
     info "Command '$1' found. Skipping..."
   fi
 }
+
+repo="yuru7/PlemolJP"; font_name="$(basename $repo)"
+if [ $(ls -l "$XDG_DATA_HOME/fonts" | grep "$font_name" | wc -l) -eq 0 ] && checkyes 'Install PlemolJP fonts?'; then
+  tmp_dir=$(mktemp -d); mkdir -p "$XDG_DATA_HOME/fonts/$font_name"; trap "rm -v -rf '$tmp_dir'" 1 2 3 15
+  latest=$(get_latest_release "$repo") \
+    && download_release "$repo" "$latest/${font_name}_NF_$latest.zip" "$tmp_dir/x.zip" \
+    && unzip -d "$tmp_dir" "$tmp_dir/x.zip" \
+    && rm -rf "$XDG_DATA_HOME/fonts/$font_name"* \
+    && mv "$tmp_dir/$font_name"*/* "$XDG_DATA_HOME/fonts/" \
+    && fc-cache -vrf \
+    && checkyes 'Install to /usr/local/share/fonts?' \
+    && sudo mkdir -p "/usr/local/share/fonts" && sudo cp -r "$XDG_DATA_HOME/fonts/$font_name"* $_ \
+    && sudo fc-cache -vrf
+  rm -v -rf "$tmp_dir"
+fi
 
 # install pyenv and poetry
 if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
