@@ -202,7 +202,6 @@ if ! command -v 'pnpm' &>/dev/null; then
 fi
 # install necessary npm cli commands
 pnpm i -g clipboard-cli @bitwarden/cli
-pnpm uninstall -g tldr
 
 # lua, luarocks
 function install_lua () {
