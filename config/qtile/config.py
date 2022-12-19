@@ -1,13 +1,12 @@
+from pathlib import Path
 import os
 import subprocess
-from libqtile import hook
-from libqtile import qtile
-from typing import List
+from libqtile import qtile, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.bar import Bar
-from libqtile import widget
 from libqtile.layout import *  # type: ignore # noqa
+from libqtile import widget
 from libqtile.dgroups import simple_key_binder
 
 import colorConfig
@@ -18,22 +17,6 @@ modKey = "mod4"
 mod = [modKey]
 shift = ["shift"]
 control = ["control"]
-
-# My Default Programs
-# myBrowser = 'firefox'
-# myTerminal = 'alacritty'
-# myTextEditor = 'vim'
-# myPrimaryFileManager = 'dolphin'
-# mySecondaryFileManager = 'st vifm'
-# myRecorder = 'obs'
-# myDrawingApp = 'mypaint'
-# myVideoEditor = 'kdenlive'
-# myAudioEditor = 'audacity'
-# myPhotoEditor = 'gimp'
-# myVirtualbox = 'virtualbox'
-# myVideoPlayer = 'vlc'
-# myPrimaryMenu = 'dmenu_run'
-# myEmailCliant = 'thunderbird'
 
 defaultBrowser = 'firefox'
 defaultTerminal = 'alacritty'
@@ -79,7 +62,7 @@ keys = [
     Key(mod, "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 
     # =============== Manage Qtile ===============
-    Key(mod + shift, "q", lazy.window.kill(), desc="Kill focused window"),
+    Key(mod, "q", lazy.window.kill(), desc="Kill focused window"),
 
     Key(mod + control, "r", lazy.restart(), desc="Restart Qtile"),
     Key(mod + control, "q", lazy.shutdown(), desc="Shutdown Qtile"),
@@ -97,9 +80,9 @@ keys = [
 
 # =============== Groups ===============
 groups = [
-    Group(" "),
-    Group(" "),
     Group(" "),
+    Group(" "),
+    Group(" ", matches=[Match(wm_class=defaultBrowser)]),
     Group(" "),
     Group(" ", matches=[Match(wm_class=defaultRecorder)]),
     Group(" ", matches=[Match(wm_class=defaultPaint)]),
@@ -236,15 +219,13 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag(mod, "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag(mod, "Button3", lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click(mod, "Button2", lazy.window.bring_to_front())
+    Drag(mod, "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag(mod, "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Click(mod, "Button2", lazy.window.bring_to_front()),
 ]
 
 # dgroups_key_binder = None
-dgroups_app_rules = []  # type: List
+dgroups_app_rules = []
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
@@ -262,25 +243,13 @@ auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
 
-# Programms to start on log in
-
 
 @ hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~/.config/qtile/autostart.sh')
-    subprocess.call([home])
+    auto_sh = Path('~/.config/qtile/autostart.sh').expanduser().absolute()
+    subprocess.call([str(auto_sh)])
 
 
-# If things like steam games want to auto-minimize themselves when losing
-# focus, should we respect this or not?
+# Magic variables
 auto_minimize = True
-
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = "LG3D"
