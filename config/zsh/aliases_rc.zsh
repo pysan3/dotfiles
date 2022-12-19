@@ -56,7 +56,7 @@ function def() {
   echo "$res"; draw_help () { c=$(basename $1); tldr $c 2>/dev/null || eval "$1 --help | $MANPAGER" || man $c }
   case $res in
     *'not found'*)  checkyes "Google it?" && eval "?g linux cli $cmd";;
-    *function*)     whence -f "$raw" | eval "$lesscmd" ;;
+    *function*)     (printf '#!/usr/bin/env zsh\n\n'; whence -f "$raw") | eval "$lesscmd" ;;
     *alias*)        def "$raw" ;;
     *)              echo; draw_help "$raw"; whence "$raw" ;; # binary, builtin
   esac
