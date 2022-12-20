@@ -16,7 +16,7 @@ return {
     },
     wants = { "diffview.nvim", "conflict-marker.vim" },
   },
-  { "tpope/vim-fugitive", keys = "<leader>l" },
+  { "tpope/vim-fugitive", cmd = { "G", "GBranches", "Gdiff" } },
   {
     "ldelossa/gh.nvim",
     requires = { { "ldelossa/litee.nvim", opt = true } },
