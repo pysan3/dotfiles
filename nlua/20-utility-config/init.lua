@@ -33,7 +33,6 @@ return {
       end
     end,
   },
-  { "AndrewRadev/bufferize.vim", cmd = { "Bufferize" } },
   {
     "inkarkat/vim-SearchHighlighting",
     requires = { "inkarkat/vim-ingo-library" },

@@ -7,8 +7,6 @@ return {
   { "folke/zen-mode.nvim", module = { "zen-mode" }, cmd = { "ZenMode" } }, -- zenmode
   -- { "chipsenkbeil/distant.nvim" }, -- distant.nvim (remote file edit)
   { "ntpeters/vim-better-whitespace", cmd = { "StripWhitespace" }, event = { "FocusLost", "CursorHold" } }, -- highlight trailing whitespace
-  { "michaelb/sniprun", run = "bash install.sh", module = { "sniprun" },
-    keys = { "<Plug>SnipRun", "<Plug>SnipRunOperator" } },
   {
     "jackMort/ChatGPT.nvim",
     requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
