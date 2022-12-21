@@ -59,9 +59,8 @@ setopt INTERACTIVE_COMMENTS # allow comments in command line
 setopt NO_FLOW_CONTROL  # Disable Ctrl+S and Ctrl+Q
 
 # ${fg[blue]}等で色が利用できるようにする
-autoload -Uz colors
-export TERM=screen-256color
-colors
+export TERM=xterm-256color
+autoload -Uz colors && colors
 # PROMPTの色
 PROMPT="%{${fg_bold[green]}%}@%m%{${fg_bold[yellow]}%}>%{${fg_bold[red]}%}>%{${reset_color}%} "
 
