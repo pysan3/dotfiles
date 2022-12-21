@@ -13,6 +13,15 @@ font:
   normal:
     family: PlemolJP Console NF
     style: Regular
+  bold:
+    family: PlemolJP Console NF
+    style: Bold
+  italic:
+    family: PlemolJP Console NF
+    style: Italic
+  bold_italic:
+    family: PlemolJP Console NF
+    style: Bold Italic
 
 hints:
   alphabet: "jfkdls;ahgurieowpq"
