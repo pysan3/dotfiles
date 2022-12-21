@@ -60,7 +60,7 @@ function checkcommand () {
 }
 
 repo="yuru7/PlemolJP"; font_name="$(basename $repo)"
-if [ $(ls -l "$XDG_DATA_HOME/fonts" | grep "$font_name" | wc -l) -eq 0 ] && checkyes 'Install PlemolJP fonts?'; then
+if [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && checkyes 'Install PlemolJP fonts?'; then
   tmp_dir=$(mktemp -d); mkdir -p "$XDG_DATA_HOME/fonts/$font_name"; trap "rm -v -rf '$tmp_dir'" 1 2 3 15
   latest=$(get_latest_release "$repo") \
     && download_release "$repo" "$latest/${font_name}_NF_$latest.zip" "$tmp_dir/x.zip" \
@@ -70,6 +70,7 @@ if [ $(ls -l "$XDG_DATA_HOME/fonts" | grep "$font_name" | wc -l) -eq 0 ] && chec
     && fc-cache -vrf \
     && checkyes 'Install to /usr/local/share/fonts?' \
     && sudo mkdir -p "/usr/local/share/fonts" && sudo cp -r "$XDG_DATA_HOME/fonts/$font_name"* $_ \
+    && rm -rf "$XDG_DATA_HOME/fonts/$font_name"* \
     && sudo fc-cache -vrf
   rm -v -rf "$tmp_dir"
 fi
