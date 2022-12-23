@@ -102,12 +102,12 @@ alias op='xdg-open'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
 function act() {
-  [ -z "$TMUX" ] && return
+  [ -z "$TMUX" ] && return 0
   [ -f 'bin/activate' ] && source bin/activate
   [ -f '.venv/bin/activate' ] && source .venv/bin/activate
   [ -f 'environment.yml' ] && conda activate $(cat environment.yml | grep name: | head -n 1 | cut -f 2 -d ':')
   [ -f 'environment.yaml' ] && conda activate $(cat environment.yaml | grep name: | head -n 1 | cut -f 2 -d ':')
-  return
+  return 0
 }
 act
 
