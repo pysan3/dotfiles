@@ -269,12 +269,6 @@ if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
   pip install --user -U pynvim
   gem install neovim
   pnpm i -g neovim
-  # ctags
-  update_git_repo "$XDG_DATA_HOME/ctags" https://github.com/universal-ctags/ctags.git \
-    && cd "$XDG_DATA_HOME/ctags" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
-    && make -j$(nproc) && make install \
-    && info 'ctags installed' || err_exit 'ctags setup failed'
-  cd "$current_dir"
   # sad
   checkcommand 'delta' 'cargo install git-delta'
   checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
