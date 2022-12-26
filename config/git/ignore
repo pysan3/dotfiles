@@ -121,6 +121,7 @@ ENV/
 # Session
 Session.vim
 .vim/
+.luarc.json
 
 # Temporary
 .netrwhist
