@@ -16,6 +16,7 @@ telescope.setup({
       i = {
         ["<esc>"] = actions.close,
         ["jk"] = actions.close,
+        ["<C-e>"] = actions.layout.toggle_preview,
         -- cycle through previously done searches
         ["<C-j>"] = actions.cycle_history_next,
         ["<C-k>"] = actions.cycle_history_prev,
