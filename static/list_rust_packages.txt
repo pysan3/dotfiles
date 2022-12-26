@@ -15,6 +15,6 @@ lisence:licensor
 http-server:miniserve
 diff:difft:difftastic
 bc:eva
-df:lfs -a
+lfs:lfs -a
 _:tldr:tealdeer
 _:tokei
