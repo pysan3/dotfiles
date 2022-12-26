@@ -6,6 +6,7 @@ return {
   { "romainl/vim-qf", keys = { "<Plug>(qf_qf_previous)", "<Plug>(qf_qf_next)", "<Plug>(qf_qf_toggle)" } }, -- quickfix list
   { "folke/zen-mode.nvim", module = { "zen-mode" }, cmd = { "ZenMode" } }, -- zenmode
   { "ntpeters/vim-better-whitespace", cmd = { "StripWhitespace" }, event = { "FocusLost", "CursorHold" } }, -- highlight trailing whitespace
+  { "xorid/asciitree.nvim", cmd = { "AsciiTree" } }, -- `:AsciiTree <tab size> <indent symbol>`
   {
     "danymat/neogen", -- create docstring for several languages
     requires = { "nvim-treesitter/nvim-treesitter" }, tag = "*",
