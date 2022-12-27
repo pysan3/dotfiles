@@ -14,6 +14,10 @@ return {
   md({ "chip/vim-fat-finger", event = { "InsertEnter", "CmdlineEnter", "CursorHold", "FocusLost" } }),
   { "pixelneo/vim-python-docstring", ft = { "python" } },
   { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
+  {
+    "hkupty/iron.nvim", tag = "*",
+    cmd = { "IronRepl", "IronRestart", "IronFocus", "IronHide" }, module = { "iron" }, ft = { "python" },
+  },
   { "wfxr/protobuf.vim", ft = { "proto" } },
   { "tikhomirov/vim-glsl", ft = { "glsl" } },
   { "heavenshell/vim-jsdoc", run = "make install", ft = { "javascript", "javascript.jsx", "typescript" } },
