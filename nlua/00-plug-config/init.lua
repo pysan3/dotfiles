@@ -11,12 +11,16 @@ local function exists(path, is_config)
 end
 
 ---return filename to require plugin config
----@param plugin_name string
----@param dir_name string?: if nil, returns setup path
----@return string
-local function require_name(plugin_name, dir_name)
-  dir_name = dir_name or "99-plug-setup"
-  return string.format("%s.%s", dir_name, plugin_name)
+---@param pre string | any | nil: returns pre if not nil
+---@param plugin_name string: name of plugin without extension
+---@param dir_name string: dir name
+---@param append string: string to append to plugin_name
+local function check_setup_files(pre, plugin_name, dir_name, append)
+  if pre ~= nil then
+    return pre
+  end
+  local lua_file = string.format("%s.%s", dir_name, plugin_name .. append)
+  return exists(lua_file, true) and string.format([[require("%s")]], lua_file) or nil
 end
 
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -46,14 +50,10 @@ local function load_plugins(use)
         plugin = { plugin }
       end
       local plugin_name = plugin[1]:gsub(".*/([^.]*)%.?.*/?$", "%1")
-      local setup_lua = require_name(plugin_name, nil)
-      local config_lua = require_name(plugin_name, dir_name)
-      if plugin.setup == nil and exists(setup_lua, true) then
-        plugin.setup = string.format([[require("%s")]], setup_lua)
-      end
-      if plugin.config == nil and exists(config_lua, true) then
-        plugin.config = string.format([[require("%s")]], config_lua)
-      end
+      plugin.setup = check_setup_files(plugin.setup, plugin_name, "99-plug-setup", "")
+      plugin.setup = check_setup_files(plugin.setup, plugin_name, "99-plug-setup", "-setup")
+      plugin.config = check_setup_files(plugin.config, plugin_name, dir_name, "")
+      plugin.config = check_setup_files(plugin.config, plugin_name, dir_name, "-config")
       use(plugin)
     end
   end
