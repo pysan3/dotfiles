@@ -1,4 +1,4 @@
-local ts_prefix = vim.g.personal_options.telescope.prefix
+local ts_prefix = vim.g.personal_options.prefix.telescope
 
 -- telescope fzf bindings
 vim.keymap.set("n", ts_prefix .. "f", function()
