@@ -6,12 +6,20 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup("plugins", {
-  defaults = { lazy = true },
-  dev = { patterns = jit.os:find("Windows") and {} or { "folke" } },
-  install = { colorscheme = { "tokyonight", "habamax" } },
-  checker = { enabled = true },
-  diff = {
-    cmd = "terminal_git",
+  defaults = {
+    lazy = true,
+    version = "*",
+  },
+  lockfile = vim.fn.stdpath("cache") .. "/lazy-lock.json", -- lockfile generated after running update.
+  dev = {
+    path = "~/Git",
+  },
+  install = {
+    missing = true,
+    colorscheme = { vim.g.personal_options.colorscheme },
+  },
+  checker = {
+    enabled = true
   },
   performance = {
     cache = {
@@ -32,6 +40,6 @@ require("lazy").setup("plugins", {
       },
     },
   },
-  ui = {
-  },
 })
+
+vim.keymap.set("n", "<Leader><Leader>x", "<Cmd>Lazy<CR>", {})
