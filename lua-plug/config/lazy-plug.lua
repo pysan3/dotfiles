@@ -19,7 +19,8 @@ require("lazy").setup("plugins", {
     colorscheme = { vim.g.personal_options.colorscheme },
   },
   checker = {
-    enabled = true
+    enabled = true,
+    notify = false,
   },
   performance = {
     cache = {
