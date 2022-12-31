@@ -15,7 +15,7 @@ require("lazy").setup("plugins", {
     path = "~/Git",
   },
   install = {
-    missing = true,
+    missing = false,
     colorscheme = { vim.g.personal_options.colorscheme },
   },
   checker = {
