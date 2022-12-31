@@ -7,7 +7,7 @@ require("iron.core").setup {
       sh = {
         -- Can be a table or a function that
         -- returns a table (see below)
-        command = {"zsh"}
+        command = { "zsh" }
       }
     },
     -- How the repl window will be displayed
@@ -37,8 +37,3 @@ require("iron.core").setup {
   },
   ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
 }
-
-vim.keymap.set('n', '<space>rs', '<cmd>IronRepl<cr>')
-vim.keymap.set('n', '<space>rr', '<cmd>IronRestart<cr>')
-vim.keymap.set('n', '<space>rf', '<cmd>IronFocus<cr>')
-vim.keymap.set('n', '<space>rh', '<cmd>IronHide<cr>')

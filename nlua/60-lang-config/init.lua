@@ -15,8 +15,9 @@ return {
   { "pixelneo/vim-python-docstring", ft = { "python" } },
   { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
   {
-    "hkupty/iron.nvim", tag = "*",
-    cmd = { "IronRepl", "IronRestart", "IronFocus", "IronHide" }, module = { "iron" }, ft = { "python" },
+    "hkupty/iron.nvim",
+    cmd = { "IronRepl", "IronRestart", "IronFocus", "IronHide" },
+    module = { "iron" }, ft = { "python" },
   },
   { "wfxr/protobuf.vim", ft = { "proto" } },
   { "tikhomirov/vim-glsl", ft = { "glsl" } },
