@@ -1,7 +1,7 @@
 return {
   "folke/todo-comments.nvim",
   cmd = { "TodoTrouble", "TodoTelescope" },
-  event = "BufReadPost",
+  event = "VeryLazy",
   keys = {
     { "]t", function()
       require("todo-comments").jump_next()
