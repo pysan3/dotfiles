@@ -1,6 +1,6 @@
 return {
   "nvim-lualine/lualine.nvim", -- lualine
-  event = { "VeryLazy" },
+  event = "VeryLazy",
   dependencies = { "kyazdani42/nvim-web-devicons" },
   config = function()
     if vim.g.started_by_firenvim then
@@ -10,6 +10,7 @@ return {
       local reg = vim.fn.reg_recording()
       return reg == "" and "" or "Recording @" .. reg
     end
+
     require("lualine").setup({
       options = {
         icons_enabled = true,
