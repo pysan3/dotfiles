@@ -1,6 +1,7 @@
 return {
   "andymass/vim-matchup",
   event = "BufReadPost",
+  enabled = false,
   init = function()
     vim.g.matchup_surround_enabled = 1
     vim.g.matchup_delim_noskips = 1 -- recognize symbols within comments
