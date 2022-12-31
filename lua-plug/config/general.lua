@@ -13,7 +13,17 @@ vim.g.personal_options = {
   },
   prefix = {
     telescope = "<Leader>f",
+    neogit = "<Leader>g",
+    fugitive = "<Leader>l",
+    iron = "<Leader>r",
   },
+}
+
+vim.g.personal_module = {
+  md = function(t)
+    local md_ft = { "markdown", "html", "NeogitCommitMessage", "gitcommit", "octo" }
+    return t and vim.list_extend(md_ft, t, 1, #t) or md_ft
+  end,
 }
 
 vim.opt.completeopt = "menuone,noselect"
