@@ -11,8 +11,8 @@ vim.g.personal_options = {
     enable = true,
     winbar = true,
   },
-  telescope = {
-    prefix = "<Leader>f",
+  prefix = {
+    telescope = "<Leader>f",
   },
 }
 
