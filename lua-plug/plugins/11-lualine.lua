@@ -11,6 +11,10 @@ return {
       return reg == "" and "" or "Recording @" .. reg
     end
 
+    local function maximize_status()
+      return vim.t["maximized"] and " " or ""
+    end
+
     require("lualine").setup({
       options = {
         icons_enabled = true,
@@ -23,8 +27,17 @@ return {
       sections = {
         lualine_a = { "mode" },
         lualine_b = { "branch", "diff", "diagnostics" },
-        lualine_c = { { "hostname", icon = "@", color = { fg = "#16c60c" } }, { "filename", path = 3 } },
-        lualine_x = { { "macro-recording", fmt = show_macro_recording }, "encoding", "fileformat", "filetype" },
+        lualine_c = {
+          { "hostname", icon = "@", color = { fg = "#16c60c" } },
+          { "filename", path = 3 },
+          { "maximized-status", fmt = maximize_status, color = "WarningMsg" },
+        },
+        lualine_x = {
+          { "macro-recording", fmt = show_macro_recording },
+          "encoding",
+          "fileformat",
+          "filetype"
+        },
         lualine_y = { "progress" },
         lualine_z = { "location" },
       },
