@@ -1,15 +1,3 @@
----Check if path exists in filesystem
----@param path string: path to check
----@param is_config boolean?: if true, path is treated in a lua require format
----@return boolean
-local function exists(path, is_config)
-  if is_config then
-    path = string.format("%s/lua/%s.lua", vim.fn.stdpath("config"), string.gsub(path, "%.", "/"))
-  end
-  local st = vim.loop.fs_stat(path)
-  return st and true or false
-end
-
 ---return filename to require plugin config
 ---@param pre string | any | nil: returns pre if not nil
 ---@param plugin_name string: name of plugin without extension
@@ -20,11 +8,11 @@ local function check_setup_files(pre, plugin_name, dir_name, append)
     return pre
   end
   local lua_file = string.format("%s.%s", dir_name, plugin_name .. append)
-  return exists(lua_file, true) and string.format([[require("%s")]], lua_file) or nil
+  return vim.g.personal_module.exists(lua_file, true) and string.format([[require("%s")]], lua_file) or nil
 end
 
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if not exists(install_path) then
+if not vim.g.personal_module.exists(install_path) then
   local git_path = "https://github.com/wbthomason/packer.nvim"
   PACKER_BOOTSTRAP = vim.fn.system({ "git", "clone", "--depth", "1", git_path, install_path })
   print("Installing packer close and reopen Neovim...")
@@ -131,6 +119,6 @@ vim.api.nvim_create_user_command("PackerLoad", function(opts)
   packer_run("loader")(unpack(opts))
 end, { bang = true, complete = packer_run("loader_complete"), desc = "[Packer] Load plugins", nargs = "+" })
 
-if exists(compile_path) then
+if vim.g.personal_module.exists(compile_path) then
   vim.cmd("luafile " .. compile_path)
 end

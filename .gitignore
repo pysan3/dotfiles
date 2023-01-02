@@ -12,7 +12,8 @@ nvim/autoload/plugged
 !nvim/spell
 !nvim/vim-plug
 !nvim/coc-settings.json
-!nvim/init.vim
+!nvim/*.vim
+!nvim/*.lua
 !nvim/syntax
 !nvim/snippets
 !nvim/UltiSnips

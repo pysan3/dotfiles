@@ -28,6 +28,17 @@ local function merge_table(a)
 end
 
 vim.g.personal_module = {
+  ---Check if path exists in filesystem
+  ---@param path string: path to check
+  ---@param is_config boolean?: if true, path is treated in a lua require format
+  ---@return boolean
+  exists = function(path, is_config)
+    if is_config then
+      path = string.format("%s/lua/%s.lua", vim.fn.stdpath("config"), string.gsub(path, "%.", "/"))
+    end
+    local st = vim.loop.fs_stat(path)
+    return st and true or false
+  end,
   --- add multiple lists without overwriting any table
   ---@vararg string[] | nil: tables to merge together
   ---@return string[]: single table merged together
