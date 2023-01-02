@@ -1,6 +1,6 @@
 return {
-  "ntpeters/vim-better-whitespace", -- highlight trailing whitespace
-  event = "VeryLazy",
+  "ntpeters/vim-better-whitespace",
+  event = "BufReadPre",
   cmd = { "StripWhitespace" },
   keys = {
     { "]w", "<Cmd>NextTrailingWhitespace<CR>", noremap = true },
