@@ -28,8 +28,8 @@ return {
     hide_root_node = true,
     retain_hidden_root_indent = false,
     resize_timer_interval = -1, -- in ms, needed for containers to redraw right aligned and faded content
-    log_level = "trace",
-    log_to_file = true,
+    -- log_level = "trace",
+    -- log_to_file = true,
     sort_case_insensitive = true,
     source_selector = {
       winbar = true,
