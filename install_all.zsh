@@ -74,16 +74,16 @@ function link_nvim () {
   else ln -s "$NFROM" "$NTO" && info "Installed $NMSG" || error "Failed to install $NMSG"
   fi
 }
-link_nvim "$DOTFILES"/nvim "$XDG_CONFIG_HOME"/nvim "nvim config files"
-[ -f "$XDG_CONFIG_HOME/nvim/lua" ] && rm -rf "$XDG_CONFIG_HOME/nvim/lua"
-link_nvim "$DOTFILES"/lua-plug "$XDG_CONFIG_HOME"/nvim/lua "nlua config files"
+link_nvim "$DOTFILES/nvim" "$XDG_CONFIG_HOME/nvim" "nvim config files"
+[ -f "$XDG_CONFIG_HOME/nvim/lua" -o -d "$XDG_CONFIG_HOME/nvim/lua" ] && rm -rf "$XDG_CONFIG_HOME/nvim/lua"
+link_nvim "$DOTFILES/lua-plug" "$XDG_CONFIG_HOME/nvim/lua" "nvim lua config files"
 
 # install files in ./static/
-if [ ! -f ~/texmf/tex/latex/local/pdfpc-commands.sty ]; then
-  mkdir -p ~/texmf/tex/latex/local
-  ln -s "$DOTFILES/static/pdfpc-commands.sty" ~/texmf/tex/latex/local/pdfpc-commands.sty
+if [ ! -f "$HOME/texmf/tex/latex/local/pdfpc-commands.sty" ]; then
+  mkdir -p "$HOME/texmf/tex/latex/local"
+  ln -s "$DOTFILES/static/pdfpc-commands.sty" "$HOME/texmf/tex/latex/local/pdfpc-commands.sty"
   if checkdependency 'texhash'; then
-    texhash ~/texmf
+    texhash "$HOME/texmf"
   fi
   info "Installed pdfpc-commands.sty"
 fi
@@ -100,7 +100,7 @@ done < "$DOTFILES/static/npm/npmrc"
 info "Installed npmrc"
 
 # firefox configurations
-ff_profile_dir=$(echo ~/.mozilla/firefox/*.default-release)
+ff_profile_dir=$(echo "$HOME/.mozilla/firefox/"*.default-release)
 if [ ! -z "$ff_profile_dir" ]; then
   mkdir -p "$ff_profile_dir/chrome" \
     && ln -sf "$DOTFILES/static/firefox/userChrome.css" "$ff_profile_dir/chrome/" \
