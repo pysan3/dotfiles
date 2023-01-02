@@ -9,7 +9,7 @@ return {
     end,
   },
   { "godlygeek/tabular", ft = vim.g.personal_module.md() },
-  { "iamcco/markdown-preview.nvim", ft = vim.g.personal_module.md(), run = "cd app && npm install" },
+  { "iamcco/markdown-preview.nvim", ft = vim.g.personal_module.md(), build = "cd app && npm install" },
   { "tpope/vim-abolish", cmd = { "Abolish", "Subvert" } },
   { "chip/vim-fat-finger", ft = vim.g.personal_module.md(), event = "VeryLazy" },
   { "pixelneo/vim-python-docstring", ft = { "python" } },
@@ -18,7 +18,7 @@ return {
   { "tikhomirov/vim-glsl", ft = { "glsl" } },
   {
     "heavenshell/vim-jsdoc",
-    run = "make install",
+    build = "make install",
     ft = { "javascript", "javascript.jsx", "typescript" }
   },
 }
