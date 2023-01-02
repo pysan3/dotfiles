@@ -14,7 +14,7 @@ M.setup = function(_)
         vim.cmd([[
           augroup LspFormatting
           autocmd! * <buffer>
-          autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ sync = true, timeout_ms = 1000 })
+          autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ sync = true, timeout_ms = 5000 })
           augroup END
         ]])
       end
