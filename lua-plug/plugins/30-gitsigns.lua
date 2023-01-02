@@ -4,26 +4,45 @@ local function map(a)
   return a
 end
 
+local function move_hunk(key, dir)
+  return map({
+    key,
+    function()
+      if vim.wo.diff then
+        return key
+      end
+      vim.schedule(function()
+        require("gitsigns")[dir]()
+      end)
+      return "<Ignore>"
+    end,
+    expr = true,
+  })
+end
+
 return {
   "lewis6991/gitsigns.nvim",
   event = "VeryLazy",
   keys = {
-    map({ "]c", "&diff ? ']c' : '<Cmd>Gitsigns next_hunk<CR>'", expr = true }),
-    map({ "[c", "&diff ? '[c' : '<Cmd>Gitsigns prev_hunk<CR>'", expr = true }),
-    map({ "<leader>hs", "<Cmd>Gitsigns stage_hunk<CR>" }),
-    map({ "<leader>hs", "<Cmd>Gitsigns stage_hunk<CR>" }),
-    map({ "<leader>hr", "<Cmd>Gitsigns reset_hunk<CR>" }),
-    map({ "<leader>hr", "<Cmd>Gitsigns reset_hunk<CR>" }),
-    map({ "<leader>hS", "<Cmd>Gitsigns stage_buffer<CR>" }),
-    map({ "<leader>hu", "<Cmd>Gitsigns undo_stage_hunk<CR>" }),
-    map({ "<leader>hR", "<Cmd>Gitsigns reset_buffer<CR>" }),
-    map({ "<leader>hv", "<Cmd>Gitsigns preview_hunk<CR>" }),
-    map({ "<leader>hb", '<Cmd>lua require"gitsigns".blame_line{full=true}<CR>' }),
-    map({ "<leader>hd", "<Cmd>Gitsigns diffthis<CR>" }),
-    map({ "<leader>hD", '<Cmd>lua require"gitsigns".diffthis("~"),<CR>' }),
-    map({ "<leader>td", "<Cmd>Gitsigns toggle_deleted<CR>" }),
-    map({ "ih", "<Cmd><C-U>Gitsigns select_hunk<CR>" }),
-    map({ "ih", "<Cmd><C-U>Gitsigns select_hunk<CR>" }),
+    move_hunk("]c", "next_hunk"),
+    move_hunk("[c", "prev_hunk"),
+    map({ vim.g.personal_options.prefix.gitsigns .. "s", "<Cmd>Gitsigns stage_hunk<CR>" }),
+    map({ vim.g.personal_options.prefix.gitsigns .. "s", "<Cmd>Gitsigns stage_hunk<CR>" }),
+    map({ vim.g.personal_options.prefix.gitsigns .. "r", "<Cmd>Gitsigns reset_hunk<CR>" }),
+    map({ vim.g.personal_options.prefix.gitsigns .. "r", "<Cmd>Gitsigns reset_hunk<CR>" }),
+    map({ vim.g.personal_options.prefix.gitsigns .. "S", "<Cmd>Gitsigns stage_buffer<CR>" }),
+    map({ vim.g.personal_options.prefix.gitsigns .. "u", "<Cmd>Gitsigns undo_stage_hunk<CR>" }),
+    map({ vim.g.personal_options.prefix.gitsigns .. "t", "<Cmd>Gitsigns toggle_deleted<CR>" }),
+    map({ vim.g.personal_options.prefix.gitsigns .. "R", "<Cmd>Gitsigns reset_buffer<CR>" }),
+    map({ vim.g.personal_options.prefix.gitsigns .. "v", "<Cmd>Gitsigns preview_hunk<CR>" }),
+    map({ vim.g.personal_options.prefix.gitsigns .. "d", "<Cmd>Gitsigns diffthis<CR>" }),
+    map({ vim.g.personal_options.prefix.gitsigns .. "D", function()
+      require("gitsigns").diffthis("~")
+    end }),
+    map({ vim.g.personal_options.prefix.gitsigns .. "b", function()
+      require("gitsigns").blame_line({ full = true })
+    end }),
+    map({ "ih", "<Cmd><C-u>Gitsigns select_hunk<CR>", mode = { "o", "x" } }),
   },
   init = function()
     vim.cmd([[

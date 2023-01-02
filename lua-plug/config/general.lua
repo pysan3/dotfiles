@@ -13,6 +13,7 @@ vim.g.personal_options = {
   },
   prefix = {
     telescope = "<Leader>f",
+    gitsigns = "<Leader>h",
     neogit = "<Leader>g",
     fugitive = "<Leader>l",
     iron = "<Leader>r",
