@@ -20,11 +20,27 @@ vim.g.personal_options = {
   },
 }
 
+
+local function merge_table(a)
+  return function(t)
+    return vim.g.personal_module.add_table_string(t, a)
+  end
+end
+
 vim.g.personal_module = {
-  md = function(t)
-    local md_ft = { "markdown", "html", "NeogitCommitMessage", "gitcommit", "octo" }
-    return t and vim.list_extend(md_ft, t, 1, #t) or md_ft
+  --- add multiple lists without overwriting any table
+  ---@vararg string[] | nil: tables to merge together
+  ---@return string[]: single table merged together
+  add_table_string = function(...)
+    local res = {} ---@type string[]
+    for _, t in pairs({ ... }) do
+      for _, v in ipairs(t) do
+        res[#res + 1] = v
+      end
+    end
+    return res
   end,
+  md = merge_table({ "markdown", "html", "NeogitCommitMessage", "gitcommit", "octo" }),
 }
 
 vim.opt.completeopt = "menuone,noselect"
