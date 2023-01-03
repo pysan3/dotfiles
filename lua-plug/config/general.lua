@@ -13,7 +13,46 @@ vim.g.personal_options = {
   },
   prefix = {
     telescope = "<Leader>f",
+    gitsigns = "<Leader>h",
+    neogit = "<Leader>g",
+    fugitive = "<Leader>l",
+    iron = "<Leader>r",
+    lsp = "<Leader>k",
   },
+}
+
+
+local function merge_table(a)
+  return function(t)
+    return vim.g.personal_module.add_table_string(t, a)
+  end
+end
+
+vim.g.personal_module = {
+  ---Check if path exists in filesystem
+  ---@param path string: path to check
+  ---@param is_config boolean?: if true, path is treated in a lua require format
+  ---@return boolean
+  exists = function(path, is_config)
+    if is_config then
+      path = string.format("%s/lua/%s.lua", vim.fn.stdpath("config"), string.gsub(path, "%.", "/"))
+    end
+    local st = vim.loop.fs_stat(path)
+    return st and true or false
+  end,
+  --- add multiple lists without overwriting any table
+  ---@vararg string[] | nil: tables to merge together
+  ---@return string[]: single table merged together
+  add_table_string = function(...)
+    local res = {} ---@type string[]
+    for _, t in pairs({ ... }) do
+      for _, v in ipairs(t) do
+        res[#res + 1] = v
+      end
+    end
+    return res
+  end,
+  md = merge_table({ "markdown", "html", "NeogitCommitMessage", "gitcommit", "octo" }),
 }
 
 vim.opt.completeopt = "menuone,noselect"

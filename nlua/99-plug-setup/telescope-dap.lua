@@ -1,5 +1,5 @@
 -- telescope dap bindings
-local ts_prefix_dap = vim.g.personal_options.telescope.prefix .. "d"
+local ts_prefix_dap = vim.g.personal_options.prefix.telescope .. "d"
 vim.keymap.set("n", ts_prefix_dap .. "m", function()
   require("telescope").extensions.dap.commands({})
 end, { desc = "ts.dap.commands({})" })

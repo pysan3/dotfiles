@@ -1,21 +1,24 @@
-local null_ls = require("null-ls")
+local M = {
+  "jose-elias-alvarez/null-ls.nvim",
+  cmd = { "NullLsLog", "NullLsInfo" },
+  event = "BufReadPre",
+}
 
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-local fmt = null_ls.builtins.formatting
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-local diag = null_ls.builtins.diagnostics
+M.config = function()
+  local null_ls = require("null-ls")
+  -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
+  local fmt = null_ls.builtins.formatting
+  -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+  local diag = null_ls.builtins.diagnostics
 
-local M = {}
-
-M.setup = function(_)
   null_ls.setup({
     on_attach = function(client)
       if client.server_capabilities.documentFormattingProvider then
         vim.cmd([[
-          augroup LspFormatting
-          autocmd! * <buffer>
-          autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ sync = true, timeout_ms = 5000 })
-          augroup END
+        augroup LspFormatting
+        autocmd! * <buffer>
+        autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ sync = true, timeout_ms = 5000 })
+        augroup END
         ]])
       end
     end,
