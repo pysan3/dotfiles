@@ -4,7 +4,7 @@ local M = {
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
     { "andrewferrier/textobj-diagnostic.nvim", config = {} },
-    { "folke/neodev.nvim", config = {} }, -- sumneko_lua extension for nvim development
+    { "folke/neodev.nvim" }, -- sumneko_lua extension for nvim development
     { "williamboman/mason-lspconfig.nvim" },
   },
 }
@@ -142,6 +142,7 @@ local stop_lsp_fmt = {
 local lsp_list = vim.tbl_keys(servers)
 
 M.config = function()
+  require("neodev").setup({})
   local lspconfig = require("lspconfig")
 
   require("mason-lspconfig").setup({
