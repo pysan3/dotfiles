@@ -84,7 +84,7 @@ local ts_packages = {
   "regex",
   -- "rego",
   -- "rst",
-  "ruby",
+  -- "ruby",
   "rust",
   -- "scala",
   "scheme",

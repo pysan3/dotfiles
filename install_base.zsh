@@ -111,35 +111,6 @@ install_zsh_shell_utils \
   && info 'Zsh extensions installation done' \
   || error 'Zsh extensions installation failed'
 
-# install ruby
-install_ruby=true
-if [ ! -d "$RBENV_ROOT" ]; then
-  info "Installing ruby and rbenv, mainly for neovim"
-  if command -v 'rbenv' &> /dev/null; then
-    error 'Command `rbenv` found but not installed to' "$RBENV_ROOT"
-    if checkyes "Continue installation? ($(tput setaf 1)THIS WILL TAKE OVER EXISTING ENVS$(tput sgr0))"; then
-      install_ruby=false
-      tput setaf 4
-      echo "Please delete the following line in $DOTFILES/.zshenv"
-      tput sgr0
-      echo 'export RBENV_ROOT="$XDG_DATA_HOME"/rbenv'
-      tput setaf 4
-      echo 'Or add `unset RBENV_ROOT` to the top of '"$ZDOTDIR/.zshrc"
-      tput sgr0
-    fi
-  fi
-fi
-if "$install_ruby"; then
-  update_git_repo "$RBENV_ROOT" https://github.com/rbenv/rbenv.git
-  update_git_repo "$RBENV_ROOT/plugins/ruby-build" https://github.com/rbenv/ruby-build.git
-  export PATH="$RBENV_ROOT/bin:$PATH"
-  PREFIX="$XDG_PREFIX_HOME" "$RBENV_ROOT/plugins/ruby-build/install.sh"
-  latest_ruby=$(rbenv install -l 2>/dev/null | grep -v - | tail -1)
-  CONFIGURE_OPTS='--disable-install-rdoc' rbenv install -s -v "$latest_ruby"
-  rbenv global "$latest_ruby" && info "Installed ruby (v: $latest_ruby) for user: $USER"
-fi
-info 'Ruby setup done'
-
 # RUST
 if ! command -v 'cargo' &> /dev/null; then
   if checkyes "Seems you don't have cargo (rust) installed. Install?"; then

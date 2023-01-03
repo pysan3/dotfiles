@@ -23,9 +23,6 @@ export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 # Haskel
 _append "$XDG_CACHE_HOME/cabal/bin"
 
-# ruby
-_prepend "$RBENV_ROOT/bin:$RBENV_ROOT/shims:$XDG_DATA_HOME/gem/bin"
-
 # Python
 _prepend "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$POETRY_HOME/bin"
 
