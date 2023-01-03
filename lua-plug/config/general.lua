@@ -17,6 +17,7 @@ vim.g.personal_options = {
     neogit = "<Leader>g",
     fugitive = "<Leader>l",
     iron = "<Leader>r",
+    lsp = "<Leader>k",
   },
 }
 
