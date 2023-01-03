@@ -250,8 +250,8 @@ if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
   checkcommand 'rg' 'cargo install ripgrep' # https://www.linode.com/docs/guides/ripgrep-linux-installation/
   checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
 
-  # PackerSync
-  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+  # Lazy sync
+  nvim --headless "+Lazy! sync" +qa
 fi
 
 # install fzf
