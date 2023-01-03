@@ -239,7 +239,6 @@ if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
 
   # nvim dependencies
   pip install --user -U pynvim
-  gem install neovim
   pnpm i -g neovim
   # sad
   checkcommand 'delta' 'cargo install git-delta'
