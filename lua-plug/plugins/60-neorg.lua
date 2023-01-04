@@ -14,34 +14,36 @@ return {
   },
   build = ":Neorg sync-parsers",
   cmd = "Neorg",
-  config = {
-    load = {
-      ["core.defaults"] = {},
-      ["core.keybinds"] = {
-        -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
-        config = {
-          default_keybinds = true,
-          neorg_leader = "<Leader><Leader>",
+  config = function()
+    require("neorg").setup({
+      load = {
+        ["core.defaults"] = {},
+        ["core.keybinds"] = {
+          -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
+          config = {
+            default_keybinds = true,
+            neorg_leader = "<Leader><Leader>",
+          },
+        },
+        ["core.norg.qol.toc"] = {},
+        ["core.norg.journal"] = {},
+        ["core.norg.dirman"] = {
+          config = list_workspaces({
+            "wiki",
+            "work",
+          }),
+        },
+        ["core.norg.concealer"] = {},
+        ["core.norg.completion"] = {
+          config = { engine = "nvim-cmp" },
+        },
+        ["core.integrations.nvim-cmp"] = {},
+        ["core.presenter"] = {
+          config = {
+            zen_mode = "zen-mode",
+          }
         },
       },
-      ["core.norg.qol.toc"] = {},
-      ["core.norg.journal"] = {},
-      ["core.norg.dirman"] = {
-        config = list_workspaces({
-          "wiki",
-          "work",
-        }),
-      },
-      ["core.norg.concealer"] = {},
-      ["core.norg.completion"] = {
-        config = { engine = "nvim-cmp" },
-      },
-      ["core.integrations.nvim-cmp"] = {},
-      ["core.presenter"] = {
-        config = {
-          zen_mode = "zen-mode",
-        }
-      },
-    },
-  },
+    })
+  end,
 }
