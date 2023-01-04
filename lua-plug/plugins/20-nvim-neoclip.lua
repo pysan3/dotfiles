@@ -11,12 +11,11 @@ return {
   "AckslD/nvim-neoclip.lua",
   dependencies = {
     { "tami5/sqlite.lua" },
-    { "nvim-telescope/telescope.nvim" },
   },
   keys = {
     { "<Leader>fb", extensions("neoclip", "neoclip") },
     { "<Leader>fq", extensions("neoclip", "macroscope") },
-    { "<C-b>", function()
+    { "<C-y>", function()
       vim.cmd("stopinsert")
       extensions("neoclip", "neoclip")()
     end, mode = "i" },
