@@ -2,7 +2,7 @@ window:
   # opacity: 0.8
   opacity: 1.0
   decorations: full
-  dynamic_title: true
+  dynamic_title: false
 
 scrolling:
   history: 10000
