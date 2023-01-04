@@ -18,6 +18,7 @@ return {
     load = {
       ["core.defaults"] = {},
       ["core.keybinds"] = {
+        -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
         config = {
           default_keybinds = true,
           neorg_leader = "<Leader><Leader>",
