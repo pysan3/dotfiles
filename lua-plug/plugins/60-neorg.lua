@@ -17,6 +17,14 @@ return {
   config = {
     load = {
       ["core.defaults"] = {},
+      ["core.keybinds"] = {
+        config = {
+          default_keybinds = true,
+          neorg_leader = "<Leader><Leader>",
+        },
+      },
+      ["core.norg.qol.toc"] = {},
+      ["core.norg.journal"] = {},
       ["core.norg.dirman"] = {
         config = list_workspaces({
           "wiki",
@@ -28,6 +36,11 @@ return {
         config = { engine = "nvim-cmp" },
       },
       ["core.integrations.nvim-cmp"] = {},
+      ["core.presenter"] = {
+        config = {
+          zen_mode = "zen-mode",
+        }
+      },
     },
   },
 }
