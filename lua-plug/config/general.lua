@@ -56,6 +56,7 @@ vim.g.personal_module = {
 }
 
 vim.opt.completeopt = "menuone,noselect"
+vim.opt.cmdheight = 0
 
 -- global status line
 vim.opt.laststatus = 3
