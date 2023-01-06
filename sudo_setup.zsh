@@ -30,22 +30,22 @@ fi
 
 if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
   set -x
-  sudo pacman -Syu
+  sudo pacman --noconfirm -Syu
   # basics
-  sudo pacman -S base-devel neofetch git tmux vim curl moreutils
+  sudo pacman --noconfirm -S base-devel neofetch git tmux vim curl moreutils
   # nvim dependencies
-  sudo pacman -S base-devel cmake unzip ninja tree-sitter curl
+  sudo pacman --noconfirm -S base-devel cmake unzip ninja tree-sitter curl
   # python dependencies
-  sudo pacman -S base-devel openssl zlib xz tk python python-pip python-virtualenv python-pipenv \
+  sudo pacman --noconfirm -S base-devel openssl zlib xz tk python python-pip python-virtualenv python-pipenv \
     python-gobject python-wxpython python-yaml python-xlib python-utils python-pyopenssl \
     poppler-glib python-distutils-extra python-pip python-gobject gtk3 python-cairo libhandy
   # texlive
-  sudo pacman -S texlive-full
+  sudo pacman --noconfirm -S texlive-full
   # nix
-  sudo pacman -S libcpuid jq libseccomp gtest
+  sudo pacman --noconfirm -S libcpuid jq libseccomp gtest
   # pandoc
-  sudo pacman -S pandoc
+  sudo pacman --noconfirm -S pandoc
   # delete all cache
-  sudo pacman -Scc
+  sudo pacman --noconfirm -Scc
   set +x
 fi
