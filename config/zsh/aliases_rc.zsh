@@ -121,6 +121,7 @@ function cbw () {
 }
 alias bwpass="jq '.login' | jq -r '.password'"
 alias here="$FE . >/dev/null 2>&1 || true"
+export NCPATH="$HOME/Nextcloud"
 
 function update_zwc () {
   compile_zdot() { [ -f "$1" ] && zcompile "$1" && info "Compiled $1" }
