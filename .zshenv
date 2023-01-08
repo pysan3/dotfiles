@@ -41,3 +41,8 @@ export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export SSB_HOME="$XDG_DATA_HOME/zoom"
+
+export GTK_IM_MODULE='fcitx'
+export QT_IM_MODULE='fcitx'
+export XMODIFIERS='@im=fcitx'
+export SDL_IM_MODULE='fcitx'

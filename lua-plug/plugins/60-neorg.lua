@@ -11,6 +11,8 @@ return {
   ft = "norg",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
+    "nvim-cmp",
+    "mason.nvim",
   },
   build = ":Neorg sync-parsers",
   cmd = "Neorg",
