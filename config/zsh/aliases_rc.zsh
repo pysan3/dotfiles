@@ -311,7 +311,7 @@ function tvim() {
       return 0
     fi
   fi
-  vimcmd="act && nvim"
+  vimcmd="nvim"
   if [ ! -f "$PWD/.vim/session.vim" ]; then
     vimcmd="$vimcmd ."
   fi
