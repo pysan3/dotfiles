@@ -9,11 +9,7 @@ end
 return {
   "nvim-neorg/neorg",
   ft = "norg",
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter",
-    "nvim-cmp",
-    "mason.nvim",
-  },
+  dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-cmp", "mason.nvim", "nvim-lua/plenary.nvim" },
   build = ":Neorg sync-parsers",
   cmd = "Neorg",
   config = function()

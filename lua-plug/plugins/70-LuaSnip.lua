@@ -5,6 +5,7 @@ local M = {
     { "honza/vim-snippets", rtp = "." },
     { "molleweide/LuaSnip-snippets.nvim" },
     { "gisphm/vim-gitignore" },
+    { "numToStr/Comment.nvim" },
   },
 }
 

@@ -12,6 +12,8 @@ local M = {
     { "saadparwaiz1/cmp_luasnip" },
     { "uga-rosa/cmp-dictionary" }, -- config
     { "petertriho/cmp-git" }, -- config
+    { "L3MON4D3/LuaSnip" },
+    { "windwp/nvim-autopairs" },
   },
 }
 
