@@ -8,6 +8,12 @@ local function telescope_keymap(key, picker, func, pre_leader)
   }
 end
 
+local hide = {
+  additional_args = function(_)
+    return { '--hidden' }
+  end,
+}
+
 local M = {
   "nvim-telescope/telescope.nvim",
   dependencies = {
@@ -103,7 +109,10 @@ M.config = function()
       -- remove ./ from fd results
       find_files = {
         find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+        hidden = true,
       },
+      live_grep = hide,
+      grep_string = hide,
     },
     extensions = {
       fzf = {
