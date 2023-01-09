@@ -123,7 +123,7 @@ return {
   config = function()
     require("nvim-treesitter.configs").setup({
       ensure_installed = ts_packages,
-      sync_install = true, -- install languages synchronously (only applied to `ensure_installed`)
+      sync_install = false,
       ignore_install = { -- List of parsers to ignore installing
       },
       autopairs = {
