@@ -68,7 +68,7 @@ alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
 alias upgraderb='gem update --system -N && gem update -N'
 alias packersync="nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'"
 function upgradeall() {
-  upgradecmds='py rs js rb'
+  upgradecmds='py rs js'
   for lang in $upgradecmds; do
     eval "upgrade$lang" && info "Success: $(alias upgrade$lang)" || error "FAIL: $(alias upgrade$lang)"
   done
