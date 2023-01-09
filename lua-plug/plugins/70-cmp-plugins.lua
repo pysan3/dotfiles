@@ -33,8 +33,10 @@ M[#M].config = function()
 end
 
 table.insert(M, { "petertriho/cmp-git" })
-M[#M].config = {
-  filetypes = vim.g.personal_module.md(),
-}
+M[#M].config = function()
+  require("cmp_git").setup({
+    filetypes = vim.g.personal_module.md(),
+  })
+end
 
 return M
