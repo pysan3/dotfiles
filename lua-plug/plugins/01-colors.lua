@@ -1,6 +1,7 @@
 local function nolazy(plugin)
   plugin.lazy = false
   plugin.priority = 100
+  plugin.cond = plugin.cond and not vim.g.started_by_firenvim
   return plugin
 end
 

@@ -5,9 +5,6 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
 
-" Always show tabs
-set showtabline=2
-
 " We don't need to see things like -- INSERT -- anymore
 set noshowmode
 set laststatus=2 " ステータスラインを常に表示

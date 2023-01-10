@@ -1,6 +1,7 @@
 return {
   "akinsho/bufferline.nvim", -- bufferline
   event = "VeryLazy",
+  enabled = not vim.g.started_by_firenvim,
   dependencies = { "kyazdani42/nvim-web-devicons" },
   cmd = { "BufferLineGoToBuffer", "BufferLineCycleNext", "BufferLineCyclePrev", "BufferLinePick" },
   keys = {

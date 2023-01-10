@@ -5,7 +5,6 @@ set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 2
 set shiftwidth=2 " smartindentで増減する幅
-set showtabline=2                       " Always show tabs
 set formatoptions=tcroqln
 " au BufRead,BufNewFile *.tex set comments+=b:\\item
 inoremap <expr> <CR> getline('.') =~ '\\item' ? '<C-g>u<CR>\item <Esc>0==fmla' : '<C-g>u<CR>'

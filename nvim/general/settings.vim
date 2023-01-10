@@ -85,7 +85,6 @@ set autoindent                          " Auto-indent, press o on the current li
 set smartindent                         " Set smart indent
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 set shiftwidth=4                        " The width of indentation
-set showtabline=2                       " Always show tabs
 set formatoptions-=cro
 set colorcolumn=120
 set signcolumn=yes                      " Set the width of the symbol column, if not set, it will cause an exception when displaying the icon
