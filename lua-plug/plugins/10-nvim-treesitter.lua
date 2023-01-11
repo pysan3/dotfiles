@@ -113,88 +113,89 @@ local ts_packages = {
   -- "zig",
 }
 
-return {
+local M = {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   event = "BufReadPre",
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
   },
-  config = function()
-    require("nvim-treesitter.configs").setup({
-      ensure_installed = ts_packages,
-      sync_install = false,
-      ignore_install = { -- List of parsers to ignore installing
-      },
-      autopairs = {
-        enable = true,
-      },
-      highlight = {
-        enable = true, -- false will disable the whole extension
-        disable = {
-          "latex",
-        },
-        -- additional_vim_regex_highlighting = true,
-      },
-      indent = {
-        enable = true,
-        disable = {
-          "python",
-          "yaml",
-        },
-      },
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-      },
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true,
-          keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-            ["aa"] = "@parameter.outer",
-            ["ia"] = "@parameter.inner",
-          },
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<leader>m]"] = "@parameter.inner",
-          },
-          swap_previous = {
-            ["<leader>m["] = "@parameter.inner",
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true,
-          goto_next_start = {
-            ["]m"] = "@function.outer",
-            ["]]"] = "@class.outer",
-          },
-          goto_next_end = {
-            ["]M"] = "@function.outer",
-            ["]["] = "@class.outer",
-          },
-          goto_previous_start = {
-            ["[m"] = "@function.outer",
-            ["[["] = "@class.outer",
-          },
-          goto_previous_end = {
-            ["[M"] = "@function.outer",
-            ["[]"] = "@class.outer",
-          },
-        },
-      },
-      matchup = {
-        enable = true,
-        disable_virtual_text = false,
-        include_match_words = true,
-      },
-    })
-  end
 }
+
+M.config = function()
+  require("nvim-treesitter.configs").setup({
+    ensure_installed = ts_packages,
+    sync_install = false,
+    ignore_install = { -- List of parsers to ignore installing
+    },
+    autopairs = { enable = true },
+    highlight = {
+      enable = true,
+      disable = {
+        "latex",
+      },
+      additional_vim_regex_highlighting = false,
+    },
+    indent = {
+      enable = true,
+      disable = {
+        "python",
+        "yaml",
+      },
+    },
+    context_commentstring = {
+      enable = true,
+      enable_autocmd = false,
+    },
+    textobjects = {
+      select = {
+        enable = true,
+        lookahead = true,
+        keymaps = {
+          ["af"] = "@function.outer",
+          ["if"] = "@function.inner",
+          ["ac"] = "@class.outer",
+          ["ic"] = "@class.inner",
+          ["aa"] = "@parameter.outer",
+          ["ia"] = "@parameter.inner",
+        },
+      },
+      swap = {
+        enable = true,
+        swap_next = {
+          ["<leader>m]"] = "@parameter.inner",
+        },
+        swap_previous = {
+          ["<leader>m["] = "@parameter.inner",
+        },
+      },
+      move = {
+        enable = true,
+        set_jumps = true,
+        goto_next_start = {
+          ["]m"] = "@function.outer",
+          ["]]"] = "@class.outer",
+        },
+        goto_next_end = {
+          ["]M"] = "@function.outer",
+          ["]["] = "@class.outer",
+        },
+        goto_previous_start = {
+          ["[m"] = "@function.outer",
+          ["[["] = "@class.outer",
+        },
+        goto_previous_end = {
+          ["[M"] = "@function.outer",
+          ["[]"] = "@class.outer",
+        },
+      },
+    },
+    matchup = {
+      enable = true,
+      disable_virtual_text = false,
+      include_match_words = true,
+    },
+  })
+end
+
+return M
