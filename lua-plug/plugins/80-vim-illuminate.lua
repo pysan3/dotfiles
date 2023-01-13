@@ -25,7 +25,9 @@ M.config = function()
       'fugitive',
     },
   })
-  vim.cmd([[hi illuminatedWord guibg=#2C313C]])
+  vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = "#2C313C" })
+  vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bg = "#2C313C" })
+  vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = "#2C313C" })
 end
 
 return M
