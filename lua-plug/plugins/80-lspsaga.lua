@@ -1,8 +1,8 @@
 local M = {
   "glepnir/lspsaga.nvim",
-  branch = "main",
-  cmd = { "Lspsaga", "LSoutlineToggle" },
-  event = "BufReadPre",
+  enable = vim.g.personal_options.lsp_saga.enable,
+  cmd = { "Lspsaga" },
+  event = "BufRead",
 }
 
 local function getopts(key_info, is_noremap, desc)
@@ -21,14 +21,11 @@ M.keys = {
   lsp_map("f", "lsp_finder"),
   -- Code Action
   lsp_map("c", "code_action"),
-  getopts({ vim.g.personal_options.prefix.lsp .. "c", function()
-    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
-    vim.cmd("<Cmd>Lspsaga range_code_action<CR>")
-  end }, true, "lspsaga.codeaction.range_code_action()"),
   -- show hover doc
-  lsp_map("K", "hover_doc", true),
+  lsp_map("K", vim.lsp.buf.hover, true, true),
+  -- lsp_map("K", "hover_doc", true),
   -- Outline
-  lsp_map("o", "<Cmd>LSoutlineToggle<CR>", false, true),
+  lsp_map("o", "outline"),
   -- rename
   lsp_map("r", "rename"),
   -- preview definition
@@ -40,56 +37,80 @@ M.keys = {
   lsp_map("]d", "diagnostic_jump_next", true),
 }
 
-M.config = function()
-  if not vim.g.personal_options.lsp_saga.enable then
-    return
-  end
-  require("lspsaga").init_lsp_saga({
-    border_style = "rounded", -- "single" | "double" | "rounded" | "bold" | "plus"
-    diagnostic_header = { " ", " ", " ", "ﴞ " },
-    preview_lines_above = 4,
-    max_preview_lines = 20,
-    code_action_lightbulb = {
-      sign = false,
+M.config = {
+  preview = {
+    lines_above = 4,
+    lines_below = 20,
+  },
+  scroll_preview = {
+    scroll_down = "<C-f>",
+    scroll_up = "<C-b>",
+  },
+  request_timeout = 5000,
+  finder = {
+    edit = { "o", "<CR>" },
+    vsplit = "s",
+    split = "i",
+    tabe = "t",
+    quit = { "q", "<Esc>" },
+  },
+  lightbulb = {
+    enable = true,
+    enable_in_insert = true,
+    sign = true,
+    sign_priority = 40,
+    virtual_text = true,
+  },
+  code_action = {
+    num_shortcut = true,
+    keys = {
+      quit = 'q',
+      exec = '<CR>',
     },
-    finder_action_keys = {
-      open = "e",
-      vsplit = "s",
-      split = "i",
-      tabe = "t",
-      quit = "q",
-      scroll_down = "<C-f>",
-      scroll_up = "<C-b>",
+  },
+  symbol_in_winbar = {
+    in_custom = false,
+    enable = vim.g.personal_options.lsp_saga.winbar,
+    separator = "  ",
+    hide_keyword = false,
+    show_file = true,
+    click_support = function(node, clicks, button, modifiers) ---@diagnostic disable-line
+      local st = node.range.start
+      local en = node.range["end"]
+      if button == "l" then -- left click: jump to start
+        vim.fn.cursor({ st.line + 1, st.character + 1 })
+      elseif button == "r" then -- right click: jump to end
+        vim.fn.cursor({ en.line + 1, en.character + 1 })
+      elseif button == "m" then -- select whole region
+        vim.fn.cursor({ st.line + 1, st.character + 1 })
+        vim.cmd("normal v")
+        vim.fn.cursor({ en.line + 1, en.character + 1 })
+      end
+    end,
+  },
+  outline = {
+    win_position = 'right',
+    win_with = '',
+    win_width = 40,
+    show_detail = true,
+    auto_preview = true,
+    auto_refresh = true,
+    auto_close = true,
+    custom_sort = nil,
+    keys = {
+      jump = 'o',
+      expand_collaspe = 'u',
+      quit = 'q',
     },
-    code_action_keys = {
-      quit = "q",
-      exec = "e",
+  },
+  callhierarchy = {
+    show_detail = true,
+  },
+  ui = {
+    colors = {
+      normal_bg = vim.api.nvim_get_hl_by_name("Normal", {}).background,
     },
-    symbol_in_winbar = {
-      in_custom = false,
-      enable = vim.g.personal_options.lsp_saga.winbar,
-      separator = "  ",
-      show_file = true,
-      click_support = function(node, clicks, button, modifiers) ---@diagnostic disable-line
-        local st = node.range.start
-        local en = node.range["end"]
-        if button == "l" then -- left click: jump to start
-          vim.fn.cursor({ st.line + 1, st.character + 1 })
-        elseif button == "r" then -- right click: jump to end
-          vim.fn.cursor({ en.line + 1, en.character + 1 })
-        elseif button == "m" then -- select whole region
-          vim.fn.cursor({ st.line + 1, st.character + 1 })
-          vim.cmd("normal v")
-          vim.fn.cursor({ en.line + 1, en.character + 1 })
-        end
-      end,
-    },
-    show_outline = {
-      jump_key = "o",
-      auto_refresh = true,
-      win_width = 40,
-    },
-  })
-end
+  },
+}
 
 return M
