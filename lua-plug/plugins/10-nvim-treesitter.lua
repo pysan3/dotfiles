@@ -61,7 +61,7 @@ local ts_packages = {
   "lua",
   -- "m68k",
   "make",
-  -- "markdown",
+  "markdown",
   -- "ninja",
   -- "nix",
   -- "norg",
