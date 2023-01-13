@@ -143,9 +143,13 @@ M.config = function()
         "yaml",
       },
     },
-    context_commentstring = {
+    incremental_selection = {
       enable = true,
-      enable_autocmd = false,
+      keymaps = {
+        init_selection = "gn", -- set to `false` to disable one of the mappings
+        node_incremental = "]]",
+        node_decremental = "[[",
+      },
     },
     textobjects = {
       select = {
@@ -158,6 +162,10 @@ M.config = function()
           ["ic"] = "@class.inner",
           ["aa"] = "@parameter.outer",
           ["ia"] = "@parameter.inner",
+        },
+        selection_modes = {
+          ["@function.outer"] = "V", -- linewise
+          ["@class.outer"] = "V", -- blockwise
         },
       },
       swap = {
@@ -174,26 +182,21 @@ M.config = function()
         set_jumps = true,
         goto_next_start = {
           ["]m"] = "@function.outer",
-          ["]]"] = "@class.outer",
+          ["]l"] = "@class.outer",
         },
         goto_next_end = {
           ["]M"] = "@function.outer",
-          ["]["] = "@class.outer",
+          ["]L"] = "@class.outer",
         },
         goto_previous_start = {
           ["[m"] = "@function.outer",
-          ["[["] = "@class.outer",
+          ["[l"] = "@class.outer",
         },
         goto_previous_end = {
           ["[M"] = "@function.outer",
-          ["[]"] = "@class.outer",
+          ["[L"] = "@class.outer",
         },
       },
-    },
-    matchup = {
-      enable = true,
-      disable_virtual_text = false,
-      include_match_words = true,
     },
   })
 end

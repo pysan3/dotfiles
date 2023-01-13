@@ -32,7 +32,10 @@ end
 
 local M = {
   "numToStr/Comment.nvim",
-  dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter",
+    "JoosepAlviste/nvim-ts-context-commentstring",
+  },
   keys = {
     { "gcc", nil, mode = "n" },
     { "gc", nil, mode = "v" },

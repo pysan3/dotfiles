@@ -11,12 +11,7 @@ return {
       require("leap").add_default_mappings()
     end,
   },
-  {
-    "tpope/vim-repeat", -- better repetition
-    lazy = false,
-  },
+  { "tpope/vim-repeat", lazy = false }, -- better repetition
   be({ "christoomey/vim-titlecase", keys = { "gzz" } }), -- gzz
   be({ "christoomey/vim-sort-motion" }), -- gs<motion> eg. gs2j => sort 3 lines
-  be({ "michaeljsmith/vim-indent-object" }), -- ai, ii, aI, iI: object of same indent
-  be({ "wellle/targets.vim" }), -- 2i, 2a for more inner and outer selection
 }
