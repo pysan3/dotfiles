@@ -117,9 +117,6 @@ local M = {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   event = "BufReadPre",
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-  },
 }
 
 M.config = function()
@@ -146,56 +143,9 @@ M.config = function()
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = "gn", -- set to `false` to disable one of the mappings
+        init_selection = "gn",
         node_incremental = "]]",
         node_decremental = "[[",
-      },
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        lookahead = true,
-        keymaps = {
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
-          ["aa"] = "@parameter.outer",
-          ["ia"] = "@parameter.inner",
-        },
-        selection_modes = {
-          ["@function.outer"] = "V", -- linewise
-          ["@class.outer"] = "V", -- blockwise
-        },
-      },
-      swap = {
-        enable = true,
-        swap_next = {
-          ["<leader>m]"] = "@parameter.inner",
-        },
-        swap_previous = {
-          ["<leader>m["] = "@parameter.inner",
-        },
-      },
-      move = {
-        enable = true,
-        set_jumps = true,
-        goto_next_start = {
-          ["]m"] = "@function.outer",
-          ["]l"] = "@class.outer",
-        },
-        goto_next_end = {
-          ["]M"] = "@function.outer",
-          ["]L"] = "@class.outer",
-        },
-        goto_previous_start = {
-          ["[m"] = "@function.outer",
-          ["[l"] = "@class.outer",
-        },
-        goto_previous_end = {
-          ["[M"] = "@function.outer",
-          ["[L"] = "@class.outer",
-        },
       },
     },
   })
