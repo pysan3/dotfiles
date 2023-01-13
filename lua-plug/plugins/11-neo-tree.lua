@@ -25,7 +25,7 @@ return {
       batch_delay = 10,
       max_lines = 10000,
     },
-    hide_root_node = true,
+    hide_root_node = false,
     retain_hidden_root_indent = false,
     resize_timer_interval = -1, -- in ms, needed for containers to redraw right aligned and faded content
     -- log_level = "trace",
