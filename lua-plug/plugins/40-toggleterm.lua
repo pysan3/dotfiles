@@ -8,7 +8,7 @@ return {
     { "<C-j>", [[<C-\><C-n><C-W>j]], noremap = true, mode = "t" },
     { "<C-k>", [[<C-\><C-n><C-W>k]], noremap = true, mode = "t" },
     { "<C-l>", [[<C-\><C-n><C-W>l]], noremap = true, mode = "t" },
-    { [[<C-\>]], "<Cmd>ToggleTerm<CR>" },
+    { [[<C-\>]], "<Cmd>ToggleTerm<CR>", desc = "<Cmd>ToggleTerm<CR>" },
   },
   config = {
     size = 12,

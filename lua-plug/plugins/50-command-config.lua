@@ -7,15 +7,15 @@ return {
       vim.g["Schlepp#trimWS"] = 0
     end,
     keys = {
-      { "<up>", "<Plug>SchleppUp", remap = true, mode = "x" },
-      { "<down>", "<Plug>SchleppDown", remap = true, mode = "x" },
-      { "<left>", "<Plug>SchleppLeft", remap = true, mode = "x" },
-      { "<right>", "<Plug>SchleppRight", remap = true, mode = "x" },
-      { "D", "<Plug>SchleppDup", remap = true, mode = "x" },
-      { "Dk", "<Plug>SchleppDupUp", remap = true, mode = "x" },
-      { "Dj", "<Plug>SchleppDupDown", remap = true, mode = "x" },
-      { "Dh", "<Plug>SchleppDupLeft", remap = true, mode = "x" },
-      { "Dl", "<Plug>SchleppDupRight", remap = true, mode = "x" },
+      { "<up>", "<Plug>SchleppUp", remap = true, mode = "x", desc = "<Plug>SchleppUp" },
+      { "<down>", "<Plug>SchleppDown", remap = true, mode = "x", desc = "<Plug>SchleppDown" },
+      { "<left>", "<Plug>SchleppLeft", remap = true, mode = "x", desc = "<Plug>SchleppLeft" },
+      { "<right>", "<Plug>SchleppRight", remap = true, mode = "x", desc = "<Plug>SchleppRight" },
+      { "D", "<Plug>SchleppDup", remap = true, mode = "x", desc = "<Plug>SchleppDup" },
+      { "Dk", "<Plug>SchleppDupUp", remap = true, mode = "x", desc = "<Plug>SchleppDupUp" },
+      { "Dj", "<Plug>SchleppDupDown", remap = true, mode = "x", desc = "<Plug>SchleppDupDown" },
+      { "Dh", "<Plug>SchleppDupLeft", remap = true, mode = "x", desc = "<Plug>SchleppDupLeft" },
+      { "Dl", "<Plug>SchleppDupRight", remap = true, mode = "x", desc = "<Plug>SchleppDupRight" },
     },
   },
   {
@@ -29,18 +29,18 @@ return {
   {
     "nixon/vim-vmath",
     keys = {
-      { "++", "vip++", remap = true },
+      { "++", "vip++", remap = true, desc = "Vim-vmath: inner paragraph VMATH_YankAndAnalyse" },
       { "++", function()
         vim.api.nvim_call_function("VMATH_YankAndAnalyse", {})
-      end, mode = "x", expr = true },
+      end, mode = "x", expr = true, desc = "Vim-vmath: VMATH_YankAndAnalyse" },
     },
   },
   {
     "romainl/vim-qf", -- quickfix list
     keys = {
-      { "<C-p>", "<Plug>(qf_qf_previous)", remap = true },
-      { "<C-n>", "<Plug>(qf_qf_next)", remap = true },
-      { "<Leader>xq", "<Plug>(qf_qf_toggle)", remap = true },
+      { "<C-p>", "<Plug>(qf_qf_previous)", remap = true, desc = "<Plug>(qf_qf_previous)" },
+      { "<C-n>", "<Plug>(qf_qf_next)", remap = true, desc = "<Plug>(qf_qf_next)" },
+      { "<Leader>xq", "<Plug>(qf_qf_toggle)", remap = true, desc = "<Plug>(qf_qf_toggle)" },
     },
   },
   {

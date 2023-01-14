@@ -3,7 +3,7 @@ return {
   keys = {
     { "<Leader>mm", function()
       require("codewindow").toggle_minimap()
-    end },
+    end, desc = "CodeWindow toggle_minimap()" },
   },
   config = {
     auto_enable = false,
