@@ -1,7 +1,7 @@
 return {
   "folke/noice.nvim",
   event = "VeryLazy",
-  cmd = { "Map" },
+  cmd = { "Map", "Noice" },
   dependencies = {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
