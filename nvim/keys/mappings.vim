@@ -13,10 +13,6 @@ inoremap <CR> <C-]><C-g>u<CR>
 inoremap . <C-g>u.
 inoremap , <C-g>u,
 
-" new line in insert mode
-imap <C-o> <C-o>A<CR>
-inoremap <C-e> <C-o>A,<Esc>o
-
 " move to start / end of line
 noremap <C-h> ^
 noremap <C-l> $
@@ -50,6 +46,9 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+
+" Add a new line below without leaving insert mode
+imap <C-i> <C-o>A<C-m>
 
 " Move up and down with wrap
 nnoremap j gj
