@@ -9,8 +9,6 @@ local M = {
   },
 }
 
-local lsp_base = require("lsp-config.base")
-
 local servers = {
   -- awk_ls = {}, -- AWK
   -- angularls = {}, -- Angular
@@ -150,6 +148,8 @@ M.config = function()
     automatic_installation = true,
   })
 
+  local lsp_base = require("lsp-config.base")
+  lsp_base.setup({})
   local global_opts = {
     capabilities = lsp_base.capabilities(),
     on_attach = function(client, bufnr)
