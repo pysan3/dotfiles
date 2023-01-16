@@ -8,7 +8,7 @@ return {
   },
   cmd = { "Neotree" },
   keys = {
-    { "<Leader>e", "<Cmd>Neotree toggle<CR>", remap = false, silent = true },
+    { "<Leader>e", "<Cmd>Neotree toggle<CR>", remap = false, silent = true, desc = "<Cmd>Neotree toggle<CR>" },
   },
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1

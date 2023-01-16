@@ -13,15 +13,8 @@ inoremap <CR> <C-]><C-g>u<CR>
 inoremap . <C-g>u.
 inoremap , <C-g>u,
 
-" new line in insert mode
-imap <C-o> <Esc>A<CR>
-inoremap <C-e> <Esc>A,<Esc>o
-
-" shift in insert mode
-inoremap <C-f> <Esc><<a
-
 " move to start / end of line
-noremap <C-h> 0w
+noremap <C-h> ^
 noremap <C-l> $
 
 " move to next / previous buffer
@@ -41,28 +34,23 @@ command! Wq :wq
 xnoremap < <gv
 xnoremap > >gv
 
-" Move to center of the screen on jump
-nnoremap <C-o> <C-o>zz
-nnoremap <C-i> <C-i>zz
-
-" Searching
-nnoremap <ESC><ESC> :silent nohlsearch<CR>
-" 検索語が画面の真ん中に来るようにする
+" Search results always on center
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *Nzz
 nnoremap # #nzz
 nnoremap g* g*zz
-" // で選択中のテキストを検索
-xnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
-" 入力モードでのカーソル移動
+" Move while in insert mode
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
-" 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
+" Add a new line below without leaving insert mode
+imap <C-i> <C-o>A<C-m>
+
+" Move up and down with wrap
 nnoremap j gj
 nnoremap k gk
 nnoremap <down> gj
@@ -72,7 +60,7 @@ xnoremap k gk
 xnoremap <down> gj
 xnoremap <up> gk
 
-" 選択モードで上下に移動
+" Move the selected area
 xnoremap J :m '>+1<CR>gv=gv
 xnoremap K :m '<-2<CR>gv=gv
 
@@ -81,17 +69,11 @@ nnoremap <F6> :set spell! spelllang=en_us,cjk<CR>
 nnoremap zg zg]s
 nnoremap zl 1z=]s
 
-" 対応括弧
-nnoremap { {zz
-nnoremap } }zz
-nnoremap <C-d> <C-d>zz
-nnoremap <C-u> <C-u>zz
-
 " add line within normal mode
 nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
 
-" クリップボードからのペースト
+" Easy interaction with the clipboard
 xnoremap <silent> y y`]
 xnoremap <silent> p p`]
 nnoremap <silent> P P`]
@@ -100,6 +82,7 @@ noremap <Leader>y "+y
 noremap <Leader>p "+p
 noremap <Leader>P "+P
 
-" ノーマルモードのときにxキー、sキーで削除した文字をヤンクしない
-nnoremap x "_x
-" nnoremap s "_s
+" Do not update the register
+noremap x "_x
+noremap <Leader>d "_d
+noremap <Leader>c "_c

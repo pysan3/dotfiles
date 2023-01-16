@@ -14,13 +14,13 @@ return {
     { "tami5/sqlite.lua" },
   },
   keys = {
-    { vim.g.personal_options.prefix.telescope .. "g", extensions("neoclip", "neoclip") },
-    { vim.g.personal_options.prefix.telescope .. "q", extensions("neoclip", "macroscope") },
+    { vim.g.personal_options.prefix.telescope .. "g", extensions("neoclip", "neoclip"), desc = "Neoclip reg" },
+    { vim.g.personal_options.prefix.telescope .. "q", extensions("neoclip", "macroscope"), desc = "Neoclip macro" },
     { "<C-y>", function()
       vim.cmd("stopinsert")
       extensions("neoclip", "neoclip")()
       vim.cmd("startinsert")
-    end, mode = "i" },
+    end, mode = "i", desc = "Neoclip reg <i>" },
   },
   config = {
     history = 1000,

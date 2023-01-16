@@ -37,8 +37,8 @@ local M = {
     "JoosepAlviste/nvim-ts-context-commentstring",
   },
   keys = {
-    { "gcc", nil, mode = "n" },
-    { "gc", nil, mode = "v" },
+    { "gcc", nil, mode = "n", desc = "Comment: toggle" },
+    { "gc", nil, mode = "v", desc = "Comment: toggle visual" },
     { "gC", ":normal gcc<CR>", mode = "x", noremap = true },
     { "gc", commented_lines_textobject, mode = "o", silent = true, desc = "textobj for adjacent comments" },
     { "u", commented_lines_textobject, mode = "o", silent = true, desc = "textobj for adjacent comments" },

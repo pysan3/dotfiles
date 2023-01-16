@@ -8,6 +8,6 @@ return {
     vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
   end,
   keys = {
-    { "<Leader>u", "<Cmd>UndotreeShow<CR>", remap = false },
+    { "<Leader>u", "<Cmd>UndotreeShow<CR>", desc = "<Cmd>UndotreeShow<CR>" },
   },
 }
