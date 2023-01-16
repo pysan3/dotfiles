@@ -40,7 +40,7 @@ set numberwidth=1                       " Set the width of the number column, de
 set mouse=a                             " Enable your mouse
 " set showbreak=↪
 set iskeyword+=-                      	" treat dash separated words as a word text object
-set scrolloff=4                         " Set how many lines are always displayed on the upper and lower sides of the cursor
+set scrolloff=16                        " Set how many lines are always displayed on the upper and lower sides of the cursor
 set wrap
 set sidescrolloff=12                    " Set how many columns are always displayed to the left and right of the cursor
 
