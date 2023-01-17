@@ -47,9 +47,6 @@ inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
-" Add a new line below without leaving insert mode
-imap <C-i> <C-o>A<C-m>
-
 " Move up and down with wrap
 nnoremap j gj
 nnoremap k gk
