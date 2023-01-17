@@ -1,4 +1,4 @@
-# [takuto](https://www.pysan3.server-on.net/)'s dotfiles
+# My Dotfiles
 
 ## Warnings
 
@@ -38,7 +38,7 @@ This installation might cause serious changes to your workflow.
 chsh -s $(which zsh)  # This may break many things!!! Know what you are doing.
 
 cd "$HOME"
-git clone https://git.esslab.jp/takuto/dotfiles.git
+git clone https://github.com/pysan3/dotfiles.git
 cd dotfiles
 
 # Create Symlink for all Config Files
