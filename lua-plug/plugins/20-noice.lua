@@ -72,6 +72,7 @@ return {
   "folke/noice.nvim",
   event = "VeryLazy",
   cmd = { "Noice" },
+  enabled = not vim.g.started_by_firenvim,
   dependencies = {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
