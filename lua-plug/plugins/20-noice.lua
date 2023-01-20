@@ -87,6 +87,7 @@ return {
       view_error = "notify", -- view for errors
       view_warn = "notify", -- view for warnings
       view_history = "messages", -- view for :messages
+      view_search = false,
     },
     health = { checker = false },
     lsp = {
