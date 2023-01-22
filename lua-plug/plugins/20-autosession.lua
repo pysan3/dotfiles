@@ -1,6 +1,6 @@
 return {
   "pysan3/autosession.nvim", -- restore previous session
-  lazy = false,
+  event = { "VeryLazy" },
   -- dev = true,
   dependencies = { "mhinz/vim-startify" },
   init = function()
@@ -12,5 +12,6 @@ return {
     autosave_on_quit = true,
     force_autosave = true,
     sessionfile_name = ".vim/session.vim",
+    warn_on_setup = false,
   }
 }

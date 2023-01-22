@@ -1,6 +1,5 @@
 return {
   "mhinz/vim-startify",
-  lazy = false,
   init = function()
     vim.g.startify_session_dir = vim.fn.stdpath("data") .. "/session"
     vim.g.startify_lists = {
