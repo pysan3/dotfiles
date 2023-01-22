@@ -8,6 +8,7 @@ local colorschemes = {
   -- "Jellybeans",
 }
 
+
 local keys = {
   -- Full Screen
   { key = "Enter", mods = "ALT", action = act.ToggleFullScreen },
@@ -61,8 +62,14 @@ return {
   enable_tab_bar = false,
   cursor_blink_rate = 0, -- stop cursor blinking
   window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
+  use_ime = true,
 
   keys = keys,
   disable_default_key_bindings = true,
   color_scheme = colorschemes[1],
+  colors = { -- overwrite colorscheme with jellybeans-nvim cursor colors
+    cursor_bg = "#b0d0f0",
+    cursor_fg = "#151515",
+    cursor_border = "#b0d0f0",
+  },
 }
