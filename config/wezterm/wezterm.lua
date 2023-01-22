@@ -8,7 +8,6 @@ local colorschemes = {
   -- "Jellybeans",
 }
 
-
 local keys = {
   -- Full Screen
   { key = "Enter", mods = "ALT", action = act.ToggleFullScreen },
