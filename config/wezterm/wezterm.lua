@@ -59,6 +59,8 @@ return {
   -- Settings
   scrollback_lines = 10000,
   enable_tab_bar = false,
+  cursor_blink_rate = 0, -- stop cursor blinking
+  window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
 
   keys = keys,
   disable_default_key_bindings = true,
