@@ -6,7 +6,7 @@ _G.general_info = {
 }
 
 vim.g.personal_options = {
-  colorscheme = vim.env.NVIM_COLOR or "vscode",
+  colorscheme = vim.env.NVIM_COLOR or "jellybeans-nvim",
   lsp_saga = {
     enable = true,
     winbar = true,
