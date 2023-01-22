@@ -62,6 +62,9 @@ return {
   cursor_blink_rate = 0, -- stop cursor blinking
   window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
   use_ime = true,
+  adjust_window_size_when_changing_font_size = true,
+  allow_square_glyphs_to_overflow_width = "WhenFollowedBySpace",
+  check_for_updates = false,
 
   keys = keys,
   disable_default_key_bindings = true,
