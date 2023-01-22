@@ -21,6 +21,9 @@ noremap <C-l> $
 nnoremap H :bprevious<CR>
 nnoremap L :bnext<CR>
 
+" Toggle wrap
+nnoremap <silent> <Leader>ml :set wrap!<CR>
+
 " save and quit
 noremap <C-Q> :wq!<CR>
 inoremap <C-Q> <Esc>:wq!<CR>
