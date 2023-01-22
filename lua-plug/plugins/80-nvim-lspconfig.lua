@@ -144,7 +144,6 @@ local stop_lsp_fmt = {
 local lsp_list = vim.tbl_keys(servers)
 
 M.config = function()
-  require("neodev").setup({})
   local lspconfig = require("lspconfig")
 
   require("mason-lspconfig").setup({
