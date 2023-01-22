@@ -58,7 +58,7 @@ return {
 
   -- Settings
   scrollback_lines = 10000,
-  enable_tab_bar = true,
+  enable_tab_bar = false,
 
   keys = keys,
   disable_default_key_bindings = true,
