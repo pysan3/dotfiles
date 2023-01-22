@@ -119,7 +119,7 @@ function cbw () {
     echo $BW_PASSWORD | bw $*
   )
 }
-alias bwpass="jq '.login' | jq -r '.password'"
+alias bwpass="jq '.login' | jq -r '.password' | sed 's/^ *\| *$//'"
 alias here="$FE . >/dev/null 2>&1 || true"
 export NCPATH="$HOME/Nextcloud"
 
