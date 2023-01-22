@@ -206,6 +206,7 @@ pnpm i -g clipboard-cli @bitwarden/cli
 # nim
 function install_nim () {
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+  rehash
 }
 (false || ! command -v 'nim' &>/dev/null || ! command -v 'nimble' &>/dev/null) && install_nim
 
