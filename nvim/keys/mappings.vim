@@ -17,6 +17,19 @@ inoremap , <C-g>u,
 noremap <C-h> ^
 noremap <C-l> $
 
+" command mode shortcuts and bindings
+cnoremap <C-w> <S-Right>
+cnoremap <C-b> <S-Left>
+cnoremap <C-l> <Right>
+cnoremap <C-h> <Left>
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+cnoremap <C-a> <C-e>
+cnoremap <C-i> <C-b>
+cnoremap <C-x> <Del>
+cnoremap <C-d> <C-u>
+cnoremap <C-p> <C-r>*
+
 " move to next / previous buffer
 nnoremap H :bprevious<CR>
 nnoremap L :bnext<CR>
