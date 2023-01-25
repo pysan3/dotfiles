@@ -25,7 +25,6 @@ cnoremap <C-h> <Left>
 cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
 cnoremap <C-a> <C-e>
-cnoremap <C-i> <C-b>
 cnoremap <C-x> <Del>
 cnoremap <C-d> <C-u>
 cnoremap <C-p> <C-r>*
