@@ -49,6 +49,22 @@ local keys = {
   -- Debug and Configuration
   { key = "L", mods = "SHIFT|CTRL", action = act.ShowDebugOverlay },
   { key = "R", mods = "SHIFT|CTRL", action = act.ReloadConfiguration },
+
+  -- open url
+  {
+    key = "o", mods = "SHIFT|CTRL",
+    action = wezterm.action.QuickSelectArgs({
+      label = "Open URL",
+      patterns = { -- NOTE: rust regex
+        [[h?t?t?p?s?:?/?/?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b[-a-zA-Z0-9@:%_\+.~#?&/=]*]],
+      },
+      action = wezterm.action_callback(function(window, pane)
+        local url = window:get_selection_text_for_pane(pane)
+        wezterm.log_info('opening: ' .. url)
+        wezterm.open_with(url)
+      end)
+    })
+  },
 }
 
 return {
