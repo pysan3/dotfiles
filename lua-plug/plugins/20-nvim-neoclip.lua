@@ -1,9 +1,18 @@
-local function extensions(name, prop)
-  return function(opt)
+local function extensions(name, opt)
+  return function()
     local telescope = require("telescope")
-    require(name)
-    telescope.load_extension(name)
-    return telescope.extensions[name][prop](opt or {})
+    require("neoclip")
+    telescope.load_extension("neoclip")
+    vim.notify("Press name of register.")
+    local key = string.char(vim.fn.getchar())
+    if string.match(key, '[%w]') then
+      return telescope.extensions[name][key](opt or {})
+    elseif string.match(key, '["+*]') then
+      local lot = { ['"'] = "unnamed", ["+"] = "plus", ["*"] = "star" }
+      return telescope.extensions[name][lot[key]](opt or {})
+    else
+      vim.notify(string.format([[`%s` is not a valid register. Aborting.]], key), vim.log.levels.ERROR)
+    end
   end
 end
 
@@ -13,12 +22,13 @@ return {
     { 'nvim-telescope/telescope.nvim' },
     { "tami5/sqlite.lua" },
   },
+  event = { "VeryLazy" },
   keys = {
-    { vim.g.personal_options.prefix.telescope .. "g", extensions("neoclip", "neoclip"), desc = "Neoclip reg" },
-    { vim.g.personal_options.prefix.telescope .. "q", extensions("neoclip", "macroscope"), desc = "Neoclip macro" },
+    { vim.g.personal_options.prefix.telescope .. "g", extensions("neoclip"), desc = "Neoclip reg" },
+    { vim.g.personal_options.prefix.telescope .. "q", extensions("macroscope"), desc = "Neoclip macro" },
     { "<C-y>", function()
       vim.cmd("stopinsert")
-      extensions("neoclip", "neoclip")()
+      extensions("neoclip")()
       vim.cmd("startinsert")
     end, mode = "i", desc = "Neoclip reg <i>" },
   },
