@@ -12,6 +12,16 @@ return {
   },
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
+    vim.api.nvim_create_autocmd("VimEnter", {
+      pattern = "*",
+      group = vim.api.nvim_create_augroup("NeotreeOnOpen", { clear = true }),
+      once = true,
+      callback = function(_)
+        if vim.tbl_contains(vim.fn.argv(), ".") then
+          vim.cmd("Neotree")
+        end
+      end,
+    })
   end,
   config = {
     close_if_last_window = true,
