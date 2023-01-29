@@ -48,6 +48,9 @@ return {
       separator_style = "slant",
       enforce_regular_tabs = false,
       always_show_bufferline = true,
+      custom_filter = function(buf, _)
+        return string.len(vim.fn.bufname(buf) or "") ~= 0
+      end,
       sort_by = function(a, b) ---@diagnostic disable-line
         -- sort by modified time (newer to left)
         local mod_a = vim.loop.fs_stat(a.path)
