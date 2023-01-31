@@ -40,6 +40,7 @@ nnoremap <silent> <Leader>ml :set wrap!<CR>
 noremap <C-Q> :wq!<CR>
 inoremap <C-Q> <Esc>:wq!<CR>
 nnoremap <silent> <Leader>w :silent w<CR>
+nnoremap <silent> <Leader>W :silent noa w<CR>
 nnoremap <silent> <Leader>q :silent bd!<CR>
 command! Q :q
 command! WQ :wq
