@@ -40,10 +40,10 @@ local M = {
     -- telescope lsp bindings
     telescope_keymap("t", "lsp_document_symbols"),
     telescope_keymap("y", "lsp_workspace_symbols"),
-    telescope_keymap("m", "todo", "<Cmd>TodoTelescope<CR>"),
+    telescope_keymap("d", "todo", "<Cmd>TodoTelescope<CR>"),
     -- telescope git bindings
-    telescope_keymap("c", "git_commits"),
-    telescope_keymap("l", "git_bcommits"),
+    telescope_keymap("m", "git_commits"),
+    telescope_keymap("M", "git_bcommits"),
     telescope_keymap("b", "git_branches"),
     -- telescope other bindings
     telescope_keymap("c", "colorscheme", nil, true),
