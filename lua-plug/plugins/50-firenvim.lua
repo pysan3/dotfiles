@@ -40,6 +40,7 @@ end
 M.config = function()
   if vim.g.started_by_firenvim then
     vim.cmd.startinsert()
+    vim.cmd([[set spell spelllang=en_us,cjk<CR>]])
   end
 end
 
