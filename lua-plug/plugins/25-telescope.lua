@@ -10,7 +10,7 @@ end
 
 local hide = {
   additional_args = function(_)
-    return { '--hidden' }
+    return { "--hidden" }
   end,
 }
 
@@ -82,8 +82,10 @@ M.config = function()
       },
       cache_picker = { num_pickers = 3 }, -- default 1
       -- put prompt (input box) position to the top
+      layout_strategy = "horizontal",
       layout_config = {
         prompt_position = "top",
+        preview_width = 0.5,
       },
       -- put results in ascending order
       sorting_strategy = "ascending",
