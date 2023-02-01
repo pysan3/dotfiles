@@ -10,7 +10,7 @@ end
 
 local hide = {
   additional_args = function(_)
-    return { '--hidden' }
+    return { "--hidden" }
   end,
 }
 
@@ -18,7 +18,7 @@ local M = {
   "nvim-telescope/telescope.nvim",
   dependencies = {
     { "BurntSushi/ripgrep" },
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    { "natecraddock/telescope-zf-native.nvim" },
     { "nvim-telescope/telescope-media-files.nvim" },
     { "nvim-telescope/telescope-symbols.nvim" },
   },
@@ -40,10 +40,10 @@ local M = {
     -- telescope lsp bindings
     telescope_keymap("t", "lsp_document_symbols"),
     telescope_keymap("y", "lsp_workspace_symbols"),
-    telescope_keymap("m", "todo", "<Cmd>TodoTelescope<CR>"),
+    telescope_keymap("d", "todo", "<Cmd>TodoTelescope<CR>"),
     -- telescope git bindings
-    telescope_keymap("c", "git_commits"),
-    telescope_keymap("l", "git_bcommits"),
+    telescope_keymap("m", "git_commits"),
+    telescope_keymap("M", "git_bcommits"),
     telescope_keymap("b", "git_branches"),
     -- telescope other bindings
     telescope_keymap("c", "colorscheme", nil, true),
@@ -82,8 +82,10 @@ M.config = function()
       },
       cache_picker = { num_pickers = 3 }, -- default 1
       -- put prompt (input box) position to the top
+      layout_strategy = "horizontal",
       layout_config = {
         prompt_position = "top",
+        preview_width = 0.5,
       },
       -- put results in ascending order
       sorting_strategy = "ascending",
@@ -115,11 +117,17 @@ M.config = function()
       grep_string = hide,
     },
     extensions = {
-      fzf = {
-        fuzzy = true, -- false will only do exact matching
-        override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true, -- override the file sorter
-        case_mode = "smart_case", -- or "ignore_case" or "respect_case", the default case_mode is "smart_case"
+      ["zf-native"] = {
+        file = {
+          enable = true,
+          highlight_results = true,
+          match_filename = true,
+        },
+        generic = {
+          enable = true,
+          highlight_results = true,
+          match_filename = false,
+        },
       },
       media_files = {
         filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "pdf" },
@@ -128,7 +136,7 @@ M.config = function()
     },
   })
 
-  require("telescope").load_extension("fzf")
+  require("telescope").load_extension("zf-native")
   require("telescope").load_extension("media_files")
 end
 

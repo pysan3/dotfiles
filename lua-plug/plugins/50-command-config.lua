@@ -19,14 +19,6 @@ return {
     },
   },
   {
-    "famiu/bufdelete.nvim",
-    keys = {
-      { "<Leader><Leader>q", function()
-        require("bufdelete").bufdelete(0, false)
-      end, desc = "bufdelete" },
-    },
-  },
-  {
     "nixon/vim-vmath",
     keys = {
       { "++", "vip++", remap = true, desc = "Vim-vmath: inner paragraph VMATH_YankAndAnalyse" },

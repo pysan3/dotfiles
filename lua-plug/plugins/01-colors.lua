@@ -16,6 +16,12 @@ end
 
 return {
   nolazy({
+    "metalelf0/jellybeans-nvim",
+    dependencies = { "rktjmp/lush.nvim" },
+    cond = vim.g.personal_options.colorscheme == "jellybeans-nvim",
+    config = set_colorscheme(),
+  }),
+  nolazy({
     "rebelot/kanagawa.nvim",
     cond = vim.g.personal_options.colorscheme == "kanagawa",
     config = set_colorscheme(function()

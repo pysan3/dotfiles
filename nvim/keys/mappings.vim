@@ -17,14 +17,30 @@ inoremap , <C-g>u,
 noremap <C-h> ^
 noremap <C-l> $
 
+" command mode shortcuts and bindings
+cnoremap <C-w> <S-Right>
+cnoremap <C-b> <S-Left>
+cnoremap <C-l> <Right>
+cnoremap <C-h> <Left>
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+cnoremap <C-a> <C-e>
+cnoremap <C-x> <Del>
+cnoremap <C-d> <C-u>
+cnoremap <C-p> <C-r>*
+
 " move to next / previous buffer
 nnoremap H :bprevious<CR>
 nnoremap L :bnext<CR>
+
+" Toggle wrap
+nnoremap <silent> <Leader>ml :set wrap!<CR>
 
 " save and quit
 noremap <C-Q> :wq!<CR>
 inoremap <C-Q> <Esc>:wq!<CR>
 nnoremap <silent> <Leader>w :silent w<CR>
+nnoremap <silent> <Leader>W :silent noa w<CR>
 nnoremap <silent> <Leader>q :silent bd!<CR>
 command! Q :q
 command! WQ :wq

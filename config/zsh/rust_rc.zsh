@@ -20,15 +20,15 @@ function _append() {
 _prepend "$PNPM_HOME:$(npm config get prefix)/bin"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
-# Haskel
-_append "$XDG_CACHE_HOME/cabal/bin"
-
 # Python
 _prepend "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$POETRY_HOME/bin"
 
 # alias to command line utils
 _append "$CARGO_HOME/bin"
 [ -f "${CARGO_ALIAS_CACHE:=$XDG_CACHE_HOME/cargo/alias_local.zsh}" ] && source "$CARGO_ALIAS_CACHE"
+
+# Nim
+_append "$HOME/.nimble/bin"
 
 unset -f _prepend
 unset -f _append

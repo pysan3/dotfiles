@@ -2,11 +2,10 @@ _G.general_info = {
   username = "pysan3",
   email = "pysan3@gmail.com",
   github = "https://github.com/pysan3",
-  real_name = "Takuto Itoi",
 }
 
 vim.g.personal_options = {
-  colorscheme = vim.env.NVIM_COLOR or "vscode",
+  colorscheme = vim.env.NVIM_COLOR or "jellybeans-nvim",
   lsp_saga = {
     enable = true,
     winbar = true,

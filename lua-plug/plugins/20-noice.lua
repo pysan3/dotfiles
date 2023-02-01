@@ -6,7 +6,7 @@ end
 
 local function get_maps(mode, filter)
   if mode == nil or mode == "" then mode = "n" end
-  print(string.format("GET MAPS: mode = %s, filter = '%s'", mode, filter))
+  local result_string = { string.format("GET MAPS: mode = %s, filter = '%s'", mode, filter) }
   local keymaps = vim.list_extend(vim.api.nvim_get_keymap(mode), vim.api.nvim_buf_get_keymap(0, mode))
   local results = {
     keys = { "mode", "lhs", "type", "rhs", "desc" },
@@ -44,9 +44,14 @@ local function get_maps(mode, filter)
       end
     end
   end
-  for _, row in ipairs(results) do
-    print(table.concat(results:print_row(row), " "))
+  if #results > 1 then
+    for _, row in ipairs(results) do
+      result_string[#result_string + 1] = table.concat(results:print_row(row), " ")
+    end
+  else
+    result_string[#result_string + 1] = "None"
   end
+  print(table.concat(result_string, "\n"))
 end
 
 -- HACK: Workaround for https://github.com/folke/noice.nvim/issues/77
@@ -87,6 +92,7 @@ return {
       view_error = "notify", -- view for errors
       view_warn = "notify", -- view for warnings
       view_history = "messages", -- view for :messages
+      view_search = false,
     },
     health = { checker = false },
     lsp = {
@@ -99,7 +105,7 @@ return {
     presets = {
       bottom_search = false, -- use a classic bottom cmdline for search
       command_palette = true, -- position the cmdline and popupmenu together
-      long_message_to_split = false, -- long messages will be sent to a split
+      long_message_to_split = true, -- long messages will be sent to a split
       inc_rename = false, -- enables an input dialog for inc-rename.nvim
       lsp_doc_border = false, -- add a border to hover docs and signature help
     },

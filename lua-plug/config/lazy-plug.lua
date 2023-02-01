@@ -11,6 +11,7 @@ require("lazy").setup("plugins", {
     -- version = "*",
   },
   lockfile = vim.fn.stdpath("cache") .. "/lazy-lock.json", -- lockfile generated after running update.
+  concurrency = 5,
   dev = {
     path = "~/Git",
   },
@@ -19,6 +20,10 @@ require("lazy").setup("plugins", {
     colorscheme = { vim.g.personal_options.colorscheme },
   },
   checker = {
+    enabled = true,
+    notify = false,
+  },
+  change_detection = {
     enabled = true,
     notify = false,
   },

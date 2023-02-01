@@ -12,6 +12,16 @@ return {
   },
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
+    vim.api.nvim_create_autocmd("VimEnter", {
+      pattern = "*",
+      group = vim.api.nvim_create_augroup("NeotreeOnOpen", { clear = true }),
+      once = true,
+      callback = function(_)
+        if vim.tbl_contains(vim.fn.argv(), ".") then
+          vim.cmd("Neotree")
+        end
+      end,
+    })
   end,
   config = {
     close_if_last_window = true,
@@ -139,7 +149,7 @@ return {
         ["<cr>"] = "open",
         ["l"] = "open",
         ["s"] = "open_split",
-        ["v"] = "open_vsplit",
+        ["b"] = "open_vsplit",
         ["t"] = "open_tabnew",
         ["C"] = "close_node",
         ["h"] = "close_node",
@@ -163,7 +173,7 @@ return {
       window = {
         mappings = {
           ["H"] = "toggle_hidden",
-          ["/"] = "fuzzy_finder",
+          ["#"] = "fuzzy_finder",
           ["f"] = "filter_on_submit",
           ["<C-x>"] = "clear_filter",
           ["<bs>"] = "navigate_up",

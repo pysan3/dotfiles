@@ -37,6 +37,7 @@ alias tls='trash-list'
 alias tre='trash-restore'
 alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
 
+alias env-grep="env | grep -i"
 alias exportenv='while read -r f; do echo "${(q)f}"; done <<(env) > .env'
 alias nowrap='setterm --linewrap off'
 alias wrap='setterm --linewrap on'
@@ -79,12 +80,12 @@ alias vz="dot nvim $ZDOTDIR/.zshrc"
 alias vv="dot nvim $ZDOTDIR/.zshenv"
 alias va="dot nvim $ZDOTDIR/aliases_rc.zsh"
 alias vr="dot nvim $ZDOTDIR/rust_rc.zsh"
-alias vl="dot nvim $ZDOTDIR/local_rc.zsh"
 alias vs="dot nvim $ZDOTDIR/script_rc.zsh"
 alias vc="nvim ~/.mySecrets.env"
 alias ve="nvim .env"
-alias vh="nvim $XDG_CACHE_HOME/zsh/.zsh_history"
-alias vlocal="dot nvim $XDG_CONFIG_HOME/nvim/local.vim"
+alias vh="vim $XDG_CACHE_HOME/zsh/.zsh_history"
+alias vl="vim $ZDOTDIR/local_rc.zsh"
+alias vlocal="vim $XDG_CONFIG_HOME/nvim/local.vim"
 
 alias dc="docker-compose"
 alias rp='realpath'
@@ -119,7 +120,7 @@ function cbw () {
     echo $BW_PASSWORD | bw $*
   )
 }
-alias bwpass="jq '.login' | jq -r '.password'"
+alias bwpass="jq '.login' | jq -r '.password' | sed 's/^ *\| *$//'"
 alias here="$FE . >/dev/null 2>&1 || true"
 export NCPATH="$HOME/Nextcloud"
 

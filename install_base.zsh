@@ -203,6 +203,13 @@ fi
 # install necessary npm cli commands
 pnpm i -g clipboard-cli @bitwarden/cli
 
+# nim
+function install_nim () {
+  curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+  rehash
+}
+(false || ! command -v 'nim' &>/dev/null || ! command -v 'nimble' &>/dev/null) && install_nim
+
 # lua, luarocks
 function install_lua () {
   tmp_file=$(mktemp); LUA_INSTALL_DIR="$XDG_DATA_HOME/lua-${LOCAL_LUA_VERSION:=5.1.5}"

@@ -1,6 +1,6 @@
 local M = {
   "glepnir/lspsaga.nvim",
-  enable = vim.g.personal_options.lsp_saga.enable,
+  enabled = vim.g.personal_options.lsp_saga.enable,
   cmd = { "Lspsaga" },
   event = "BufRead",
 }
@@ -108,7 +108,7 @@ M.config = {
   },
   ui = {
     colors = {
-      normal_bg = vim.api.nvim_get_hl_by_name("Normal", {}).background,
+      normal_bg = vim.api.nvim_get_hl_by_name("Normal", true).background,
     },
   },
 }
