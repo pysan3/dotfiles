@@ -195,7 +195,7 @@ if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null; then
     export PATH="$(npm config get prefix)/bin:$PATH"
   fi
 fi
-if ! command -v 'pnpm' &>/dev/null; then
+if ! command -v 'pnpm' &>/dev/null || ! command -v 'deno' &>/dev/null; then
   npm i -g pnpm
   cargo install deno --locked
   export PATH="$PNPM_HOME:$PATH"
