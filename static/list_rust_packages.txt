@@ -1,4 +1,5 @@
 ls:exa
+exatree:exa -aFhl --color=always -RT --icons --git --git-ignore -I .git
 ps:procs
 cat:bat --paging=never
 less:bat
