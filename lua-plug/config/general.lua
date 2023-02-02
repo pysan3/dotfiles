@@ -84,9 +84,18 @@ vim.g.loaded_vimballPlugin = 1
 vim.g.loaded_zip = 1
 vim.g.loaded_zipPlugin = 1
 
--- resize splits automatically for tmux
-local wr_group = vim.api.nvim_create_augroup("WinResize", { clear = true })
-vim.api.nvim_create_autocmd(
-  "VimResized",
-  { group = wr_group, pattern = "*", command = "wincmd =", desc = "resize splits automatically for tmux" }
-)
+vim.api.nvim_create_autocmd("VimResized", {
+  desc = "Resize Splits Automatically for Tmux",
+  group = vim.api.nvim_create_augroup("WinAlignInTmux", { clear = true }),
+  pattern = "*",
+  command = "wincmd =",
+})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  desc = "Auto Format Japanese Punctuations in Latex Files",
+  group = vim.api.nvim_create_augroup("ChangePuncOnSave", { clear = true }),
+  pattern = "*.tex",
+  command = [[
+  silent! %s/、/，/g
+  silent! %s/。/．/g
+  ]],
+})
