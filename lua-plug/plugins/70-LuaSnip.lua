@@ -2,7 +2,6 @@ local M = {
   "L3MON4D3/LuaSnip",
   dependencies = {
     { "rafamadriz/friendly-snippets" },
-    { "honza/vim-snippets", rtp = "." },
     { "molleweide/LuaSnip-snippets.nvim" },
     { "gisphm/vim-gitignore" },
     { "numToStr/Comment.nvim" },
