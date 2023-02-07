@@ -173,7 +173,7 @@ return {
       window = {
         mappings = {
           ["H"] = "toggle_hidden",
-          ["#"] = "fuzzy_finder",
+          ["/"] = "noop",
           ["f"] = "filter_on_submit",
           ["<C-x>"] = "clear_filter",
           ["<bs>"] = "navigate_up",
