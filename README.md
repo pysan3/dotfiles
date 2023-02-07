@@ -12,7 +12,6 @@ This installation might cause serious changes to your workflow.
   - [./config/zsh/.zshrc](./config/zsh/.zshrc)
 - neovim
   - [./nvim](./nvim)
-  - [nvim/lua (./nlua)](./nlua)
 - alacritty
   - [./config/alacritty/alacritty.yml](./config/alacritty/alacritty.yml)
 - git
@@ -21,12 +20,12 @@ This installation might cause serious changes to your workflow.
   - [./config/latexmk/latexmkrc](./config/latexmk/latexmkrc)
 - npm
   - [./config/npm/npmrc](./config/npm/npmrc)
-- peco
-  - [./config/peco/config.json](./config/peco/config.json)
 - tmux
   - [./config/tmux/tmux.conf](./config/tmux/tmux.conf)
 - vifm
   - [./config/vifm/vifmrc](./config/vifm/vifmrc)
+- wezterm
+  - [./config/wezterm/wezterm.lua](./config/wezterm/wezterm.lua)
 - wget
   - [./config/wgetrc](./config/wgetrc)
 
