@@ -1,24 +1,4 @@
 *.zwc
 
-nvim/*
-!nvim/after
-!nvim/autoload
-nvim/autoload/plugged
-!nvim/general
-!nvim/keys
-!nvim/myplug
-!nvim/plug-config
-!nvim/themes
-!nvim/spell
-!nvim/vim-plug
-!nvim/coc-settings.json
-!nvim/*.vim
-!nvim/*.lua
-!nvim/syntax
-!nvim/snippets
-!nvim/UltiSnips
-
-!nvim.bak/
-
 !lynx.cfg
 !static/lynx/*.log

@@ -1,0 +1,11 @@
+/*
+!/.gitignore
+
+!/after
+!/general
+!/keys
+!/lua
+!/snippets
+!/spell
+
+!/*.lua

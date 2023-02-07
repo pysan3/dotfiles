@@ -75,8 +75,6 @@ function link_nvim () {
   fi
 }
 link_nvim "$DOTFILES/nvim" "$XDG_CONFIG_HOME/nvim" "nvim config files"
-[ -f "$XDG_CONFIG_HOME/nvim/lua" -o -d "$XDG_CONFIG_HOME/nvim/lua" ] && rm -rf "$XDG_CONFIG_HOME/nvim/lua"
-link_nvim "$DOTFILES/lua-plug" "$XDG_CONFIG_HOME/nvim/lua" "nvim lua config files"
 
 # install files in ./static/
 if [ ! -f "$HOME/texmf/tex/latex/local/pdfpc-commands.sty" ]; then
