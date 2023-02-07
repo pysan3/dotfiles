@@ -22,12 +22,13 @@ M.keys = {
   -- Code Action
   lsp_map("c", "code_action"),
   -- show hover doc
-  lsp_map("K", vim.lsp.buf.hover, true, true),
-  -- lsp_map("K", "hover_doc", true),
+  lsp_map("K", "hover_doc", true),
+  -- overwrite gd
+  lsp_map("gd", "goto_definition", true),
   -- Outline
   lsp_map("o", "outline"),
   -- rename
-  lsp_map("r", "rename"),
+  lsp_map("r", "rename ++project"),
   -- preview definition
   lsp_map("k", "peek_definition"),
   -- diagnostic
@@ -39,20 +40,21 @@ M.keys = {
 
 M.config = {
   preview = {
-    lines_above = 4,
+    lines_above = 20,
     lines_below = 20,
-  },
-  scroll_preview = {
-    scroll_down = "<C-f>",
-    scroll_up = "<C-b>",
   },
   request_timeout = 5000,
   finder = {
-    edit = { "o", "<CR>" },
-    vsplit = "s",
-    split = "i",
-    tabe = "t",
-    quit = { "q", "<Esc>" },
+    max_height = 0.9,
+    keys = {
+      jump_to = 'p',
+      edit = { 'e', '<CR>' },
+      vsplit = 'v',
+      split = 's',
+      tabe = 't',
+      quit = { 'q', '<ESC>' },
+      close_in_preview = '<ESC>'
+    },
   },
   lightbulb = {
     enable = true,
