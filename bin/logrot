@@ -18,4 +18,4 @@ LOGROT_FILE_PATH="${1:-$LOGROT_FILE_PATH}"
 LOGROT_FILE_SIZE="${2:-$LOGROT_FILE_SIZE}"
 LOGROT_FILE_NUMBER="${3:-$LOGROT_FILE_NUMBER}"
 
-log_rotate --file_path "$LOGROT_FILE_PATH" --file_size "$LOGROT_FILE_SIZE" --file_number "$LOGROT_FILE_NUMBER"
+ulog_rotate --file_path "$LOGROT_FILE_PATH" --file_size "$LOGROT_FILE_SIZE" --file_number "$LOGROT_FILE_NUMBER"

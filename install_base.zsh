@@ -270,16 +270,16 @@ function install_fzf () {
 }
 (false || ! command -v 'fzf' &>/dev/null) && install_fzf
 
-# install log_rotate
+# install ulog / logrotate
 function install_log_rotate () {
-  update_git_repo "$XDG_DATA_HOME/log_rotate" https://github.com/ShawnFeng0/log_rotate.git
-  mkdir -p "$XDG_DATA_HOME/log_rotate/build" && cd "$_" \
+  update_git_repo "$XDG_DATA_HOME/ulog" https://github.com/shawnfeng0/ulog.git
+  mkdir -p "$XDG_DATA_HOME/ulog/build" && cd "$_" \
     && cmake .. && make \
-    && ln -sf "$XDG_DATA_HOME/log_rotate/build/log_rotate" "$XDG_BIN_HOME" \
-    && info 'log_rotate setup done' || err_exit 'log_rotate setup failed'
+    && ln -sf "$XDG_DATA_HOME/ulog/build/tools/logrotate/logrotate" "$XDG_BIN_HOME/ulog_rotate" \
+    && info 'ulog_rotate setup done' || err_exit 'ulog_rotate setup failed'
   cd "$current_dir"
 }
-command -v 'log_rotate' &>/dev/null && info 'log_rotate found' || install_log_rotate
+command -v 'ulog_rotate' &>/dev/null && info 'ulog_rotate found' || install_log_rotate
 
 # install lynx from source
 command -v 'lynx' &>/dev/null && info 'lynx found' || warning 'lynx not found.'
