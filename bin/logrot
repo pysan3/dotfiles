@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-if ! command -v "log_rotate" &>/dev/null; then
+if ! command -v "ulog_rotate" &>/dev/null; then
   source "$DOTFILES/functions.zsh"
-  error 'Command `log_rotate` not found.'
+  error 'Command `ulog_rotate` not found.'
   exit
 fi
 
@@ -18,4 +18,4 @@ LOGROT_FILE_PATH="${1:-$LOGROT_FILE_PATH}"
 LOGROT_FILE_SIZE="${2:-$LOGROT_FILE_SIZE}"
 LOGROT_FILE_NUMBER="${3:-$LOGROT_FILE_NUMBER}"
 
-log_rotate --file_path "$LOGROT_FILE_PATH" --file_size "$LOGROT_FILE_SIZE" --file_number "$LOGROT_FILE_NUMBER"
+ulog_rotate --file-path "$LOGROT_FILE_PATH" --file-size "$LOGROT_FILE_SIZE" --file-number "$LOGROT_FILE_NUMBER"
