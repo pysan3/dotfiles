@@ -83,17 +83,28 @@ nnoremap zg zg]s
 nnoremap zl 1z=]s
 
 " add line within normal mode
-nnoremap <Leader>o o<Esc>
-nnoremap <Leader>O O<Esc>
+nnoremap go o<Esc>
+nnoremap gO O<Esc>
 
 " Easy interaction with the clipboard
 xnoremap <silent> y y`]
+xnoremap <silent> Y Y`]
 xnoremap <silent> p p`]
 nnoremap <silent> P P`]
 noremap gV `[v`]
-noremap <Leader>y "+y
-noremap <Leader>p "+p
-noremap <Leader>P "+P
+noremap gy "+y
+noremap gY "+Y
+noremap gp "+p
+noremap gP "+P
+
+" tmux like movement of windows / tabs
+nnoremap <Leader><C-b> :silent! vs<CR>
+nnoremap <Leader><C-v> :silent! sp<CR>
+nnoremap <Leader><C-t> :tabe<CR>
+nnoremap <Leader>t :terminal<CR>A
+nnoremap <Leader><C-x> <C-w>o
+nnoremap <Leader>; gt
+nnoremap <Leader>, gT
 
 " Do not update the register
 noremap x "_x
