@@ -34,6 +34,8 @@ snippet tdev snippet to add torch device
 	device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 snippet none snippet to insert None
 	None
+snippet enter wait input from user
+	input("Press ${1:ENTER} to continue")
 snippet nopl disable pylint for current line
 	# pylint: disable-all
 snippet notp disable pyright type-check for current line
