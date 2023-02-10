@@ -14,5 +14,5 @@ return {
     vim.g.startify_fortune_use_unicode = 1
     vim.g.startify_session_persistence = 0
     vim.g.startify_enable_special = 0
-  end
+  end,
 }

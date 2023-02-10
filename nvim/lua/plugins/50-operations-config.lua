@@ -22,5 +22,5 @@ return {
       { "g<C-a>", "g<Plug>(dial-increment)", mode = "v", remap = true, desc = "g<Plug>(dial-increment)" },
       { "g<C-x>", "g<Plug>(dial-decrement)", mode = "v", remap = true, desc = "g<Plug>(dial-decrement)" },
     },
-  }
+  },
 }

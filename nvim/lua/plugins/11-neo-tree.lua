@@ -193,11 +193,13 @@ return {
           local path = state.tree:get_node().path
           local msg = "Are you sure you want to delete " .. path
           inputs.confirm(msg, function(confirmed)
-            if not confirmed then return end
+            if not confirmed then
+              return
+            end
             vim.fn.system({ "trash-put", vim.fn.fnameescape(path) })
             require("neo-tree.sources.manager").refresh(state.name)
           end)
-        end
+        end,
       },
       bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root
       filtered_items = {
@@ -246,5 +248,5 @@ return {
         end,
       },
     },
-  }
+  },
 }

@@ -10,7 +10,7 @@ return {
   "TimUntersberger/neogit",
   dependencies = {
     { "sindrets/diffview.nvim" },
-    { "rhysd/conflict-marker.vim" }
+    { "rhysd/conflict-marker.vim" },
   },
   keys = {
     neogit_map("s", "kind=split"),
@@ -62,5 +62,5 @@ return {
         ["B"] = "BranchPopup",
       },
     },
-  }
+  },
 }

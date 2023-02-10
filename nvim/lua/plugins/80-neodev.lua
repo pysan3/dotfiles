@@ -5,6 +5,6 @@ return {
       if root_dir:find("dotfiles") then
         options.enabled = true
       end
-    end
+    end,
   },
 }

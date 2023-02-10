@@ -32,7 +32,7 @@ M.init = function()
     vim.api.nvim_create_autocmd("BufEnter", {
       pattern = "github.com_*.txt",
       group = firenvim_aug,
-      command = "set filetype=markdown"
+      command = "set filetype=markdown",
     })
   end
 end

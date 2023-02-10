@@ -18,6 +18,6 @@ return {
   {
     "heavenshell/vim-jsdoc",
     build = "make install",
-    ft = { "javascript", "javascript.jsx", "typescript" }
+    ft = { "javascript", "javascript.jsx", "typescript" },
   },
 }

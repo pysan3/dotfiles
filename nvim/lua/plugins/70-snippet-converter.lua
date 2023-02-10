@@ -22,7 +22,6 @@ M.snippet_info = {
   },
 }
 
-
 M.config = function()
   require("snippet_converter").setup({
     templates = { M.snippet_info },

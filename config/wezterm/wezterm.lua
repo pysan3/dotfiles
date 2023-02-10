@@ -22,13 +22,13 @@ local keys = {
   { key = "=", mods = "SHIFT|CTRL", action = act.IncreaseFontSize },
 
   -- Clipboard
-  { key = "c", mods = "SHIFT|CTRL", action = act.CopyTo "Clipboard" },
-  { key = "v", mods = "SHIFT|CTRL", action = act.PasteFrom "Clipboard" },
+  { key = "c", mods = "SHIFT|CTRL", action = act.CopyTo("Clipboard") },
+  { key = "v", mods = "SHIFT|CTRL", action = act.PasteFrom("Clipboard") },
   { key = "phys:Space", mods = "SHIFT|CTRL", action = act.QuickSelect },
 
   -- Tabs
-  { key = "T", mods = "SHIFT|CTRL", action = act.SpawnTab "CurrentPaneDomain" },
-  { key = "W", mods = "SHIFT|CTRL", action = act.CloseCurrentTab { confirm = true } },
+  { key = "T", mods = "SHIFT|CTRL", action = act.SpawnTab("CurrentPaneDomain") },
+  { key = "W", mods = "SHIFT|CTRL", action = act.CloseCurrentTab({ confirm = true }) },
   { key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) },
   { key = "Tab", mods = "SHIFT|CTRL", action = act.ActivateTabRelative(-1) },
   { key = "1", mods = "ALT|CTRL", action = act.ActivateTab(0) },
@@ -52,7 +52,8 @@ local keys = {
 
   -- open url
   {
-    key = "o", mods = "SHIFT|CTRL",
+    key = "o",
+    mods = "SHIFT|CTRL",
     action = wezterm.action.QuickSelectArgs({
       label = "Open URL",
       patterns = { -- NOTE: rust regex
@@ -60,10 +61,10 @@ local keys = {
       },
       action = wezterm.action_callback(function(window, pane)
         local url = window:get_selection_text_for_pane(pane)
-        wezterm.log_info('opening: ' .. url)
+        wezterm.log_info("opening: " .. url)
         wezterm.open_with(url)
-      end)
-    })
+      end),
+    }),
   },
 }
 
@@ -71,7 +72,6 @@ return {
   -- Fonts
   font = wezterm.font("PlemolJP Console NF"),
   font_size = 12,
-
   -- Settings
   scrollback_lines = 10000,
   enable_tab_bar = false,
@@ -81,7 +81,6 @@ return {
   adjust_window_size_when_changing_font_size = true,
   allow_square_glyphs_to_overflow_width = "WhenFollowedBySpace",
   check_for_updates = false,
-
   keys = keys,
   disable_default_key_bindings = true,
   color_scheme = colorschemes[1],

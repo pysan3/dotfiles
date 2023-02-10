@@ -13,5 +13,5 @@ return {
     force_autosave = true,
     sessionfile_name = ".vim/session.vim",
     warn_on_setup = false,
-  }
+  },
 }

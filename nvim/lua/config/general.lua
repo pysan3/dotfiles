@@ -20,7 +20,6 @@ vim.g.personal_options = {
   },
 }
 
-
 local function merge_table(a)
   return function(t)
     return vim.g.personal_module.add_table_string(t, a)

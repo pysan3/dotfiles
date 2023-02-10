@@ -36,7 +36,7 @@ return {
           { "macro-recording", fmt = show_macro_recording },
           "encoding",
           "fileformat",
-          "filetype"
+          "filetype",
         },
         lualine_y = { "progress" },
         lualine_z = { "location" },
@@ -64,14 +64,14 @@ return {
     vim.api.nvim_create_autocmd("RecordingLeave", {
       callback = function()
         local timer = vim.loop.new_timer()
-        timer:start(50, 0,
+        timer:start(
+          50,
+          0,
           vim.schedule_wrap(function()
-            require("lualine").refresh({
-              place = { "statusline" },
-            })
+            require("lualine").refresh({ place = { "statusline" } })
           end)
         )
       end,
     })
-  end
+  end,
 }

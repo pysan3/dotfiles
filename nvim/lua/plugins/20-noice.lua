@@ -5,7 +5,9 @@ local function lhs_lower(lhs)
 end
 
 local function get_maps(mode, filter)
-  if mode == nil or mode == "" then mode = "n" end
+  if mode == nil or mode == "" then
+    mode = "n"
+  end
   local result_string = { string.format("GET MAPS: mode = %s, filter = '%s'", mode, filter) }
   local keymaps = vim.list_extend(vim.api.nvim_get_keymap(mode), vim.api.nvim_buf_get_keymap(0, mode))
   local results = {
@@ -31,13 +33,12 @@ local function get_maps(mode, filter)
 
   for _, map in ipairs(keymaps) do
     local lhs = lhs_lower(map.lhs)
-    if filter == nil or type(map.lhs) ~= "string" or
-        string.match(lhs, lhs_lower(filter)) then
+    if filter == nil or type(map.lhs) ~= "string" or string.match(lhs, lhs_lower(filter)) then
       local maptype, rhs, desc = "vim", vim.inspect(map.rhs), map.desc or ""
       if map.callback ~= nil then
         maptype = "lua"
         rhs = require("telescope.actions.utils")._get_anon_function_name(map.callback)
-            :gsub("<anonymous>", "LUA: " .. desc)
+        rhs = string.gsub(rhs, "<anonymous>", "LUA: " .. desc)
       end
       if not string.match(lhs, "<plug>") then
         results:add_row({ mode, lhs, maptype, rhs, desc })
@@ -129,5 +130,5 @@ return {
         close = { keys = { "q", "<CR>", "<Esc>" } },
       },
     },
-  }
+  },
 }

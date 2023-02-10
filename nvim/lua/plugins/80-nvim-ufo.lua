@@ -7,7 +7,7 @@ return {
   },
   config = {
     provider_selector = function(_, _, _)
-      return { 'treesitter', 'indent' }
-    end
+      return { "treesitter", "indent" }
+    end,
   },
 }

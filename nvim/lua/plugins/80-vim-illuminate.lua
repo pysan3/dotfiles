@@ -7,22 +7,30 @@ local M = {
 }
 
 M.keys = {
-  { "]]", function()
-    require("illuminate").goto_next_reference(false)
-  end, desc = "Next Reference", },
-  { "[[", function()
-    require("illuminate").goto_prev_reference(false)
-  end, desc = "Prev Reference", },
+  {
+    "]]",
+    function()
+      require("illuminate").goto_next_reference(false)
+    end,
+    desc = "Next Reference",
+  },
+  {
+    "[[",
+    function()
+      require("illuminate").goto_prev_reference(false)
+    end,
+    desc = "Prev Reference",
+  },
 }
 
 M.config = function()
-  require('illuminate').configure({
-    providers = { 'lsp', 'treesitter', 'regex' },
+  require("illuminate").configure({
+    providers = { "lsp", "treesitter", "regex" },
     delay = 100,
     filetype_overrides = {},
     filetypes_denylist = {
-      'dirvish',
-      'fugitive',
+      "dirvish",
+      "fugitive",
     },
   })
   vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = "#2C313C" })

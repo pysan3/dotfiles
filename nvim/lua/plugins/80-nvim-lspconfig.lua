@@ -3,11 +3,15 @@ local M = {
   event = "BufReadPre",
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
-    { "andrewferrier/textobj-diagnostic.nvim", config = {}, keys = {
-      { "ig", mode = { "o", "v" }, desc = "Textobj diagnostic: next_diag_inclusive" },
-      { "]g", mode = { "o", "v" }, desc = "Textobj diagnostic: next_diag" },
-      { "[g", mode = { "o", "v" }, desc = "Textobj diagnostic: prev_diag" },
-    } },
+    {
+      "andrewferrier/textobj-diagnostic.nvim",
+      config = {},
+      keys = {
+        { "ig", mode = { "o", "v" }, desc = "Textobj diagnostic: next_diag_inclusive" },
+        { "]g", mode = { "o", "v" }, desc = "Textobj diagnostic: next_diag" },
+        { "[g", mode = { "o", "v" }, desc = "Textobj diagnostic: prev_diag" },
+      },
+    },
     { "folke/neodev.nvim" }, -- sumneko_lua extension for nvim development
     { "williamboman/mason-lspconfig.nvim" },
   },

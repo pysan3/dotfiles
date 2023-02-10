@@ -15,7 +15,7 @@ return {
         css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
         mode = "background", -- Available modes for `mode`: foreground, background,  virtualtext
         tailwind = true, -- Enable tailwind colors
-        sass = { enable = true, parsers = { "css" }, }, -- Enable sass colors
+        sass = { enable = true, parsers = { "css" } }, -- Enable sass colors
       },
     })
     require("colorizer").attach_to_buffer(0, { mode = "background", css = true })

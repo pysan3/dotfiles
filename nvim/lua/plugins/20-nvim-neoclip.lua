@@ -5,7 +5,7 @@ local function extensions(name, opt)
     telescope.load_extension("neoclip")
     vim.notify("Press name of register.")
     local key = string.char(vim.fn.getchar())
-    if string.match(key, '[%w]') then
+    if string.match(key, "[%w]") then
       return telescope.extensions[name][key](opt or {})
     elseif string.match(key, '["+*]') then
       local lot = { ['"'] = "unnamed", ["+"] = "plus", ["*"] = "star" }
@@ -19,18 +19,23 @@ end
 return {
   "AckslD/nvim-neoclip.lua",
   dependencies = {
-    { 'nvim-telescope/telescope.nvim' },
+    { "nvim-telescope/telescope.nvim" },
     { "tami5/sqlite.lua" },
   },
   event = { "VeryLazy" },
   keys = {
     { vim.g.personal_options.prefix.telescope .. "g", extensions("neoclip"), desc = "Neoclip reg" },
     { vim.g.personal_options.prefix.telescope .. "q", extensions("macroscope"), desc = "Neoclip macro" },
-    { "<C-y>", function()
-      vim.cmd("stopinsert")
-      extensions("neoclip")()
-      vim.cmd("startinsert")
-    end, mode = "i", desc = "Neoclip reg <i>" },
+    {
+      "<C-y>",
+      function()
+        vim.cmd("stopinsert")
+        extensions("neoclip")()
+        vim.cmd("startinsert")
+      end,
+      mode = "i",
+      desc = "Neoclip reg <i>",
+    },
   },
   config = {
     history = 1000,

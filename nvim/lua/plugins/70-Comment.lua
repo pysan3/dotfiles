@@ -101,8 +101,13 @@ local M = {
   keys = {
     { "gcc", nil, mode = "n", desc = "Comment: toggle" },
     { "gc", nil, mode = "v", desc = "Comment: toggle visual" },
-    { "gC", "<Cmd>set operatorfunc=v:lua.__flip_flop_comment<CR>g@", mode = { "n", "x" }, silent = true,
-      desc = "Invert comments" },
+    {
+      "gC",
+      "<Cmd>set operatorfunc=v:lua.__flip_flop_comment<CR>g@",
+      mode = { "n", "x" },
+      silent = true,
+      desc = "Invert comments",
+    },
     { "gc", commented_lines_textobject, mode = "o", silent = true, desc = "textobj for adjacent comments" },
     { "u", commented_lines_textobject, mode = "o", silent = true, desc = "textobj for adjacent comments" },
   },

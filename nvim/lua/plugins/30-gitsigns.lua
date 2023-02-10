@@ -17,7 +17,7 @@ local function move_hunk(key, dir)
       return "<Ignore>"
     end,
     expr = true,
-    desc = "Gitsigns: " .. dir
+    desc = "Gitsigns: " .. dir,
   })
 end
 
@@ -36,12 +36,20 @@ return {
     map({ vim.g.personal_options.prefix.gitsigns .. "R", "<Cmd>Gitsigns reset_buffer<CR>" }),
     map({ vim.g.personal_options.prefix.gitsigns .. "v", "<Cmd>Gitsigns preview_hunk<CR>" }),
     map({ vim.g.personal_options.prefix.gitsigns .. "d", "<Cmd>Gitsigns diffthis<CR>" }),
-    map({ vim.g.personal_options.prefix.gitsigns .. "D", function()
-      require("gitsigns").diffthis("~")
-    end, desc = "Gitsigns: diffthis('~')" }),
-    map({ vim.g.personal_options.prefix.gitsigns .. "b", function()
-      require("gitsigns").blame_line({ full = true })
-    end, desc = "Gitsigns: blame_line({ full = true })" }),
+    map({
+      vim.g.personal_options.prefix.gitsigns .. "D",
+      function()
+        require("gitsigns").diffthis("~")
+      end,
+      desc = "Gitsigns: diffthis('~')",
+    }),
+    map({
+      vim.g.personal_options.prefix.gitsigns .. "b",
+      function()
+        require("gitsigns").blame_line({ full = true })
+      end,
+      desc = "Gitsigns: blame_line({ full = true })",
+    }),
     map({ "ih", "<Cmd><C-u>Gitsigns select_hunk<CR>", mode = { "o", "x" } }),
   },
   init = function()
@@ -87,5 +95,5 @@ return {
     yadm = {
       enable = false,
     },
-  }
+  },
 }

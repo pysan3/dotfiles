@@ -22,9 +22,15 @@ return {
     "nixon/vim-vmath",
     keys = {
       { "++", "vip++", remap = true, desc = "Vim-vmath: inner paragraph VMATH_YankAndAnalyse" },
-      { "++", function()
-        vim.api.nvim_call_function("VMATH_YankAndAnalyse", {})
-      end, mode = "x", expr = true, desc = "Vim-vmath: VMATH_YankAndAnalyse" },
+      {
+        "++",
+        function()
+          vim.api.nvim_call_function("VMATH_YankAndAnalyse", {})
+        end,
+        mode = "x",
+        expr = true,
+        desc = "Vim-vmath: VMATH_YankAndAnalyse",
+      },
     },
   },
   {

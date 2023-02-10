@@ -47,13 +47,13 @@ M.config = {
   finder = {
     max_height = 0.9,
     keys = {
-      jump_to = 'p',
-      edit = { 'e', '<CR>' },
-      vsplit = 'v',
-      split = 's',
-      tabe = 't',
-      quit = { 'q', '<ESC>' },
-      close_in_preview = '<ESC>'
+      jump_to = "p",
+      edit = { "e", "<CR>" },
+      vsplit = "v",
+      split = "s",
+      tabe = "t",
+      quit = { "q", "<ESC>" },
+      close_in_preview = "<ESC>",
     },
   },
   lightbulb = {
@@ -66,8 +66,8 @@ M.config = {
   code_action = {
     num_shortcut = true,
     keys = {
-      quit = 'q',
-      exec = '<CR>',
+      quit = "q",
+      exec = "<CR>",
     },
   },
   symbol_in_winbar = {
@@ -91,8 +91,8 @@ M.config = {
     end,
   },
   outline = {
-    win_position = 'right',
-    win_with = '',
+    win_position = "right",
+    win_with = "",
     win_width = 40,
     show_detail = true,
     auto_preview = true,
@@ -100,9 +100,9 @@ M.config = {
     auto_close = true,
     custom_sort = nil,
     keys = {
-      jump = 'o',
-      expand_collaspe = 'u',
-      quit = 'q',
+      jump = "o",
+      expand_collaspe = "u",
+      quit = "q",
     },
   },
   callhierarchy = {

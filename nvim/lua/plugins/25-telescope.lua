@@ -77,7 +77,7 @@ M.config = function()
           ["<CR>"] = stopinsert(actions.select_default),
           ["<C-x>"] = stopinsert(actions.select_horizontal),
           ["<C-v>"] = stopinsert(actions.select_vertical),
-          ["<C-t>"] = stopinsert(actions.select_tab)
+          ["<C-t>"] = stopinsert(actions.select_tab),
         },
       },
       cache_picker = { num_pickers = 3 }, -- default 1
