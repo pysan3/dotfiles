@@ -62,6 +62,7 @@ local ts_packages = {
   -- "m68k",
   "make",
   "markdown",
+  "markdown_inline",
   -- "ninja",
   -- "nix",
   -- "norg",
