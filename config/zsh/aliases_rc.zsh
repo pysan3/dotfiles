@@ -102,13 +102,16 @@ alias ytaudio='yt --extract-audio --audio-format mp3 --audio-quality 0 --write-t
 alias op='xdg-open'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
-function act() {
-  [ -z "$TMUX" ] && return 0
+function act!() {
   [ -f 'bin/activate' ] && source bin/activate
   [ -f '.venv/bin/activate' ] && source .venv/bin/activate
   [ -f 'environment.yml' ] && conda activate $(cat environment.yml | grep name: | head -n 1 | cut -f 2 -d ':')
   [ -f 'environment.yaml' ] && conda activate $(cat environment.yaml | grep name: | head -n 1 | cut -f 2 -d ':')
   return 0
+}
+function act() {
+  [ -z "$TMUX" ] && return 0
+  act!
 }
 act
 
