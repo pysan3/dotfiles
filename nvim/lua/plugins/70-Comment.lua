@@ -101,6 +101,7 @@ local M = {
   keys = {
     { "gcc", nil, mode = "n", desc = "Comment: toggle" },
     { "gc", nil, mode = "v", desc = "Comment: toggle visual" },
+    { "gcb", "yyPgccj", mode = "n", desc = "Comment: create backup", remap = true, silent = true },
     {
       "gC",
       "<Cmd>set operatorfunc=v:lua.__flip_flop_comment<CR>g@",
@@ -129,7 +130,8 @@ M.config = function()
         elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
           location = require("ts_context_commentstring.utils").get_visual_start_location()
         end
-        return require("ts_context_commentstring.internal").calculate_commentstring({ ---@diagnostic disable-line
+        return require("ts_context_commentstring.internal").calculate_commentstring({
+          ---@diagnostic disable-line
           key = ctx.ctype == U.ctype.linewise and "__default" or "__multiline",
           location = location,
         })
