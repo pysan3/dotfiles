@@ -12,7 +12,7 @@ local M = {
         { "[g", mode = { "o", "v" }, desc = "Textobj diagnostic: prev_diag" },
       },
     },
-    { "folke/neodev.nvim" }, -- sumneko_lua extension for nvim development
+    { "folke/neodev.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
   },
 }
@@ -75,7 +75,7 @@ local servers = {
   -- ltex = {}, -- LaTeX
   texlab = {}, -- LaTeX
   -- lelwel_ls = {}, -- Lelwel
-  sumneko_lua = {}, -- Lua
+  lua_ls = {},
   -- remark_ls = {}, -- Markdown
   -- zeta_note = {}, -- Markdown
   -- zk = {}, -- Markdown

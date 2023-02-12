@@ -1,5 +1,5 @@
 return {
-  "folke/neodev.nvim", -- sumneko_lua extension for nvim development
+  "folke/neodev.nvim",
   config = {
     override = function(root_dir, options)
       if root_dir:find("dotfiles") then
