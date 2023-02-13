@@ -92,6 +92,11 @@ function _G.__flip_flop_comment()
   vim.o.operatorfunc = "v:lua.__flip_flop_comment" -- make it dot-repeatable
 end
 
+local function silent(t)
+  t.silent = true
+  return t
+end
+
 local M = {
   "numToStr/Comment.nvim",
   dependencies = {
@@ -99,18 +104,17 @@ local M = {
     "JoosepAlviste/nvim-ts-context-commentstring",
   },
   keys = {
-    { "gcc", nil, mode = "n", desc = "Comment: toggle" },
-    { "gc", nil, mode = "v", desc = "Comment: toggle visual" },
-    { "gcb", "yyPgccj", mode = "n", desc = "Comment: create backup", remap = true, silent = true },
-    {
+    silent({ "gcc", nil, mode = "n", desc = "Comment: toggle" }),
+    silent({ "gc", nil, mode = "v", desc = "Comment: toggle visual" }),
+    silent({ "gcb", "yyPgccj", mode = "n", desc = "Comment: create backup", remap = true }),
+    silent({
       "gC",
       "<Cmd>set operatorfunc=v:lua.__flip_flop_comment<CR>g@",
       mode = { "n", "x" },
-      silent = true,
       desc = "Invert comments",
-    },
-    { "gc", commented_lines_textobject, mode = "o", silent = true, desc = "textobj for adjacent comments" },
-    { "u", commented_lines_textobject, mode = "o", silent = true, desc = "textobj for adjacent comments" },
+    }),
+    silent({ "gc", commented_lines_textobject, mode = "o", desc = "toggle adjacent comments" }),
+    silent({ "u", commented_lines_textobject, mode = "o", desc = "toggle for adjacent comments" }),
   },
 }
 
