@@ -275,7 +275,7 @@ function install_getoptions () {
   wget https://github.com/ko1nksm/getoptions/releases/latest/download/getoptions -O $XDG_BIN_HOME/getoptions
   chmod +x $XDG_BIN_HOME/getoptions
 }
-(false || ! command -v 'getoptions' &>/dev/null) && install_getoptions)
+(false || ! command -v 'getoptions' &>/dev/null) && install_getoptions
 
 # install ulog / logrotate
 function install_log_rotate () {
