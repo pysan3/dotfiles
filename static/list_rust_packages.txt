@@ -1,5 +1,6 @@
 ls:exa
-exatree:exa -aFhl --color=always -RT --icons --git --git-ignore -I .git
+exat:exa -aFhl --color=always -RT --icons --git --git-ignore -I .git
+exal:exa -lFG --icons --git --group-directories-first --no-permissions --no-filesize --no-user --no-time
 ps:procs
 cat:bat --paging=never
 less:bat
