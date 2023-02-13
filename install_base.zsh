@@ -270,6 +270,13 @@ function install_fzf () {
 }
 (false || ! command -v 'fzf' &>/dev/null) && install_fzf
 
+# install getoptions
+function install_getoptions () {
+  wget https://github.com/ko1nksm/getoptions/releases/latest/download/getoptions -O $XDG_BIN_HOME/getoptions
+  chmod +x $XDG_BIN_HOME/getoptions
+}
+(false || ! command -v 'getoptions' &>/dev/null) && install_getoptions)
+
 # install ulog / logrotate
 function install_log_rotate () {
   update_git_repo "$XDG_DATA_HOME/ulog" https://github.com/shawnfeng0/ulog.git
