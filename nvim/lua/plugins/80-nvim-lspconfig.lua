@@ -99,7 +99,7 @@ local servers = {
   --   settings = {
   --     pylsp = {
   --       plugins = {
-  --         pycodestyle = { maxLineLength = 120 },
+  --         pycodestyle = { maxLineLength = 100 },
   --         pyflakes = { enabled = false },
   --       },
   --     },
@@ -167,8 +167,8 @@ M.config = function()
     end,
   }
   for server_name, server_opt in pairs(servers) do
-    local is_opt, file_opt = pcall(require, "lsp-config.settings." .. server_name)
-    local opts = vim.tbl_deep_extend("force", global_opts, is_opt and file_opt or {}, server_opt or {})
+    local f_ok, f_opt = pcall(require, "lsp-config.settings." .. server_name)
+    local opts = vim.tbl_deep_extend("force", global_opts, f_ok and f_opt or {}, server_opt or {})
     lspconfig[server_name].setup(opts)
   end
 end
