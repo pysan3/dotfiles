@@ -5,7 +5,7 @@ return {
     "folke/noice.nvim",
   },
   event = { "InsertEnter", "VeryLazy" },
-  config = {
+  opts = {
     bind = true,
     noice = true,
     max_height = 5,

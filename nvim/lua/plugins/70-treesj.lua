@@ -5,7 +5,7 @@ return {
     { "<Leader>m,", "<Cmd>TSJToggle<CR>", noremap = true, desc = "<Cmd>TSJToggle<CR>" },
   },
   cmd = { "TSJToggle" },
-  config = {
+  opts = {
     use_default_keymaps = false,
   },
 }

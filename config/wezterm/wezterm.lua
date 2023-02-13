@@ -10,7 +10,6 @@ local colorschemes = {
 
 local keys = {
   -- Full Screen
-  { key = "Enter", mods = "ALT", action = act.ToggleFullScreen },
   { key = "F11", mods = "NONE", action = act.ToggleFullScreen },
 
   -- Modify font size

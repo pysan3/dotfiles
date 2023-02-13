@@ -11,7 +11,7 @@ return {
       desc = "Maximize: toggle",
     },
   },
-  config = {
+  opts = {
     default_keymaps = false,
   },
 }

@@ -18,7 +18,7 @@ return {
     { "<Leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", silent = true, remap = false },
     { "<Leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", silent = true, remap = false },
   },
-  config = {
+  opts = {
     options = {
       close_command = "bd %d",
       right_mouse_command = "bd %d",

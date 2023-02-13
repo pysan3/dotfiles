@@ -9,7 +9,7 @@ return {
       desc = "CodeWindow toggle_minimap()",
     },
   },
-  config = {
+  opts = {
     auto_enable = false,
   },
 }

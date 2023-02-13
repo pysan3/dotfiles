@@ -10,7 +10,7 @@ return {
     { "<C-l>", [[<C-\><C-n><C-W>l]], noremap = true, mode = "t" },
     { [[<C-\>]], "<Cmd>ToggleTerm<CR>", desc = "<Cmd>ToggleTerm<CR>" },
   },
-  config = {
+  opts = {
     size = 12,
     open_mapping = [[<C-\>]],
     hide_numbers = true,

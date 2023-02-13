@@ -37,7 +37,7 @@ return {
       desc = "Neoclip reg <i>",
     },
   },
-  config = {
+  opts = {
     history = 1000,
     preview = true,
     content_spec_column = true,

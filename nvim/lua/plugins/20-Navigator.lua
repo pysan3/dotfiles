@@ -18,5 +18,5 @@ return {
     navigator_keymap("<A-j>", "down"),
     navigator_keymap("<A-p>", "previous"),
   },
-  config = {},
+  opts = {},
 }

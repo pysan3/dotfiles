@@ -4,12 +4,12 @@ local function lhs_lower(lhs)
   )
 end
 
-local function get_maps(mode, filter)
-  if mode == nil or mode == "" then
-    mode = "n"
+local function get_maps(m, filter)
+  if m == nil or m == "" then
+    m = "n"
   end
-  local result_string = { string.format("GET MAPS: mode = %s, filter = '%s'", mode, filter) }
-  local keymaps = vim.list_extend(vim.api.nvim_get_keymap(mode), vim.api.nvim_buf_get_keymap(0, mode))
+  local result_string = { string.format("GET MAPS: mode = %s, filter = '%s'", m, filter) }
+  local keymaps = vim.list_extend(vim.api.nvim_get_keymap(m), vim.api.nvim_buf_get_keymap(0, m))
   local results = {
     keys = { "mode", "lhs", "type", "rhs", "desc" },
     format = { "%s", "'%s'", "%s", "%s", "%s" },
@@ -41,7 +41,7 @@ local function get_maps(mode, filter)
         rhs = string.gsub(rhs, "<anonymous>", "LUA: " .. desc)
       end
       if not string.match(lhs, "<plug>") then
-        results:add_row({ mode, lhs, maptype, rhs, desc })
+        results:add_row({ m, lhs, maptype, rhs, desc })
       end
     end
   end
@@ -86,7 +86,7 @@ return {
   keys = {
     { "<Leader>n", "<Cmd>Noice history<CR>", silent = true },
   },
-  config = {
+  opts = {
     messages = {
       enabled = true,
       view = "notify", -- default view for messages

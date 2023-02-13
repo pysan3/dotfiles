@@ -28,7 +28,8 @@ M.keys = {
   -- Outline
   lsp_map("o", "outline"),
   -- rename
-  lsp_map("r", "rename ++project"),
+  lsp_map("r", "rename"),
+  lsp_map("R", "rename ++project"),
   -- preview definition
   lsp_map("k", "peek_definition"),
   -- diagnostic
@@ -38,7 +39,7 @@ M.keys = {
   lsp_map("]d", "diagnostic_jump_next", true),
 }
 
-M.config = {
+M.opts = {
   preview = {
     lines_above = 20,
     lines_below = 20,

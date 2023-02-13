@@ -86,7 +86,7 @@ set smartindent                         " Set smart indent
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 set shiftwidth=4                        " The width of indentation
 set formatoptions-=cro
-set colorcolumn=120
+set colorcolumn=100
 set signcolumn=yes                      " Set the width of the symbol column, if not set, it will cause an exception when displaying the icon
 
 "----------------------------------------------------------

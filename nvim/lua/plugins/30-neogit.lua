@@ -13,7 +13,7 @@ return {
     { "rhysd/conflict-marker.vim" },
   },
   keys = {
-    neogit_map("s", "kind=split"),
+    neogit_map("s", "kind=vsplit"),
     neogit_map("d", "DiffviewOpen", true),
     neogit_map("D", "DiffviewOpen master", true),
     neogit_map("g", "log"),
@@ -29,7 +29,7 @@ return {
     highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
     ]])
   end,
-  config = {
+  opts = {
     disable_signs = false,
     disable_hint = false,
     disable_context_highlighting = false,

@@ -18,7 +18,7 @@ return {
     keys({ "g*", [[<Plug>(asterisk-g*)<Cmd>lua require("hlslens").start()<CR>]], mode = { "n", "x" } }),
     keys({ "g#", [[<Plug>(asterisk-g#)<Cmd>lua require("hlslens").start()<CR>]], mode = { "n", "x" } }),
   },
-  config = {
+  opts = {
     auto_enable = true,
     enable_incsearch = true,
     calm_down = true,

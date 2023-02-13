@@ -23,7 +23,7 @@ return {
       end,
     })
   end,
-  config = {
+  opts = {
     close_if_last_window = true,
     enable_diagnostics = true,
     enable_git_status = true,
@@ -149,7 +149,7 @@ return {
         ["<cr>"] = "open",
         ["l"] = "open",
         ["s"] = "open_split",
-        ["b"] = "open_vsplit",
+        ["v"] = "open_vsplit",
         ["t"] = "open_tabnew",
         ["C"] = "close_node",
         ["h"] = "close_node",

@@ -1,7 +1,7 @@
 return {
   "m-demare/hlargs.nvim",
   event = "VeryLazy",
-  config = {
+  opts = {
     excluded_argnames = {
       usages = {
         lua = { "self", "use" },
