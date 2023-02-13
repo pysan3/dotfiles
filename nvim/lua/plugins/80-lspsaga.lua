@@ -28,7 +28,8 @@ M.keys = {
   -- Outline
   lsp_map("o", "outline"),
   -- rename
-  lsp_map("r", "rename ++project"),
+  lsp_map("r", "rename"),
+  lsp_map("R", "rename ++project"),
   -- preview definition
   lsp_map("k", "peek_definition"),
   -- diagnostic
