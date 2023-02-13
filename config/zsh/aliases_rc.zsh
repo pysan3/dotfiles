@@ -7,6 +7,7 @@ export FZF_DEFAULT_OPTS='--height=40% --cycle --info=hidden --tabstop=4 --black'
 export PIPENV_VENV_IN_PROJECT=1
 export PIPENV_NO_INHERIT=1
 export PIPENV_IGNORE_VIRTUALENVS=1
+export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
 export CLICOLOR=1
 export EDITOR='vim'
 export MAKEFLAGS="-j$(nproc)"
