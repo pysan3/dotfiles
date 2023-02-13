@@ -13,9 +13,22 @@ LOGROT_FILE_PATH="${LOGROT_FILE_PATH:-$LOGROT_DIR_PATH/$(basename $PWD).log}"
 LOGROT_FILE_SIZE="${LOGROT_FILE_SIZE:-1000000}" # 1MB
 LOGROT_FILE_NUMBER="${LOGROT_FILE_NUMBER:-10}"
 
-# Overwrite with command line arguments
-LOGROT_FILE_PATH="${1:-$LOGROT_FILE_PATH}"
-LOGROT_FILE_SIZE="${2:-$LOGROT_FILE_SIZE}"
-LOGROT_FILE_NUMBER="${3:-$LOGROT_FILE_NUMBER}"
+# Overwrite with command line arguments and remember other options
+opts=""; idx=1
+for arg in $@; do
+  if [[ x$(printf %.1s "$arg") == x- ]]; then
+    opts="$opts $arg"
+    continue
+  elif [ $idx -eq 1 ]; then
+    LOGROT_FILE_PATH="$arg"
+  elif [ $idx -eq 2 ]; then
+    LOGROT_FILE_SIZE="$arg"
+  elif [ $idx -eq 3 ]; then
+    LOGROT_FILE_NUMBER="$arg"
+  else
+    continue
+  fi
+  ((idx++))
+done
 
-ulog_rotate --file-path "$LOGROT_FILE_PATH" --file-size "$LOGROT_FILE_SIZE" --file-number "$LOGROT_FILE_NUMBER"
+eval ulog_rotate --file-path "$LOGROT_FILE_PATH" --file-size "$LOGROT_FILE_SIZE" --file-number "$LOGROT_FILE_NUMBER" $opts
