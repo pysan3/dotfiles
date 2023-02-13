@@ -7,7 +7,7 @@ return {
     vim.api.nvim_create_user_command("CL", "AutoSessionAuto <bar> :wqa", {})
     vim.api.nvim_create_user_command("A", ":qa", {})
   end,
-  config = {
+  opts = {
     restore_on_setup = true,
     autosave_on_quit = true,
     force_autosave = true,

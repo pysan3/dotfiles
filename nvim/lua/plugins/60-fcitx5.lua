@@ -4,7 +4,7 @@ return {
   "pysan3/fcitx5.nvim",
   cond = vim.fn.executable("fcitx5-remote") == 1,
   event = { "ModeChanged" },
-  config = {
+  opts = {
     imname = {
       norm = en,
       ins = en,

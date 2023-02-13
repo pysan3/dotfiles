@@ -1,7 +1,7 @@
 return {
   "klen/nvim-config-local",
   lazy = false,
-  config = {
+  opts = {
     config_files = { -- Config file patterns to load (lua supported)
       ".vim/local.vim",
       "./.vim/local.vim",

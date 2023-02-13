@@ -1,7 +1,7 @@
 return {
   "j-hui/fidget.nvim", -- print linting progress
   event = { "BufRead", "FocusLost", "CursorHold" },
-  config = {
+  opts = {
     text = {
       -- spinner list: https://github.com/j-hui/fidget.nvim/blob/main/lua/fidget/spinners.lua
       spinner = "dots_pulse", -- dots, line, dots_bounce, ...

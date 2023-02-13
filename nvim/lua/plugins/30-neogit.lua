@@ -29,7 +29,7 @@ return {
     highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
     ]])
   end,
-  config = {
+  opts = {
     disable_signs = false,
     disable_hint = false,
     disable_context_highlighting = false,

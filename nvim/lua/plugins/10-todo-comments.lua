@@ -18,7 +18,7 @@ return {
       desc = "Previous todo comment",
     },
   },
-  config = {
+  opts = {
     signs = true,
     sign_priority = 8,
     keywords = { -- keywords recognized as todo comments

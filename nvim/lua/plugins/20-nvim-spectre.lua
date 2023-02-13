@@ -17,5 +17,5 @@ return {
     { "<Leader>s", call_spectre("open_visual"), remap = false, desc = [[Spectre: "open_visual"]] },
     { "<Leader>sp", call_spectre("open_file_search"), remap = false, desc = [[Spectre: "open_file_search"]] },
   },
-  config = {},
+  opts = {},
 }

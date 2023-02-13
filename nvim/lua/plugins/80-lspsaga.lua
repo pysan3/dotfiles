@@ -38,7 +38,7 @@ M.keys = {
   lsp_map("]d", "diagnostic_jump_next", true),
 }
 
-M.config = {
+M.opts = {
   preview = {
     lines_above = 20,
     lines_below = 20,

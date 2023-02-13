@@ -5,5 +5,5 @@ return {
     "m00qek/baleia.nvim",
   },
   cmd = { "ViewImage" },
-  config = {},
+  opts = {},
 }

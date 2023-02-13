@@ -59,7 +59,7 @@ return {
     highlight GitGutterDelete guifg=#880000 ctermfg=1
     ]])
   end,
-  config = {
+  opts = {
     -- signs = {}, https://github.com/lewis6991/gitsigns.nvim/blob/main/lua/gitsigns/config.lua
     signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
     numhl = false, -- Toggle with `:Gitsigns toggle_numhl`

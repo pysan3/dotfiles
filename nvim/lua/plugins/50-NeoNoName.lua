@@ -24,7 +24,7 @@ return {
       desc = "[NeoNoName]: bufdelete double",
     },
   },
-  config = {
+  opts = {
     should_skip = function()
       return vim.bo.buftype == "terminal"
     end,

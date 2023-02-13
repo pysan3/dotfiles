@@ -1,7 +1,7 @@
 return {
   "rcarriga/nvim-notify",
   event = "VeryLazy",
-  config = {
+  opts = {
     stages = "static", -- fade_in_slide_out, fade, slide, static
     render = "default",
     timeout = 1200,

@@ -1,6 +1,6 @@
 return {
   "folke/neodev.nvim",
-  config = {
+  opts = {
     override = function(root_dir, options)
       if root_dir:find("dotfiles") then
         options.enabled = true

@@ -5,7 +5,7 @@ local M = {
     { "hrsh7th/cmp-nvim-lsp" },
     {
       "andrewferrier/textobj-diagnostic.nvim",
-      config = {},
+      opts = {},
       keys = {
         { "ig", mode = { "o", "v" }, desc = "Textobj diagnostic: next_diag_inclusive" },
         { "]g", mode = { "o", "v" }, desc = "Textobj diagnostic: next_diag" },

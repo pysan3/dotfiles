@@ -48,6 +48,6 @@ return {
   {
     "folke/zen-mode.nvim", -- zenmode
     cmd = "ZenMode",
-    config = {},
+    opts = {},
   },
 }

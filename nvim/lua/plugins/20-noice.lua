@@ -86,7 +86,7 @@ return {
   keys = {
     { "<Leader>n", "<Cmd>Noice history<CR>", silent = true },
   },
-  config = {
+  opts = {
     messages = {
       enabled = true,
       view = "notify", -- default view for messages

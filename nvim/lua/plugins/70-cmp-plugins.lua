@@ -34,10 +34,8 @@ end
 
 table.insert(M, { "petertriho/cmp-git" })
 M[#M].dependencies = { "nvim-lua/plenary.nvim" }
-M[#M].config = function()
-  require("cmp_git").setup({
-    filetypes = vim.g.personal_module.md(),
-  })
-end
+M[#M].opts = {
+  filetypes = vim.g.personal_module.md(),
+}
 
 return M
