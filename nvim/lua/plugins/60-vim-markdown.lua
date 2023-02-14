@@ -1,7 +1,7 @@
 return {
   "plasticboy/vim-markdown",
   ft = vim.g.personal_module.md(),
-  init = function()
+  init_bak = function()
     -- keybindings
     -- zr: reduces fold level throughout the buffer
     -- zR: opens all folds
