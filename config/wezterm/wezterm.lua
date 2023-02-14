@@ -22,7 +22,7 @@ local colorschemes = {
   },
 }
 
-local colorscheme = "PaperColorDark (Goph)"
+local colorscheme = "PaperColorDark (Gogh)"
 
 local keys = {
   -- Full Screen
