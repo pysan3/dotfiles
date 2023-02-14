@@ -8,6 +8,7 @@ local M = {
     { "hrsh7th/cmp-nvim-lua" }, -- nvim lua config completion
     { "hrsh7th/cmp-calc" },
     { "f3fora/cmp-spell" },
+    { "hrsh7th/cmp-emoji" },
     { "hrsh7th/cmp-cmdline" },
     { "saadparwaiz1/cmp_luasnip" },
     { "uga-rosa/cmp-dictionary" }, -- config
@@ -122,6 +123,7 @@ M.config = function()
       { name = "dictionary", keyword_length = 3 },
       { name = "spell" },
       { name = "calc" },
+      { name="emoji" },
     }),
     formatting = {
       fields = { "kind", "abbr", "menu" },
