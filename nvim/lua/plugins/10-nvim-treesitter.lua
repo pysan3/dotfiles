@@ -131,6 +131,7 @@ M.config = function()
       enable = true,
       disable = {
         "latex",
+        "markdown",
       },
       additional_vim_regex_highlighting = false,
     },
