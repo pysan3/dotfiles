@@ -57,7 +57,7 @@ local keys = {
       label = "Open URL",
       patterns = { -- NOTE: rust regex
         [[h?t?t?p?s?:?/?/?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b[-a-zA-Z0-9@:%_\+.~#?&/=]*]],
-        [[h?t?t?p?:?/?/?localhost:?[0-9]*]],
+        [[h?t?t?p?:?/?/?localhost:?[0-9]*/?\b[-a-zA-Z0-9@:%_\+.~#?&/=]*]],
       },
       action = wezterm.action_callback(function(window, pane)
         local url = window:get_selection_text_for_pane(pane)
