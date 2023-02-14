@@ -364,9 +364,9 @@ fi
 # install protoc from source
 command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
 if checkyes 'Install protoc from source?'; then
-  update_git_repo "$XDG_DATA_HOME/protoc" https://github.com/protocolbuffers/protobuf.git
+  update_git_repo "$XDG_DATA_HOME/protoc" https://github.com/protocolbuffers/protobuf.git 'v3.20.1'
   cd "$XDG_DATA_HOME/protoc" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
-    && make -j$(nproc) && make check -j$(nproc) && make install -j$(nproc) \
+    && make -j$(nproc) && make install -j$(nproc) \
     && info 'protoc setup done' || err_exit 'protoc setup failed'
   cd "$current_dir"
 fi
