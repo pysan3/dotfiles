@@ -53,24 +53,21 @@ return {
       extensions = {},
     })
 
+    local aug = vim.api.nvim_create_augroup("StatusLineWatchRecording", { clear = true })
+    local function refresh_lualine_callback()
+      require("lualine").refresh({ place = { "statusline" } })
+    end
     vim.api.nvim_create_autocmd("RecordingEnter", {
-      callback = function()
-        require("lualine").refresh({
-          place = { "statusline" },
-        })
-      end,
+      group = aug,
+      callback = refresh_lualine_callback,
     })
-
     vim.api.nvim_create_autocmd("RecordingLeave", {
+      group = aug,
       callback = function()
         local timer = vim.loop.new_timer()
-        timer:start(
-          50,
-          0,
-          vim.schedule_wrap(function()
-            require("lualine").refresh({ place = { "statusline" } })
-          end)
-        )
+        if timer ~= nil then
+          timer:start(50, 0, vim.schedule_wrap(refresh_lualine_callback))
+        end
       end,
     })
   end,
