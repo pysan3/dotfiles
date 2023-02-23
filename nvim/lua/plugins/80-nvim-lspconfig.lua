@@ -99,7 +99,7 @@ local servers = {
   --   settings = {
   --     pylsp = {
   --       plugins = {
-  --         pycodestyle = { maxLineLength = 100 },
+  --         pycodestyle = { maxLineLength = 120 },
   --         pyflakes = { enabled = false },
   --       },
   --     },

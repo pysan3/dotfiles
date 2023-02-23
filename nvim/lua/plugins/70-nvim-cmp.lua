@@ -104,7 +104,7 @@ M.config = function()
           luasnip.jump(1)
         end, fallback)
       end, { "i", "s" }),
-      ["<C-h>"] = cmp.mapping(function(fallback)
+      ["<C-b>"] = cmp.mapping(function(fallback)
         call_with_fallback(luasnip.jumpable(-1), function()
           luasnip.jump(-1)
         end, fallback)
@@ -123,7 +123,7 @@ M.config = function()
       { name = "dictionary", keyword_length = 3 },
       { name = "spell" },
       { name = "calc" },
-      { name="emoji" },
+      { name = "emoji" },
     }),
     formatting = {
       fields = { "kind", "abbr", "menu" },

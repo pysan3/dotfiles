@@ -29,9 +29,9 @@ M.config = function()
       fmt.eslint,
       -- python
       fmt.autopep8.with({
-        extra_args = { "--max-line-length=100", "--aggressive", "--aggressive" },
+        extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" },
       }),
-      diag.flake8.with({ extra_args = { "--max-line-length=100", "--ignore=F405" } }),
+      diag.flake8.with({ extra_args = { "--max-line-length=120", "--ignore=F405" } }),
       -- lua
       fmt.stylua,
       -- rust

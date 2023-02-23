@@ -17,6 +17,7 @@ M.init = function()
       localSettings = {
         [".*"] = {
           cmdline = "none",
+          takeover = "never",
         },
       },
     }
