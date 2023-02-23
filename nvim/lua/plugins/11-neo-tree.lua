@@ -226,6 +226,7 @@ return {
       follow_current_file = true,
       hijack_netrw_behavior = "open_default",
       use_libuv_file_watcher = true,
+      show_split_window_immediately = true,
     },
     git_status = {
       window = {
