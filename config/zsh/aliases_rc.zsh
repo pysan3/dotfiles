@@ -47,7 +47,9 @@ alias ..='cd ..'
 
 alias g='git'
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
-alias yay='yay --noconfirm'
+function yay() {
+  PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') command yay --noconfirm $@
+}
 alias res="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
 function def() {
