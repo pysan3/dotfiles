@@ -95,8 +95,7 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
   fi
 fi
 python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
-pip install -U --user pipupgrade rich pyreadline lookatme trash-cli
-pip install -U --user yt-dlp
+pip install -U --user pipupgrade rich pyreadline lookatme trash-cli yt-dlp
 info 'python programs installation done'
 
 # install zsh shell utils
@@ -245,7 +244,7 @@ if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
   cd "$current_dir"
 
   # nvim dependencies
-  pip install --user -U pynvim
+  pip install --user -U pynvim neovim-remote
   pnpm i -g neovim
   # sad
   checkcommand 'delta' 'cargo install git-delta'

@@ -15,6 +15,10 @@ fi
 zcompile "$DOTFILES/functions.zsh"
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 
+# Create temp dir
+[ -z "$MYTEMPDIR" ] && MYTEMPDIR="${TEMPDIR:-/tmp}/$USER"
+[ ! -d "$MYTEMPDIR" ] && mkdir -p "$MYTEMPDIR"
+
 # create symlink to .zsh* files
 for f in $(command ls -Ap | grep -v / | grep -v '\.sh' | grep -v '\.zsh$' | grep -v '\.zwc$' | grep -v '\.json$'); do
   if [[ "$f" =~ (\.git|\.session|test|tmp|local|list|README|LICENSE).* ]]; then continue; fi
