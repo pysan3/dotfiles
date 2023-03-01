@@ -4,7 +4,7 @@ return {
   -- dev = true,
   dependencies = {
     { "MunifTanjim/nui.nvim" },
-    { "kyazdani42/nvim-web-devicons" },
+    { "nvim-tree/nvim-web-devicons" },
   },
   cmd = { "Neotree" },
   keys = {

@@ -1,5 +1,6 @@
 return {
   "ray-x/lsp_signature.nvim", -- show hints when writing function arguments
+  enabled = false,
   dependencies = {
     "neovim/nvim-lspconfig",
     "folke/noice.nvim",

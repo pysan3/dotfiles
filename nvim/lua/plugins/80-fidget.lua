@@ -1,5 +1,6 @@
 return {
   "j-hui/fidget.nvim", -- print linting progress
+  enabled = false,
   event = { "BufRead", "FocusLost", "CursorHold" },
   opts = {
     text = {

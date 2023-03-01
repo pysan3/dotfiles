@@ -34,14 +34,6 @@ return {
     },
   },
   {
-    "romainl/vim-qf", -- quickfix list
-    keys = {
-      { "<C-p>", "<Plug>(qf_qf_previous)", remap = true, desc = "<Plug>(qf_qf_previous)" },
-      { "<C-n>", "<Plug>(qf_qf_next)", remap = true, desc = "<Plug>(qf_qf_next)" },
-      { "<Leader>xq", "<Plug>(qf_qf_toggle)", remap = true, desc = "<Plug>(qf_qf_toggle)" },
-    },
-  },
-  {
     "xorid/asciitree.nvim", -- `:AsciiTree <tab size> <indent symbol>`
     cmd = { "AsciiTree" },
   },

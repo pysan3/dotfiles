@@ -2,7 +2,7 @@ return {
   "akinsho/bufferline.nvim", -- bufferline
   event = "VeryLazy",
   enabled = not vim.g.started_by_firenvim,
-  dependencies = { "kyazdani42/nvim-web-devicons" },
+  dependencies = { "nvim-tree/nvim-web-devicons" },
   cmd = { "BufferLineGoToBuffer", "BufferLineCycleNext", "BufferLineCyclePrev", "BufferLinePick" },
   keys = {
     { "L", "<Cmd>BufferLineCycleNext<CR>", silent = true, remap = false },

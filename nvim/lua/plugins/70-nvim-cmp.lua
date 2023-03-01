@@ -19,15 +19,6 @@ local M = {
 }
 
 M.config = function()
-  -- stylua: ignore start
-  local cmp_icons = { Text = "", Method = "m", Function = "", Constructor = "",
-    Field = "", Variable = "", Class = "", Interface = "", Module = "",
-    Property = "", Unit = "", Value = "", Enum = "", Keyword = "", Snippet = "",
-    Color = "", File = "", Reference = "", Folder = "", EnumMember = "",
-    Constant = "", Struct = "", Event = "", Operator = "", TypeParameter = "" }
-  -- stylua: ignore end
-  -- find more here: https://www.nerdfonts.com/cheat-sheet
-
   local cmp = require("cmp")
   local types = require("cmp.types")
   local compare = require("cmp.config.compare")
@@ -128,7 +119,7 @@ M.config = function()
     formatting = {
       fields = { "kind", "abbr", "menu" },
       format = function(entry, vim_item)
-        vim_item.kind = string.format("%s", cmp_icons[vim_item.kind])
+        vim_item.kind = string.format("%s", vim.g.personal_options.lsp_icons[vim_item.kind])
         vim_item.menu = ({
           nvim_lsp = "[LSP ]",
           nvim_lua = "[NLUA]",

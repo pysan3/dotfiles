@@ -3,6 +3,7 @@ local M = {
   event = "BufReadPre",
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
+    "SmiteshP/nvim-navic",
     {
       "andrewferrier/textobj-diagnostic.nvim",
       opts = {},
@@ -162,6 +163,9 @@ M.config = function()
     on_attach = function(client, bufnr)
       if stop_lsp_fmt[client.name] ~= nil then
         client.server_capabilities.documentFormattingProvider = false
+      end
+      if client.server_capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, bufnr)
       end
       lsp_base.lsp_keymaps(bufnr)
     end,

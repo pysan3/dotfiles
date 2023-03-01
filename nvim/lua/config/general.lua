@@ -7,8 +7,8 @@ _G.general_info = {
 vim.g.personal_options = {
   colorscheme = vim.env.NVIM_COLOR or "jellybeans-nvim",
   lsp_saga = {
-    enable = true,
-    winbar = true,
+    enable = false,
+    winbar = false,
   },
   prefix = {
     telescope = "<Leader>f",
@@ -18,6 +18,13 @@ vim.g.personal_options = {
     iron = "<Leader>r",
     lsp = "<Leader>k",
   },
+  -- stylua: ignore
+  lsp_icons = { Array = "", Boolean = "◩", Class = "", Color = "", Constant = "",
+    Constructor = " ", Enum = " ", EnumMember = " ", Event = "", Field = "", File = "",
+    Function = "", Interface = "", Key = "", Keyword = "", Method = "", Module = "",
+    Namespace = "", Null = "ﳠ", Number = "", Object = "", Operator = "", Package = "",
+    Property = " ", Reference = "", Snippet = "", String = "", Struct = " ", Text = "",
+    TypeParameter = "", Value = "", Variable = "" },
 }
 
 local function merge_table(a)

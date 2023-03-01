@@ -1,8 +1,9 @@
-local function telescope_keymap(key, picker, func, pre_leader)
+local function telescope_keymap(key, picker, func, pre_leader, lsp_prefix, opts)
+  local prefix = vim.g.personal_options.prefix[lsp_prefix and "lsp" or "telescope"]
   return {
-    (pre_leader and "<Leader>" or "") .. vim.g.personal_options.prefix.telescope .. key,
+    (pre_leader and "<Leader>" or "") .. prefix .. key,
     func or function()
-      require("telescope.builtin")[picker]()
+      require("telescope.builtin")[picker](opts)
     end,
     desc = "Telescope: " .. picker,
   }
@@ -21,6 +22,7 @@ local M = {
     { "natecraddock/telescope-zf-native.nvim" },
     { "nvim-telescope/telescope-media-files.nvim" },
     { "nvim-telescope/telescope-symbols.nvim" },
+    "folke/trouble.nvim",
   },
   keys = {
     -- telescope fzf bindings
@@ -38,15 +40,18 @@ local M = {
       require("telescope").extensions.media_files.media_files()
     end),
     -- telescope lsp bindings
-    telescope_keymap("t", "lsp_document_symbols"),
-    telescope_keymap("y", "lsp_workspace_symbols"),
-    telescope_keymap("d", "todo", "<Cmd>TodoTelescope<CR>"),
+    telescope_keymap("t", "lsp_document_symbols", nil, nil, true),
+    telescope_keymap("y", "lsp_workspace_symbols", nil, nil, true),
+    telescope_keymap("f", "lsp_references", nil, nil, true),
+    telescope_keymap("d", "lsp_definitions", nil, nil, true),
+    telescope_keymap("g", "lsp_definitions", nil, nil, true),
     -- telescope git bindings
     telescope_keymap("m", "git_commits"),
     telescope_keymap("M", "git_bcommits"),
     telescope_keymap("b", "git_branches"),
     -- telescope other bindings
     telescope_keymap("c", "colorscheme", nil, true),
+    telescope_keymap("d", "todo", "<Cmd>TodoTelescope<CR>"),
   },
 }
 
@@ -78,6 +83,11 @@ M.config = function()
           ["<C-x>"] = stopinsert(actions.select_horizontal),
           ["<C-v>"] = stopinsert(actions.select_vertical),
           ["<C-t>"] = stopinsert(actions.select_tab),
+          -- open quickfix list in trouble.nvim
+          ["<C-q>"] = function(...)
+            require("trouble")
+            return require("trouble.providers.telescope").open_with_trouble(...)
+          end,
         },
       },
       cache_picker = { num_pickers = 3 }, -- default 1

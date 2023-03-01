@@ -35,27 +35,48 @@ M.setup = function(_)
   })
 end
 
+-- Automatically go to first definition even when multiple found
+local function go_to_definition(is_type)
+  return function()
+    vim.lsp.buf[is_type and "type_definition" or "definition"]({
+      reuse_win = true,
+      on_list = function(opts)
+        if #opts.items < 1 then
+          return
+        end
+        local item = opts.items[1]
+        vim.cmd.edit(item.filename)
+        vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
+      end,
+    })
+  end
+end
+
 M.lsp_keymaps = function(bufnr)
   local function getopts(desc)
     return { noremap = true, silent = true, buffer = bufnr, desc = desc }
   end
-
-  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, getopts("vim.lsp.buf.declaration"))
-  vim.keymap.set("n", "gI", vim.lsp.buf.implementation, getopts("vim.lsp.buf.implementation"))
-  vim.keymap.set("n", "<leader>kl", vim.diagnostic.setloclist, getopts("vim.diagnostic.setloclist"))
-  vim.keymap.set("n", "<leader>kD", vim.diagnostic.open_float, getopts("vim.diagnostic.open_float"))
-  vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
-  -- conflicting keybinds with lspsaga
-  if not vim.g.personal_options.lsp_saga.enable then
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, getopts("vim.lsp.buf.definition"))
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, getopts("vim.lsp.buf.hover"))
-    vim.keymap.set("n", "<leader>nh", vim.lsp.buf.signature_help, getopts("vim.lsp.buf.signature_help"))
-    vim.keymap.set("n", "<leader>cn", vim.lsp.buf.rename, getopts("vim.lsp.buf.rename"))
-    vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, getopts("vim.lsp.buf.references"))
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, getopts("vim.lsp.buf.code_action"))
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, getopts("vim.diagnostic.goto_prev"))
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, getopts("vim.diagnostic.goto_next"))
+  local function keyn(key, func, opts)
+    vim.keymap.set("n", key, func, opts)
   end
+
+  local pfx = vim.g.personal_options.prefix.lsp
+  keyn("gD", vim.lsp.buf.declaration, getopts("vim.lsp.buf.declaration"))
+  keyn("gI", vim.lsp.buf.implementation, getopts("vim.lsp.buf.implementation"))
+  keyn(pfx .. "l", vim.diagnostic.setloclist, getopts("vim.diagnostic.setloclist"))
+  keyn(pfx .. "D", vim.diagnostic.open_float, getopts("vim.diagnostic.open_float"))
+  vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+  if vim.g.personal_options.lsp_saga.enable then
+    -- conflicting keybinds with lspsaga
+    return
+  end
+  keyn("gd", go_to_definition(false), getopts("vim.lsp.buf.definition"))
+  keyn("K", vim.lsp.buf.hover, getopts("vim.lsp.buf.hover"))
+  keyn(pfx .. "h", vim.lsp.buf.signature_help, getopts("vim.lsp.buf.signature_help"))
+  keyn(pfx .. "r", vim.lsp.buf.rename, getopts("vim.lsp.buf.rename"))
+  keyn(pfx .. "c", vim.lsp.buf.code_action, getopts("vim.lsp.buf.code_action"))
+  keyn("[d", vim.diagnostic.goto_prev, getopts("vim.diagnostic.goto_prev"))
+  keyn("]d", vim.diagnostic.goto_next, getopts("vim.diagnostic.goto_next"))
 end
 
 M.capabilities = function()

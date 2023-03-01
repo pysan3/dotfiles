@@ -1,7 +1,9 @@
 return {
   "nvim-lualine/lualine.nvim", -- lualine
   event = "VeryLazy",
-  dependencies = { "kyazdani42/nvim-web-devicons" },
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+  },
   config = function()
     if vim.g.started_by_firenvim then
       return

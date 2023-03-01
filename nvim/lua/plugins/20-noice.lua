@@ -74,7 +74,21 @@ for _, mode in ipairs({ "n", "i", "c", "v", "x", "s", "o", "t", "l" }) do
   end, { force = true, nargs = "*" })
 end
 
-return {
+local function scroll_lsp_popups(key, scroll_height)
+  return {
+    key,
+    function()
+      if not require("noice.lsp").scroll(scroll_height) then
+        return key
+      end
+    end,
+    mode = { "n", "i", "s" },
+    silent = true,
+    expr = true,
+  }
+end
+
+local M = {
   "folke/noice.nvim",
   event = "VeryLazy",
   cmd = { "Noice" },
@@ -85,50 +99,73 @@ return {
   },
   keys = {
     { "<Leader>n", "<Cmd>Noice history<CR>", silent = true },
+    {
+      "<Leader>N",
+      function()
+        require("noice").redirect("Notifications")
+      end,
+      desc = "Noice Notifications",
+    },
+    -- scroll lsp popups
+    scroll_lsp_popups("<C-f>", 4),
+    scroll_lsp_popups("<C-b>", -4),
   },
-  opts = {
-    messages = {
+}
+
+M.opts = {
+  messages = {
+    enabled = true,
+    view = "notify",
+    view_error = "notify",
+    view_warn = "notify",
+    view_history = "messages",
+    view_search = false,
+  },
+  health = { checker = false },
+  lsp = {
+    progress = { enabled = true },
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+      ["vim.lsp.util.stylize_markdown"] = false,
+      ["cmp.entry.get_documentation"] = false,
+    },
+    hover = { enabled = true },
+    signature = {
       enabled = true,
-      view = "notify", -- default view for messages
-      view_error = "notify", -- view for errors
-      view_warn = "notify", -- view for warnings
-      view_history = "messages", -- view for :messages
-      view_search = false,
-    },
-    health = { checker = false },
-    lsp = {
-      progress = { enabled = false },
-      override = {},
-      hover = { enabled = false },
-      signature = { enabled = false },
-      message = { enabled = false },
-    },
-    presets = {
-      bottom_search = false, -- use a classic bottom cmdline for search
-      command_palette = true, -- position the cmdline and popupmenu together
-      long_message_to_split = true, -- long messages will be sent to a split
-      inc_rename = false, -- enables an input dialog for inc-rename.nvim
-      lsp_doc_border = false, -- add a border to hover docs and signature help
-    },
-    routes = {
-      { -- route long messages to split
-        filter = {
-          event = "msg_show",
-          any = { { min_height = 5 }, { min_width = 200 } },
-          ["not"] = {
-            kind = { "confirm", "confirm_sub", "return_prompt", "quickfix" },
-          },
+      opts = {
+        position = {
+          col = (vim.opt.colorcolumn:get()[1] or 120),
         },
-        view = "messages",
-        opts = { stop = true },
       },
     },
-    views = {
-      split = {
-        win_options = { wrap = false },
-        size = 16,
-        close = { keys = { "q", "<CR>", "<Esc>" } },
+  },
+  presets = {
+    bottom_search = false,
+    command_palette = true,
+    long_message_to_split = true,
+    inc_rename = true,
+    lsp_doc_border = true,
+  },
+  routes = {
+    { -- route long messages to split
+      filter = {
+        event = "msg_show",
+        any = { { min_height = 5 }, { min_width = 200 } },
+        ["not"] = {
+          kind = { "confirm", "confirm_sub", "return_prompt", "quickfix" },
+        },
       },
+      view = "messages",
+      opts = { stop = true },
+    },
+  },
+  views = {
+    split = {
+      win_options = { wrap = false },
+      size = 16,
+      close = { keys = { "q", "<CR>", "<Esc>" } },
     },
   },
 }
+
+return M
