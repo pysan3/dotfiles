@@ -196,7 +196,7 @@ if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null; then
 fi
 if ! command -v 'pnpm' &>/dev/null || ! command -v 'deno' &>/dev/null; then
   npm i -g pnpm
-  cargo install deno --locked
+  curl -fsSL https://deno.land/install.sh | sh
   export PATH="$PNPM_HOME:$PATH"
 fi
 # install necessary npm cli commands
