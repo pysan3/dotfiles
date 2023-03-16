@@ -37,6 +37,8 @@ return {
     disable_insert_on_commit = false,
     auto_refresh = true,
     disable_builtin_notifications = true,
+    console_timeout = 10000,
+    auto_show_console = false,
     commit_popup = { kind = "split" },
     kind = "split",
     signs = {
