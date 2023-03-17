@@ -45,7 +45,8 @@ local function go_to_definition(is_type)
           return
         end
         local item = opts.items[1]
-        vim.cmd.drop(item.filename)
+        vim.cmd([[normal! m']])
+        vim.cmd.edit(item.filename)
         vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
       end,
     })
