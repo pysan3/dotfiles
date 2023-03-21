@@ -38,7 +38,7 @@ alias tls='trash-list'
 alias tre='trash-restore'
 alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
 
-alias env-grep="env | grep -i"
+alias egr="env | grep -i"
 alias exportenv='while read -r f; do echo "${(q)f}"; done <<(env) > .env'
 alias nowrap='setterm --linewrap off'
 alias wrap='setterm --linewrap on'
@@ -48,7 +48,8 @@ alias ..='cd ..'
 alias g='git'
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
 function yay() {
-  PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') command yay --noconfirm $@
+  PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') \
+    command yay --noconfirm --sudoloop $@
 }
 alias res="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
@@ -69,7 +70,6 @@ function def() {
 alias upgradepy='pip install --upgrade --user pip && pipupgrade --verbose --latest --yes && poetry self update && pyenv update' # pip install pipupgrade
 alias upgraders='rustup update && cargo install-update --all' # cargo install cargo-update
 alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
-alias upgraderb='gem update --system -N && gem update -N'
 alias packersync="nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'"
 function upgradeall() {
   upgradecmds='py rs js'
