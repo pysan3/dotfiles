@@ -60,8 +60,7 @@ nnoremap g* g*zz
 " Move while in insert mode
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
-" inoremap <C-h> <Left>
-inoremap <C-b> <Left>
+inoremap <C-a> <Left>
 inoremap <C-l> <Right>
 
 " Move up and down with wrap
