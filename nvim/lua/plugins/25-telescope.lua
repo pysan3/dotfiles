@@ -43,7 +43,6 @@ local M = {
     telescope_keymap("t", "lsp_document_symbols", nil, nil, true),
     telescope_keymap("y", "lsp_workspace_symbols", nil, nil, true),
     telescope_keymap("f", "lsp_references", nil, nil, true),
-    telescope_keymap("d", "lsp_definitions", nil, nil, true),
     telescope_keymap("g", "lsp_definitions", nil, nil, true),
     -- telescope git bindings
     telescope_keymap("m", "git_commits"),

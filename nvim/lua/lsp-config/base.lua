@@ -65,7 +65,7 @@ M.lsp_keymaps = function(bufnr)
   keyn("gD", vim.lsp.buf.declaration, getopts("vim.lsp.buf.declaration"))
   keyn("gI", vim.lsp.buf.implementation, getopts("vim.lsp.buf.implementation"))
   keyn(pfx .. "l", vim.diagnostic.setloclist, getopts("vim.diagnostic.setloclist"))
-  keyn(pfx .. "D", vim.diagnostic.open_float, getopts("vim.diagnostic.open_float"))
+  keyn(pfx .. "d", vim.diagnostic.open_float, getopts("vim.diagnostic.open_float"))
   vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
   if vim.g.personal_options.lsp_saga.enable then
     -- conflicting keybinds with lspsaga
