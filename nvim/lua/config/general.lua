@@ -19,11 +19,42 @@ vim.g.personal_options = {
     lsp = "<Leader>k",
   },
   -- stylua: ignore
-  lsp_icons = { Array = "", Boolean = "◩", Class = "", Color = "", Constant = "", Constructor = " ", Enum = " ",
-    EnumMember = " ", Event = "", Field = "", File = "", Folder = "", Function = "", Interface = "", Key = "",
-    Keyword = "", Method = "", Module = "", Namespace = "", Null = "ﳠ", Number = "", Object = "", Operator = "",
-    Package = "", Property = " ", Reference = "", Snippet = "", String = "", Struct = " ", Text = "",
-    TypeParameter = "", Unit = "", Value = "", Variable = "" },
+  lsp_icons = {
+    Array = "",
+    Boolean = "◩",
+    Class = "",
+    Color = "",
+    Constant = "",
+    Constructor = " ",
+    Enum = " ",
+    EnumMember = " ",
+    Event = "",
+    Field = "",
+    File = "",
+    Folder = "",
+    Function = "",
+    Interface = "",
+    Key = "",
+    Keyword = "",
+    Method = "",
+    Module = "",
+    Namespace = "",
+    Null = "ﳠ",
+    Number = "",
+    Object = "",
+    Operator = "",
+    Package = "",
+    Property = " ",
+    Reference = "",
+    Snippet = "",
+    String = "",
+    Struct = " ",
+    Text = "",
+    TypeParameter = "",
+    Unit = "",
+    Value = "",
+    Variable = ""
+  },
 }
 
 local function merge_table(a)
@@ -32,13 +63,24 @@ local function merge_table(a)
   end
 end
 
+local buf_lookup = {}
+local function check_buf(bufid, f)
+  return vim.api.nvim_buf_is_loaded(bufid) and vim.api.nvim_buf_get_name(bufid) == f
+end
+
 local function go_to_buf(filepath)
   if vim.api.nvim_buf_get_name(0) == filepath then
+    buf_lookup[filepath] = vim.api.nvim_get_current_buf()
+    return
+  end
+  if buf_lookup[filepath] and check_buf(buf_lookup[filepath], filepath) then
+    vim.api.nvim_set_current_buf(buf_lookup[filepath])
     return
   end
   for _, bufid in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_loaded(bufid) and vim.api.nvim_buf_get_name(bufid) == filepath then
+    if check_buf(bufid, filepath) then
       vim.api.nvim_set_current_buf(bufid)
+      buf_lookup[filepath] = bufid
       return
     end
   end
