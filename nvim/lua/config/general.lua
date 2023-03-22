@@ -33,6 +33,9 @@ local function merge_table(a)
 end
 
 local function go_to_buf(filepath)
+  if vim.api.nvim_buf_get_name(0) == filepath then
+    return
+  end
   for _, bufid in ipairs(vim.api.nvim_list_bufs()) do
     if vim.api.nvim_buf_is_loaded(bufid) and vim.api.nvim_buf_get_name(bufid) == filepath then
       vim.api.nvim_set_current_buf(bufid)
