@@ -52,7 +52,7 @@ M.config = function()
   local buffers = {
     name = "buffer",
     option = {
-      keyword_length = 2,
+      keyword_length = 3,
       get_bufnrs = function() -- from all buffers (less than 1MB)
         local bufs = {}
         for _, bufn in ipairs(vim.api.nvim_list_bufs()) do
