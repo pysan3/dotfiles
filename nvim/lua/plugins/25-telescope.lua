@@ -34,6 +34,7 @@ local M = {
     telescope_keymap("r", "resume"),
     telescope_keymap("j", "jumplist"),
     telescope_keymap("e", "symbols"),
+    telescope_keymap("k", "keymaps"),
     telescope_keymap("C", "commands"),
     telescope_keymap("c", "command_history"),
     telescope_keymap("i", "media_files", function()
