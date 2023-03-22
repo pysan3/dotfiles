@@ -46,8 +46,7 @@ local function go_to_definition(is_type)
         end
         local item = opts.items[1]
         vim.cmd([[normal! m']])
-        vim.cmd.edit(item.filename)
-        vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
+        vim.g.personal_module.move_to_buf_pos(item.filename, false, { line = item.lnum, col = item.col - 1 })
       end,
     })
   end

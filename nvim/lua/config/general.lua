@@ -32,6 +32,16 @@ local function merge_table(a)
   end
 end
 
+local function go_to_buf(filepath)
+  for _, bufid in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(bufid) and vim.api.nvim_buf_get_name(bufid) == filepath then
+      vim.api.nvim_set_current_buf(bufid)
+      return
+    end
+  end
+  vim.cmd.edit(filepath)
+end
+
 vim.g.personal_module = {
   ---Check if path exists in filesystem
   ---@param path string: path to check
@@ -44,7 +54,7 @@ vim.g.personal_module = {
     local st = vim.loop.fs_stat(path)
     return st and true or false
   end,
-  --- add multiple lists without overwriting any table
+  ---Add multiple lists without overwriting any table
   ---@vararg string[] | nil: tables to merge together
   ---@return string[]: single table merged together
   add_table_string = function(...)
@@ -57,6 +67,21 @@ vim.g.personal_module = {
     return res
   end,
   md = merge_table({ "markdown", "html", "NeogitCommitMessage", "gitcommit", "octo" }),
+  ---Open buf of filepath if exists, and new if not
+  ---@param filepath string? absolute path to filename
+  ---@param check_exists boolean? check if filename exists beforehand
+  ---@param cursor_pos { line: integer?, col: integer? }? set cursor position if not nil, values default to 0
+  move_to_buf_pos = function(filepath, check_exists, cursor_pos)
+    if check_exists and filepath and not vim.g.personal_module.exists(filepath, false) then
+      return
+    end
+    if filepath then
+      go_to_buf(filepath)
+    end
+    if cursor_pos then
+      vim.api.nvim_win_set_cursor(0, { cursor_pos.line or 0, cursor_pos.col or 0 })
+    end
+  end,
 }
 
 vim.opt.completeopt = "menuone,noselect"
