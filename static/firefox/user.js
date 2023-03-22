@@ -207,6 +207,7 @@ user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 user_pref("accessibility.force_disabled", 1);
 user_pref("devtools.accessibility.enabled", false);
 user_pref("browser.compactmode.show", true);
+user_pref("browser.uidensity", 1); // compact mode
 user_pref("browser.privatebrowsing.vpnpromourl", "");
 user_pref("extensions.getAddons.showPane", false);
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
@@ -223,6 +224,7 @@ user_pref("browser.preferences.moreFromMozilla", false);
 user_pref("browser.tabs.tabmanager.enabled", false);
 user_pref("findbar.highlightAll", true);
 user_pref("browser.privatebrowsing.enable-new-indicator", false);
+user_pref("browser.tabs.inTitlebar", 1);
 
 /** FULLSCREEN ***/
 user_pref("full-screen-api.transition-duration.enter", "0 0");
@@ -239,6 +241,7 @@ user_pref("browser.urlbar.unitConversion.enabled", true);
 /** NEW TAB PAGE ***/
 user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
 user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
+user_pref("browser.toolbars.bookmarks.visibility", "newtab");
 
 /*** POCKET ***/
 user_pref("extensions.pocket.enabled", false);
