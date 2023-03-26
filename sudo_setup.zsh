@@ -22,14 +22,16 @@ if command -v 'apt-get' &>/dev/null || checkyes 'apt-get available?'; then
   sudo apt-get -y install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
   # tmux dependencies
   sudo apt-get install -y libevent ncurses libevent-dev ncurses-dev build-essential bison pkg-config
-  # nix dependencies >= 20.04
-  sudo apt-get install -y autoconf automake libtool m4 autoconf-archive pkg-config libboost-all-dev libarchive-dev bison flex libsodium-dev libseccomp-dev sqlite3 curl libgc-dev libgtest-dev jq libcrypto cpuidtool libcpuid-dev
-  # pandoc
-  sudo apt-get install -y pandoc
+  # words
+  sudo apt-get install -y wamerican
 fi
 
 if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
-  set -x
+  use_yay=false
+  if command -v 'yay' &>/dev/null || checkyes 'install yay via pacman?'; then
+    use_yay=true
+  fi
+  set -xe
   sudo pacman --noconfirm -Syu
   # basics
   sudo pacman --noconfirm -S base-devel neofetch git tmux vim curl moreutils
@@ -41,11 +43,17 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
     poppler-glib python-distutils-extra python-pip python-gobject gtk3 python-cairo libhandy
   # texlive
   sudo pacman --noconfirm -S texlive-full
-  # nix
-  sudo pacman --noconfirm -S libcpuid jq libseccomp gtest
-  # pandoc
-  sudo pacman --noconfirm -S pandoc
+  # yay
+  if [ "$use_yay" = true ]; then
+    command -v 'yay' &>/dev/null || sudo pacman --noconfirm -S yay
+  else
+    error 'yay not found'
+    exit 1
+  fi
+  # words
+  yay --noconfirm -S words
   # delete all cache
   sudo pacman --noconfirm -Scc
-  set +x
+  yay --noconfirm -Scc
+  set +xe
 fi
