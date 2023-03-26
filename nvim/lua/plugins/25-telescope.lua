@@ -45,13 +45,14 @@ local M = {
     telescope_keymap("y", "lsp_workspace_symbols", nil, nil, true),
     telescope_keymap("f", "lsp_references", nil, nil, true),
     telescope_keymap("g", "lsp_definitions", nil, nil, true),
+    telescope_keymap("D", "diagnostics", nil, nil, true),
     -- telescope git bindings
     telescope_keymap("m", "git_commits"),
     telescope_keymap("M", "git_bcommits"),
     telescope_keymap("b", "git_branches"),
     -- telescope other bindings
     telescope_keymap("c", "colorscheme", nil, true),
-    telescope_keymap("d", "todo", "<Cmd>TodoTelescope<CR>"),
+    telescope_keymap("o", "todo", "<Cmd>TodoTelescope<CR>"),
   },
 }
 
