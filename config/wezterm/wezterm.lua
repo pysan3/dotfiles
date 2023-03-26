@@ -25,9 +25,6 @@ local colorschemes = {
 local colorscheme = "PaperColorDark (Gogh)"
 
 local keys = {
-  -- Full Screen
-  { key = "F11", mods = "NONE", action = act.ToggleFullScreen },
-
   -- Modify font size
   { key = "+", mods = "CTRL", action = act.IncreaseFontSize },
   { key = "+", mods = "SHIFT|CTRL", action = act.IncreaseFontSize },
@@ -58,7 +55,6 @@ local keys = {
   { key = "0", mods = "ALT|CTRL", action = act.ActivateTab(-1) },
 
   -- Full Screen
-  { key = "Enter", mods = "ALT", action = act.ToggleFullScreen },
   { key = "F11", mods = "NONE", action = act.ToggleFullScreen },
 
   -- Debug and Configuration
@@ -100,7 +96,8 @@ local M = {
   keys = keys,
   disable_default_key_bindings = true,
   color_scheme = colorschemes[1],
-  colors = { -- overwrite colorscheme with jellybeans-nvim cursor colors
+  colors = {
+    -- overwrite colorscheme with jellybeans-nvim cursor colors
     cursor_bg = "#b0d0f0",
     cursor_fg = "#151515",
     cursor_border = "#b0d0f0",
