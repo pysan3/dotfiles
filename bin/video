@@ -78,7 +78,7 @@ $crop
   [[ $# -ge 1 ]] && _cmd_name=${(P)1}
   if [ -z "$_cmd_name" ]; then
     echo "$all" | $cat_cmd
-    err_exit "Require a valid subcmd. Unknown option: '$_cmd_name'"
+    err_exit "Require a valid subcmd. Unknown option: '$1'"
   else
     to_md=$(echo "$_cmd_name" | $cat_cmd)
     info "Executing: $(echo "$to_md" | head -1)\n"
