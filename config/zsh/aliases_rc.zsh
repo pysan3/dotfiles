@@ -40,6 +40,7 @@ alias tre='trash-restore'
 alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
 
 alias egr="env | grep -i"
+alias xgs="xargs "
 alias exportenv='while read -r f; do echo "${(q)f}"; done <<(env) > .env'
 alias nowrap='setterm --linewrap off'
 alias wrap='setterm --linewrap on'
