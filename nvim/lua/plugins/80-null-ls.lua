@@ -22,16 +22,6 @@ M.config = function()
 
   null_ls.setup({
     debug = M.debug,
-    on_attach = function(client)
-      if client.server_capabilities.documentFormattingProvider then
-        vim.cmd([[
-        augroup LspFormatting
-        autocmd! * <buffer>
-        autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ sync = true, timeout_ms = 5000 })
-        augroup END
-        ]])
-      end
-    end,
     sources = {
       -- js, ts
       fmt.prettier,

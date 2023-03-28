@@ -4,6 +4,7 @@ local M = {
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
     "SmiteshP/nvim-navic",
+    { "lukas-reineke/lsp-format.nvim" },
     {
       "andrewferrier/textobj-diagnostic.nvim",
       opts = {},
@@ -53,7 +54,7 @@ local servers = {
   -- elmls = {}, -- Elm
   -- ember = {}, -- Ember
   emmet_ls = {}, -- Emmet
-  erg_language_server = {}, -- Erg
+  -- erg_language_server = {}, -- Erg
   -- erlangls = {}, -- Erlang
   -- fsautocomplete = {}, -- F#
   -- flux_lsp = {}, -- Flux
@@ -66,8 +67,8 @@ local servers = {
   -- groovyls = {}, -- Groovy
   -- html = {}, -- HTML
   -- hls = {}, -- Haskell
-  jsonls = {}, -- JSON
-  jdtls = {}, -- Java
+  jsonls = {},   -- JSON
+  jdtls = {},    -- Java
   -- quick_lint_js = {}, -- JavaScript
   tsserver = {}, -- JavaScript, TypeScript
   -- jsonnet_ls = {}, -- Jsonnet
@@ -155,6 +156,7 @@ M.config = function()
     ensure_installed = lsp_list,
     automatic_installation = true,
   })
+  require("lsp-format").setup({})
 
   local lsp_base = require("lsp-config.base")
   lsp_base.setup({})
@@ -168,6 +170,7 @@ M.config = function()
         require("nvim-navic").attach(client, bufnr)
       end
       lsp_base.lsp_keymaps(bufnr)
+      require("lsp-format").on_attach(client)
     end,
   }
   for server_name, server_opt in pairs(servers) do
