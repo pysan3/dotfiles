@@ -8,7 +8,7 @@ set t_Co=256                            " Set color sceme work properly
 set t_ut=
 syntax enable                           " Turn on syntax highlighting
 set termguicolors                       " Terminal supports more colors
-colorscheme murphy
+colorscheme habamax
 
 "----------------------------------------------------------
 " Extentions
