@@ -95,7 +95,7 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
   fi
 fi
 python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
-pip install -U --user pipupgrade rich pyreadline lookatme trash-cli yt-dlp
+pip install -U --user pipupgrade rich pyreadline lookatme trash-cli yt-dlp video-cli
 info 'python programs installation done'
 
 # install zsh shell utils

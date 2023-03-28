@@ -1,0 +1,92 @@
+#!/usr/bin/env zsh
+
+source "${DOTFILES:-$HOME/dotfiles}/functions.zsh"
+setopt sh_word_split
+current_dir="$PWD"
+
+if ! pip show video-cli &>/dev/null; then
+  err_exit 'video-cli is not installed. Install with `pip install video-cli`'
+fi
+
+VERSION=$(pip show video-cli | grep 'Version' | cut -d ' ' -f 2)
+if command -v 'bat' &>/dev/null; then
+  cat_cmd='bat -l markdown -p --color always'
+else
+  cat_cmd='cat'
+fi
+
+function show_subcmd_help () {
+retime='`video-retime`: **Video Retiming (Speed Up/Down)**
+
+```bash
+video-retime data/2018-11-02_14-44-14.mp4 --retime 2
+video-retime data/2018-11-02_14-44-14.mp4 --retime 2 --inplace
+```
+'
+togif='`video-togif`: **Create a GIF**
+
+```bash
+video-togif data/2018-11-02_14-44-14.mp4 --fps 2 --duration 5
+video-togif data/2018-11-02_14-44-14.mp4 --fps 2 --duration 5 --resize 0.5
+```
+'
+trim='`video-trim`: **Video Triming**
+
+```bash
+video-trim data/2018-11-02_14-44-14.mp4 --start 3 --duration 5
+```
+'
+tile='`video-tile`: **Video Tiling**
+
+```bash
+video-tile data/2018-11-02_14-44-14.mp4 data/2018-11-02_14-44-14.mp4 --shape 1x2 -o tile.mp4
+```
+'
+toimg='`video-toimg`: **Convert a Video to Images**
+
+```bash
+video-toimg data/2018-11-02_14-44-14.mp4 --per 10 --start 3 --duration 10
+```
+'
+tovideo='`video-tovideo`: **Convert to Video**
+
+```bash
+video-tovideo data/2018-11-02_14-44-14.mp4
+```
+'
+resize='`video-resize`: **Video Resizing**
+
+```bash
+video-resize data/2018-11-02_14-44-14.mp4 --scale 0.5
+```
+'
+fromimg='`video-fromimg`: **Create a Video from Images**
+
+```bash
+video-toimg data/2018-11-02_14-44-14.mp4
+video-fromimg --input-files "data/2018-11-02_14-44-14/*.jpg" --fps 30 out.mp4
+```
+'
+crop='`video-crop`: **Crop a region of a Video**
+
+```bash
+video-crop data/2018-11-02_14-44-14.mp4
+```
+'
+  _cmd_name=${(P)1}
+  if [ -z "$_cmd_name" ]; then
+    err_exit "Unknown option: $_cmd_name"
+  else
+    to_md=$(echo "$_cmd_name" | $cat_cmd)
+    info "Executing: $(echo "$to_md" | head -1)\n"
+    echo "Usage:"
+    echo "$to_md"
+  fi
+}
+
+subcmd="$1"
+shift 1
+
+show_subcmd_help "$subcmd"
+
+echo video-"$subcmd" $(printf " %q" "$@")
