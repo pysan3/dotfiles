@@ -133,6 +133,7 @@ M.config = function()
         "latex",
         "tex",
         "markdown",
+        "sh", "bash", "zsh",
       },
       additional_vim_regex_highlighting = false,
     },
