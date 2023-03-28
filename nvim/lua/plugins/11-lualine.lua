@@ -3,16 +3,12 @@ return {
   event = "VeryLazy",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
+    "meuter/lualine-so-fancy.nvim",
   },
   config = function()
     if vim.g.started_by_firenvim then
       return
     end
-    local function show_macro_recording()
-      local reg = vim.fn.reg_recording()
-      return reg == "" and "" or "Recording @" .. reg
-    end
-
     local function maximize_status()
       return vim.t["maximized"] and " " or ""
     end
@@ -27,21 +23,34 @@ return {
         always_divide_middle = false,
       },
       sections = {
-        lualine_a = { "mode" },
-        lualine_b = { "branch", "diff", "diagnostics" },
+        lualine_a = {
+          { "mode" },
+        },
+        lualine_b = {
+          { "fancy_branch" },
+          { "fancy_diff" },
+          { "fancy_diagnostics" },
+        },
         lualine_c = {
-          { "hostname", icon = "@", color = { fg = "#16c60c" } },
-          { "filename", path = 3 },
+          { "hostname",         icon = "@",            color = { fg = "#16c60c" } },
+          { "fancy_cwd",        substitute_home = true },
+          { "filename",         path = 1 },
           { "maximized-status", fmt = maximize_status, color = "WarningMsg" },
         },
         lualine_x = {
-          { "macro-recording", fmt = show_macro_recording },
-          "encoding",
-          "fileformat",
-          "filetype",
+          { "fancy_macro" },
+          { "fancy_diagnostics" },
+          { "fancy_searchcount" },
         },
-        lualine_y = { "progress" },
-        lualine_z = { "location" },
+        lualine_y = {
+          { "encoding" },
+          { "fileformat" },
+          { "fancy_filetype",   ts_icon = "" },
+          { "fancy_lsp_servers" },
+        },
+        lualine_z = {
+          { "location" },
+        },
       },
       inactive_sections = {
         lualine_a = {},
