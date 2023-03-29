@@ -9,7 +9,11 @@ end
 return {
   "TimUntersberger/neogit",
   dependencies = {
-    { "sindrets/diffview.nvim" },
+    {
+      "sindrets/diffview.nvim",
+      cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    },
+    { 'nvim-lua/plenary.nvim' },
     { "rhysd/conflict-marker.vim" },
   },
   keys = {
