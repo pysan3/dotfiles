@@ -1,9 +1,11 @@
 local events = {
-  "WinResized",
   "BufWinEnter",
   "CursorHold",
   "InsertLeave",
 }
+if vim.fn.has('nvim-0.9') == 1 then
+  events[#events + 1] = "WinResized"
+end
 
 return {
   "utilyre/barbecue.nvim",
@@ -25,7 +27,7 @@ return {
   end,
   opts = {
     create_autocmd = false, -- prevent barbecue from updating itself automatically
-    attach_navic = false, -- prevent barbecue from automatically attaching nvim-navic
+    attach_navic = false,   -- prevent barbecue from automatically attaching nvim-navic
     context_follow_icon_color = false,
     symbols = {
       modified = "● ",
