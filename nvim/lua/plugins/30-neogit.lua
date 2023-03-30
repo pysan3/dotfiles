@@ -13,11 +13,11 @@ return {
       "sindrets/diffview.nvim",
       cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     },
-    { 'nvim-lua/plenary.nvim' },
+    { "nvim-lua/plenary.nvim" },
     { "rhysd/conflict-marker.vim" },
   },
   keys = {
-    neogit_map("s", "kind=vsplit"),
+    neogit_map("s", ""),
     neogit_map("d", "DiffviewOpen", true),
     neogit_map("D", "DiffviewOpen master", true),
     neogit_map("g", "log"),
@@ -43,14 +43,6 @@ return {
     disable_builtin_notifications = true,
     console_timeout = 10000,
     auto_show_console = false,
-    commit_popup = { kind = "split" },
-    kind = "split",
-    signs = {
-      -- { CLOSED, OPENED }
-      section = { ">", "v" },
-      item = { ">", "v" },
-      hunk = { "", "" },
-    },
     integrations = {
       diffview = true,
     },
