@@ -1,7 +1,6 @@
 return {
   "nvim-lualine/lualine.nvim", -- lualine
   event = "VeryLazy",
-  enabled = false,
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "meuter/lualine-so-fancy.nvim",
@@ -28,14 +27,14 @@ return {
           { "mode" },
         },
         lualine_b = {
-          { "fancy_branch" },
+          { "branch" },
           { "fancy_diff" },
           { "fancy_diagnostics" },
         },
         lualine_c = {
-          { "hostname",         icon = "@",            color = { fg = "#16c60c" } },
-          { "fancy_cwd",        substitute_home = true },
-          { "filename",         path = 1 },
+          { "hostname", icon = "@", color = { fg = "#16c60c" } },
+          { "fancy_cwd", substitute_home = true },
+          { "filename", path = 1 },
           { "maximized-status", fmt = maximize_status, color = "WarningMsg" },
         },
         lualine_x = {
@@ -46,7 +45,7 @@ return {
         lualine_y = {
           { "encoding" },
           { "fileformat" },
-          { "fancy_filetype",   ts_icon = "" },
+          { "fancy_filetype", ts_icon = "" },
           { "fancy_lsp_servers" },
         },
         lualine_z = {
