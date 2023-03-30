@@ -1,6 +1,11 @@
 -- Find more schemas here: https://www.schemastore.org/json/
 local schemas = {
   {
+    description = "Lua language server configuration",
+    fileMatch = { ".luarc.json" },
+    url = "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  },
+  {
     description = "TypeScript compiler configuration file",
     fileMatch = {
       "tsconfig.json",

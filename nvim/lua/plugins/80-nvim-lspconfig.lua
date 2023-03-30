@@ -67,8 +67,8 @@ local servers = {
   -- groovyls = {}, -- Groovy
   -- html = {}, -- HTML
   -- hls = {}, -- Haskell
-  jsonls = {},   -- JSON
-  jdtls = {},    -- Java
+  jsonls = {}, -- JSON
+  jdtls = {}, -- Java
   -- quick_lint_js = {}, -- JavaScript
   tsserver = {}, -- JavaScript, TypeScript
   -- jsonnet_ls = {}, -- Jsonnet
@@ -77,7 +77,15 @@ local servers = {
   -- ltex = {}, -- LaTeX
   texlab = {}, -- LaTeX
   -- lelwel_ls = {}, -- Lelwel
-  lua_ls = {},
+  lua_ls = {
+    settings = {
+      Lua = {
+        runtime = { version = "Lua 5.1" },
+        workspace = { checkThirdParty = false },
+        format = { enable = false },
+      },
+    },
+  },
   -- remark_ls = {}, -- Markdown
   -- zeta_note = {}, -- Markdown
   -- zk = {}, -- Markdown
