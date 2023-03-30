@@ -1,5 +1,9 @@
 local M = {
   "jose-elias-alvarez/null-ls.nvim",
+  dependencies = {
+    { "lukas-reineke/lsp-format.nvim" },
+    { "neovim/nvim-lspconfig" },
+  },
   cmd = { "NullLsLog", "NullLsInfo" },
   event = "BufReadPre",
 }
@@ -22,6 +26,9 @@ M.config = function()
 
   null_ls.setup({
     debug = M.debug,
+    on_attach = function(client, _)
+      require("lsp-format").on_attach(client)
+    end,
     sources = {
       -- js, ts
       fmt.prettier,

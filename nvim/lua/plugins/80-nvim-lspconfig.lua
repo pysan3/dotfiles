@@ -163,7 +163,7 @@ M.config = function()
   local global_opts = {
     capabilities = lsp_base.capabilities(),
     on_attach = function(client, bufnr)
-      if stop_lsp_fmt[client.name] ~= nil then
+      if stop_lsp_fmt[client.name] then
         client.server_capabilities.documentFormattingProvider = false
       end
       if client.server_capabilities.documentSymbolProvider then
