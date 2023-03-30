@@ -101,7 +101,7 @@ noremap gP "+P
 nnoremap <Leader><C-b> :silent! vs<CR>
 nnoremap <Leader><C-v> :silent! sp<CR>
 nnoremap <Leader><C-t> :tabe<CR>
-nnoremap <Leader>t :terminal<CR>A
+nnoremap <Leader>tq :tabclose<CR>
 nnoremap <Leader><C-x> <C-w>o
 nnoremap <Leader>; gt
 nnoremap <Leader>, gT
