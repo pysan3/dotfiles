@@ -369,47 +369,5 @@ if checkyes 'Install protoc from source?'; then
   cd "$current_dir"
 fi
 
-# install nix
-command -v 'nix' &>/dev/null && info 'nix found' || warning 'nix not found.'
-if checkyes 'Install nix from source?'; then
-  # editline
-  update_git_repo "$XDG_DATA_HOME/editline" https://github.com/troglobit/editline.git
-  cd "$XDG_DATA_HOME/editline" \
-    && ./configure --prefix="$XDG_PREFIX_HOME" && make all && make install \
-    && ldconfig "$XDG_PREFIX_HOME" -n \
-    && export PKG_CONFIG_LIBDIR="$XDG_PREFIX_HOME/lib/pkgconfig:$PKG_CONFIG_LIBDIR" \
-    && info 'editline setup done' || err_exit 'editline setup failed'
-  # json
-  update_git_repo "$XDG_DATA_HOME/json" https://github.com/nlohmann/json.git
-  mkdir -p "$XDG_DATA_HOME/json/build" && cd "$_" \
-    && cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make install \
-    && ldconfig "$XDG_PREFIX_HOME" -n \
-    && export PKG_CONFIG_LIBDIR="$XDG_PREFIX_HOME/lib/pkgconfig:$PKG_CONFIG_LIBDIR" \
-    && info 'nholmann/json setup done' || err_exit 'nholmann/json setup failed'
-  # lowdown
-  update_git_repo "$XDG_DATA_HOME/lowdown" https://github.com/kristapsdz/lowdown.git
-  cd "$XDG_DATA_HOME/lowdown" \
-    && ./configure --prefix="$XDG_PREFIX_HOME" && make && make regress && make install install_libs \
-    && ldconfig "$XDG_PREFIX_HOME" -n \
-    && export PKG_CONFIG_LIBDIR="$XDG_PREFIX_HOME/share/pkgconfig:$PKG_CONFIG_LIBDIR" \
-    && info 'lowdown setup done' || err_exit 'lowdown setup failed'
-  # brotli
-  update_git_repo "$XDG_DATA_HOME/brotli" https://github.com/google/brotli.git
-  mkdir -p "$XDG_DATA_HOME/brotli/build" && cd "$_" \
-    && cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" -DCMAKE_BUILD_TYPE=Release \
-    && cmake --build . --config Release --target install \
-    && ldconfig "$XDG_PREFIX_HOME" -n \
-    && export PKG_CONFIG_LIBDIR="$XDG_PREFIX_HOME/lib/pkgconfig:$PKG_CONFIG_LIBDIR" \
-    && info 'brotli setup done' || err_exit 'brotli setup failed'
-  update_git_repo "$XDG_DATA_HOME/nix" https://github.com/NixOS/nix
-  mkdir -p "XDG_CACHE_HOME/nix" && cd "$XDG_DATA_HOME/nix" \
-    && ./bootstrap.sh \
-    && ./configure --prefix="$XDG_PREFIX_HOME" \
-      --with-store-dir="$XDG_CACHE_HOME/nix/store" --localstatedir="$XDG_CACHE_HOME/nix/var" \
-    && make && make install \
-    && info 'nix installed' || err_exit 'nix installation failed'
-  cd "$current_dir"
-fi
-
 info "Everything is done. Thx!!"; true
 
