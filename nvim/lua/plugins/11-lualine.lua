@@ -1,6 +1,7 @@
 return {
   "nvim-lualine/lualine.nvim", -- lualine
   event = "VeryLazy",
+  enabled = false,
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "meuter/lualine-so-fancy.nvim",
