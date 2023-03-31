@@ -143,6 +143,7 @@ return {
         noremap = true,
         nowait = true,
       },
+      auto_expand_width = true,
       mappings = {
         ["<space>"] = { "toggle_node", nowait = false },
         ["<2-LeftMouse>"] = "open",
