@@ -38,7 +38,7 @@ return {
         exit = vim.g.personal_options.prefix.iron .. "q",
       },
       highlight = { italic = true },
-      ignore_blank_lines = true,
+      ignore_blank_lines = false,
     })
   end,
 }
