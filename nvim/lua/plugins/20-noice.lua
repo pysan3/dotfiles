@@ -9,7 +9,7 @@ local function get_maps(m, filter)
     m = "n"
   end
   local result_string = { string.format("GET MAPS: mode = %s, filter = '%s'", m, filter) }
-  local keymaps = vim.list_extend(vim.api.nvim_get_keymap(m), vim.api.nvim_buf_get_keymap(0, m))
+  local keymaps = vim.list_extend(vim.api.nvim_get_keymap(m), vim.api.nvim_buf_get_keymap(0, m)) ---@diagnostic disable-line
   local results = {
     keys = { "mode", "lhs", "type", "rhs", "desc" },
     format = { "%s", "'%s'", "%s", "%s", "%s" },
@@ -29,7 +29,7 @@ local function get_maps(m, filter)
       return res
     end,
   }
-  results:add_row(results.keys, vim.split(string.rep([['%s' ]], #results.keys), " "))
+  results:add_row(results.keys, vim.split(string.rep([['%s' ]], #results.keys), " ", {}))
 
   for _, map in ipairs(keymaps) do
     local lhs = lhs_lower(map.lhs)
