@@ -57,15 +57,6 @@ local M = {
 }
 
 M.config = function()
-  local function stopinsert(callback)
-    return function(prompt_bufnr)
-      vim.cmd.stopinsert()
-      vim.schedule(function()
-        callback(prompt_bufnr)
-      end)
-    end
-  end
-
   local actions = require("telescope.actions")
   require("telescope").setup({
     defaults = {
@@ -79,11 +70,6 @@ M.config = function()
           ["<C-k>"] = actions.cycle_history_prev,
           ["<Down>"] = actions.cycle_history_next,
           ["<Up>"] = actions.cycle_history_prev,
-          -- workaround for telescope file selection
-          ["<CR>"] = stopinsert(actions.select_default),
-          ["<C-x>"] = stopinsert(actions.select_horizontal),
-          ["<C-v>"] = stopinsert(actions.select_vertical),
-          ["<C-t>"] = stopinsert(actions.select_tab),
           -- open quickfix list in trouble.nvim
           ["<C-q>"] = function(...)
             require("trouble")
