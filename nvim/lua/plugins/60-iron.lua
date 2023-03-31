@@ -1,8 +1,6 @@
 return {
   "hkupty/iron.nvim",
   cmd = { "IronRepl", "IronRestart", "IronFocus", "IronHide" },
-  ft = { "python" },
-  enabled = false,
   keys = {
     { vim.g.personal_options.prefix.iron .. "s", "<Cmd>IronRepl<CR>", noremap = true },
     { vim.g.personal_options.prefix.iron .. "r", "<Cmd>IronRestart<CR>", noremap = true },
@@ -24,7 +22,7 @@ return {
         },
         -- How the repl window will be displayed
         -- See below for more information
-        repl_open_cmd = require("iron.view").bottom(40),
+        repl_open_cmd = require("iron.view").split.vertical("40%"),
       },
       -- Iron doesn't set keymaps by default anymore.
       -- You can set them here or manually add keymaps to the functions in iron.core
