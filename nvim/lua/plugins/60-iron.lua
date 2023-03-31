@@ -4,30 +4,28 @@ return {
   keys = {
     { vim.g.personal_options.prefix.iron .. "r", "<Cmd>IronRepl<CR>", noremap = true },
     { vim.g.personal_options.prefix.iron .. "R", "<Cmd>IronRestart<CR>", noremap = true },
+    { vim.g.personal_options.prefix.iron .. "i", "<Cmd>IronFocus<CR>A", noremap = true },
     { vim.g.personal_options.prefix.iron .. "h", "<Cmd>IronHide<CR>", noremap = true },
   },
   config = function()
+    local view = require("iron.view")
     require("iron.core").setup({
       config = {
-        -- Whether a repl should be discarded or not
         scratch_repl = true,
-        -- Your repl definitions come here
         repl_definition = {
-          sh = {
-            -- Can be a table or a function that
-            -- returns a table (see below)
-            command = { "zsh" },
-          },
+          sh = { command = { "zsh" } },
         },
-        -- How the repl window will be displayed
-        -- See below for more information
-        repl_open_cmd = require("iron.view").split.vertical("40%"),
+        -- repl_open_cmd = view.split.vertical("40%"),
+        repl_open_cmd = view.offset({
+          width = "40%",
+          height = "100%",
+          w_offset = view.helpers.flip(0),
+          h_offset = view.helpers.proportion(0.5),
+        }),
       },
-      -- Iron doesn't set keymaps by default anymore.
-      -- You can set them here or manually add keymaps to the functions in iron.core
       keymaps = {
-        send_motion = vim.g.personal_options.prefix.iron .. "c",
-        visual_send = vim.g.personal_options.prefix.iron .. "c",
+        send_motion = vim.g.personal_options.prefix.iron .. "s",
+        visual_send = vim.g.personal_options.prefix.iron .. "s",
         send_file = vim.g.personal_options.prefix.iron .. "f",
         send_line = vim.g.personal_options.prefix.iron .. "l",
         send_mark = vim.g.personal_options.prefix.iron .. "k",
@@ -39,12 +37,8 @@ return {
         clear = vim.g.personal_options.prefix.iron .. "x",
         exit = vim.g.personal_options.prefix.iron .. "q",
       },
-      -- If the highlight is on, you can change how it looks
-      -- For the available options, check nvim_set_hl
-      highlight = {
-        italic = true,
-      },
-      ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
+      highlight = { italic = true },
+      ignore_blank_lines = true,
     })
   end,
 }
