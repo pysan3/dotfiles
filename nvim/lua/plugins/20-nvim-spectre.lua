@@ -17,5 +17,13 @@ return {
     { "<Leader>s", call_spectre("open_visual"), remap = false, desc = [[Spectre: "open_visual"]] },
     { "<Leader>sp", call_spectre("open_file_search"), remap = false, desc = [[Spectre: "open_file_search"]] },
   },
-  opts = {},
+  opts = {
+    mapping = {
+      ["send_to_qf"] = {
+        map = "<C-q>",
+        cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
+        desc = "send all item to quickfix",
+      },
+    },
+  },
 }
