@@ -6,6 +6,7 @@ _G.general_info = {
 
 vim.g.personal_options = {
   colorscheme = vim.env.NVIM_COLOR or "jellybeans-nvim",
+  use_transparent = (vim.env.NVIM_USE_TRANSPARENT or "0") ~= "0",
   lsp_saga = {
     enable = false,
     winbar = false,
