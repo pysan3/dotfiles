@@ -98,13 +98,13 @@ noremap gp "+p
 noremap gP "+P
 
 " tmux like movement of windows / tabs
-nnoremap <Leader><C-b> :silent! vs<CR>
-nnoremap <Leader><C-v> :silent! sp<CR>
-nnoremap <Leader><C-t> :tabe<CR>
-nnoremap <Leader>tq :tabclose<CR>
-nnoremap <Leader><C-x> <C-w>o
-nnoremap <Leader>; gt
-nnoremap <Leader>, gT
+nnoremap <silent> <Leader><C-b> :vs<CR>
+nnoremap <silent> <Leader><C-v> :sp<CR>
+nnoremap <silent> <Leader><C-t> :tabe<CR>
+nnoremap <silent> <Leader>tq :tabclose<CR>
+nnoremap <silent> <Leader><C-x> <C-w>o
+nnoremap <silent> <Leader>; gt
+nnoremap <silent> <Leader>, gT
 
 " Do not update the register
 noremap x "_x
