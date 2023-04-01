@@ -1,6 +1,5 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  branch = "main",
   -- dev = true,
   dependencies = {
     { "MunifTanjim/nui.nvim" },
