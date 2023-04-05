@@ -38,7 +38,7 @@ M.config = function()
       fmt.autopep8.with({
         extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" },
       }),
-      diag.flake8.with({ extra_args = { "--max-line-length=120", "--ignore=F405" } }),
+      diag.flake8.with({ extra_args = { "--max-line-length=120", "--ignore=F405,W503" } }),
       -- lua
       fmt.stylua,
       -- rust
