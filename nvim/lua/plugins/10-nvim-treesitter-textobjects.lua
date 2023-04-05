@@ -21,17 +21,17 @@ M.config = function()
           ["ia"] = "@parameter.inner",
         },
         selection_modes = {
-          ["@function.outer"] = "V", -- linewise
-          ["@class.outer"] = "V", -- blockwise
+          ["@function.outer"] = "V",
+          ["@class.outer"] = "V",
         },
       },
       swap = {
         enable = true,
         swap_next = {
-          ["<leader>m]"] = "@parameter.inner",
+          ["]a"] = "@parameter.inner",
         },
         swap_previous = {
-          ["<leader>m["] = "@parameter.inner",
+          ["[a"] = "@parameter.inner",
         },
       },
       move = {
