@@ -3,7 +3,7 @@ local M = {
   event = "BufReadPre",
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
-    "SmiteshP/nvim-navic",
+    { "SmiteshP/nvim-navic" },
     { "lukas-reineke/lsp-format.nvim" },
     {
       "andrewferrier/textobj-diagnostic.nvim",

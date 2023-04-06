@@ -18,6 +18,16 @@ return {
     { "<Leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", silent = true, remap = false },
     { "<Leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", silent = true, remap = false },
   },
+  init = function()
+    vim.cmd([[
+    augroup MyColors
+    autocmd!
+    autocmd ColorScheme * highlight link BufferLineFill BufferLineTabSeparator
+    autocmd ColorScheme * highlight link BufferLineSeparator BufferLineTabSeparator
+    autocmd ColorScheme * highlight link BufferLineSeparatorSelected BufferLineTabSeparator
+    augroup END
+    ]])
+  end,
   opts = {
     options = {
       close_command = "bd %d",
@@ -45,7 +55,7 @@ return {
       show_close_icon = false,
       show_tab_indicators = true,
       persist_buffer_sort = true,
-      separator_style = "slant",
+      separator_style = { "", "" },
       enforce_regular_tabs = false,
       always_show_bufferline = true,
       custom_filter = function(buf, _)
