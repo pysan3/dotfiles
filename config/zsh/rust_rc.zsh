@@ -22,7 +22,6 @@ export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 # Python
 _prepend "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$POETRY_HOME/bin"
-_prepend "$PYENV_ROOT/versions/$(pyenv global)/bin"
 
 # alias to command line utils
 _append "$CARGO_HOME/bin"
