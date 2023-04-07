@@ -40,7 +40,7 @@ return {
         lualine_x = {
           { "fancy_macro" },
           { "fancy_diagnostics" },
-          { "fancy_searchcount" },
+          { "fancy_searchcount", icon = { "", color = { fg = "#fcba03" } } },
         },
         lualine_y = {
           { "encoding" },
