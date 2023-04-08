@@ -110,7 +110,7 @@ M.config = function()
       { name = "path" },
     }, {
       buffers,
-      { name = "dictionary", keyword_length = 5 },
+      { name = "dictionary", keyword_length = 3 },
       { name = "spell" },
       { name = "calc" },
       { name = "emoji" },
