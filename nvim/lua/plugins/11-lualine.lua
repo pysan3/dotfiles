@@ -40,13 +40,13 @@ return {
         lualine_x = {
           { "fancy_macro" },
           { "fancy_diagnostics" },
-          { "fancy_searchcount" },
+          { "fancy_searchcount", icon = { "", color = { fg = "#fcba03" } } },
         },
         lualine_y = {
           { "encoding" },
           { "fileformat" },
-          { "fancy_filetype", ts_icon = "" },
-          { "fancy_lsp_servers" },
+          { "fancy_filetype", ts_icon = "" },
+          { "fancy_lsp_servers", icon = { "", color = { fg = "#ffff00" } } },
         },
         lualine_z = {
           { "location" },
