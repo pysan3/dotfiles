@@ -25,7 +25,7 @@ M.tools = {
   "autopep8",
   "cmakelang",
   "isort",
-  "luaformatter",
+  -- "luaformatter",
   "prettier",
   "shfmt",
   "stylua",
