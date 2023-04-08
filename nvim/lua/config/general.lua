@@ -138,9 +138,6 @@ vim.opt.exrc = true
 -- global status line
 vim.opt.laststatus = 3
 vim.opt.fillchars = "vert:┃,horiz:━,verthoriz:╋,horizup:┻,horizdown:┳,vertleft:┫,vertright:┣,eob: " -- more obvious separator
-vim.cmd([[
-highlight WinSeparator guibg=None
-]])
 
 vim.api.nvim_create_autocmd("VimResized", {
   desc = "Resize Splits Automatically for Tmux",
