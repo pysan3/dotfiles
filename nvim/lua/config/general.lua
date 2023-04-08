@@ -130,8 +130,10 @@ vim.g.personal_module = {
   end,
 }
 
+-- neovim specific options
 vim.opt.completeopt = "menuone,noselect"
 vim.opt.cmdheight = 0
+vim.opt.exrc = true
 
 -- global status line
 vim.opt.laststatus = 3
