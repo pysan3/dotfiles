@@ -32,42 +32,52 @@ end
 -- stylua: ignore end
 ---@diagnostic enable
 
-local function get_date(delta_date, str)
-  vim.print(str)
+local function get_date(delta_date, str, timestamp_syntax)
   local year, month, day = string.match(str, [[^(%d%d%d%d)-(%d%d)-(%d%d)$]])
-  return os.date("%Y-%m-%d", os.time({ year = year, month = month, day = day }) + 86400 * delta_date)
+  local format = timestamp_syntax and [[%a, %d %b %Y]] or [[%Y-%m-%d]]
+  return os.date(format, os.time({ year = year, month = month, day = day }) + 86400 * delta_date)
 end
 
 snippets[#snippets + 1] = s(
-  "journal",
+  e("journal", "insert template for journal page"),
   fmt(
     [[
-* {}
+* {title}
 
-{{:{}:}}[Yesterday] - {{:{}:}}[Tomorrow]
+{{:{yesterday}:}}[Yesterday] - {{:{tomorrow}:}}[Tomorrow]
 
 ** Daily Review
    - {}
 
 ** Today's Checklist
-   - ( ) 
+   - ( ) Write my daily review
 
 ** Achievements
-   - 
+   -
     ]],
     {
-      f(function(_, _) -- title
+      title = f(function(_, _)
         return get_date(0, vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t:r"))
       end),
-      f(function(_, _) -- yesterday
+      yesterday = f(function(_, _)
         return get_date(-1, vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t:r"))
       end),
-      f(function(_, _) -- tomorrow
+      tomorrow = f(function(_, _)
         return get_date(1, vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t:r"))
       end),
       i(0),
     }
   )
+)
+
+snippets[#snippets + 1] = s(
+  e("flink", "insert file path using `$` as root of workspace"),
+  fmt([[{{:{}{}{}:}}{}]], {
+    c(2, { t(vim.fn.getcwd() .. "/"), t("$/") }),
+    i(1),
+    i(3),
+    i(0),
+  })
 )
 
 return snippets, autosnippets
