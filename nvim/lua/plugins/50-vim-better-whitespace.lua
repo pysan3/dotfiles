@@ -14,13 +14,9 @@ return {
     vim.g.better_whitespace_filetypes_blacklist = {
       "NvimTree",
       "diff",
-      "git",
-      "gitcommit",
       "unite",
       "qf",
       "help",
-      "markdown",
-      "fugitive",
     }
   end,
 }
