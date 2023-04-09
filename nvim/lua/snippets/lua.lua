@@ -13,6 +13,7 @@ local r = ls.restore_node
 local events = require("luasnip.util.events")
 local ai = require("luasnip.nodes.absolute_indexer")
 local fmt = require("luasnip.extras.fmt").fmt
+local rep = require("luasnip.extras").rep
 local m = require("luasnip.extras").m
 local lambda = require("luasnip.extras").l
 local postfix = require("luasnip.extras.postfix").postfix
@@ -31,14 +32,19 @@ end
 -- stylua: ignore end
 ---@diagnostic enable
 
-table.insert(
-  snippets,
-  s(
-    e("snew", "insert a new snippet node"),
-    fmt("table.insert({}, s({}))", {
+snippets[#snippets + 1] = s(
+  e("snew", "insert a new snippet node"),
+  fmt(
+    [[
+{}[#{} + 1] = s(
+  {}
+)
+    ]],
+    {
       c(1, { t("snippets"), t("autosnippets") }),
+      rep(1),
       i(0),
-    })
+    }
   )
 )
 

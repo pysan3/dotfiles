@@ -46,14 +46,14 @@ local marks = {
   date_signature_with_email = function()
     return fmt(
       "<{}{}{}>",
-      { i(1, os.date("%d-%m-%y")), i(2, ", " .. _G.general_info.username), i(3, " " .. _G.general_info.email) }
+      { i(1, os.date("%Y-%m-%d")), i(2, ", " .. _G.general_info.username), i(3, " " .. _G.general_info.email) }
     )
   end,
   date_signature = function()
-    return fmt("<{}{}>", { i(1, os.date("%d-%m-%y")), i(2, ", " .. _G.general_info.username) })
+    return fmt("<{}{}>", { i(1, os.date("%Y-%m-%d")), i(2, ", " .. _G.general_info.username) })
   end,
   date = function()
-    return fmt("<{}>", i(1, os.date("%d-%m-%y")))
+    return fmt("<{}>", i(1, os.date("%Y-%m-%d")))
   end,
   empty = function()
     return t("")
