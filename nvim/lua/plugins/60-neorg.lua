@@ -14,29 +14,34 @@ local function list_workspaces(w_dirs)
   return { workspaces = res }
 end
 
-M.opts = { load = {} }
-M.opts.load["core.defaults"] = {}
-M.opts.load["core.norg.concealer"] = { config = { icon_preset = "diamond" } }
-M.opts.load["core.norg.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } }
-M.opts.load["core.norg.esupports.metagen"] = {}
-M.opts.load["core.integrations.nvim-cmp"] = {}
-M.opts.load["core.norg.qol.toc"] = {}
-M.opts.load["core.norg.qol.todo_items"] = {}
-M.opts.load["core.export"] = {}
-M.opts.load["core.presenter"] = { config = { zen_mode = "zen-mode" } }
-M.opts.load["core.norg.journal"] = {}
-M.opts.load["core.norg.dirman"] = {
-  config = list_workspaces({
-    "wiki",
-    "work",
-  }),
-}
-M.opts.load["core.keybinds"] = {
-  -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
-  config = {
-    default_keybinds = true,
-    neorg_leader = "<Leader><Leader>",
+local plugins = {
+  ["core.defaults"] = {},
+  ["core.norg.concealer"] = { config = { icon_preset = "diamond" } },
+  ["core.norg.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
+  ["core.norg.esupports.metagen"] = {},
+  ["core.integrations.nvim-cmp"] = {},
+  ["core.norg.qol.toc"] = {},
+  ["core.norg.qol.todo_items"] = {},
+  ["core.export"] = {},
+  ["core.presenter"] = { config = { zen_mode = "zen-mode" } },
+  ["core.norg.journal"] = {},
+  ["core.norg.dirman"] = {
+    config = list_workspaces({
+      "wiki",
+      "work",
+    }),
   },
+  ["core.keybinds"] = {
+    -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
+    config = {
+      default_keybinds = true,
+      neorg_leader = "<Leader><Leader>",
+    },
+  },
+}
+
+M.opts = {
+  load = plugins,
 }
 
 return M
