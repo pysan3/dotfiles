@@ -18,6 +18,7 @@ vim.g.personal_options = {
     fugitive = "<Leader>l",
     iron = "<Leader>r",
     lsp = "<Leader>k",
+    neorg = "<Leader>k",
   },
   -- stylua: ignore
   lsp_icons = {

@@ -36,6 +36,24 @@ local plugins = {
     config = {
       default_keybinds = true,
       neorg_leader = "<Leader><Leader>",
+      hook = function(keybinds)
+        local function export_file(suffix, open_markdown_preview)
+          local dst = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.:r") .. suffix -- same name with suffix
+          vim.cmd([[Neorg export to-file ]] .. dst)
+          vim.schedule(function()
+            vim.cmd.edit(dst)
+            if open_markdown_preview then
+              vim.cmd([[MarkdownPreview]])
+            end
+          end)
+        end
+        keybinds.map("norg", "n", vim.g.personal_options.prefix.neorg .. "e", function()
+          export_file(".md", false)
+        end, { desc = "Neorg: export to markdown and open file" })
+        keybinds.map("norg", "n", vim.g.personal_options.prefix.neorg .. "E", function()
+          export_file(".md", true)
+        end, { desc = "Neorg: export to markdown and open MarkdownPreview" })
+      end,
     },
   },
 }
