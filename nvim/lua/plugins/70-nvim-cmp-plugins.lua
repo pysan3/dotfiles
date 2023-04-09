@@ -4,6 +4,9 @@ return {
     init = function()
       vim.opt_global.dictionary = "/usr/share/dict/words"
     end,
+    opts = {
+      first_case_insensitive = true,
+    },
   },
   {
     "petertriho/cmp-git",

@@ -1,6 +1,6 @@
 return {
   "ntpeters/vim-better-whitespace",
-  event = "BufReadPre",
+  event = "BufReadPost",
   cmd = { "StripWhitespace" },
   keys = {
     { "]w", "<Cmd>NextTrailingWhitespace<CR>", noremap = true },
