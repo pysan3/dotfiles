@@ -6,6 +6,11 @@ M.config = function()
   local devicons = require("nvim-web-devicons")
   devicons.setup({
     override = {
+      norg = {
+        icon = "◉", -- Default icon for Header 1
+        color = "#406FBA",
+        name = "Neorg",
+      },
       zwc = {
         icon = "",
         color = "#41535B",
