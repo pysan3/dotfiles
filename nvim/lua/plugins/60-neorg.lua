@@ -9,7 +9,7 @@ local M = {
 local function list_workspaces(w_dirs)
   local res = {}
   for _, w in ipairs(w_dirs) do
-    res[w] = "~/Documents/wiki-public/" .. w
+    res[w] = "~/Nextcloud/" .. w
   end
   return { workspaces = res }
 end
@@ -27,8 +27,8 @@ local plugins = {
   ["core.norg.journal"] = {},
   ["core.norg.dirman"] = {
     config = list_workspaces({
-      "norg",
-      "work",
+      "Notes",
+      "Works",
     }),
   },
   ["core.keybinds"] = {
