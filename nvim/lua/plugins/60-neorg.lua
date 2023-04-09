@@ -4,6 +4,7 @@ local M = {
   dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-cmp", "mason.nvim", "nvim-lua/plenary.nvim" },
   build = ":Neorg sync-parsers",
   cmd = "Neorg",
+  default_workspace = "Notes",
 }
 
 local function list_workspaces(w_dirs)
@@ -18,16 +19,22 @@ local plugins = {
   ["core.defaults"] = {},
   ["core.norg.concealer"] = { config = { icon_preset = "diamond" } },
   ["core.norg.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
-  ["core.norg.esupports.metagen"] = {},
+  ["core.norg.esupports.metagen"] = { config = { type = "empty" } },
   ["core.integrations.nvim-cmp"] = {},
   ["core.norg.qol.toc"] = {},
   ["core.norg.qol.todo_items"] = {},
   ["core.export"] = {},
   ["core.presenter"] = { config = { zen_mode = "zen-mode" } },
-  ["core.norg.journal"] = {},
+  ["core.norg.journal"] = {
+    config = {
+      strategy = "flat",
+      template_name = "../templates/journal.norg",
+      workspace = M.default_workspace,
+    },
+  },
   ["core.norg.dirman"] = {
     config = list_workspaces({
-      "Notes",
+      M.default_workspace,
       "Works",
     }),
   },
