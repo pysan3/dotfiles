@@ -1,6 +1,6 @@
 M = {}
 
-M.subcmd_alias = function(_)
+local function subcmd_alias(_)
   vim.api.nvim_create_user_command("Metadata", "Neorg inject-metadata", { desc = "Neorg: alias to inject-metadata" })
   local days = { "Yesterday", "Today", "Tomorrow" }
   for _, cmd in ipairs(days) do
@@ -14,7 +14,7 @@ M.subcmd_alias = function(_)
 end
 
 M.setup = function(opts)
-  M.subcmd_alias(opts)
+  subcmd_alias(opts)
 end
 
 return M
