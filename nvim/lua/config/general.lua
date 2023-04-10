@@ -6,6 +6,9 @@ _G.general_info = {
 
 vim.g.personal_options = {
   colorscheme = vim.env.NVIM_COLOR or "jellybeans-nvim",
+  hlargs_lookup = {
+    kanagawa = "#E6C384",
+  },
   use_transparent = (vim.env.NVIM_USE_TRANSPARENT or "0") ~= "0",
   lsp_saga = {
     enable = false,
