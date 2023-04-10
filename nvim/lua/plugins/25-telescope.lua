@@ -3,7 +3,10 @@ local function telescope_keymap(key, picker, func, pre_leader, lsp_prefix, opts)
   return {
     (pre_leader and "<Leader>" or "") .. prefix .. key,
     func or function()
-      require("telescope.builtin")[picker](opts)
+      local suc, _ = pcall(require("telescope.builtin")[picker], opts)
+      if not suc then
+        require("telescope.builtin").find_files(opts)
+      end
     end,
     desc = "Telescope: " .. picker,
   }
