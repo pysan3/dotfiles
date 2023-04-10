@@ -7,6 +7,13 @@ local M = {
   default_workspace = "Notes",
 }
 
+M.init = function()
+  vim.api.nvim_create_user_command("Today", function()
+    vim.cmd([[Neorg journal today]])
+    vim.cmd([[Neorg inject-metadata]])
+  end, { desc = "Neorg: open today's journal", force = true })
+end
+
 local function list_workspaces(w_dirs)
   local res = {}
   for _, w in ipairs(w_dirs) do
