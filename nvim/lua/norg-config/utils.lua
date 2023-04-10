@@ -12,7 +12,7 @@ M.export_file = function(suffix, opts)
   if opts.only_overwrite and not vim.g.personal_module.exists(dst) then
     return
   end
-  vim.cmd(string.format([[Neorg export to-file '%s']], dst))
+  vim.cmd(string.format([[Neorg export to-file %s]], dst))
   if opts.open_file then
     vim.schedule(function()
       vim.cmd.edit(dst)
