@@ -15,6 +15,9 @@ fi
 zcompile "$DOTFILES/functions.zsh"
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 
+# Create gnupg dir
+[ ! -d "$XDG_DATA_HOME/gnupg" ] && (mkdir -p "$XDG_DATA_HOME/gnupg" && chmod 600 "$XDG_DATA_HOME/gnupg")
+
 # Create temp dir
 [ -z "$MYTEMPDIR" ] && MYTEMPDIR="${TEMPDIR:-/tmp}/$USER"
 [ ! -d "$MYTEMPDIR" ] && mkdir -p "$MYTEMPDIR"
