@@ -6,9 +6,6 @@ _G.general_info = {
 
 vim.g.personal_options = {
   colorscheme = vim.env.NVIM_COLOR or "jellybeans-nvim",
-  hlargs_lookup = {
-    kanagawa = "#E6C384",
-  },
   use_transparent = (vim.env.NVIM_USE_TRANSPARENT or "0") ~= "0",
   lsp_saga = {
     enable = false,
@@ -29,6 +26,25 @@ vim.g.personal_options = {
     Keyword = "", Method = "", Module = "", Namespace = "", Null = "ﳠ", Number = "", Object = "", Operator = "",
     Package = "", Property = " ", Reference = "", Snippet = "", String = "", Struct = " ", Text = "",
     TypeParameter = "", Unit = "", Value = "", Variable = "" },
+}
+
+vim.g.personal_lookup = {
+  ---Lookup value with default key
+  ---@param tbl string | table<string, table<string, any>> # lookup table. if string, uses vim.g.personal_lookup
+  ---@param key string # key to lookup
+  ---@param default any? # value to return if key not found. if nil, table["_"] is returned
+  ---@return any # value of lookup
+  get = function(tbl, key, default)
+    local t = type(tbl) == "string" and vim.g.personal_lookup[tbl] or tbl
+    if type(t) ~= "table" then
+      return nil
+    end
+    return t[key] or default or t._
+  end,
+  hlargs = {
+    _ = "#ef9062",
+    kanagawa = "#E6C384",
+  },
 }
 
 local function merge_table(a)

@@ -54,7 +54,7 @@ return {
         {
           "maximized-status",
           fmt = maximize_status,
-          color = { fg = vim.g.personal_options.hlargs_lookup[vim.g.personal_options.colorscheme] },
+          color = { fg = vim.g.personal_lookup.get("hlargs", vim.g.personal_options.colorscheme) },
         },
       },
       lualine_x = {
