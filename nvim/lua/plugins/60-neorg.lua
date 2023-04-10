@@ -1,17 +1,22 @@
 local M = {
   "nvim-neorg/neorg",
   ft = "norg",
-  dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-cmp", "mason.nvim", "nvim-lua/plenary.nvim" },
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    "nvim-cmp",
+    "mason.nvim",
+    "nvim-lua/plenary.nvim",
+    "ntpeters/vim-better-whitespace",
+  },
   build = ":Neorg sync-parsers",
   cmd = "Neorg",
   default_workspace = "Notes",
 }
 
 M.init = function()
-  vim.api.nvim_create_user_command("Today", function()
-    vim.cmd([[Neorg journal today]])
-    vim.cmd([[Neorg inject-metadata]])
-  end, { desc = "Neorg: open today's journal", force = true })
+  require("norg-config.commands").setup({})
+  require("norg-config.autocmds").setup({})
 end
 
 local function list_workspaces(w_dirs)
@@ -51,21 +56,12 @@ local plugins = {
       default_keybinds = true,
       neorg_leader = "<Leader><Leader>",
       hook = function(keybinds)
-        local function export_file(suffix, open_markdown_preview)
-          local dst = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.:r") .. suffix -- same name with suffix
-          vim.cmd([[Neorg export to-file ]] .. dst)
-          vim.schedule(function()
-            vim.cmd.edit(dst)
-            if open_markdown_preview then
-              vim.cmd([[MarkdownPreview]])
-            end
-          end)
-        end
+        local norg_utils = require("norg-config.utils")
         keybinds.map("norg", "n", vim.g.personal_options.prefix.neorg .. "e", function()
-          export_file(".md", false)
+          norg_utils.export_file(".md", { open_file = true, open_markdown_preview = false })
         end, { desc = "Neorg: export to markdown and open file" })
         keybinds.map("norg", "n", vim.g.personal_options.prefix.neorg .. "E", function()
-          export_file(".md", true)
+          norg_utils.export_file(".md", { open_file = true, open_markdown_preview = true })
         end, { desc = "Neorg: export to markdown and open MarkdownPreview" })
       end,
     },

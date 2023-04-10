@@ -32,7 +32,7 @@ end
 -- stylua: ignore end
 ---@diagnostic enable
 
-require("snippets.norg-pages")
+require("norg-config.snippets").setup({}, snippets, autosnippets)
 
 snippets[#snippets + 1] = s(
   e("flink", "insert file path using `$` as root of workspace"),
