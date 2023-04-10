@@ -35,6 +35,7 @@ local plugins = {
   ["core.integrations.nvim-cmp"] = {},
   ["core.norg.qol.toc"] = {},
   ["core.norg.qol.todo_items"] = {},
+  ["core.looking-glass"] = {},
   ["core.export"] = {},
   ["core.presenter"] = { config = { zen_mode = "zen-mode" } },
   ["core.norg.journal"] = {
@@ -55,14 +56,15 @@ local plugins = {
     config = {
       default_keybinds = true,
       neorg_leader = "<Leader><Leader>",
-      hook = function(keybinds)
+      hook = function(kb)
         local norg_utils = require("norg-config.utils")
-        keybinds.map("norg", "n", vim.g.personal_options.prefix.neorg .. "e", function()
+        kb.map("norg", "n", vim.g.personal_options.prefix.neorg .. "e", function()
           norg_utils.export_file(".md", { open_file = true, open_markdown_preview = false })
         end, { desc = "Neorg: export to markdown and open file" })
-        keybinds.map("norg", "n", vim.g.personal_options.prefix.neorg .. "E", function()
+        kb.map("norg", "n", vim.g.personal_options.prefix.neorg .. "E", function()
           norg_utils.export_file(".md", { open_file = true, open_markdown_preview = true })
         end, { desc = "Neorg: export to markdown and open MarkdownPreview" })
+        kb.map_event("norg", "n", vim.g.personal_options.prefix.neorg .. "c", "core.looking-glass.magnify-code-block")
       end,
     },
   },
