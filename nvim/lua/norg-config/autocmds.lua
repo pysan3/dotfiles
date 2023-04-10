@@ -107,8 +107,8 @@ local function jump_with_braces(_)
   vim.api.nvim_create_autocmd("FileType", {
     pattern = { "norg" },
     callback = function()
-      vim.keymap.set("n", "{", goto_previous_headline, { desc = "Neorg: Go to previous headline", buffer = true })
-      vim.keymap.set("n", "}", goto_next_headline, { desc = "Neorg: Go to next headline", buffer = true })
+      vim.keymap.set("n", "[h", goto_previous_headline, { desc = "Neorg: Go to previous headline", buffer = true })
+      vim.keymap.set("n", "]h", goto_next_headline, { desc = "Neorg: Go to next headline", buffer = true })
     end,
   })
 end
