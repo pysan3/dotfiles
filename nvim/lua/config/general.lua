@@ -30,9 +30,9 @@ vim.g.personal_options = {
 
 vim.g.personal_lookup = {
   ---Lookup value with default key
-  ---@param tbl string | table<string, table<string, any>> # lookup table. if string, uses vim.g.personal_lookup
+  ---@param tbl string | table<string, table<string, any>> # lookup table. if string, uses `vim.g.personal_lookup`
   ---@param key string # key to lookup
-  ---@param default any? # value to return if key not found. if nil, table["_"] is returned
+  ---@param default any? # value to return if key not found. if `nil`, `tbl._` is returned
   ---@return any # value of lookup
   get = function(tbl, key, default)
     local t = type(tbl) == "string" and vim.g.personal_lookup[tbl] or tbl
