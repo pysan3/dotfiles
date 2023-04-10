@@ -36,11 +36,10 @@ require("norg-config.snippets").setup({}, snippets, autosnippets)
 
 snippets[#snippets + 1] = s(
   e("flink", "insert file path using `$` as root of workspace"),
-  fmt([[{{:{}{}{}:{}}}{}]], {
+  fmt([[{{:{}{}:{}}}{}]], {
     c(2, { t(vim.fn.getcwd() .. "/"), t("$/") }),
     i(1),
     i(3),
-    i(4),
     i(0),
   })
 )

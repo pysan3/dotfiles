@@ -16,12 +16,12 @@ M.setup_autocmds = function(_)
       ]])
     end,
   })
-  vim.api.nvim_create_autocmd("BufLeave", {
+  vim.api.nvim_create_autocmd("FileWritePost", {
     group = M.neorg_aug,
     pattern = "*.norg",
     desc = "Neorg: export to markdown file if file already exists",
     callback = function()
-      utils.export_file(".md", { only_overwrite = true })
+      utils.export_file(".md", { only_overwrite = true, open_file = false })
     end,
   })
   vim.api.nvim_create_autocmd("BufWinEnter", {
