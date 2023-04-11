@@ -25,8 +25,8 @@ return {
   "lewis6991/gitsigns.nvim",
   event = "VeryLazy",
   keys = {
-    move_hunk("]c", "next_hunk"),
-    move_hunk("[c", "prev_hunk"),
+    move_hunk("]g", "next_hunk"),
+    move_hunk("[g", "prev_hunk"),
     map({ vim.g.personal_options.prefix.gitsigns .. "s", "<Cmd>Gitsigns stage_hunk<CR>" }),
     map({ vim.g.personal_options.prefix.gitsigns .. "r", "<Cmd>Gitsigns reset_hunk<CR>" }),
     map({ vim.g.personal_options.prefix.gitsigns .. "r", "<Cmd>Gitsigns reset_hunk<CR>" }),
