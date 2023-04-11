@@ -34,9 +34,9 @@ alias rm='rm -i --preserve-root'
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
-alias tp='trash-put'
+alias trm='trash-put'
 alias tls='trash-list'
-alias tre='trash-restore'
+alias tmv='trash-restore'
 alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
 
 alias egr="env | grep -i"
