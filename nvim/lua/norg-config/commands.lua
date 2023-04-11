@@ -8,6 +8,7 @@ local function subcmd_alias(_)
       pcall(vim.cmd, [[Neorg journal ]] .. cmd:lower()) ---@diagnostic disable-line
       vim.schedule(function()
         vim.cmd([[Metadata]])
+        vim.cmd([[normal ]h]h]]) -- move down to {** Daily Review}
       end)
     end, { desc = "Neorg: open " .. cmd .. "'s journal", force = true })
   end
