@@ -5,10 +5,10 @@ local function subcmd_alias(_)
   local days = { "Yesterday", "Today", "Tomorrow" }
   for _, cmd in ipairs(days) do
     vim.api.nvim_create_user_command(cmd, function()
-      vim.cmd(([[
-      Neorg journal %s
-      Metadata
-      ]]):format(cmd:lower()))
+      pcall(vim.cmd, [[Neorg journal ]] .. cmd:lower()) ---@diagnostic disable-line
+      vim.schedule(function()
+        vim.cmd([[Metadata]])
+      end)
     end, { desc = "Neorg: open " .. cmd .. "'s journal", force = true })
   end
 end
