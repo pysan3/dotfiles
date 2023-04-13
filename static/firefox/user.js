@@ -315,6 +315,26 @@ user_pref("permissions.default.desktop-notification", 0);
 // PREF: allow websites to ask you for your location
 user_pref("permissions.default.geo", 0);
 
+/** ADDRESS + CREDIT CARD MANAGER ***/
+user_pref("extensions.formautofill.addresses.enabled", true);
+user_pref("extensions.formautofill.creditCards.enabled", true);
+user_pref("extensions.formautofill.heuristics.enabled", true);
+user_pref("browser.formfill.enable", true);
+
+/** MIXED CONTENT + CROSS-SITE ***/
+user_pref("network.auth.subresource-http-auth-allow", 1);
+user_pref("pdfjs.enableScripting", true);
+
+/** SSL / TLS ***/
+user_pref("security.ssl.treat_unsafe_negotiation_as_broken", false);
+user_pref("browser.xul.error_pages.expert_bad_cert", false);
+
+/** OCSP & CERTS / HPKP ***/
+user_pref("security.OCSP.enabled", 1);
+user_pref("security.remote_settings.crlite_filters.enabled", true);
+user_pref("security.pki.crlite_mode", 2);
+user_pref("security.cert_pinning.enforcement_level", 0);
+
 /****************************************************************************
  * END: BETTERFOX                                                           *
  ****************************************************************************/
