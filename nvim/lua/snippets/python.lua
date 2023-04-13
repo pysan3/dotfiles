@@ -51,7 +51,6 @@ local function node_with_virtual_text(pos, node, text)
     },
   })
 end
-
 local function nodes_with_virtual_text(nodes, opts)
   if opts == nil then
     opts = {}
@@ -65,36 +64,31 @@ local function nodes_with_virtual_text(nodes, opts)
   end
   return new_nodes
 end
-
 local function choice_text_node(pos, choices, opts)
   choices = nodes_with_virtual_text(choices, opts)
   return c(pos, choices, opts)
 end
-
-table.insert(
-  snippets,
-  s(
-    "d",
-    fmt("def {func}({args}){ret}:\n\t{doc}{body}", {
-      func = i(1),
-      args = i(2),
-      ret = c(3, { sn(nil, { t(" -> "), i(1) }), t("") }),
-      doc = isn(4, {
-        choice_text_node(1, {
-          t(""),
-          sn(1, fmt('"""{desc}"""\n', { desc = i(1) })),
-          sn(
-            2,
-            fmt(
-              '"""{desc}\n\nArgs:\n\t{args}\n\nReturns:\n\t{returns}\n"""',
-              { desc = i(1), args = i(2), returns = i(3) }
-            )
-          ),
-        }, { texts = { "(no docstring)", "(single line docstring)", "(full docstring)" } }),
-      }, "$PARENT_INDENT\t"),
-      body = i(0),
-    })
-  )
+snippets[#snippets + 1] = s(
+  "d",
+  fmt("def {func}({args}){ret}:\n\t{doc}{body}", {
+    func = i(1),
+    args = i(2),
+    ret = c(3, { sn(nil, { t(" -> "), i(1) }), t("") }),
+    doc = isn(4, {
+      choice_text_node(1, {
+        t(""),
+        sn(1, fmt('"""{desc}"""\n', { desc = i(1) })),
+        sn(
+          2,
+          fmt(
+            '"""{desc}\n\nArgs:\n\t{args}\n\nReturns:\n\t{returns}\n"""',
+            { desc = i(1), args = i(2), returns = i(3) }
+          )
+        ),
+      }, { texts = { "(no docstring)", "(single line docstring)", "(full docstring)" } }),
+    }, "$PARENT_INDENT\t"),
+    body = i(0),
+  })
 )
 
 -- Init Function With Dynamic Initializer List
@@ -112,7 +106,6 @@ local function py_init()
     })
   )
 end
-
 local function to_init_assign(args)
   local tab = {}
   local a = args[1][1]
@@ -132,15 +125,26 @@ local function to_init_assign(args)
   end
   return sn(nil, tab)
 end
+snippets[#snippets + 1] = s(
+  "pyinit",
+  fmt([[def __init__(self{}):{}]], {
+    d(1, py_init),
+    d(2, to_init_assign, { 1 }),
+  })
+)
 
-table.insert(
-  snippets,
-  s(
-    "pyinit",
-    fmt([[def __init__(self{}):{}]], {
-      d(1, py_init),
-      d(2, to_init_assign, { 1 }),
-    })
+-- ifvv: conditional print with mgr.veryverbose
+snippets[#snippets + 1] = s(
+  "ifvv",
+  fmt(
+    [[
+if {}mgr.veryverbose:
+    print(f'{}')
+  ]],
+    {
+      c(1, { t("self."), t("") }),
+      i(0),
+    }
   )
 )
 
