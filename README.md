@@ -32,12 +32,16 @@ This installation might cause serious changes to your workflow.
 ## Installation
 
 ```zsh
+# Install git, zsh
+sudo apt install -y zsh git
+sudo pacman -S zsh git
+
 # My config files only run on zsh shell
 # Change default shell to zsh
 chsh -s $(which zsh)  # This may break many things!!! Know what you are doing.
 
 cd "$HOME"
-git clone https://github.com/pysan3/dotfiles.git
+git clone https://git.esslab.jp/takuto/dotfiles.git
 cd dotfiles
 
 # Create Symlink for all Config Files
