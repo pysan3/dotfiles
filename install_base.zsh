@@ -76,13 +76,6 @@ if [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && checkyes 'Install PlemolJ
 fi
 
 # install pyenv and poetry
-if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
-  info "Installing pyenv" && curl https://pyenv.run | bash
-  info "Installing poetry" && curl https://install.python-poetry.org | python -
-  err_exit "Install the appropriate python version first. Aborting."
-  exit 0
-fi
-
 if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]]; then
   error 'No python command found'
   if checkyes 'Do you want to create a systemwide symlink to python3?'; then
@@ -94,6 +87,13 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
     err_exit 'Please set `python` command to run Python 3.x'
   fi
 fi
+if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
+  info "Installing pyenv" && curl https://pyenv.run | bash
+  info "Installing poetry" && curl https://install.python-poetry.org | python -
+  err_exit "Install the appropriate python version first. Aborting."
+  exit 0
+fi
+
 python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
 pip install -U --user pipupgrade rich pyreadline lookatme trash-cli yt-dlp video-cli
 info 'python programs installation done'
@@ -249,7 +249,6 @@ if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
   checkcommand 'delta' 'cargo install git-delta'
   checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
   # telescope
-  checkcommand 'ueberzug' 'pip install ueberzug'
   checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
   checkcommand 'rg' 'cargo install ripgrep' # https://www.linode.com/docs/guides/ripgrep-linux-installation/
   checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
