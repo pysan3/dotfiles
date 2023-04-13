@@ -13,6 +13,9 @@ local function telescope_keymap(key, picker, func, pre_leader, lsp_prefix, opts)
 end
 
 local hide = {
+  file_ignore_patterns = {
+    "poetry.lock",
+  },
   additional_args = function(_)
     return { "--hidden" }
   end,
