@@ -36,7 +36,7 @@ alias cp='cp -i'
 alias ln='ln -i'
 alias trm='trash-put'
 alias tls='trash-list'
-alias tmv='trash-restore'
+alias trs='trash-restore'
 alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
 
 alias egr="env | grep -i"
@@ -163,6 +163,7 @@ function dot() {
 # .env loading in the shell
 function dotenv () {
   [ -f .env ] && source .env
+  return 0
 }
 dotenv
 
@@ -178,6 +179,12 @@ function popd () {
 function pushd () {
   command -v 'deactivate' &>/dev/null && deactivate
   builtin pushd $@; act; dotenv
+}
+
+function zk () {
+  set -x
+  cd "$NCPATH/Notes" && tvim
+  set +x
 }
 
 function syncit () {
@@ -307,6 +314,11 @@ function cv2_get () {
   yes | cp "$cv2_path/__init__.pyi" "$cv2_path/cv2.pyi"
 }
 
+function tmv () {
+  [ $# -ge 1 ] && sessioncmd="-t $1" || sessioncmd=''
+  [ -z "$TMUX" ] && tmux a $sessioncmd || tmux switchc $sessioncmd
+}
+
 function tvim() {
   if [ $# -ge 1 ]; then
     cd "$1"
@@ -317,7 +329,7 @@ function tvim() {
     if [ $? -eq 0 ]; then
       tmux kill-session -t "$workdir"
     else
-      tmux attach-session -t "$workdir"
+      tmv "$workdir"
       return 0
     fi
   fi
@@ -331,7 +343,7 @@ function tvim() {
   fi
   tmux send-keys -t "$workdir" "$vimcmd" ENTER
   tmux select-layout -t "$workdir" main-vertical
-  tmux a -t "$workdir"
+  tmv "$workdir"
 }
 
 function venv() {
