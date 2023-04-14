@@ -1,6 +1,6 @@
 return {
   "shivamashtikar/tmuxjump.vim",
-  cond = string.len(vim.env.TMUX or ""),
+  cond = string.len(vim.env.TMUX or "") > 0,
   dependencies = {
     { "nvim-telescope/telescope.nvim" },
   },
