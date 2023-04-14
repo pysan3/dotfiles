@@ -31,7 +31,9 @@ return {
       function()
         vim.cmd("stopinsert")
         extensions("neoclip")()
-        vim.cmd("startinsert")
+        vim.schedule(function()
+          vim.cmd("startinsert")
+        end)
       end,
       mode = "i",
       desc = "Neoclip reg <i>",
