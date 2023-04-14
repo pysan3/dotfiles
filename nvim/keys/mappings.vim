@@ -106,6 +106,9 @@ nnoremap <silent> <Leader><C-x> <C-w>o
 nnoremap <silent> <Leader>; gt
 nnoremap <silent> <Leader>, gT
 
+" Easy access to some commands
+nnoremap <Leader>:a :!zsh -ic '
+
 " Do not update the register
 noremap x "_x
 noremap <Leader>d "_d
