@@ -31,7 +31,7 @@ local plugins = {
   ["core.defaults"] = {},
   ["core.norg.concealer"] = { config = { icon_preset = "diamond" } },
   ["core.norg.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
-  ["core.norg.esupports.metagen"] = { config = { type = "empty" } },
+  ["core.norg.esupports.metagen"] = { config = { type = "auto", update_date = true } },
   ["core.integrations.nvim-cmp"] = {},
   ["core.norg.qol.toc"] = {},
   ["core.norg.qol.todo_items"] = {},
