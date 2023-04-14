@@ -182,9 +182,7 @@ function pushd () {
 }
 
 function zk () {
-  set -x
   cd "$NCPATH/Notes" && tvim
-  set +x
 }
 
 function syncit () {
