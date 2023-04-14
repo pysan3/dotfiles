@@ -26,9 +26,8 @@ local M = {
   dependencies = {
     { "BurntSushi/ripgrep" },
     { "natecraddock/telescope-zf-native.nvim" },
-    { "nvim-telescope/telescope-media-files.nvim" },
     { "nvim-telescope/telescope-symbols.nvim" },
-    "folke/trouble.nvim",
+    { "folke/trouble.nvim" },
   },
   keys = {
     -- telescope fzf bindings
@@ -43,9 +42,6 @@ local M = {
     telescope_keymap("k", "keymaps"),
     telescope_keymap("C", "commands"),
     telescope_keymap("c", "command_history"),
-    telescope_keymap("i", "media_files", function()
-      require("telescope").extensions.media_files.media_files()
-    end),
     -- telescope lsp bindings
     telescope_keymap("t", "lsp_document_symbols", nil, nil, true),
     telescope_keymap("y", "lsp_workspace_symbols", nil, nil, true),
@@ -132,15 +128,10 @@ M.config = function()
           match_filename = false,
         },
       },
-      media_files = {
-        filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "pdf" },
-        find_cmd = "rg",
-      },
     },
   })
 
   require("telescope").load_extension("zf-native")
-  require("telescope").load_extension("media_files")
 end
 
 return M
