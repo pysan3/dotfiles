@@ -326,12 +326,11 @@ if checkyes 'Install tmux from source?'; then
     && make -j$(nproc) && make install \
     && info 'tmux setup done' || err_exit 'tmux setup failed'
   cd "$current_dir"
-
-  # install tmux plugin manager
-  TPM_INSTALL_DIR="$XDG_DATA_HOME/tmux/plugins/tpm"
-  update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm \
-    && info 'tmux plugmngr setup done' || err_exit 'tmux plugmngr setup failed'
 fi
+# install tmux plugin manager
+TPM_INSTALL_DIR="$XDG_DATA_HOME/tmux/plugins/tpm"
+update_git_repo "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm \
+  && info 'tmux plugmngr setup done' || err_exit 'tmux plugmngr setup failed'
 
 # install btop from source
 command -v 'btop' &>/dev/null && info 'btop found' || warning 'btop not found.'
