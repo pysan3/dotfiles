@@ -61,8 +61,17 @@ local function link_type(link)
     ["youtu.be"] = "YouTube",
   }
   local domain = string.gsub(link, [[http.://([^/]-)/.*]], "%1")
-  vim.notify(string.format([[URL: %s -> Domain: %s]], link, domain))
-  return lookup[domain] or ""
+  vim.notify(string.format(
+    [[
+URL: %s
+-> Domain: %s
+-> Lookup: %s
+  ]],
+    link,
+    domain,
+    lookup[domain]
+  ))
+  return lookup[domain] or domain
 end
 
 snippets[#snippets + 1] = s(
@@ -118,6 +127,35 @@ snippets[#snippets + 1] = s(
       output = i(2, "DIL"),
       comment = i(3, "Why did you read this?"),
       content = i(0, "content"),
+    }
+  )
+)
+
+snippets[#snippets + 1] = s(
+  e("cook", "template for cooking menu"),
+  fmt(
+    [[
+* {title}
+  #{link_type} {{{link}}}
+
+** Ingredients
+  {menu}
+
+** Method
+  {method}
+
+** Notes
+  {notes}
+    ]],
+    {
+      title = f(file_title),
+      link = i(1, "link"),
+      link_type = f(function(args, _)
+        return link_type(args[1][1]):lower()
+      end, { 1 }),
+      menu = i(2, "menu"),
+      notes = i(3),
+      method = i(0),
     }
   )
 )
