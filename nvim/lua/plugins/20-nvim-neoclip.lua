@@ -29,11 +29,8 @@ return {
     {
       "<C-y>",
       function()
-        vim.cmd("stopinsert")
+        vim.cmd.stopinsert()
         extensions("neoclip")()
-        vim.schedule(function()
-          vim.cmd("startinsert")
-        end)
       end,
       mode = "i",
       desc = "Neoclip reg <i>",
