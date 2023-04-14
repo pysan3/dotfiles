@@ -32,8 +32,6 @@ end
 -- stylua: ignore end
 ---@diagnostic enable
 
-require("norg-config.snippets").setup({}, snippets, autosnippets)
-
 snippets[#snippets + 1] = s(
   e("flink", "insert file path using `$` as root of workspace"),
   fmt([[{{:{}{}:{}}}{}]], {
@@ -42,6 +40,86 @@ snippets[#snippets + 1] = s(
     i(3),
     i(0),
   })
+)
+
+local function parse_date(delta_date, str, timestamp_syntax)
+  local year, month, day = string.match(str, [[^(%d%d%d%d)-(%d%d)-(%d%d)$]])
+  local format = timestamp_syntax and [[%a, %d %b %Y]] or [[%Y-%m-%d]]
+  return os.date(format, os.time({ year = year, month = month, day = day }) + 86400 * delta_date)
+end
+
+local function file_title()
+  return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t:r")
+end
+
+---Parse url and return service name based on domain
+---@param link string # url in shape of http(s)://domain.name/xxx
+---@return string # Name of service
+local function link_type(link)
+  local lookup = {
+    ["www.youtube.com"] = "YouTube",
+    ["youtu.be"] = "YouTube",
+  }
+  local domain = string.gsub(link, [[http.://([^/]-)/.*]], "%1")
+  vim.notify(string.format([[URL: %s -> Domain: %s]], link, domain))
+  return lookup[domain] or ""
+end
+
+snippets[#snippets + 1] = s(
+  e("journal", "template for journal page"),
+  fmt(
+    [[
+* {title}
+  {{:{yesterday}:}}[Yesterday] - {{:{tomorrow}:}}[Tomorrow]
+
+** Daily Review
+   - {}
+
+** Today's Checklist
+   - ( ) Write my daily review
+
+** Achievements
+   -
+    ]],
+    {
+      title = f(function(_, _)
+        return parse_date(0, file_title())
+      end),
+      yesterday = f(function(_, _)
+        return parse_date(-1, file_title())
+      end),
+      tomorrow = f(function(_, _)
+        return parse_date(1, file_title())
+      end),
+      i(0),
+    }
+  )
+)
+
+snippets[#snippets + 1] = s(
+  e("literature", "template for literature page"),
+  fmt(
+    [[
+* {title}
+  #{link_type} {{{link}}}
+  #output {output}
+  |comment
+  {comment}
+  |end
+
+  {content}
+    ]],
+    {
+      title = f(file_title),
+      link = i(1, "link"),
+      link_type = f(function(args, _)
+        return link_type(args[1][1]):lower()
+      end, { 1 }),
+      output = i(2, "DIL"),
+      comment = i(3, "Why did you read this?"),
+      content = i(0, "content"),
+    }
+  )
 )
 
 return snippets, autosnippets
