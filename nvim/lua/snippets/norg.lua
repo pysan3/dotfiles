@@ -32,16 +32,6 @@ end
 -- stylua: ignore end
 ---@diagnostic enable
 
-snippets[#snippets + 1] = s(
-  e("flink", "insert file path using `$` as root of workspace"),
-  fmt([[{{:{}{}:{}}}{}]], {
-    c(2, { t(vim.fn.getcwd() .. "/"), t("$/") }),
-    i(1),
-    i(3),
-    i(0),
-  })
-)
-
 local function parse_date(delta_date, str, timestamp_syntax)
   local year, month, day = string.match(str, [[^(%d%d%d%d)-(%d%d)-(%d%d)$]])
   local format = timestamp_syntax and [[%a, %d %b %Y]] or [[%Y-%m-%d]]
@@ -73,6 +63,26 @@ URL: %s
   ))
   return lookup[domain] or domain
 end
+
+snippets[#snippets + 1] = s(
+  e("flink", "insert file path using `$` as root of workspace"),
+  fmt([[{{:{}{}:{}}}{}]], {
+    c(2, { t(vim.fn.getcwd() .. "/"), t("$/") }),
+    i(1),
+    i(3),
+    i(0),
+  })
+)
+
+snippets[#snippets + 1] = s(
+  e("urltag", "insert url with tag"),
+  fmt([[#{link_type} {{{link}}}]], {
+    link = i(1, "link"),
+    link_type = f(function(args, _)
+      return link_type(args[1][1]):lower()
+    end, { 1 }),
+  })
+)
 
 snippets[#snippets + 1] = s(
   e("journal", "template for journal page"),
