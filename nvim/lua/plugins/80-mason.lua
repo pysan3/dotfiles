@@ -16,7 +16,7 @@ M.tools = {
   "cpplint",
   "eslint_d",
   "flake8",
-  "luacheck",
+  -- "luacheck",
   "markdownlint",
   "pylint",
   "yamllint",
