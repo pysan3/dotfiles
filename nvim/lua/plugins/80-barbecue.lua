@@ -13,6 +13,7 @@ return {
     create_autocmd = true,
     attach_navic = true,
     context_follow_icon_color = false,
+    exclude_filetypes = { "toggleterm", "bash", "zsh" },
     symbols = {
       modified = "● ",
       ellipsis = "… ",
