@@ -9,7 +9,7 @@ local M = {
     "nvim-lua/plenary.nvim",
     "ntpeters/vim-better-whitespace",
     { "max397574/neorg-zettelkasten" },
-    { "pysan3/neorg-templates-draft", dev = true, dependencies = { { "L3MON4D3/LuaSnip", dev = true } } },
+    { "pysan3/neorg-templates-draft", dependencies = { "L3MON4D3/LuaSnip" } },
   },
   build = ":Neorg sync-parsers",
   cmd = "Neorg",
