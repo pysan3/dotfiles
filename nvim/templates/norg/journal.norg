@@ -1,0 +1,19 @@
+@document.meta
+title: journal
+description:
+authors: takuto
+categories:
+created: 2023-04-16
+updated: 2023-04-18
+version: 1.0.0
+@end
+
+* {TITLE_INPUT}
+  #weather {WEATHER}
+  {{:{YESTERDAY}:}}[Yesterday] - {{:{TOMORROW}:}}[Tomorrow]
+
+** Daily Review
+   - {CURSOR}
+
+** Today's Checklist
+   - ( ) Write my daily review
