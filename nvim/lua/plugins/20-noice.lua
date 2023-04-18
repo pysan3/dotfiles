@@ -164,6 +164,9 @@ M.opts = {
       size = 16,
       close = { keys = { "q", "<CR>", "<Esc>" } },
     },
+    popup = {
+      win_options = { wrap = false },
+    },
   },
 }
 

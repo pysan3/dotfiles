@@ -168,15 +168,21 @@ M.config = function()
     )
 
     -- shows window at a beginning of choiceNode.
+    local signcolumn_length = 4
+    local win_col = math.min(
+      unpack(vim.tbl_map(tonumber, vim.opt.colorcolumn:get())),
+      vim.api.nvim_win_get_width(0) - signcolumn_length
+    )
     local win = vim.api.nvim_open_win(buf, false, {
       relative = "win",
       width = w,
       height = h,
       bufpos = choiceNode.mark:pos_begin_end(),
-      row = h > 2 and 0 or 1,
-      col = h > 2 and vim.fn.max(vim.opt.colorcolumn:get()) - vim.fn.getcurpos()[3] - w - 1 or 1, -- snippet selection window on color column if more than one line
       style = "minimal",
       border = "rounded",
+      -- snippet selection window on color column if more than one line
+      row = h > 1 and 0 or 1,
+      col = h > 1 and (win_col - w - 3) or 1, -- 0-index and width of border
     })
 
     -- return with 3 main important so we can use them again
