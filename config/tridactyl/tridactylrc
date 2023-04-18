@@ -1,0 +1,36 @@
+" Firefox tridactyl config
+" Default can be found here:
+" https://github.com/tridactyl/tridactyl/blob/master/.tridactylrc
+
+" In order to make this file work, run
+" :nativeinstall
+" eval $(clip) # installs necessary files to use tridactyl in firefox
+" :source
+
+" Binds
+
+" Git{Hub,Lab} git clone via SSH yank
+bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
+
+" Handy multiwindow/multitasking binds
+bind gd tabdetach
+bind gD composite tabduplicate; tabdetach
+
+" Open right click menu on links
+bind ;C composite hint_focus; !s xdotool key Menu
+
+" d / e to scroll
+bind d scrollpage 0.5
+bind e scrollpage -0.5
+
+" x to close tab
+bind x tabclose
+
+" Configurations
+
+set smoothscroll true
+
+" Disable on websites
+
+blacklistadd youtube.com
+
