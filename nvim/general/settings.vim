@@ -87,7 +87,7 @@ set smarttab                            " Makes tabbing smarter will realize you
 set shiftwidth=4                        " The width of indentation
 set formatoptions-=cro
 set colorcolumn=100,120
-set signcolumn=yes                      " Set the width of the symbol column, if not set, it will cause an exception when displaying the icon
+set signcolumn=yes:1                   " Set the width of the symbol column, if not set, it will cause an exception when displaying the icon
 
 "----------------------------------------------------------
 " Trailing Spaces
