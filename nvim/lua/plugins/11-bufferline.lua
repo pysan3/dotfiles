@@ -1,7 +1,7 @@
 return {
   "akinsho/bufferline.nvim", -- bufferline
   event = "VeryLazy",
-  enabled = not vim.g.started_by_firenvim and not vim.g.personal_options.start_light_env,
+  cond = not vim.g.started_by_firenvim and not vim.g.personal_options.start_light_env,
   dependencies = { "nvim-tree/nvim-web-devicons" },
   cmd = { "BufferLineGoToBuffer", "BufferLineCycleNext", "BufferLineCyclePrev", "BufferLinePick" },
   keys = {

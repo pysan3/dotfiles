@@ -5,7 +5,7 @@ end
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
-  enabled = not vim.g.started_by_firenvim,
+  cond = not vim.g.started_by_firenvim,
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "meuter/lualine-so-fancy.nvim",
@@ -40,7 +40,7 @@ return {
     },
     sections = {
       lualine_a = {
-        { "mode" },
+        { "fancy_mode", width = 6 },
       },
       lualine_b = {
         { "branch" },
