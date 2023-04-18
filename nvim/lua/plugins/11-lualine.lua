@@ -5,7 +5,7 @@ end
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
-  enabled = vim.g.started_by_firenvim,
+  enabled = not vim.g.started_by_firenvim and not vim.g.personal_options.start_light_env,
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "meuter/lualine-so-fancy.nvim",
