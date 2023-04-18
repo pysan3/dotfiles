@@ -26,11 +26,15 @@ bind e scrollpage -0.5
 " x to close tab
 bind x tabclose
 
+" <C-s> to toggle ignore mode
+bind <C-s> mode ignore
+bind --mode=ignore <C-s> mode normal
+
 " Configurations
 
 set smoothscroll true
+set visualenterauto false
 
 " Disable on websites
 
-blacklistadd youtube.com
-
+" blacklistadd youtube.com
