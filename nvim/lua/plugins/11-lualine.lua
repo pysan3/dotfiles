@@ -5,7 +5,7 @@ end
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
-  enabled = not vim.g.started_by_firenvim and not vim.g.personal_options.start_light_env,
+  enabled = not vim.g.started_by_firenvim,
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "meuter/lualine-so-fancy.nvim",
@@ -48,7 +48,7 @@ return {
         { "fancy_diagnostics" },
       },
       lualine_c = {
-        { "hostname", icon = "@", color = { fg = "#16c60c" } },
+        vim.g.personal_options.start_light_env and "" or { "hostname", icon = "@", color = { fg = "#16c60c" } },
         { "fancy_cwd", substitute_home = true },
         { "filename", path = 1 },
         {

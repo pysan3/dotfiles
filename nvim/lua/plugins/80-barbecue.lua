@@ -1,5 +1,6 @@
 return {
   "utilyre/barbecue.nvim",
+  enabled = not vim.g.started_by_firenvim and not vim.g.personal_options.start_light_env,
   dependencies = {
     "SmiteshP/nvim-navic",
     "nvim-tree/nvim-web-devicons",
