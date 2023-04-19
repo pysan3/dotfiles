@@ -12,12 +12,8 @@ export CLICOLOR=1
 export EDITOR='vim'
 export MAKEFLAGS="-j$(nproc)"
 
-if [ x"$MYENV" = 'x' ]; then
-  export MYENV='undefined';
-fi
-if [ x"$PCNAME" = 'x' ]; then
-  export PCNAME='undefined';
-fi
+[ x"$MYENV" = 'x' ] && export MYENV='undefined'
+[ x"$PCNAME" = 'x' ] && export PCNAME='undefined'
 
 alias ll='ls -aFhl --color=auto'
 alias lr='ls -RFh --color=auto'
@@ -76,7 +72,9 @@ alias packersync="nvim --headless -c 'autocmd User PackerComplete quitall' -c 'P
 function upgradeall() {
   upgradecmds='py rs js'
   for lang in $upgradecmds; do
-    eval "upgrade$lang" && info "Success: $(alias upgrade$lang)" || error "FAIL: $(alias upgrade$lang)"
+    eval "upgrade$lang" \
+      && info "Success: $(alias upgrade$lang)" \
+      || error "FAIL: $(alias upgrade$lang)"
   done
 }
 
@@ -170,15 +168,15 @@ dotenv
 # Run dotenv on every new directory
 function cd () {
   command -v 'deactivate' &>/dev/null && deactivate
-  builtin cd $@; act; dotenv
+  builtin cd "$1"; act; dotenv
 }
 function popd () {
   command -v 'deactivate' &>/dev/null && deactivate
-  builtin popd $@; act; dotenv
+  builtin popd "$1"; act; dotenv
 }
 function pushd () {
   command -v 'deactivate' &>/dev/null && deactivate
-  builtin pushd $@; act; dotenv
+  builtin pushd "$1"; act; dotenv
 }
 
 function zk () {
@@ -236,11 +234,7 @@ alias ramen='timer 150'
 
 function pdflock () {
   F="$2"
-  if [ $# -lt 3 ]; then
-    TO="${2%.*}_lock.pdf"
-  else
-    TO="$3"
-  fi
+  [ $# -lt 3 ] && TO="${2%.*}_lock.pdf" || TO="$3"
   echo "Found file: $F"
   echo "Locked file created: $TO"
   qpdf --encrypt "$1" "$1" 40 -- "$F" "$TO"
@@ -318,53 +312,37 @@ function tmv () {
 }
 
 function tvim() {
-  if [ $# -ge 1 ]; then
-    cd "$1"
-  fi
+  [ $# -ge 1 ] && cd "$1"
   workdir=$(basename "$PWD" | sed -e 's/\.//g')
   if `tmux has-session -t "$workdir" 2> /dev/null`; then
-    checkyes "Found a session named $workdir. Delete?"
-    if [ $? -eq 0 ]; then
-      tmux kill-session -t "$workdir"
-    else
-      tmv "$workdir"
-      return 0
-    fi
+    tmv "$workdir"
+    return 0
   fi
-  vimcmd="nvim"
-  if [ ! -f "$PWD/.vim/session.vim" ]; then
-    vimcmd="$vimcmd ."
-  fi
+  [ -f "$PWD/.vim/session.vim" ] && vimcmd='nvim' || vimcmd='nvim .'
   tmux new-session -s "$workdir" -d
-  if [ x$MYENV = xWSL ]; then
-    sleep 1
-  fi
+  [ x$MYENV = xWSL ] && sleep 1
   tmux send-keys -t "$workdir" "$vimcmd" ENTER
   tmux select-layout -t "$workdir" main-vertical
   tmv "$workdir"
 }
 
 function venv() {
-  python -m venv "$@";
-  cd "$@";
-  source bin/activate;
-  pip install wheel;
-  pip install attrdict;
-  piplist;
+  python -m venv "$1"
+  cd "$1"
+  source bin/activate
+  pip install wheel
+  piplist
 }
 
 function pinit() {
   cmd='pipenv install'
-  if [ -f requirements.txt ]; then
-    checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
-    if [ $? -eq 0 ]; then
-      echo 'Installing from requirements.txt'
-      cmd=$cmd' -r requirements.txt'
-    fi
+  if [ -f requirements.txt ] && checkyes 'Found a requirements.txt in the project. Do you want to reference it?'; then
+    echo 'Installing from requirements.txt'
+    cmd="$cmd -r requirements.txt"
   fi
   eval $cmd
-  act;
-  pipenv install attrdict rich;
+  act
+  pipenv install attrdict rich
   pipenv install --dev isort pylint autopep8 flake8
   pylint --generate-rcfile > .pylintrc
 }
@@ -375,46 +353,41 @@ function tinit () {
   po config virtualenvs.in-project true
   po env use $(python -c "import sys; i=sys.version_info; print(f'{i.major}.{i.minor}')")
   if [ $res -ne 0 ]; then
-    checkyes '`pyproject.toml` might already exist. Do you want to install packages from it?'
-    if [ $? -eq 0 ]; then
+    if checkyes '`pyproject.toml` might already exist. Do you want to install packages from it?'; then
       echo 'Installing from pyproject.toml'
       po install
     fi
   elif [ -f requirements.txt ]; then
-    checkyes 'Found a requirements.txt in the project. Do you want to reference it?'
-    if [ $? -eq 0 ]; then
+    if checkyes 'Found a requirements.txt in the project. Do you want to reference it?'; then
       echo 'Installing from requirements.txt'
       checkyes 'Do you want to install the strict versions?'
       strict_version=$?
       cat requirements.txt | cut -f1 -d';' | while read package; do
-      if [[ x"$package" =~ ^x[#-].* ]]; then continue; fi
-      if [[ x"$package" = x ]]; then continue; fi
-      if [ $strict_version -ne 0 ]; then
-        package=$(echo "$package" | cut -d'=' -f1)
-      fi
-      po add "$package"
-    done
+        if [[ x"$package" =~ ^x[#-].* ]]; then continue; fi
+        if [[ x"$package" = x ]]; then continue; fi
+        if [ $strict_version -ne 0 ]; then package=$(echo "$package" | cut -d'=' -f1); fi
+        po add "$package"
+      done
     fi
   fi
   act
 }
 
 function cinit() {
-  rm -rf build;
-  mkdir build;
-  cd build;
-  cmake ..;
+  rm -rf build
+  mkdir build && cd build
+  cmake ..
 }
 
 function pfwd() {
   # ssh -fNT -L 127.0.0.1:$2:127.0.0.1:$2 $1 && echo "Port forward to: http://127.0.0.1:$2"
   svr="$1"; port="$2"; shift 2
-  eval "ssh -fNT $@ -L 127.0.0.1:${port}:127.0.0.1:${port} ${svr}" && echo "Port forward to: http://127.0.0.1:${port}"
+  eval "ssh -fNT $@ 127.0.0.1:${port}:127.0.0.1:${port} ${svr}" && echo "Port forward to: http://127.0.0.1:${port}"
 }
 
 function img2eps () {
   if ! command -v 'convert' &> /dev/null; then
-    sudo apt install imagemagick
+    sudo apt install imagemagick -y
   fi
   for filename in $@; do
     echo "$filename"
@@ -470,7 +443,7 @@ function rebak () {
   done
 }
 
-function sshfs_remote() {
+function sshfs_remote () {
   if [ -z "$(command ls -A $2)" ]; then
     tmux has-session -t sshfs 2>/dev/null || tmux new -d -s sshfs
     sleep 2 # wait for tmux to start (especially in WSL)
