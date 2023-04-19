@@ -8,7 +8,6 @@ local M = {
     "mason.nvim",
     "nvim-lua/plenary.nvim",
     "ntpeters/vim-better-whitespace",
-    { "max397574/neorg-zettelkasten" },
     {
       "pysan3/neorg-templates-draft",
       dependencies = { "L3MON4D3/LuaSnip" },
@@ -65,7 +64,6 @@ local function load_plugins()
         hook = require("norg-config.keybinds").hook,
       },
     },
-    ["external.zettelkasten"] = {},
     ["external.templates"] = {
       config = {
         templates_dir = vim.fn.stdpath("config") .. "/templates/norg",
