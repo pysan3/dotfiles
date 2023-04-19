@@ -19,6 +19,10 @@ bind gD composite tabduplicate; tabdetach
 " Open right click menu on links
 bind ;C composite hint_focus; !s xdotool key Menu
 
+" Change scroll line number
+bind j scrollline 8
+bind k scrollline -8
+
 " d / e to scroll
 bind d scrollpage 0.5
 bind e scrollpage -0.5
