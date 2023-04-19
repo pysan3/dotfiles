@@ -11,7 +11,7 @@ set termguicolors                       " Terminal supports more colors
 if version >= 900
   colorscheme habamax
 else
-  colorscheme murphy
+  colorscheme evening
 endif
 
 "----------------------------------------------------------
