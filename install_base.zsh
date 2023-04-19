@@ -254,7 +254,7 @@ if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
   checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
 
   # Lazy sync
-  nvim --headless "+Lazy! sync" +qa
+  nvim --headless "+Lazy! sync | TSUpdateSync" +qa
 fi
 
 # install fzf

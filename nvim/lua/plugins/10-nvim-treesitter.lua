@@ -118,6 +118,7 @@ local M = {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   event = "BufReadPre",
+  cmd = { "TSUpdate", "TSUpdateSync" },
 }
 
 M.config = function()
