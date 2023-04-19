@@ -35,23 +35,23 @@ end
 local function load_plugins()
   return {
     ["core.defaults"] = {},
-    ["core.norg.concealer"] = { config = { icon_preset = "diamond" } },
-    ["core.norg.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
-    ["core.norg.esupports.metagen"] = { config = { type = "empty", update_date = true } },
+    ["core.concealer"] = { config = { icon_preset = "diamond" } },
+    ["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
+    ["core.esupports.metagen"] = { config = { type = "empty", update_date = true } },
     ["core.integrations.nvim-cmp"] = {},
-    ["core.norg.qol.toc"] = {},
-    ["core.norg.qol.todo_items"] = {},
+    ["core.qol.toc"] = {},
+    ["core.qol.todo_items"] = {},
     ["core.looking-glass"] = {},
     ["core.export"] = {},
     ["core.presenter"] = { config = { zen_mode = "zen-mode" } },
-    ["core.norg.journal"] = {
+    ["core.journal"] = {
       config = {
         strategy = "flat",
         template_name = "../templates/journal.norg",
         workspace = M.default_workspace,
       },
     },
-    ["core.norg.dirman"] = {
+    ["core.dirman"] = {
       config = list_workspaces({
         M.default_workspace,
         "Works",
