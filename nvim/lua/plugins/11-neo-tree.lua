@@ -222,7 +222,7 @@ return {
         },
       },
       find_by_full_path_words = true,
-      group_empty_dirs = true,
+      group_empty_dirs = false,
       follow_current_file = true,
       hijack_netrw_behavior = "open_default",
       use_libuv_file_watcher = true,
