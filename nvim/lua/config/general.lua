@@ -125,6 +125,7 @@ vim.opt.completeopt = "menuone,noselect"
 vim.opt.cmdheight = 0
 vim.opt.exrc = true
 vim.opt.signcolumn = "yes:1"
+vim.opt.spelloptions = "camel,noplainbuffer"
 
 -- global status line
 vim.opt.laststatus = 3
@@ -137,7 +138,7 @@ vim.api.nvim_create_autocmd("VimResized", {
   command = "wincmd =",
 })
 vim.api.nvim_create_autocmd("BufWritePre", {
-  desc = "Auto Format Japanese Punctuations in Latex Files",
+  desc = "Auto Format Japanese Punctuation in Latex Files",
   group = vim.api.nvim_create_augroup("ChangePuncOnSave", { clear = true }),
   pattern = "*.tex",
   command = [[

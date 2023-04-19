@@ -151,11 +151,23 @@ M.opts = {
         event = "msg_show",
         any = { { min_height = 5 }, { min_width = 200 } },
         ["not"] = {
-          kind = { "confirm", "confirm_sub", "return_prompt", "quickfix" },
+          kind = { "confirm", "confirm_sub", "return_prompt", "quickfix", "search_count" },
         },
+        blocking = false,
       },
       view = "messages",
       opts = { stop = true },
+    },
+    { -- route long messages to split
+      filter = {
+        event = "msg_show",
+        any = { { min_height = 5 }, { min_width = 200 } },
+        ["not"] = {
+          kind = { "confirm", "confirm_sub", "return_prompt", "quickfix", "search_count" },
+        },
+        blocking = true,
+      },
+      view = "mini",
     },
   },
   views = {
