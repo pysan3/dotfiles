@@ -35,3 +35,35 @@ function get_url_info () {
   pass="${user##*:}"
   eval 'echo $'"$2"
 }
+
+### Update git commit author and email
+# https://zenn.dev/flyingbarbarian/articles/241627cae5988a
+function update_git_commits () {
+  # Command to overwrite all commits
+  git filter-branch --force --env-filter '
+        # GIT_AUTHOR_NAME
+        if [ "$GIT_AUTHOR_NAME" = "prior author name" ];
+        then
+                GIT_AUTHOR_NAME="changed author name";
+        fi
+        # GIT_AUTHOR_EMAIL
+        if [ "$GIT_AUTHOR_EMAIL" = "prior author email" ];
+        then
+                GIT_AUTHOR_EMAIL="changed author email";
+        fi
+        # GIT_COMMITTER_NAME
+        if [ "$GIT_COMMITTER_NAME" = "prior committer name" ];
+        then
+                GIT_COMMITTER_NAME="changed committer name";
+        fi
+        # GIT_COMMITTER_EMAIL
+        if [ "$GIT_COMMITTER_EMAIL" = "prior committer email" ];
+        then
+                GIT_COMMITTER_EMAIL="changed committer email";
+        fi
+        ' -- --all
+  # Delete generated backup
+  git for-each-ref --format="%(refname)" refs/original/ | xargs -n 1 git update-ref -d
+  # Force apply to remote
+  git push --all --force origin
+}
