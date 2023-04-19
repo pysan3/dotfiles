@@ -313,7 +313,7 @@ function tmv () {
 
 function tvim() {
   [ $# -ge 1 ] && cd "$1"
-  workdir=$(basename "$PWD" | sed -e 's/\.//g')
+  workdir=$(basename "$PWD" | sed -e 's/[.-]/_/g')
   if `tmux has-session -t "$workdir" 2> /dev/null`; then
     tmv "$workdir"
     return 0
