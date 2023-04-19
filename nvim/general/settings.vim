@@ -8,7 +8,11 @@ set t_Co=256                            " Set color sceme work properly
 set t_ut=
 syntax enable                           " Turn on syntax highlighting
 set termguicolors                       " Terminal supports more colors
-colorscheme habamax
+if version >= 900
+  colorscheme habamax
+else
+  colorscheme murphy
+endif
 
 "----------------------------------------------------------
 " Extentions
@@ -87,7 +91,7 @@ set smarttab                            " Makes tabbing smarter will realize you
 set shiftwidth=4                        " The width of indentation
 set formatoptions-=cro
 set colorcolumn=100,120
-set signcolumn=yes:1                   " Set the width of the symbol column, if not set, it will cause an exception when displaying the icon
+set signcolumn=yes                   " Set the width of the symbol column, if not set, it will cause an exception when displaying the icon
 
 "----------------------------------------------------------
 " Trailing Spaces

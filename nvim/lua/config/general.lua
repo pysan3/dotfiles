@@ -124,6 +124,7 @@ vim.g.personal_module = {
 vim.opt.completeopt = "menuone,noselect"
 vim.opt.cmdheight = 0
 vim.opt.exrc = true
+vim.opt.signcolumn = "yes:1"
 
 -- global status line
 vim.opt.laststatus = 3
