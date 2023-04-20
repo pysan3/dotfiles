@@ -40,6 +40,7 @@ alias xgs="xargs "
 alias exportenv='while read -r f; do echo "${(q)f}"; done <<(env) > .env'
 alias nowrap='setterm --linewrap off'
 alias wrap='setterm --linewrap on'
+function get_workdir () { basename "$PWD" | sed -e s'/[.-]/_/g' }
 
 alias ..='cd ..'
 
@@ -99,7 +100,7 @@ alias ta='tmux a'
 alias tat='tmux a -t'
 alias tl="tmux ls"
 alias ttmp="tmux new-session -A -s tmp"
-function tn() { tmux new-session -A -s $(basename "$PWD") }
+function tn() { tmux new-session -A -s $(get_workdir) }
 alias yt='yt-dlp --sponsorblock-remove default --part --format "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]"'
 alias ytaudio='yt --extract-audio --audio-format mp3 --audio-quality 0 --write-thumbnail'
 alias op='xdg-open'
@@ -313,8 +314,8 @@ function tmv () {
 
 function tvim() {
   [ $# -ge 1 ] && cd "$1"
-  workdir=$(basename "$PWD" | sed -e 's/[.-]/_/g')
-  if `tmux has-session -t "$workdir" 2> /dev/null`; then
+  workdir=$(get_workdir)
+  if `tmux has-session -t "=$workdir" 2> /dev/null`; then
     tmv "$workdir"
     return 0
   fi
