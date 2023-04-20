@@ -34,10 +34,6 @@ return {
     },
   },
   {
-    "xorid/asciitree.nvim", -- `:AsciiTree <tab size> <indent symbol>`
-    cmd = { "AsciiTree" },
-  },
-  {
     "folke/zen-mode.nvim", -- zenmode
     cmd = "ZenMode",
     opts = {},
