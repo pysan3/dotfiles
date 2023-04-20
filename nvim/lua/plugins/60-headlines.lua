@@ -4,4 +4,5 @@ return {
     "nvim-treesitter/nvim-treesitter",
   },
   config = true, -- or `opts = {}`
+  ft = { "markdown", "norg", "rmd", "org" },
 }
