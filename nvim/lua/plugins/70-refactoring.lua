@@ -6,9 +6,12 @@ return {
   },
   keys = {
     {
-      vim.g.personal_options.language .. "r",
+      vim.g.personal_options.prefix.language .. "r",
       function()
-        require("refactoring").select_refactor()
+        local suc, _ = pcall(require("refactoring").select_refactor)
+        if not suc then
+          vim.notify("Error in refactoring")
+        end
       end,
       mode = "v",
       noremap = true,
