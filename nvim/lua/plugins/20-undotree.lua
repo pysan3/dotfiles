@@ -1,6 +1,8 @@
 return {
-  "mbbill/undotree",
-  cmd = { "UndotreeShow" },
+  "jiaoshijie/undotree",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+  },
   init = function()
     vim.opt.swapfile = false
     vim.opt.backup = false
@@ -8,6 +10,12 @@ return {
     vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
   end,
   keys = {
-    { "<Leader>u", "<Cmd>UndotreeShow<CR>", desc = "<Cmd>UndotreeShow<CR>" },
+    {
+      "<Leader>u",
+      function()
+        require("undotree").toggle()
+      end,
+      desc = "Undotree: toggle",
+    },
   },
 }
