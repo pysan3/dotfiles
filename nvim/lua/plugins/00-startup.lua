@@ -15,4 +15,5 @@ return {
       vim.g.startuptime_tries = 10
     end,
   }),
+  nolazy({ "folke/lsp-colors.nvim" }),
 }
