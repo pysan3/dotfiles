@@ -65,10 +65,6 @@ M.lsp_keymaps = function(bufnr)
   keyn("gI", vim.lsp.buf.implementation, getopts("vim.lsp.buf.implementation"))
   keyn(pfx .. "l", vim.diagnostic.setloclist, getopts("vim.diagnostic.setloclist"))
   keyn(pfx .. "d", vim.diagnostic.open_float, getopts("vim.diagnostic.open_float"))
-  if vim.g.personal_options.lsp_saga.enable then
-    -- conflicting keybinds with lspsaga
-    return
-  end
   keyn("gd", go_to_definition(false), getopts("vim.lsp.buf.definition"))
   keyn("K", vim.lsp.buf.hover, getopts("vim.lsp.buf.hover"))
   keyn(pfx .. "h", vim.lsp.buf.signature_help, getopts("vim.lsp.buf.signature_help"))
