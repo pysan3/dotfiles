@@ -10,7 +10,7 @@ return {
   "tpope/vim-fugitive",
   cmd = { "G", "GBranches", "Gdiff" },
   keys = {
-    fugitive_map("s", ""),
+    fugitive_map("S", ""),
     fugitive_map("j", "diffget //2", true),
     fugitive_map("k", "diffget //3", true),
   },
