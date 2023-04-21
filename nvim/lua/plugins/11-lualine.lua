@@ -69,6 +69,7 @@ return {
         { "fancy_lsp_servers", icon = { "", color = { fg = "#ffff00" } } },
       },
       lualine_z = {
+        { "selectioncount" },
         { "location" },
       },
     },
