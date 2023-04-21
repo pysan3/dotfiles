@@ -168,10 +168,9 @@ M.config = function()
     )
 
     -- shows window at a beginning of choiceNode.
-    local signcolumn_length = 4
     local win_col = math.min(
       unpack(vim.tbl_map(tonumber, vim.opt.colorcolumn:get())),
-      vim.api.nvim_win_get_width(0) - signcolumn_length
+      vim.api.nvim_win_get_width(0) - vim.g.personal_options.signcolumn_length
     )
     local win = vim.api.nvim_open_win(buf, false, {
       relative = "win",

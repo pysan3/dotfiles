@@ -27,6 +27,7 @@ vim.g.personal_options = {
     Keyword = "", Method = "", Module = "", Namespace = "", Null = "ﳠ", Number = "", Object = "", Operator = "",
     Package = "", Property = " ", Reference = "", Snippet = "", String = "", Struct = " ", Text = "",
     TypeParameter = "", Unit = "", Value = "", Variable = "" },
+  signcolumn_length = 4,
 }
 
 vim.g.personal_lookup = {
