@@ -138,8 +138,8 @@ M.config = function()
         compare.offset,
         compare.exact,
         function(entry1, entry2) -- sort by length ignoring "=~"
-          local len1 = string.len(string.gsub(entry1.completion_item.label, "[=~()]", ""))
-          local len2 = string.len(string.gsub(entry2.completion_item.label, "[=~()]", ""))
+          local len1 = string.len(string.gsub(entry1.completion_item.label, "[=~()_]", ""))
+          local len2 = string.len(string.gsub(entry2.completion_item.label, "[=~()_]", ""))
           if len1 ~= len2 then
             return len1 - len2 < 0
           end
