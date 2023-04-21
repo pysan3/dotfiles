@@ -11,6 +11,7 @@ return {
   { "godlygeek/tabular", ft = vim.g.personal_module.md() },
   { "iamcco/markdown-preview.nvim", ft = vim.g.personal_module.md(), build = "cd app && npm install" },
   { "chip/vim-fat-finger", ft = vim.g.personal_module.md(), event = "VeryLazy" },
+  { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
   { "wfxr/protobuf.vim", ft = { "proto" } },
   { "tikhomirov/vim-glsl", ft = { "glsl" } },
 }
