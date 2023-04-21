@@ -7,7 +7,7 @@ return {
     { "<Leader>xX", "<Cmd>TroubleToggle workspace_diagnostics<CR>", desc = "Trouble: Workspace Diagnostics" },
     { "<Leader>xL", "<Cmd>TroubleToggle loclist<CR>", desc = "Trouble: Location List" },
     { "<Leader>xQ", "<Cmd>TroubleToggle quickfix<CR>", desc = "Trouble: Quickfix List" },
-    { "<Leader>xc", "<Cmd>TroubleToggle<CR>", desc = "Trouble: toggle" },
+    { "<Leader>X", "<Cmd>TroubleToggle<CR>", desc = "Trouble: toggle" },
     {
       "<C-p>",
       function()
