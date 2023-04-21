@@ -179,6 +179,7 @@ M.config = function()
       end
       lsp_base.lsp_keymaps(bufnr)
       require("lsp-format").on_attach(client)
+      require("lsp_signature").on_attach(client, bufnr)
     end,
   }
   for server_name, server_opt in pairs(servers) do

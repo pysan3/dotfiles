@@ -1,6 +1,5 @@
 return {
   "ray-x/lsp_signature.nvim", -- show hints when writing function arguments
-  enabled = false,
   dependencies = {
     "neovim/nvim-lspconfig",
     "folke/noice.nvim",
@@ -9,11 +8,18 @@ return {
   opts = {
     bind = true,
     noice = true,
-    max_height = 5,
+    max_height = 20,
     zindex = 1,
-    floating_window_off_x = function() -- put lsp hints on colorcolumn
-      return vim.fn.max(vim.opt.colorcolumn:get()) - vim.fn.getcurpos()[3]
+    always_trigger = true,
+    floating_window_above_cur_line = true,
+    floating_window_off_x = function(info)
+      local cur_pos = vim.api.nvim_win_get_cursor(0)[2] + 1
+      local woff = info.woff or -vim.trim(vim.api.nvim_get_current_line():sub(1, cur_pos)):len()
+      local win_width = vim.api.nvim_win_get_width(0) - vim.g.personal_options.signcolumn_length
+      local origin = math.min(120, win_width)
+      return origin - woff - cur_pos
     end,
     extra_trigger_chars = { "(", ",", "\n" },
+    toggle_key = "<C-k>",
   },
 }
