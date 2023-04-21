@@ -5,15 +5,14 @@ local function nolazy(plugin)
 end
 
 return {
-  nolazy({ "dstein64/vim-startuptime" }),
   nolazy({ "nvim-lua/popup.nvim" }),
   nolazy({ "nvim-lua/plenary.nvim" }),
-  {
+  nolazy({
     "dstein64/vim-startuptime",
     cmd = "StartupTime",
     enabled = false,
     init = function()
       vim.g.startuptime_tries = 10
     end,
-  },
+  }),
 }
