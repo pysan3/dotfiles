@@ -26,9 +26,11 @@ bind k scrollline -8
 " d / e to scroll
 bind d scrollpage 0.5
 bind e scrollpage -0.5
+bind u scrollpage -0.5
 
 " x to close tab
 bind x composite tabprev; tabclose #
+bind X tabclose
 
 " <C-s> to toggle ignore mode
 bind <C-s> mode ignore
