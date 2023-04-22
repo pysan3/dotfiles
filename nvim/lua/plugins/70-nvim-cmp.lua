@@ -125,7 +125,7 @@ M.config = function()
           dictionary = "[Text]",
           spell = "[Spll]",
           calc = "[Calc]",
-        })[entry.source.name] or "[    ]"
+        })[entry.source.name]
         return vim_item
       end,
     },
