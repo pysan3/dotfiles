@@ -5,7 +5,6 @@ local M = {
     { "hrsh7th/cmp-buffer" }, -- buffer completions
     { "hrsh7th/cmp-path" }, -- path completions
     { "hrsh7th/cmp-cmdline" }, -- cmdline completions
-    { "hrsh7th/cmp-nvim-lua" }, -- nvim lua config completion
     { "hrsh7th/cmp-calc" },
     { "f3fora/cmp-spell" },
     { "hrsh7th/cmp-emoji" },
@@ -105,7 +104,6 @@ M.config = function()
     sources = cmp.config.sources({
       { name = "git" },
       { name = "nvim_lsp" },
-      { name = "nvim_lua" },
       { name = "luasnip" },
       { name = "path" },
     }, {
@@ -121,14 +119,13 @@ M.config = function()
         vim_item.kind = string.format("%s", vim.g.personal_options.lsp_icons[vim_item.kind])
         vim_item.menu = ({
           nvim_lsp = "[LSP ]",
-          nvim_lua = "[NLUA]",
           luasnip = "[Snip]",
           buffer = "[Buff]",
           path = "[Path]",
           dictionary = "[Text]",
           spell = "[Spll]",
           calc = "[Calc]",
-        })[entry.source.name]
+        })[entry.source.name] or "[    ]"
         return vim_item
       end,
     },
