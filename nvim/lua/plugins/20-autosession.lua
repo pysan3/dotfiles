@@ -4,7 +4,7 @@ return {
   -- dev = true,
   dependencies = { "mhinz/vim-startify" },
   init = function()
-    vim.api.nvim_create_user_command("CL", "AutoSessionAuto <bar> :wqa", {})
+    vim.api.nvim_create_user_command("CL", "AutoSessionSave <bar> :wqa", {})
     vim.api.nvim_create_user_command("A", ":qa", {})
   end,
   opts = {
