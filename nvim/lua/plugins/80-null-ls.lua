@@ -24,26 +24,32 @@ M.config = function()
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
   local diag = null_ls.builtins.diagnostics
 
+  local sources = {
+    -- js, ts
+    fmt.prettier,
+    diag.eslint,
+    fmt.eslint,
+    -- python
+    fmt.autopep8.with({
+      extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" },
+    }),
+    diag.flake8.with({ extra_args = { "--max-line-length=120", "--ignore=F405,W503" } }),
+    -- lua
+    fmt.stylua,
+    -- rust
+    fmt.rustfmt,
+  }
+  -- Add optional langs
+  if vim.env.NVIM_LANG_NIM then -- nim
+    sources[#sources + 1] = fmt.nimpretty.with({ extra_args = { "--maxLineLen:120" } })
+  end
+
   null_ls.setup({
     debug = M.debug,
     on_attach = function(client, _)
       require("lsp-format").on_attach(client)
     end,
-    sources = {
-      -- js, ts
-      fmt.prettier,
-      diag.eslint,
-      fmt.eslint,
-      -- python
-      fmt.autopep8.with({
-        extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" },
-      }),
-      diag.flake8.with({ extra_args = { "--max-line-length=120", "--ignore=F405,W503" } }),
-      -- lua
-      fmt.stylua,
-      -- rust
-      fmt.rustfmt,
-    },
+    sources = sources,
   })
 end
 

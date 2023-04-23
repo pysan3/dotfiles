@@ -90,7 +90,7 @@ local servers = {
   -- zeta_note = {}, -- Markdown
   -- zk = {}, -- Markdown
   -- nickel_ls = {}, -- Nickel
-  -- nimls = {}, -- Nim
+  nimls = vim.env.NVIM_LANG_NIM ~= nil and {} or nil, -- Nim
   -- ocamlls = {}, -- OCaml
   -- ccls = {}, -- Objective C
   -- bsl_ls = {}, -- OneScript, 1C:Enterprise
