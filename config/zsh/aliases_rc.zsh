@@ -169,15 +169,15 @@ dotenv
 # Run dotenv on every new directory
 function cd () {
   command -v 'deactivate' &>/dev/null && deactivate
-  builtin cd "$1"; act; dotenv
+  builtin cd "$@"; act; dotenv
 }
 function popd () {
   command -v 'deactivate' &>/dev/null && deactivate
-  builtin popd "$1"; act; dotenv
+  builtin popd "$@"; act; dotenv
 }
 function pushd () {
   command -v 'deactivate' &>/dev/null && deactivate
-  builtin pushd "$1"; act; dotenv
+  builtin pushd "$@"; act; dotenv
 }
 
 function zk () {
@@ -398,7 +398,7 @@ function img2eps () {
 }
 
 function ex () {
-  for filename in $@; do
+  for filename in "$@"; do
     if [ -f "$filename" ]; then
       case "$filename" in
         *.tar.bz2)  tar xjf "$filename"  ;;
