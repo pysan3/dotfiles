@@ -15,5 +15,6 @@ return {
   },
   init = function()
     vim.g["conjure#mapping#prefix"] = vim.g.personal_options.prefix.iron
+    vim.g["conjure#mapping#doc_word"] = "K"
   end,
 }
