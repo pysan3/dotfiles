@@ -8,7 +8,7 @@ M.config = function()
     override = {
       norg = {
         icon = "◉", -- Default icon for Header 1
-        color = "#406FBA",
+        color = "#4878BE",
         name = "Neorg",
       },
       zwc = {
