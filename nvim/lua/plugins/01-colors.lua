@@ -28,6 +28,10 @@ return {
     colorscheme = "gruvbox",
   }),
   nolazy({
+    "nyngwang/nvimgelion",
+    colorscheme = "nvimgelion",
+  }),
+  nolazy({
     "Mofiqul/vscode.nvim",
     colorscheme = "vscode",
     opts = {
