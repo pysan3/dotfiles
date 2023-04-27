@@ -139,7 +139,7 @@ snippets[#snippets + 1] = s(
   fmt(
     [[
 if {}mgr.veryverbose:
-    print(f'{}')
+    {}
   ]],
     {
       c(1, { t("self."), t("") }),
