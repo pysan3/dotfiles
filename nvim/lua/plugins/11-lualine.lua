@@ -48,7 +48,7 @@ return {
         { "fancy_diagnostics" },
       },
       lualine_c = {
-        vim.g.personal_options.start_light_env and "" or { "hostname", icon = "@", color = { fg = "#16c60c" } },
+        vim.g.personal_options.start_light_env and "" or { "hostname", icon = "@", color = { fg = "#16C60C" } },
         { "fancy_cwd", substitute_home = true },
         { "filename", path = 1 },
         {
@@ -58,15 +58,15 @@ return {
         },
       },
       lualine_x = {
-        { "fancy_macro" },
+        { "fancy_macro", icon = { " ", color = "WarningMsg" } },
         { "fancy_diagnostics" },
-        { "fancy_searchcount", icon = { "", color = { fg = "#fcba03" } } },
+        { "fancy_searchcount", icon = { " ", color = { fg = "#FCBA03" } } },
       },
       lualine_y = {
         { "encoding" },
         { "fileformat" },
         { "fancy_filetype", ts_icon = "" },
-        { "fancy_lsp_servers", icon = { "", color = { fg = "#ffff00" } } },
+        { "fancy_lsp_servers", icon = { "", color = { fg = "#FFFF00" } } },
       },
       lualine_z = {
         { "selectioncount" },
