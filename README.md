@@ -1,5 +1,7 @@
 # My Dotfiles
 
+![image](https://user-images.githubusercontent.com/41065736/235205820-c04ef6c1-6f13-4f85-aebb-c007bb5354ed.png)
+
 ## Warnings
 
 This installation might cause serious changes to your workflow.
