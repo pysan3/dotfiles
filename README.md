@@ -1,6 +1,6 @@
 # My Dotfiles
 
-![image](https://user-images.githubusercontent.com/41065736/235205820-c04ef6c1-6f13-4f85-aebb-c007bb5354ed.png)
+![image](https://user-images.githubusercontent.com/41065736/235206189-8ebc83f7-d946-4cb2-b861-d3b07417ac0d.png)
 
 ## Warnings
 
