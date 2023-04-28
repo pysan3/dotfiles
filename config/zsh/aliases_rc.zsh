@@ -35,6 +35,7 @@ alias tls='trash-list'
 alias trs='trash-restore'
 alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
 
+alias dt='date "+%F"'
 alias egr="env | grep -i"
 alias xgs="xargs "
 alias exportenv='while read -r f; do echo "${(q)f}"; done <<(env) > .env'
