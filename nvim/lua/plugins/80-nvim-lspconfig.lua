@@ -16,6 +16,7 @@ local M = {
     },
     { "folke/neodev.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
+    { "Fildo7525/pretty_hover", opts = {} },
   },
 }
 
