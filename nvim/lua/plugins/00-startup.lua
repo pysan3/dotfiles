@@ -20,6 +20,10 @@ return {
     "m4xshen/hardtime.nvim",
     -- enabled = false,
     lazy = false,
-    opts = {},
+    opts = {
+      disable_mouse = false,
+      allow_different_key = true,
+      disabled_filetypes = { "qf", "NvimTree", "lazy", "mason", "neo-tree" },
+    },
   },
 }
