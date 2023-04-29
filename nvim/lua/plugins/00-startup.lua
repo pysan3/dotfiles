@@ -16,4 +16,10 @@ return {
     end,
   }),
   nolazy({ "folke/lsp-colors.nvim" }),
+  {
+    "m4xshen/hardtime.nvim",
+    -- enabled = false,
+    lazy = false,
+    opts = {},
+  },
 }
