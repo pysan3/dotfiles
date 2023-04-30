@@ -1,6 +1,5 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  -- dev = true,
   dependencies = {
     { "MunifTanjim/nui.nvim" },
     { "nvim-tree/nvim-web-devicons" },
@@ -224,7 +223,7 @@ return {
       find_by_full_path_words = true,
       group_empty_dirs = false,
       follow_current_file = true,
-      hijack_netrw_behavior = "open_default",
+      hijack_netrw_behavior = "disabled",
       use_libuv_file_watcher = true,
       show_split_window_immediately = true,
     },
