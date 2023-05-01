@@ -60,7 +60,7 @@ local function load_plugins()
       -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
       config = {
         default_keybinds = true,
-        neorg_leader = "<Leader><Leader>",
+        neorg_leader = "<Leader>",
         hook = require("norg-config.keybinds").hook,
       },
     },
