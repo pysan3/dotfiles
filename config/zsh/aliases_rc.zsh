@@ -81,8 +81,8 @@ function upgradeall() {
 }
 
 alias vm="dot nvim $DOTFILES/.vimrc"
+alias vv="dot nvim $DOTFILES/.zshenv"
 alias vz="dot nvim $ZDOTDIR/.zshrc"
-alias vv="dot nvim $ZDOTDIR/.zshenv"
 alias va="dot nvim $ZDOTDIR/aliases_rc.zsh"
 alias vr="dot nvim $ZDOTDIR/rust_rc.zsh"
 alias vs="dot nvim $ZDOTDIR/script_rc.zsh"
