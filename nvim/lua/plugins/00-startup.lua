@@ -18,7 +18,7 @@ return {
   nolazy({ "folke/lsp-colors.nvim" }),
   {
     "m4xshen/hardtime.nvim",
-    -- enabled = false,
+    enabled = false,
     lazy = false,
     opts = {
       disable_mouse = false,
