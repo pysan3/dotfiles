@@ -91,7 +91,7 @@ local servers = {
   -- zeta_note = {}, -- Markdown
   -- zk = {}, -- Markdown
   -- nickel_ls = {}, -- Nickel
-  nimls = vim.env.NVIM_LANG_NIM ~= nil and {} or nil, -- Nim
+  -- nimls = vim.env.NVIM_LANG_NIM ~= nil and {} or nil, -- Nim
   -- ocamlls = {}, -- OCaml
   -- ccls = {}, -- Objective C
   -- bsl_ls = {}, -- OneScript, 1C:Enterprise
@@ -157,6 +157,18 @@ local stop_lsp_fmt = {
 }
 
 local lsp_list = vim.tbl_keys(servers)
+if vim.env.NVIM_LANG_NIM ~= nil then
+  servers.nim_langserver = {
+    settings = {
+      ["projectMapping"] = {
+        {
+          ["projectPath"] = vim.fn.dirname(vim.fn.getcwd()) .. ".nim",
+          ["fileRegex"] = ".*\\.nim",
+        },
+      },
+    },
+  }
+end
 
 M.config = function()
   local lspconfig = require("lspconfig")
