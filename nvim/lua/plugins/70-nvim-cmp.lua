@@ -102,7 +102,6 @@ M.config = function()
       ["<S-Tab>"] = cmp.mapping.select_prev_item(),
     },
     sources = cmp.config.sources({
-      { name = "git" },
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "path" },
@@ -112,6 +111,7 @@ M.config = function()
       { name = "spell" },
       { name = "calc" },
       { name = "emoji" },
+      { name = "git" },
     }),
     formatting = {
       fields = { "kind", "abbr", "menu" },
