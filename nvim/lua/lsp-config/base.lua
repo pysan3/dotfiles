@@ -27,6 +27,7 @@ M.setup = function(_)
   })
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+  vim.lsp.set_log_level(vim.g.personal_options.debug.lsp and "debug" or "off")
 end
 
 -- Automatically go to first definition even when multiple found

@@ -8,7 +8,7 @@ local M = {
   event = "BufReadPre",
 }
 
-M.debug = false
+M.debug = vim.g.personal_options.debug.null
 
 M.config = function()
   if M.debug then

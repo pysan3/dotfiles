@@ -17,6 +17,10 @@ vim.g.personal_options = {
     lsp = "<Leader>k",
     neorg = "<Leader>k",
   },
+  debug = {
+    lsp = false,
+    null = false,
+  },
   -- stylua: ignore
   lsp_icons = { Array = "", Boolean = "◩", Class = "", Color = "", Constant = "", Constructor = " ", Enum = " ",
     EnumMember = " ", Event = "", Field = "", File = "", Folder = "", Function = "", Interface = "", Key = "",
