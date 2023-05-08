@@ -162,7 +162,7 @@ if vim.env.NVIM_LANG_NIM ~= nil then
     settings = {
       ["projectMapping"] = {
         {
-          ["projectPath"] = vim.fn.dirname(vim.fn.getcwd()) .. ".nim",
+          ["projectPath"] = vim.fs.dirname(vim.fn.getcwd()) .. ".nim",
           ["fileRegex"] = ".*\\.nim",
         },
       },
