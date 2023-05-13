@@ -107,8 +107,10 @@ info "Installed npmrc"
 # firefox configurations
 ff_profile_dir=$(echo "$HOME/.mozilla/firefox/"*.default-release)
 if [ ! -z "$ff_profile_dir" ]; then
+  userChrome="$ff_profile_dir/chrome/userChrome.css"
   mkdir -p "$ff_profile_dir/chrome" \
-    && ln -sf "$DOTFILES/static/firefox/userChrome.css" "$ff_profile_dir/chrome/" \
+    && touch "$userChrome" && rm "$userChrome" \
+    && wget 'http://codeberg.org/Freeplay/Firefox-Onebar/raw/branch/main/userChrome.css' -O "$userChrome" \
     && ln -sf "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
     && info "Installed firefox configurations" || error "Failed to install firefox configurations"
 else
@@ -117,8 +119,10 @@ fi
 # install for windows
 if [[ -d /mnt/c/Users ]]; then
   ff_profile_dir=$(echo /mnt/c/Users/i84203609/AppData/Roaming/Mozilla/Firefox/Profiles/*.default-release)
+  userChrome="$ff_profile_dir/chrome/userChrome.css"
   [ ! -z "$ff_profile_dir" ] && mkdir -p "$ff_profile_dir/chrome" \
-    && cp -f "$DOTFILES/static/firefox/userChrome.css" "$ff_profile_dir/chrome/" \
+    && touch "$userChrome" && rm "$userChrome" \
+    && wget 'http://codeberg.org/Freeplay/Firefox-Onebar/raw/branch/main/userChrome.css' -O "$userChrome" \
     && cp -f "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
     && info "Installed firefox configurations for Windows" \
     || error "Failed to install firefox configurations in Windows"
