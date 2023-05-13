@@ -66,7 +66,7 @@ return {
         local mod_a = vim.loop.fs_stat(a.path)
         local mod_b = vim.loop.fs_stat(b.path)
         if mod_a == nil and mod_b == nil then
-          return a.filename > b.filename
+          return a.name > b.name
         elseif mod_a == nil then
           return true
         elseif mod_b == nil then
