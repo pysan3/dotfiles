@@ -110,7 +110,7 @@ if [ ! -z "$ff_profile_dir" ]; then
   userChrome="$ff_profile_dir/chrome/userChrome.css"
   mkdir -p "$ff_profile_dir/chrome" \
     && touch "$userChrome" && rm "$userChrome" \
-    && wget 'http://codeberg.org/Freeplay/Firefox-Onebar/raw/branch/main/userChrome.css' -O "$userChrome" \
+    && wget 'https://codeberg.org/Freeplay/Firefox-Onebar/raw/branch/main/userChrome.css' -O "$userChrome" \
     && ln -sf "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
     && info "Installed firefox configurations" || error "Failed to install firefox configurations"
 else
@@ -122,7 +122,7 @@ if [[ -d /mnt/c/Users ]]; then
   userChrome="$ff_profile_dir/chrome/userChrome.css"
   [ ! -z "$ff_profile_dir" ] && mkdir -p "$ff_profile_dir/chrome" \
     && touch "$userChrome" && rm "$userChrome" \
-    && wget 'http://codeberg.org/Freeplay/Firefox-Onebar/raw/branch/main/userChrome.css' -O "$userChrome" \
+    && wget 'https://codeberg.org/Freeplay/Firefox-Onebar/raw/branch/main/userChrome.css' -O "$userChrome" \
     && cp -f "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
     && info "Installed firefox configurations for Windows" \
     || error "Failed to install firefox configurations in Windows"
