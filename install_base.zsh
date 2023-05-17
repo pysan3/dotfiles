@@ -63,6 +63,7 @@ repo="yuru7/PlemolJP"; font_name="$(basename $repo)"
 if [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && checkyes 'Install PlemolJP fonts?'; then
   tmp_dir=$(mktemp -d); mkdir -p "$XDG_DATA_HOME/fonts/$font_name"; trap "rm -v -rf '$tmp_dir'" 1 2 3 15
   latest=$(get_latest_release "$repo") \
+    && info "Downloading version: $latest" \
     && download_release "$repo" "$latest/${font_name}_NF_$latest.zip" "$tmp_dir/x.zip" \
     && unzip -d "$tmp_dir" "$tmp_dir/x.zip" \
     && rm -rf "$XDG_DATA_HOME/fonts/$font_name"* \

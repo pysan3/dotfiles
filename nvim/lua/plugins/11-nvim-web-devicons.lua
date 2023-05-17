@@ -9,7 +9,7 @@ M.config = function()
       norg = {
         icon = "◉", -- Default icon for Header 1
         color = "#4878BE",
-        name = "Neorg",
+        name = "Norg",
       },
       zwc = {
         icon = "",
