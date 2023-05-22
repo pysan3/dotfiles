@@ -242,18 +242,11 @@ if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
     && make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install  \
     && info 'nvim installed' || err_exit 'NVIM BUILD FAILED'
   cd "$current_dir"
-
   # nvim dependencies
   pip install --user -U pynvim neovim-remote
   pnpm i -g neovim
-  # sad
-  checkcommand 'delta' 'cargo install git-delta'
-  checkcommand 'sad' 'cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai'
   # telescope
-  checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
-  checkcommand 'rg' 'cargo install ripgrep' # https://www.linode.com/docs/guides/ripgrep-linux-installation/
-  checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
-
+  checkcommand 'rg' 'cargo install ripgrep'
   # Lazy sync
   nvim --headless "+Lazy! sync | TSUpdateSync" +qa
 fi
