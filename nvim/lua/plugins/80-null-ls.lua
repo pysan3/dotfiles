@@ -34,6 +34,8 @@ M.config = function()
       extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" },
     }),
     diag.flake8.with({ extra_args = { "--max-line-length=120", "--ignore=F405,W503" } }),
+    fmt.isort,
+    fmt.black,
     -- lua
     fmt.stylua,
     -- rust
