@@ -23,6 +23,7 @@ M.tools = {
 
   -- Formatter
   "autopep8",
+  "black",
   "cmakelang",
   "isort",
   -- "luaformatter",
