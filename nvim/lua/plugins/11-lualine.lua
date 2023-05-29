@@ -7,8 +7,8 @@ return {
   event = "VeryLazy",
   cond = not vim.g.started_by_firenvim,
   dependencies = {
-    "nvim-tree/nvim-web-devicons",
-    "meuter/lualine-so-fancy.nvim",
+    { "nvim-tree/nvim-web-devicons" },
+    { "meuter/lualine-so-fancy.nvim" },
   },
   init = function()
     local lualine_aug = vim.api.nvim_create_augroup("StatusLineWatchRecording", { clear = true })
