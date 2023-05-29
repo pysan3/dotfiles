@@ -10,3 +10,4 @@
 !/templates
 
 !/*.lua
+!/neoconf.json

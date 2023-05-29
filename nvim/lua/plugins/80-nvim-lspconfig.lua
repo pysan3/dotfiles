@@ -4,6 +4,7 @@ local M = {
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
     { "SmiteshP/nvim-navic" },
+    { "folke/neoconf.nvim", cmd = { "Neoconf" } },
     { "lukas-reineke/lsp-format.nvim" },
     {
       "andrewferrier/textobj-diagnostic.nvim",
@@ -20,134 +21,25 @@ local M = {
   },
 }
 
-local servers = {
-  -- awk_ls = {}, -- AWK
-  -- angularls = {}, -- Angular
-  -- ansiblels = {}, -- Ansible
-  -- arduino_language_server = {}, -- Arduino
-  -- asm_lsp = {}, -- Assembly (GAS/NASM, GO)
-  -- spectral = {}, -- AsyncAPI
-  bashls = {}, -- Bash
-  -- beancount = {}, -- Beancount
-  -- bicep = {}, -- Bicep
-  -- ccls = {}, -- C
-  clangd = {}, -- C, C++
-  -- csharp_ls = {}, -- C#
-  -- omnisharp = {}, -- C#
-  -- ccls = {}, -- C++
-  cmake = {}, -- CMake
-  -- cssls = {}, -- CSS
-  -- cssmodules_ls = {}, -- CSS
-  -- clojure_lsp = {}, -- Clojure
-  -- codeqlls = {}, -- CodeQL
-  -- crystalline = {}, -- Crystal
-  -- scry = {}, -- Crystal
-  -- cucumber_language_server = {}, -- Cucumber
-  -- dartls = {}, -- Dart
-  -- denols = {}, -- Deno
-  -- diagnosticls = {}, -- Diagnostic (general purpose server)
-  -- serve_d = {}, -- Dlang
-  -- dockerls = {}, -- Docker
-  -- dotls = {}, -- Dot
-  -- efm = {}, -- EFM (general purpose server)
-  -- eslint = {}, -- ESLint
-  -- elixirls = {}, -- Elixir
-  -- elmls = {}, -- Elm
-  -- ember = {}, -- Ember
-  emmet_ls = {}, -- Emmet
-  -- erg_language_server = {}, -- Erg
-  -- erlangls = {}, -- Erlang
-  -- fsautocomplete = {}, -- F#
-  -- flux_lsp = {}, -- Flux
-  -- foam_ls = {}, -- Foam (OpenFOAM)
-  -- fortls = {}, -- Fortran
-  -- golangci_lint_ls = {}, -- Go
-  -- gopls = {}, -- Go
-  -- grammarly = {}, -- Grammarly
-  -- graphql = {}, -- GraphQL
-  -- groovyls = {}, -- Groovy
-  -- html = {}, -- HTML
-  -- hls = {}, -- Haskell
-  jsonls = {}, -- JSON
-  -- jdtls = {}, -- Java
-  -- quick_lint_js = {}, -- JavaScript
-  tsserver = {}, -- JavaScript, TypeScript
-  -- jsonnet_ls = {}, -- Jsonnet
-  -- julials = {}, -- Julia
-  -- kotlin_language_server = {}, -- Kotlin
-  -- ltex = {}, -- LaTeX
-  texlab = {}, -- LaTeX
-  -- lelwel_ls = {}, -- Lelwel
-  lua_ls = {
-    settings = {
-      Lua = {
-        runtime = { version = "Lua 5.1" },
-        workspace = { checkThirdParty = false },
-        format = { enable = false },
-      },
-    },
-  },
-  -- remark_ls = {}, -- Markdown
-  -- zeta_note = {}, -- Markdown
-  -- zk = {}, -- Markdown
-  -- nickel_ls = {}, -- Nickel
-  -- nimls = vim.env.NVIM_LANG_NIM ~= nil and {} or nil, -- Nim
-  -- ocamlls = {}, -- OCaml
-  -- ccls = {}, -- Objective C
-  -- bsl_ls = {}, -- OneScript, 1C:Enterprise
-  -- spectral = {}, -- OpenAPI
-  -- opencl_ls = {}, -- OpenCL
-  -- intelephense = {}, -- PHP
-  -- phpactor = {}, -- PHP
-  -- psalm = {}, -- PHP
-  -- powershell_es = {}, -- Powershell
-  -- prismals = {}, -- Prisma
-  -- puppet = {}, -- Puppet
-  -- purescriptls = {}, -- PureScript
-  -- jedi_language_server = {}, -- Python
-  pyright = {}, -- Python
-  -- pylsp = {
-  --   settings = {
-  --     pylsp = {
-  --       plugins = {
-  --         pycodestyle = { maxLineLength = 120 },
-  --         pyflakes = { enabled = false },
-  --       },
-  --     },
-  --   },
-  -- }, -- Python
-  -- rescriptls = {}, -- ReScript
-  -- rome = {}, -- Rome
-  -- solargraph = {}, -- Ruby
-  rust_analyzer = {}, -- Rust
-  -- sqlls = {}, -- SQL
-  -- sqls = {}, -- SQL
-  -- salt_ls = {}, -- Salt
-  -- theme_check = {}, -- Shopify Theme Check
-  -- solang = {}, -- Solidity
-  -- solc = {}, -- Solidity
-  -- solidity_ls = {}, -- Solidity (VSCode)
-  -- sorbet = {}, -- Sorbet
-  -- esbonio = {}, -- Sphinx
-  -- stylelint_lsp = {}, -- Stylelint
-  -- svelte = {}, -- Svelte
-  -- sourcekit = {}, -- Swift
-  -- verible = {}, -- SystemVerilog
-  taplo = {}, -- TOML
-  -- tailwindcss = {}, -- Tailwind CSS
-  -- terraformls = {}, -- Terraform
-  -- tflint = {}, -- Terraform
-  -- vala_ls = {}, -- Vala
-  vimls = {}, -- VimL
-  volar = {}, -- Vue
-  -- vuels = {
-  --   -- https://stackoverflow.com/questions/65913547/ionic-slot-attributes-are-deprecated-eslint-plugin-vue
-  --   init_options = { config = { vetur = { validation = { template = false } } } },
-  -- }, -- Vue
-  -- lemminx = {}, -- XML
-  -- yamlls = {}, -- YAML
-  -- zls = {}, -- Zig
+local lsp_list = {
+  "bashls",
+  "clangd",
+  "cmake",
+  "emmet_ls",
+  "jsonls",
+  "tsserver",
+  "texlab",
+  "lua_ls",
+  "pyright",
+  "rust_analyzer",
+  "taplo",
+  "vimls",
+  "volar",
 }
+
+if vim.env.NVIM_LANG_NIM ~= nil then
+  lsp_list[#lsp_list + 1] = "nim_langserver"
+end
 
 local stop_lsp_fmt = {
   tsserver = true,
@@ -156,23 +48,10 @@ local stop_lsp_fmt = {
   pylsp = true,
 }
 
-local lsp_list = vim.tbl_keys(servers)
-if vim.env.NVIM_LANG_NIM ~= nil then
-  servers.nim_langserver = {
-    settings = {
-      ["projectMapping"] = {
-        {
-          ["projectPath"] = vim.fs.dirname(vim.fn.getcwd()) .. ".nim",
-          ["fileRegex"] = ".*\\.nim",
-        },
-      },
-    },
-  }
-end
-
 M.config = function()
   local lspconfig = require("lspconfig")
 
+  require("neoconf").setup({})
   require("mason-lspconfig").setup({
     ensure_installed = lsp_list,
     automatic_installation = true,
@@ -195,9 +74,13 @@ M.config = function()
       require("lsp_signature").on_attach(client, bufnr)
     end,
   }
-  for server_name, server_opt in pairs(servers) do
-    local f_ok, f_opt = pcall(require, "lsp-config.settings." .. server_name)
-    local opts = vim.tbl_deep_extend("force", global_opts, f_ok and f_opt or {}, server_opt or {})
+
+  for _, server_name in ipairs(lsp_list) do
+    local opts = global_opts
+    local config_path = "lsp-config.settings." .. server_name
+    if vim.g.personal_module.exists(config_path, true) then
+      opts = vim.tbl_deep_extend("force", opts, require(config_path))
+    end
     lspconfig[server_name].setup(opts)
   end
 end

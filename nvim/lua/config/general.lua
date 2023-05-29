@@ -87,7 +87,7 @@ vim.g.personal_module = {
   ---@return boolean
   exists = function(path, is_config)
     if is_config then
-      path = string.format("%s/lua/%s.lua", vim.fn.stdpath("config"), string.gsub(path, "%.", "/"))
+      path = vim.fn.stdpath("config") .. "/lua/" .. path:gsub("%.", "/") .. ".lua"
     end
     local st = vim.loop.fs_stat(path)
     return st and true or false

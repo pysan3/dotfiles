@@ -1,0 +1,9 @@
+{
+  "lspconfig": {
+    "lua_ls": {
+      "Lua.runtime.version": "Lua 5.1",
+      "Lua.workspace.checkThirdParty": false,
+      "Lua.format.enable": false
+    }
+  }
+}
