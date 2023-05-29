@@ -48,6 +48,12 @@ vim.g.personal_lookup = {
     _ = "#ef9062",
     kanagawa = "#E6C384",
   },
+  null = {
+    _ = {},
+    ["f.autopep8"] = { extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" } },
+    ["d.flake8"] = { extra_args = { "--max-line-length=120", "--ignore=F405,W503" } },
+    ["f.nimpretty"] = { extra_args = { "--maxLineLen:120" } },
+  },
 }
 
 local function merge_table(a)
@@ -120,6 +126,22 @@ vim.g.personal_module = {
       vim.api.nvim_win_set_cursor(0, { cursor_pos.line or 0, cursor_pos.col or 0 })
     end
   end,
+  ---Register new null-ls source
+  ---@param names table<string | integer, table | string> # name like `fmt.prettier` that points to sources
+  ---@param disable_others boolean? # whether to disable other sources with same filetype
+  null_register = function(names, disable_others)
+    if vim.g.did_very_lazy then
+      require("lsp-config.null-helper").null_register(names, disable_others)
+    else
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "VeryLazy",
+        once = true,
+        callback = function()
+          require("lsp-config.null-helper").null_register(names, disable_others)
+        end,
+      })
+    end
+  end,
 }
 
 -- neovim specific options
@@ -133,15 +155,16 @@ vim.opt.spelloptions = "camel,noplainbuffer"
 vim.opt.laststatus = 3
 vim.opt.fillchars = "vert:┃,horiz:━,verthoriz:╋,horizup:┻,horizdown:┳,vertleft:┫,vertright:┣,eob: " -- more obvious separator
 
+local aug = vim.api.nvim_create_augroup("GeneralConfigAUG", { clear = true })
 vim.api.nvim_create_autocmd("VimResized", {
   desc = "Resize Splits Automatically for Tmux",
-  group = vim.api.nvim_create_augroup("WinAlignInTmux", { clear = true }),
+  group = aug,
   pattern = "*",
   command = "wincmd =",
 })
 vim.api.nvim_create_autocmd("BufWritePre", {
   desc = "Auto Format Japanese Punctuation in Latex Files",
-  group = vim.api.nvim_create_augroup("ChangePuncOnSave", { clear = true }),
+  group = aug,
   pattern = "*.tex",
   command = [[
   silent! %s/、/，/g

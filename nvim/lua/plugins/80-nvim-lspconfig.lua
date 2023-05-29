@@ -37,10 +37,6 @@ local lsp_list = {
   "volar",
 }
 
-if vim.env.NVIM_LANG_NIM ~= nil then
-  lsp_list[#lsp_list + 1] = "nim_langserver"
-end
-
 local stop_lsp_fmt = {
   tsserver = true,
   vuels = true,
@@ -74,6 +70,11 @@ M.config = function()
       require("lsp_signature").on_attach(client, bufnr)
     end,
   }
+
+  if vim.env.NVIM_LANG_NIM ~= nil then
+    lsp_list[#lsp_list + 1] = "nim_langserver"
+    vim.g.personal_module.null_register({ "f.nimpretty" })
+  end
 
   for _, server_name in ipairs(lsp_list) do
     local opts = global_opts
