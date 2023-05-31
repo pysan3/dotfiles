@@ -51,9 +51,7 @@ snippets[#snippets + 1] = s(
   fmt(
     [[
 <div{class}>
-
 {cursor}
-
 </div>
   ]],
     {
