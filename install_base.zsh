@@ -123,11 +123,18 @@ install_zsh_shell_utils \
   || error 'Zsh extensions installation failed'
 
 # RUST
-if ! command -v 'cargo' &> /dev/null; then
+if true || ! command -v 'cargo' &> /dev/null; then
   if checkyes "Seems you don't have cargo (rust) installed. Install?"; then
-    curl -sSf https://sh.rustup.rs | sh
+    tmp_file=$(mktemp); trap "rm -rf '$tmp_file'" 1 2 3 15
+    wget -O "$tmp_file" https://sh.rustup.rs \
+      && chmod +x "$tmp_file" \
+      && "$tmp_file" -y --no-modify-path \
+      && rm "$tmp_file" \
+      || err_exit "cargo failed to install"
     source "$CARGO_HOME/env"
-    cargo install cargo-update && info "Successfully installed cargo"
+    unset RUSTC_WRAPPER
+    cargo install cargo-update sccache && info "Successfully installed cargo"
+    export RUSTC_WRAPPER=sccache
   else
     echo 'Press C-c to exit and install cargo manually. Or press ENTER to continue.'
     warning 'cargo is a MUST required dependency for further executions'
