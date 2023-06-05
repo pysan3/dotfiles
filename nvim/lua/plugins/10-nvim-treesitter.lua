@@ -116,7 +116,7 @@ local ts_packages = {
 
 local M = {
   "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
+  build = ":TSUpdateSync",
   event = "BufReadPre",
   cmd = { "TSUpdate", "TSUpdateSync" },
 }
