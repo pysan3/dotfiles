@@ -167,6 +167,7 @@ function dot() {
 # .env loading in the shell
 function dotenv () {
   [ -f .env ] && source .env
+  [ -f .env.sh ] && source .env.sh
   return 0
 }
 dotenv
@@ -308,7 +309,8 @@ function appearance () {
 
 function cv2_get () {
   cv2_path="$(python -c 'import cv2, os; print(os.path.dirname(cv2.__file__))')"
-  wget https://raw.githubusercontent.com/microsoft/python-type-stubs/main/cv2/__init__.pyi -O "$cv2_path/__init__.pyi"
+  wget https://raw.githubusercontent.com/microsoft/python-type-stubs/main/stubs/cv2-stubs/__init__.pyi \
+    -O "$cv2_path/__init__.pyi"
   yes | cp "$cv2_path/__init__.pyi" "$cv2_path/cv2.pyi"
 }
 
