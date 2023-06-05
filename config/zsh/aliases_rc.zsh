@@ -11,6 +11,7 @@ export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
 export CLICOLOR=1
 export EDITOR='vim'
 export MAKEFLAGS="-j$(nproc)"
+export RUSTC_WRAPPER=sccache
 
 [ x"$MYENV" = 'x' ] && export MYENV='undefined'
 [ x"$PCNAME" = 'x' ] && export PCNAME='undefined'
