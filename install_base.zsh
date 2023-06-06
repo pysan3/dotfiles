@@ -123,7 +123,7 @@ install_zsh_shell_utils \
   || error 'Zsh extensions installation failed'
 
 # RUST
-if true || ! command -v 'cargo' &> /dev/null; then
+if false || ! command -v 'cargo' &> /dev/null; then
   if checkyes "Seems you don't have cargo (rust) installed. Install?"; then
     tmp_file=$(mktemp); trap "rm -rf '$tmp_file'" 1 2 3 15
     wget -O "$tmp_file" https://sh.rustup.rs \
