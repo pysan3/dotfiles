@@ -12,7 +12,7 @@ endspin () {
 }
 
 searchfor="$1"
-while [[ $(command ps -eF --user $USER | command grep "$searchfor" | wc -l) -ge 2 ]]; do
+while [[ $(command ps -eF --user $USER | command grep "$searchfor" | command grep -v 'spinwait' | wc -l) -ge 2 ]]; do
   spin "Waiting: $searchfor"
   sleep 1
 done
