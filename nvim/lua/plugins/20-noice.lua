@@ -74,7 +74,7 @@ M.init = function()
         local maptype, rhs, desc = "vim", vim.inspect(map.rhs), map.desc or ""
         if map.callback ~= nil then
           maptype = "lua"
-          rhs = require("telescope.actions.utils")._get_anon_function_name(map.callback)
+          rhs = require("telescope.actions.utils")._get_anon_function_name(debug.getinfo(map.callback))
           rhs = string.gsub(rhs, "<anonymous>", "LUA: " .. desc)
         end
         if not string.match(lhs, "<plug>") then
