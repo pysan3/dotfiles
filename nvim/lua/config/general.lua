@@ -22,13 +22,18 @@ vim.g.personal_options = {
     lsp = false,
     null = false,
   },
-  -- stylua: ignore
-  lsp_icons = { Array = "", Boolean = "◩", Class = "", Color = "", Constant = "", Constructor = " ", Enum = " ",
-    EnumMember = " ", Event = "", Field = "", File = "", Folder = "", Function = "", Interface = "", Key = "",
-    Keyword = "", Method = "", Module = "", Namespace = "", Null = "ﳠ", Number = "", Object = "", Operator = "",
-    Package = "", Property = " ", Reference = "", Snippet = "", String = "", Struct = " ", Text = "",
-    TypeParameter = "", Unit = "", Value = "", Variable = "" },
   signcolumn_length = 4,
+  -- stylua: ignore
+  lsp_icons = { Array = "󰅪 ", Boolean = " ", BreakStatement = "󰙧 ", Call = "󰃷 ", CaseStatement = "󱃙 ", Class = " ",
+    Color = "󰏘 ", Constant = "󰏿 ", Constructor = " ", ContinueStatement = "→ ", Copilot = " ", Declaration = "󰙠 ",
+    Delete = "󰩺 ", DoStatement = "󰑖 ", Enum = " ", EnumMember = " ", Event = " ", Field = " ", File = "󰈔 ",
+    Folder = "󰉋 ", ForStatement = "󰑖 ", Function = "󰊕 ", Identifier = "󰀫 ", IfStatement = "󰇉 ", Interface = " ",
+    Key = "󰌋 ",Keyword = "󰌋 ", List = "󰅪 ", Log = "󰦪 ", Lsp = " ", Macro = "󰁌 ", MarkdownH1 = "󰉫 ", MarkdownH2 = "󰉬 ",
+    MarkdownH3 = "󰉭 ", MarkdownH4 = "󰉮 ", MarkdownH5 = "󰉯 ", MarkdownH6 = "󰉰 ", Method = "󰆧 ", Module = "󰏗 ",
+    Namespace = "󰅩 ", Null = "󰢤 ", Number = "󰎠 ", Object = "󰅩 ", Operator = "󰆕 ", Package = "󰆦 ", Property = " ",
+    Reference = "󰦾 ", Regex = " ", Repeat = "󰑖 ", Scope = "󰅩 ", Snippet = "󰩫 ", Specifier = "󰦪 ", Statement = "󰅩 ",
+    String = "󰉾 ", Struct = " ", SwitchStatement = "󰺟 ", Terminal = " ", Text = " ", Type = " ",
+    TypeParameter = "󰆩 ", Unit = " ", Value = "󰎠 ", Variable = "󰀫 ", WhileStatement = "󰑖 " },
 }
 
 vim.g.personal_lookup = {
