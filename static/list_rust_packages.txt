@@ -8,7 +8,7 @@ grep:rg:ripgrep
 find:fd:fd-find
 du:sudo dust:du-dust
 time:hyperfine
-top:bottom
+top:btm:bottom
 hexdump:hx
 objdump:bingrep
 http-server:miniserve
