@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+VERSION="0.1"
+
+parser_definition () {
+  setup REST help:usage -- "Usage: spinwait <grep name>" ''
+  msg -- 'Options:'
+  disp :usage -h --help
+  disp VERSION -V --version
+}
+
+eval "$(getoptions parser_definition) exit 1"
+
 spinners="●∙∙""∙●∙""∙∙●""∙∙∙"
 counter=0; spinner_len=3
 spin () {
