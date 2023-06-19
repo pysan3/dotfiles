@@ -20,7 +20,7 @@ require("lazy").setup("plugins", {
     colorscheme = { vim.g.personal_options.colorscheme },
   },
   checker = {
-    enabled = true,
+    enabled = false,
     notify = false,
   },
   change_detection = {
