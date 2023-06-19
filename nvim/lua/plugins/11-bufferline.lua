@@ -35,7 +35,6 @@ return {
       left_mouse_command = "buffer %d",
       middle_mouse_command = nil,
       buffer_close_icon = "",
-      modified_icon = "●",
       close_icon = "",
       max_name_length = 30,
       max_prefix_length = 30,
@@ -46,7 +45,7 @@ return {
         return (diag.error and " " .. diag.error .. " " or "")
           .. (diag.warning and " " .. diag.warning or "")
           .. (diag.info and "" .. diag.info or "")
-          .. (diag.hint and "" .. diag.hint or "")
+          .. (diag.hint and " " .. diag.hint or "")
       end,
       show_buffer_icons = true,
       show_buffer_close_icons = true,
