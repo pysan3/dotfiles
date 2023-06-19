@@ -12,6 +12,18 @@ return {
     colorscheme = "jellybeans-nvim",
   }),
   nolazy({
+    "folke/tokyonight.nvim",
+    colorscheme = "tokyonight",
+    opts = {
+      style = "night",
+      transparent = vim.g.personal_options.use_transparent, -- Enable transparent background
+    },
+  }),
+  nolazy({
+    "dasupradyumna/midnight.nvim",
+    colorscheme = "midnight",
+  }),
+  nolazy({
     "rebelot/kanagawa.nvim",
     colorscheme = "kanagawa",
     opts = {
