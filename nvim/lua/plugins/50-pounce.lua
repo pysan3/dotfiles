@@ -24,6 +24,6 @@ return {
     { "gs", pounce_map_func(), mode = { "o" } },
   },
   opts = {
-    accept_on_last = true,
+    accept_best_key = "<Tab>",
   },
 }
