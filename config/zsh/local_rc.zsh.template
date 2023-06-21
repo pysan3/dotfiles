@@ -1,14 +1,42 @@
 export DISPLAY=$(python3 ~/set_configs.py display)':0'
-export LIBGL_ALWAYS_INDIRECT=1
-export CLASSPATH=$CLASSPATH:/usr/local/java/JSON/json-20200518.jar:/usr/local/java/sqlite/sqlite-jdbc-3.30.1.jar
+export LANG='en_US.UTF-8'
 export MYENV='WSL'
-export PCNAME='takuto-hp'
+export PCNAME='gpu2'
+
 export FE='dolphin'
-export NVIM_COLOR='nvcode'
-export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa -F /dev/null'
-alias cgit="cd $HOME/Git/"
-alias clip="clip.exe"
+export TERM=screen-256color
+export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
+alias tmux="tmux -u"
+alias cgit="cd $HOME/Storage/"
+alias clip="clipboard"
+alias python='python3'
+alias pip='pip3'
 # alias pdfpc="pdfpc -Ss" # for WSL
+
+export NVIM_COLOR='jellybeans-nvim'
+export NVIM_BUILD_TAG='nightly'
+
+# export CUDA_VISIBLE_DEVICES=7,6
+# export CUDA_COMPUTE_DEVICE='CUDA'
+
+export PYOPENGL_PLATFORM=egl
+# export MESA_GL_VERSION_OVERRIDE=3.3
+# export MESA_GLSL_VERSION_OVERRIDE=330
+export LIBGL_ALWAYS_INDIRECT=1
+
+if [[ -n $LC_HTTP_PROXY ]]; then
+  export HTTP_PROXY=$LC_HTTP_PROXY
+  export HTTPS_PROXY=$LC_HTTP_PROXY
+  export http_proxy=$LC_HTTP_PROXY
+  export https_proxy=$LC_HTTP_PROXY
+fi
+if [[ -n $LC_NO_PROXY ]]; then
+  export NO_PROXY=$LC_NO_PROXY
+  export no_proxy=$LC_NO_PROXY
+fi
+# export REQUESTS_CA_BUNDLE=/usr/lib/ssl/certs/ca-certificates.crt
+# export NODE_TLS_REJECT_UNAUTHORIZED=0
+
 function crop () {
   set -x
   if [[ x$1 = x'-h' ]]; then
@@ -31,6 +59,7 @@ function crop () {
   # rm 1.mp4 2.mp4
   set +x
 }
+
 function setdns () {
   windowshost=`python ~/set_configs.py windowshost`
   dnspath='/etc/resolv.conf'
@@ -47,6 +76,7 @@ $windowshost
 EOF
 echo "$prev" | sudo tee -a $dnspath
 }
+
 function grass () {
   set -x
   if [ $# -eq 1 ]; then
@@ -72,10 +102,12 @@ function grass () {
     git push
     set +x
 }
+
 function syncddns () {
   cbw get item mydns.jp | jq '.login' | jq -r '"\(.username):\(.password)"'
   cbw get item mydns.jp | jq '.login' | jq -r '"\(.username):\(.password)"' | { read login; for v in 4 6; do curl -u "$login" "https://ipv$v.mydns.jp/login.html"; done }
 }
+
 function mount_netd_wsl() {
   error 'sudo apt install cifs-utils'
   from="$1"; to="$2"
