@@ -50,10 +50,10 @@ return {
       untracked = { folded = false },
       unstaged = { folded = false },
       staged = { folded = false },
-      stashes = { folded = true },
-      unpulled = { folded = true },
+      stashes = { folded = false },
+      unpulled = { folded = false },
       unmerged = { folded = false },
-      recent = { folded = true },
+      recent = { folded = false },
     },
     mappings = {
       status = {
