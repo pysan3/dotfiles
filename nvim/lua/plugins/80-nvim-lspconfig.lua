@@ -69,6 +69,9 @@ M.config = function()
       require("lsp-format").on_attach(client)
       require("lsp_signature").on_attach(client, bufnr)
     end,
+    flags = {
+      debounce_text_changes = 1000,
+    },
   }
 
   if vim.env.NVIM_LANG_NIM ~= nil then
