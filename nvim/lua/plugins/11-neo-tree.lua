@@ -16,7 +16,7 @@ return {
       once = true,
       callback = function(_)
         if vim.tbl_contains(vim.fn.argv(), ".") then
-          vim.cmd("Neotree")
+          require("neo-tree")
         end
       end,
     })
@@ -223,7 +223,7 @@ return {
       find_by_full_path_words = true,
       group_empty_dirs = false,
       follow_current_file = true,
-      hijack_netrw_behavior = "disabled",
+      hijack_netrw_behavior = "open_current",
       use_libuv_file_watcher = true,
       show_split_window_immediately = true,
     },
