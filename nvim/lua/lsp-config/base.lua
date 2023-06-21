@@ -40,6 +40,12 @@ local function go_to_definition(is_type)
           return
         end
         local item = opts.items[1]
+        for _, _item in ipairs(opts.items) do
+          if string.find(_item.text or "", "=") then
+            item = _item
+            break
+          end
+        end
         vim.cmd([[normal! m']])
         vim.g.personal_module.move_to_buf_pos(item.filename, false, { line = item.lnum, col = item.col - 1 })
       end,
