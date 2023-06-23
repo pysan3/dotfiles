@@ -39,7 +39,7 @@ return {
     disable_context_highlighting = false,
     disable_commit_confirmation = true,
     disable_insert_on_commit = false,
-    auto_refresh = true,
+    auto_refresh = false,
     disable_builtin_notifications = true,
     console_timeout = 10000,
     auto_show_console = false,
@@ -49,11 +49,11 @@ return {
     sections = {
       untracked = { folded = false },
       unstaged = { folded = false },
-      staged = { folded = false },
-      stashes = { folded = false },
-      unpulled = { folded = false },
-      unmerged = { folded = false },
-      recent = { folded = false },
+      staged = { folded = true },
+      stashes = { folded = true },
+      unpulled = { folded = true },
+      unmerged = { folded = true },
+      recent = { folded = true },
     },
     mappings = {
       status = {
