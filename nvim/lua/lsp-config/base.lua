@@ -31,7 +31,7 @@ M.setup = function(_)
 end
 
 -- Automatically go to first definition even when multiple found
-local function go_to_definition(is_type)
+local function go_to_definition(is_type, open_tab)
   return function()
     vim.lsp.buf[is_type and "type_definition" or "definition"]({
       reuse_win = true,
@@ -41,13 +41,13 @@ local function go_to_definition(is_type)
         end
         local item = opts.items[1]
         for _, _item in ipairs(opts.items) do
-          if string.find(_item.text or "", "=") then
+          if string.find(_item.text or "", "[=(]") then
             item = _item
             break
           end
         end
         vim.cmd([[normal! m']])
-        vim.g.personal_module.move_to_buf_pos(item.filename, false, { line = item.lnum, col = item.col - 1 })
+        vim.g.personal_module.move_to_buf_pos(item.filename, false, { line = item.lnum, col = item.col - 1 }, open_tab)
       end,
     })
   end
@@ -67,6 +67,7 @@ M.lsp_keymaps = function(bufnr)
   keyn(pfx .. "l", vim.diagnostic.setloclist, getopts("vim.diagnostic.setloclist"))
   keyn(pfx .. "d", vim.diagnostic.open_float, getopts("vim.diagnostic.open_float"))
   keyn("gd", go_to_definition(false), getopts("vim.lsp.buf.definition"))
+  keyn("GD", go_to_definition(false, true), getopts("vim.lsp.buf.definition"))
   -- keyn("K", vim.lsp.buf.hover, getopts("vim.lsp.buf.hover"))
   keyn("K", function()
     require("pretty_hover").hover()
