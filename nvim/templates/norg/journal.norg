@@ -10,7 +10,7 @@ version: 1.0.0
 
 * {TITLE_INPUT}
   #weather {WEATHER}
-  {{:{TITLE_YESTERDAY}:}}[Yesterday] - {{:{TITLE_TOMORROW}:}}[Tomorrow]
+  {{:{YESTERDAY}:}}[Yesterday] - {{:{TOMORROW}:}}[Tomorrow]
 
 ** Daily Review
    - {CURSOR}

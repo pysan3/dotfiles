@@ -35,10 +35,10 @@ local tmpls = require("neorg.modules.external.templates.default_snippets")
 local M = {}
 
 M.keywords = {
-  TITLE_YESTERDAY = function()
+  YESTERDAY = function()
     return i(1, tmpls.parse_date(-1, tmpls.file_title()))
   end,
-  TITLE_TOMORROW = function()
+  TOMORROW = function()
     return i(1, tmpls.parse_date(1, tmpls.file_title()))
   end,
 }
