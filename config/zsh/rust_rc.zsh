@@ -21,7 +21,7 @@ _prepend "$PNPM_HOME:$(npm config get prefix)/bin"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 # Python
-_prepend "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$POETRY_HOME/bin"
+_prepend "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin"
 
 # alias to command line utils
 _append "$CARGO_HOME/bin"

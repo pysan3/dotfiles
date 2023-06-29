@@ -88,6 +88,12 @@ function upgradeall() {
       || error "FAIL: $(alias upgrade$lang)"
   done
 }
+function pyenv () {
+  command pyenv $@
+  cd "$PYENV_ROOT/versions/"
+  ln -sf "$(command pyenv global)" global
+  cd - >/dev/null
+}
 
 alias vm="dot nvim $DOTFILES/.vimrc"
 alias vv="dot nvim $DOTFILES/.zshenv"
@@ -375,12 +381,14 @@ function tinit () {
       echo 'Installing from requirements.txt'
       checkyes 'Do you want to install the strict versions?'
       strict_version=$?
+      packages=' '
       cat requirements.txt | cut -f1 -d';' | while read package; do
         if [[ x"$package" =~ ^x[#-].* ]]; then continue; fi
         if [[ x"$package" = x ]]; then continue; fi
         if [ $strict_version -ne 0 ]; then package=$(echo "$package" | cut -d'=' -f1); fi
-        po add "$package"
+        packages="$packages '$package'"
       done
+      eval "po add $packages"
     fi
   fi
   act
