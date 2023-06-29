@@ -266,7 +266,7 @@ if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
   # telescope
   checkcommand 'rg' 'cargo install ripgrep'
   # Lazy sync
-  nvim --headless "+Lazy! sync | TSUpdateSync" +qa
+  nvim --headless "+Lazy! sync | TSUpdateSync" "+noa qa"
 fi
 
 # install fzf
