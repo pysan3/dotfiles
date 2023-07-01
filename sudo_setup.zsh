@@ -54,6 +54,8 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
   fi
   # words
   yay --noconfirm -S words
+  # xdg portals
+  yay --noconfirm -S xdg-desktop-portal-kde xdg-desktop-portal-gtk xdg-desktop-portal-gnome
   # delete all cache
   sudo pacman --noconfirm -Scc
   yay --noconfirm -Scc
