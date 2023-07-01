@@ -130,7 +130,7 @@ M.opts = {
     },
     hover = { enabled = true },
     signature = {
-      enabled = false,
+      enabled = true,
       opts = {
         position = {
           col = (vim.opt.colorcolumn:get()[1] or 120),
