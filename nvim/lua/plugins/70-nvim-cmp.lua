@@ -23,6 +23,17 @@ M.config = function()
   local compare = require("cmp.config.compare")
   local luasnip = require("luasnip")
 
+  local lsp_icons = vim.g.personal_options.lsp_icons
+  local entry_menu = {
+    nvim_lsp = "[LSP ]",
+    luasnip = "[Snip]",
+    buffer = "[Buff]",
+    path = "[Path]",
+    dictionary = "[Text]",
+    spell = "[Spll]",
+    calc = "[Calc]",
+  }
+
   ---Check whether `check` and call action or fallback
   ---@param check boolean: true -> action(), false -> fallback()
   ---@param action function
@@ -116,16 +127,8 @@ M.config = function()
     formatting = {
       fields = { "kind", "abbr", "menu" },
       format = function(entry, vim_item)
-        vim_item.kind = string.format("%s", vim.g.personal_options.lsp_icons[vim_item.kind])
-        vim_item.menu = ({
-          nvim_lsp = "[LSP ]",
-          luasnip = "[Snip]",
-          buffer = "[Buff]",
-          path = "[Path]",
-          dictionary = "[Text]",
-          spell = "[Spll]",
-          calc = "[Calc]",
-        })[entry.source.name]
+        vim_item.kind = lsp_icons[vim_item.kind] or " "
+        vim_item.menu = entry_menu[entry.source.name]
         return vim_item
       end,
     },
@@ -141,7 +144,7 @@ M.config = function()
             return len1 - len2 < 0
           end
         end,
-        compare.recently_used,
+        compare.recently_used, ---@diagnostic disable-line
         function(entry1, entry2) -- sort by compare kind (Variable, Function etc)
           local kind1 = modified_kind(entry1:get_kind())
           local kind2 = modified_kind(entry2:get_kind())
