@@ -2,6 +2,6 @@ return {
   "yorickpeterse/nvim-dd",
   event = "LspAttach",
   opts = {
-    timeout = 1000,
+    timeout = 5000,
   },
 }
