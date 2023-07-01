@@ -56,9 +56,14 @@ alias ..='cd ..'
 
 alias g='git'
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
+function nopy () {
+  export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g')
+}
 function yay() {
-  PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') \
-    command yay --noconfirm --sudoloop $@
+  ( \
+    nopy \
+    && command yay --noconfirm --sudoloop $@ \
+  )
 }
 alias res="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
