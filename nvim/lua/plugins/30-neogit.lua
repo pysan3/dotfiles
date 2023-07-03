@@ -7,7 +7,7 @@ local function neogit_map(key, method, no_neogit)
 end
 
 return {
-  "TimUntersberger/neogit",
+  "NeogitOrg/neogit",
   dependencies = {
     {
       "sindrets/diffview.nvim",
