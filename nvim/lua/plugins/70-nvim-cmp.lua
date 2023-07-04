@@ -170,6 +170,11 @@ M.config = function()
     experimental = {
       ghost_text = false,
     },
+    performance = {
+      throttle = 50,
+      fetching_timeout = 500,
+      max_view_entries = 10,
+    },
     window = {
       completion = cmp.config.window.bordered(),
       documentation = cmp.config.window.bordered(),
