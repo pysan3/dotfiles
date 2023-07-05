@@ -230,7 +230,10 @@ return {
       },
       find_by_full_path_words = true,
       group_empty_dirs = false,
-      follow_current_file = true,
+      follow_current_file = {
+        enabled = true,
+        leave_dirs_open = true,
+      },
       hijack_netrw_behavior = "open_current",
       use_libuv_file_watcher = true,
       show_split_window_immediately = true,
