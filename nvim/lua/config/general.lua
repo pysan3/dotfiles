@@ -21,6 +21,7 @@ vim.g.personal_options = {
   debug = {
     lsp = false,
     null = false,
+    neotree = false,
   },
   signcolumn_length = 4,
   -- stylua: ignore

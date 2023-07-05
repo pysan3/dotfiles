@@ -43,8 +43,8 @@ return {
     hide_root_node = false,
     retain_hidden_root_indent = false,
     resize_timer_interval = -1, -- in ms, needed for containers to redraw right aligned and faded content
-    -- log_level = "trace",
-    -- log_to_file = true,
+    log_level = vim.g.personal_options.debug.neotree and "trace" or "fatal",
+    log_to_file = vim.g.personal_options.debug.neotree,
     sort_case_insensitive = true,
     source_selector = {
       winbar = true,
