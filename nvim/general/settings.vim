@@ -91,7 +91,7 @@ set smarttab                            " Makes tabbing smarter will realize you
 set shiftwidth=4                        " The width of indentation
 set formatoptions-=cro
 set colorcolumn=100,120
-set signcolumn=yes                   " Set the width of the symbol column, if not set, it will cause an exception when displaying the icon
+set signcolumn=yes                      " Set the width of the symbol column, if not set, it will cause an exception when displaying the icon
 
 "----------------------------------------------------------
 " Trailing Spaces
@@ -109,12 +109,6 @@ set foldlevel=100                       " Maximum folding level
 set nobackup                            " Whether to create a backup file
 set nowritebackup                       " Whether to create backups when writing files
 set noswapfile                          " Whether to create a swap file
-
-"----------------------------------------------------------
-" Vim commands wait time
-"----------------------------------------------------------
-set updatetime=100                      " Faster completion
-set timeoutlen=500                      " By default timeoutlen is 1000 ms
 
 "----------------------------------------------------------
 " Status Line
