@@ -26,7 +26,7 @@ local function on_bar_inserted()
 end
 
 local function callback_func()
-  vim.keymap.set("i", "<Bar>", on_bar_inserted, { desc = "Align Tables", silent = true })
+  vim.keymap.set("i", "<Bar>", on_bar_inserted, { desc = "Align Tables", silent = true, buffer = true })
 end
 
 local filetypes = vim.g.personal_module.md()
