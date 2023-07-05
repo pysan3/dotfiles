@@ -22,6 +22,13 @@ return {
     })
   end,
   opts = {
+    sources = {
+      "filesystem",
+      "buffers",
+      "git_status",
+      "document_symbols",
+    },
+    auto_clean_after_session_restore = true,
     close_if_last_window = true,
     enable_diagnostics = true,
     enable_git_status = true,
@@ -41,6 +48,12 @@ return {
     sort_case_insensitive = true,
     source_selector = {
       winbar = true,
+      sources = {
+        { source = "filesystem", display_name = " 󰉓 Files " },
+        { source = "git_status", display_name = " 󰊢 Git " },
+        { source = "buffers", display_name = " 󰓩 Buffers " },
+        { source = "document_symbols", display_name = "  Symbols " },
+      },
     },
     default_component_configs = {
       container = {
