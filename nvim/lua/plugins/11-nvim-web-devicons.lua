@@ -22,12 +22,12 @@ M.config = function()
         name = "Protobuf",
       },
       snippets = {
-        icon = "",
+        icon = "",
         color = "#DBC63E",
         name = "Snippets",
       },
       ["poetry.lock"] = {
-        icon = "",
+        icon = "󰌾",
         color = "#41535B",
         name = "PoetryLockFile",
       },
