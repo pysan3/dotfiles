@@ -10,16 +10,6 @@ return {
   },
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
-    vim.api.nvim_create_autocmd("VimEnter", {
-      pattern = "*",
-      group = vim.api.nvim_create_augroup("NeotreeOnOpen", { clear = true }),
-      once = true,
-      callback = function(_)
-        if vim.tbl_contains(vim.fn.argv(), ".") then
-          require("neo-tree")
-        end
-      end,
-    })
   end,
   opts = {
     sources = {
@@ -49,11 +39,12 @@ return {
     source_selector = {
       winbar = true,
       sources = {
-        { source = "filesystem", display_name = " 󰉓 Files " },
+        { source = "filesystem", display_name = " 󰉓 File " },
         { source = "git_status", display_name = " 󰊢 Git " },
-        { source = "buffers", display_name = " 󰓩 Buffers " },
-        { source = "document_symbols", display_name = "  Symbols " },
+        { source = "buffers", display_name = " 󰓩 Buf " },
+        { source = "document_symbols", display_name = "  Sym " },
       },
+      content_layout = "center",
     },
     default_component_configs = {
       container = {
@@ -250,6 +241,11 @@ return {
           ["gg"] = "git_commit_and_push",
         },
       },
+    },
+    document_symbols = {
+      kinds = vim.tbl_map(function(value)
+        return { icon = value }
+      end, vim.g.personal_options.lsp_icons),
     },
     event_handlers = {
       {
