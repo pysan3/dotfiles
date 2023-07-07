@@ -313,3 +313,4 @@ treesitter
 cmp
 whitespace
 autocmds
+arguments
