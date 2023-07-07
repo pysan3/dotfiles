@@ -9,6 +9,7 @@ return {
     vim.opt.undofile = true
     vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
   end,
+  opts = {},
   keys = {
     {
       "<Leader>u",
