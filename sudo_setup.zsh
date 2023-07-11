@@ -44,7 +44,7 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
     python-gobject python-wxpython python-yaml python-xlib python-utils python-pyopenssl \
     poppler-glib python-distutils-extra python-pip python-gobject gtk3 python-cairo libhandy
   # texlive
-  sudo pacman --noconfirm -S texlive-full
+  # sudo pacman --noconfirm -S texlive-full
   # yay
   if [ "$use_yay" = true ]; then
     command -v 'yay' &>/dev/null || sudo pacman --noconfirm -S yay
