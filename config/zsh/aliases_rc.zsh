@@ -82,9 +82,8 @@ function def() {
 }
 
 alias upgradepy='pip install --upgrade --user pip && pipupgrade --verbose --latest --yes && poetry self update && pyenv update' # pip install pipupgrade
-alias upgraders='rustup update && cargo install-update --all' # cargo install cargo-update
+alias upgraders='rustup update && cargo install-update --all >/dev/null &' # cargo install cargo-update
 alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
-alias packersync="nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'"
 function upgradeall() {
   upgradecmds='py rs js'
   for lang in $upgradecmds; do
