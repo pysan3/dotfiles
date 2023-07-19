@@ -104,6 +104,7 @@ M.config = function()
         "--column",
         "--smart-case",
         "--trim",
+        "--hidden",
       },
     },
     pickers = {
