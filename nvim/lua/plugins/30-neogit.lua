@@ -55,10 +55,5 @@ return {
       unmerged = { folded = true },
       recent = { folded = true },
     },
-    mappings = {
-      status = {
-        ["B"] = "BranchPopup",
-      },
-    },
   },
 }
