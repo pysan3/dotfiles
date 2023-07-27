@@ -10,6 +10,11 @@ return {
   },
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
+    if vim.tbl_contains(vim.fn.argv(), ".") then
+      vim.schedule(function()
+        vim.cmd("Neotree current")
+      end)
+    end
   end,
   opts = {
     sources = {
@@ -225,7 +230,7 @@ return {
         enabled = true,
         leave_dirs_open = true,
       },
-      hijack_netrw_behavior = "open_current",
+      hijack_netrw_behavior = "disabled",
       use_libuv_file_watcher = true,
       show_split_window_immediately = true,
     },
