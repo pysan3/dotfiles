@@ -43,4 +43,4 @@ set visualenterauto false
 
 " Disable on websites
 
-" blacklistadd youtube.com
+blacklistadd youtube.com
