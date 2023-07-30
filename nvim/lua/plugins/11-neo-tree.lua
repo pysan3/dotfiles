@@ -10,7 +10,9 @@ return {
   },
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
-    if vim.tbl_contains(vim.fn.argv(), ".") then
+    ---@type string[]
+    local argv = vim.fn.argv() or {} ---@diagnostic disable-line
+    if vim.tbl_contains(argv, ".") then
       vim.schedule(function()
         vim.cmd("Neotree current")
       end)
