@@ -14,7 +14,7 @@ return {
     local argv = vim.fn.argv() or {} ---@diagnostic disable-line
     if vim.tbl_contains(argv, ".") then
       vim.schedule(function()
-        vim.cmd("Neotree current")
+        pcall(require, "neo-tree")
       end)
     end
   end,
@@ -232,7 +232,7 @@ return {
         enabled = true,
         leave_dirs_open = true,
       },
-      hijack_netrw_behavior = "disabled",
+      hijack_netrw_behavior = "open_current",
       use_libuv_file_watcher = true,
       show_split_window_immediately = true,
     },
