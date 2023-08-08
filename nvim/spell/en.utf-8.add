@@ -314,3 +314,6 @@ cmp
 whitespace
 autocmds
 arguments
+configs
+GPUs
+subclasses
