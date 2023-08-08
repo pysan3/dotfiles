@@ -57,7 +57,7 @@ vim.g.personal_lookup = {
   null = {
     _ = {},
     ["f.autopep8"] = { extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" } },
-    ["d.flake8"] = { extra_args = { "--max-line-length=120", "--ignore=F405,W503" } },
+    ["d.flake8"] = { extra_args = { "--max-line-length=120" } },
     ["f.nimpretty"] = { extra_args = { "--maxLineLen:120" } },
   },
 }
