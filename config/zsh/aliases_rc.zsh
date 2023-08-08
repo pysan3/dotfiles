@@ -202,7 +202,7 @@ function pushd () {
 }
 
 function zk () {
-  cd "$NCPATH/Notes" && tvim
+  tvim "$NCPATH/Notes"
 }
 
 function syncit () {
@@ -330,14 +330,14 @@ function cv2_get () {
 }
 
 function tmv () {
-  [ $# -ge 1 ] && sessioncmd="-t $1" || sessioncmd=''
+  sessioncmd="-t $1"
   [ -z "$TMUX" ] && tmux a $sessioncmd || tmux switchc $sessioncmd
 }
 
 function tvim() {
-  [ $# -ge 1 ] && cd "$1"
+  [ $# -ge 1 ] && cd "$1" && trap 'popd &>/dev/null' EXIT
   workdir=$(get_workdir)
-  if `tmux has-session -t "=$workdir" 2> /dev/null`; then
+  if $(tmux has-session -t "=$workdir" 2> /dev/null); then
     tmv "$workdir"
     return 0
   fi
@@ -478,7 +478,7 @@ function sshfs_remote () {
 
 function happ() {
   trap "echo terminated; git remote rm heroku; return" 1 2 3 15
-  heroku git:remote --app $(basename -s .git `git remote get-url origin`)
+  heroku git:remote --app $(basename -s .git $(git remote get-url origin))
   eval "heroku $@"
   echo "delete"
   git remote rm heroku
