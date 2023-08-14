@@ -113,5 +113,4 @@ nnoremap <Leader>:a :!zsh -ic '
 
 " Do not update the register
 noremap x "_x
-noremap <Leader>d "_d
 noremap <Leader>c "_c

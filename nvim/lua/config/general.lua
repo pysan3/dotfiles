@@ -17,6 +17,7 @@ vim.g.personal_options = {
     lsp = "<Leader>k",
     neorg = "<Leader>k",
     virt_notes = "<Leader>v",
+    dap = "<Leader>d",
   },
   debug = {
     lsp = false,
