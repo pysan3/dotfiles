@@ -6,6 +6,7 @@ local M = {
     { "SmiteshP/nvim-navic" },
     { "folke/neoconf.nvim", cmd = { "Neoconf" } },
     { "lukas-reineke/lsp-format.nvim" },
+    { "simrat39/inlay-hints.nvim" },
     {
       "andrewferrier/textobj-diagnostic.nvim",
       opts = {},
@@ -67,6 +68,7 @@ M.config = function()
       client.server_capabilities.semanticTokensProvider = false
       lsp_base.lsp_keymaps(bufnr)
       require("lsp-format").on_attach(client)
+      require("inlay-hints").on_attach(client, bufnr)
     end,
     flags = {
       debounce_text_changes = 1000,
