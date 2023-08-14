@@ -4,7 +4,7 @@ local function extensions(name, opt)
     require("neoclip")
     telescope.load_extension("neoclip")
     vim.notify("Press name of register.")
-    local key = string.char(vim.fn.getchar())
+    local key = string.char(vim.fn.getchar() or 0)
     if string.match(key, "[%w]") then
       return telescope.extensions[name][key](opt or {})
     elseif string.match(key, '["+*]') then
