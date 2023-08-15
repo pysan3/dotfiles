@@ -1,16 +1,16 @@
 @document.meta
-title: {TITLE_INPUT}
+title: {TODAY_OF_FILETREE}
 description:
 authors: {AUTHOR}
 categories:
-created: {TODAY}
+created: {TODAY_OF_FILETREE}
 updated: {TODAY}
 version: 1.0.0
 @end
 
-* {TITLE_INPUT}
+* {TODAY_OF_FILETREE}
   #weather {WEATHER}
-  {{:{YESTERDAY}:}}[Yesterday] - {{:{TOMORROW}:}}[Tomorrow]
+  {{:{YESTERDAY_OF_FILETREE}:}}[Yesterday] - {{:{TOMORROW_OF_FILETREE}:}}[Tomorrow]
 
 ** Daily Review
    - {CURSOR}

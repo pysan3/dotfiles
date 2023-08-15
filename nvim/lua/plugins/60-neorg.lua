@@ -45,8 +45,7 @@ local function load_plugins()
     ["core.presenter"] = { config = { zen_mode = "zen-mode" } },
     ["core.journal"] = {
       config = {
-        strategy = "flat",
-        template_name = "../templates/journal.norg",
+        strategy = "nested",
         workspace = M.default_workspace,
       },
     },
@@ -67,7 +66,6 @@ local function load_plugins()
     ["external.templates"] = {
       config = {
         templates_dir = vim.fn.stdpath("config") .. "/templates/norg",
-        keywords = require("norg-config.templates").keywords,
       },
     },
   }
