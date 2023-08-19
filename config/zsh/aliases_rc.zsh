@@ -148,7 +148,7 @@ function cbw () {
   )
 }
 alias bwpass="jq '.login' | jq -r '.password' | sed 's/^ *\| *$//'"
-alias here="$FE . >/dev/null 2>&1 || true"
+alias here="$FE . >/dev/null 2>&1 &"
 export NCPATH="$HOME/Nextcloud"
 
 function update_zwc () {
