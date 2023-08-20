@@ -8,7 +8,7 @@ vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup("plugins", {
   defaults = {
     lazy = true,
-    version = "*",
+    -- version = "*",
   },
   lockfile = vim.fn.stdpath("cache") .. "/lazy-lock.json", -- lockfile generated after running update.
   -- concurrency = 5,
