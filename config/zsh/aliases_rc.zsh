@@ -256,10 +256,13 @@ alias ramen='timer 150'
 
 function pdflock () {
   F="$2"
-  [ $# -lt 3 ] && TO="${2%.*}_lock.pdf" || TO="$3"
+  if [ ! -f "$F" ]; then
+    echo "'$F' not found."; return 1
+  fi
+  [ $# -lt 3 ] && TO="${2:r}_lock.pdf" || TO="$3"
   echo "Found file: $F"
   echo "Locked file created: $TO"
-  qpdf --encrypt "$1" "$1" 40 -- "$F" "$TO"
+  qpdf --encrypt "$1" "$1" 256 -- "$F" "$TO"
 }
 
 function lx () {
