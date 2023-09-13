@@ -497,7 +497,7 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
   zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
 fi
 function fzf-cdr () {
-  local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | fzf --query="$LBUFFER" --prompt='cd > ' +s --preview 'eval exa -aFhl {}')"
+  local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | fzf --query="$LBUFFER" --prompt='cd > ' +s --preview 'eval eza -aFhl {}')"
   if [ -n "$selected_dir" ]; then
     BUFFER="cd ${selected_dir}"
     zle accept-line
