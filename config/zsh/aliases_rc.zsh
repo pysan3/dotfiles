@@ -81,7 +81,7 @@ function def() {
   esac
 }
 
-alias upgradepy='pip install --upgrade --user pip && pipupgrade --verbose --latest --yes && poetry self update && pyenv update' # pip install pipupgrade
+alias upgradepy='pip install --upgrade --user pip pipupgrade && python -m pipupgrade --latest --yes && poetry self update && pyenv update' # pip install pipupgrade
 alias upgraders='rustup update && cargo install-update --all 2>/dev/null &' # cargo install cargo-update
 alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
 function upgradeall() {
@@ -148,7 +148,7 @@ function cbw () {
   )
 }
 alias bwpass="jq '.login' | jq -r '.password' | sed 's/^ *\| *$//'"
-alias here="$FE . >/dev/null 2>&1 || true"
+alias here="$FE . >/dev/null 2>&1 &"
 export NCPATH="$HOME/Nextcloud"
 
 function update_zwc () {
@@ -202,7 +202,7 @@ function pushd () {
 }
 
 function zk () {
-  cd "$NCPATH/Notes" && tvim
+  tvim "$NCPATH/Notes"
 }
 
 function syncit () {
@@ -256,10 +256,13 @@ alias ramen='timer 150'
 
 function pdflock () {
   F="$2"
-  [ $# -lt 3 ] && TO="${2%.*}_lock.pdf" || TO="$3"
+  if [ ! -f "$F" ]; then
+    echo "'$F' not found."; return 1
+  fi
+  [ $# -lt 3 ] && TO="${2:r}_lock.pdf" || TO="$3"
   echo "Found file: $F"
   echo "Locked file created: $TO"
-  qpdf --encrypt "$1" "$1" 40 -- "$F" "$TO"
+  qpdf --encrypt "$1" "$1" 256 -- "$F" "$TO"
 }
 
 function lx () {
@@ -330,14 +333,14 @@ function cv2_get () {
 }
 
 function tmv () {
-  [ $# -ge 1 ] && sessioncmd="-t $1" || sessioncmd=''
+  sessioncmd="-t $1"
   [ -z "$TMUX" ] && tmux a $sessioncmd || tmux switchc $sessioncmd
 }
 
 function tvim() {
-  [ $# -ge 1 ] && cd "$1"
+  [ $# -ge 1 ] && cd "$1" && trap 'popd &>/dev/null' EXIT
   workdir=$(get_workdir)
-  if `tmux has-session -t "=$workdir" 2> /dev/null`; then
+  if $(tmux has-session -t "=$workdir" 2> /dev/null); then
     tmv "$workdir"
     return 0
   fi
@@ -478,7 +481,7 @@ function sshfs_remote () {
 
 function happ() {
   trap "echo terminated; git remote rm heroku; return" 1 2 3 15
-  heroku git:remote --app $(basename -s .git `git remote get-url origin`)
+  heroku git:remote --app $(basename -s .git $(git remote get-url origin))
   eval "heroku $@"
   echo "delete"
   git remote rm heroku
@@ -494,7 +497,7 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
   zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
 fi
 function fzf-cdr () {
-  local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | fzf --query="$LBUFFER" --prompt='cd > ' +s --preview 'eval exa -aFhl {}')"
+  local selected_dir="$(cdr -l | sed 's/^[0-9]\+ \+//' | fzf --query="$LBUFFER" --prompt='cd > ' +s --preview 'eval eza -aFhl {}')"
   if [ -n "$selected_dir" ]; then
     BUFFER="cd ${selected_dir}"
     zle accept-line

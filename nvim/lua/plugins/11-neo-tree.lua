@@ -258,7 +258,7 @@ return {
       {
         event = "file_opened",
         handler = function(_)
-          require("neo-tree").close_all()
+          require("neo-tree.sources.manager").close_all()
         end,
       },
       {

@@ -33,6 +33,7 @@ return {
     highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
     ]])
   end,
+  ---@type NeogitConfig
   opts = {
     disable_signs = false,
     disable_hint = false,
@@ -47,13 +48,50 @@ return {
       diffview = true,
     },
     sections = {
-      untracked = { folded = false },
-      unstaged = { folded = false },
-      staged = { folded = true },
-      stashes = { folded = true },
-      unpulled = { folded = true },
-      unmerged = { folded = true },
-      recent = { folded = true },
+      sequencer = {
+        folded = false,
+        hidden = false,
+      },
+      untracked = {
+        folded = false,
+        hidden = false,
+      },
+      unstaged = {
+        folded = false,
+        hidden = false,
+      },
+      staged = {
+        folded = true,
+        hidden = false,
+      },
+      stashes = {
+        folded = true,
+        hidden = false,
+      },
+      unpulled_upstream = {
+        folded = true,
+        hidden = false,
+      },
+      unmerged_upstream = {
+        folded = false,
+        hidden = false,
+      },
+      unpulled_pushRemote = {
+        folded = true,
+        hidden = false,
+      },
+      unmerged_pushRemote = {
+        folded = false,
+        hidden = false,
+      },
+      recent = {
+        folded = true,
+        hidden = false,
+      },
+      rebase = {
+        folded = true,
+        hidden = false,
+      },
     },
   },
 }

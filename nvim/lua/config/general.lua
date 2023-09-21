@@ -17,6 +17,7 @@ vim.g.personal_options = {
     lsp = "<Leader>k",
     neorg = "<Leader>k",
     virt_notes = "<Leader>v",
+    dap = "<Leader>d",
   },
   debug = {
     lsp = false,
@@ -57,7 +58,7 @@ vim.g.personal_lookup = {
   null = {
     _ = {},
     ["f.autopep8"] = { extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" } },
-    ["d.flake8"] = { extra_args = { "--max-line-length=120", "--ignore=F405,W503" } },
+    ["d.flake8"] = { extra_args = { "--max-line-length=120" } },
     ["f.nimpretty"] = { extra_args = { "--maxLineLen:120" } },
   },
 }
