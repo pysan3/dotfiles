@@ -36,6 +36,7 @@ set tildeop
 set whichwrap=b,s,h,l,<,>,[,],~         " Move to the next line with these commands
 set cursorline                          " Highlight the current line
 set backspace=indent,eol,start
+set updatetime=1000                     " Change how long to wait for `CursorHold`
 
 set hidden                              " Allow switching from unsaved buffers
 " set number                            " Allow absolute line numbers

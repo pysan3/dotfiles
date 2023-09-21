@@ -66,6 +66,24 @@ return {
     },
   },
   opts = {
+    general = {
+      update_interval = 1000,
+      update_events = {
+        win = {
+          "WinEnter",
+          "WinResized",
+          "CursorHold",
+          "CursorHoldI",
+        },
+        buf = {
+          "BufEnter",
+        },
+        global = {
+          "DirChanged",
+          "VimResized",
+        },
+      },
+    },
     icons = {
       kinds = { symbols = vim.g.personal_options.lsp_icons },
       ui = { bar = { separator = "  " } },
