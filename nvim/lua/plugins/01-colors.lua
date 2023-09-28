@@ -1,7 +1,8 @@
 local function nolazy(plugin)
-  plugin.lazy = false
-  plugin.priority = 100
-  plugin.cond = vim.g.personal_options.colorscheme == plugin.colorscheme and not vim.g.started_by_firenvim
+  if vim.g.personal_options.colorscheme == plugin.colorscheme and not vim.g.started_by_firenvim then
+    plugin.lazy = false
+    plugin.priority = 100
+  end
   return plugin
 end
 
