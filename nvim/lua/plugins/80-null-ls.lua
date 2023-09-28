@@ -8,10 +8,10 @@ local M = {
   event = "BufReadPre",
 }
 
-M.debug = vim.g.personal_options.debug.null
+local debug = vim.g.personal_options.debug.null
 
 M.init = function()
-  if M.debug then
+  if debug then
     local log_file = vim.fn.stdpath("cache") .. "/null-ls.log"
     if vim.g.personal_module.exists(log_file) then
       vim.loop.fs_unlink(log_file)
@@ -22,7 +22,7 @@ end
 M.config = function()
   local null_ls = require("null-ls")
   null_ls.setup({
-    debug = M.debug,
+    debug = debug,
     on_attach = function(client, _)
       require("lsp-format").on_attach(client)
     end,
