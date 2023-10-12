@@ -9,6 +9,7 @@ end
 return {
   "tpope/vim-fugitive",
   cmd = { "G", "GBranches", "Gdiff" },
+  cond = vim.g.personal_options.use_git_plugins,
   keys = {
     fugitive_map("S", ""),
     fugitive_map("j", "diffget //2", true),

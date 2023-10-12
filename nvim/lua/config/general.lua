@@ -8,6 +8,7 @@ vim.g.personal_options = {
   start_light_env = (vim.env.NVIM_LIGHT_ENV or "0") ~= "0",
   colorscheme = vim.env.NVIM_COLOR or "jellybeans-nvim",
   use_transparent = (vim.env.NVIM_USE_TRANSPARENT or "0") ~= "0",
+  use_git_plugins = (vim.env.NVIM_DISABLE_GIT or "0") == "0",
   prefix = {
     telescope = "<Leader>f",
     gitsigns = "<Leader>h",

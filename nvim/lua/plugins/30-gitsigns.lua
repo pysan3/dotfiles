@@ -24,6 +24,7 @@ end
 return {
   "lewis6991/gitsigns.nvim",
   event = "VeryLazy",
+  cond = vim.g.personal_options.use_git_plugins,
   keys = {
     move_hunk("]g", "next_hunk"),
     move_hunk("[g", "prev_hunk"),

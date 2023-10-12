@@ -16,6 +16,7 @@ return {
     { "nvim-lua/plenary.nvim" },
     { "rhysd/conflict-marker.vim" },
   },
+  cond = vim.g.personal_options.use_git_plugins,
   keys = {
     neogit_map("s", ""),
     neogit_map("d", "DiffviewOpen", true),
