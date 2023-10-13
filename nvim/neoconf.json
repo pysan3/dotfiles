@@ -19,6 +19,11 @@
       "typescript.inlayHints.enumMemberValues.enabled": true,
       "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
       "typescript.inlayHints.propertyDeclarationTypes.enabled": true
+    },
+    "pyright": {
+      "python.analysis.diagnosticMode": "openFilesOnly",
+      "python.analysis.autoSearchPaths": true,
+      "python.analysis.useLibraryCodeForTypes": true
     }
   }
 }

@@ -65,7 +65,7 @@ M.config = function()
       if client.server_capabilities.documentSymbolProvider then
         require("nvim-navic").attach(client, bufnr)
       end
-      client.server_capabilities.semanticTokensProvider = false
+      client.server_capabilities.semanticTokensProvider = nil
       lsp_base.lsp_keymaps(bufnr)
       require("lsp-format").on_attach(client)
       require("inlay-hints").on_attach(client, bufnr)
