@@ -293,6 +293,10 @@ user_pref("mousewheel.default.delta_multiplier_y", 275); // 250-500
  ****************************************************************************/
 // Enter your personal prefs below this line:
 
+// PREF: use KDE file picker in FireFox
+user_pref("widget.use-xdg-desktop-portal", 1);
+user_pref("widget.use-xdg-desktop-portal.file-picker", 1);
+
 // PREF: restore form autofill
 user_pref("extensions.formautofill.addresses.enabled", true);
 user_pref("extensions.formautofill.creditCards.enabled", true);
