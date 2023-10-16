@@ -36,6 +36,7 @@ function pm () {
 }
 
 alias rm='rm -i --preserve-root'
+alias rmf='rm -f'
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
