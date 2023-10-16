@@ -1,5 +1,5 @@
 local M = {
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   dependencies = {
     { "lukas-reineke/lsp-format.nvim" },
     { "neovim/nvim-lspconfig" },
