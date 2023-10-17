@@ -116,6 +116,7 @@ local ts_packages = {
 
 local M = {
   "nvim-treesitter/nvim-treesitter",
+  dependencies = { "sustech-data/wildfire.nvim" },
   build = ":TSUpdateSync",
   event = "BufReadPre",
   cmd = { "TSUpdate", "TSUpdateSync" },
@@ -123,10 +124,11 @@ local M = {
 
 M.config = function()
   require("nvim-treesitter.configs").setup({
+    modules = {},
+    auto_install = true,
     ensure_installed = ts_packages,
     sync_install = false,
-    ignore_install = { -- List of parsers to ignore installing
-    },
+    ignore_install = {},
     autopairs = { enable = true },
     highlight = {
       enable = true,
@@ -147,13 +149,13 @@ M.config = function()
         "yaml",
       },
     },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "gn",
-        node_incremental = "]]",
-        node_decremental = "[[",
-      },
+    incremental_selection = { enable = false }, -- wildfire does a better job
+  })
+  require("wildfire").setup({
+    keymaps = {
+      init_selection = "gn",
+      node_incremental = "]]",
+      node_decremental = "[[",
     },
   })
 end
