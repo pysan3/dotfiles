@@ -126,19 +126,6 @@ set history=5000                        " Number of command history saved
 " Others
 "----------------------------------------------------------
 let g:loaded_python_provider = 0
-" let g:python3_host_prog='/usr/bin/python3'
-" let g:python_host_prog='usr/bin/python2'
 
 " You can't stop me
 cmap w!! w !sudo tee %
-
-" change shape of cursor
-autocmd VimEnter * silent exec "! echo -ne '\e[1 q'"
-autocmd VimLeave * silent exec "! echo -ne '\e[5 q'"
-autocmd InsertEnter * silent execute "!echo -en '\e[5 q'"
-autocmd InsertLeave * silent execute "!echo -en '\e[1 q'"
-if has("nvim")
-  autocmd TermEnter * silent execute "!echo -en '\e[5 q'"
-  autocmd TermLeave * silent execute "!echo -en '\e[1 q'"
-endif
-
