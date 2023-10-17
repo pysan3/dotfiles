@@ -17,7 +17,7 @@ return {
     colorscheme = "tokyonight",
     opts = {
       style = "night",
-      transparent = vim.g.personal_options.use_transparent, -- Enable transparent background
+      transparent = vim.g.personal_options.use_transparent,
     },
   }),
   nolazy({
@@ -48,8 +48,8 @@ return {
     "Mofiqul/vscode.nvim",
     colorscheme = "vscode",
     opts = {
-      transparent = vim.g.personal_options.use_transparent, -- Enable transparent background
-      italic_comments = true, -- Enable italic comment
+      transparent = vim.g.personal_options.use_transparent,
+      italic_comments = true,
     },
   }),
   nolazy({
