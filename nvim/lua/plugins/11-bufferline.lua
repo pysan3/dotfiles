@@ -1,5 +1,5 @@
 return {
-  "akinsho/bufferline.nvim", -- bufferline
+  "akinsho/bufferline.nvim",
   event = "VeryLazy",
   cond = not vim.g.started_by_firenvim and not vim.g.personal_options.start_light_env,
   dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -18,16 +18,6 @@ return {
     { "<Leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", silent = true, remap = false },
     { "<Leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", silent = true, remap = false },
   },
-  init = function()
-    vim.cmd([[
-    augroup MyColors
-    autocmd!
-    autocmd ColorScheme * highlight link BufferLineFill BufferLineTabSeparator
-    autocmd ColorScheme * highlight link BufferLineSeparator BufferLineTabSeparator
-    autocmd ColorScheme * highlight link BufferLineSeparatorSelected BufferLineTabSeparator
-    augroup END
-    ]])
-  end,
   opts = {
     options = {
       close_command = "bd %d",
@@ -39,7 +29,7 @@ return {
       max_name_length = 30,
       max_prefix_length = 30,
       tab_size = 12,
-      diagnostics = "nvim_lsp", -- | "nvim_lsp" | "coc" | none,
+      diagnostics = "nvim_lsp",
       diagnostics_update_in_insert = false,
       diagnostics_indicator = function(_, _, diag, _)
         return (diag.error and " " .. diag.error .. " " or "")
