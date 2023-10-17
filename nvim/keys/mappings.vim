@@ -46,6 +46,7 @@ nnoremap <silent> <Leader>Q :silent b # <bar> :silent bd! #<CR>
 command! Q :q
 command! WQ :wq
 command! Wq :wq
+command! CL :wqa!
 
 " Better tabbing
 xnoremap < <gv
