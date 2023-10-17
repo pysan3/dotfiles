@@ -30,8 +30,8 @@ noremap <C-l> $
 " cnoremap <C-p> <C-r>*
 
 " move to next / previous buffer
-nnoremap H :bprevious<CR>
-nnoremap L :bnext<CR>
+nnoremap <silent> H :bprevious<CR>
+nnoremap <silent> L :bnext<CR>
 
 " Toggle wrap
 nnoremap <silent> <Leader>ml :set wrap!<CR>
