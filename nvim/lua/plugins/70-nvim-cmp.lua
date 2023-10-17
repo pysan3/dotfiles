@@ -100,7 +100,7 @@ M.config = function()
       end, { "i", "s" }),
       ["<CR>"] = cmp.mapping.confirm({ select = false }),
       ["<C-l>"] = cmp.mapping(function(fallback)
-        call_with_fallback(luasnip.in_snippet() and luasnip.jumpable() or false, function()
+        call_with_fallback(luasnip.in_snippet() and luasnip.jumpable(1), function()
           luasnip.jump(1)
         end, fallback)
       end, { "i", "s" }),
