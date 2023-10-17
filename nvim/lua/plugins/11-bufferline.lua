@@ -5,8 +5,8 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   cmd = { "BufferLineGoToBuffer", "BufferLineCycleNext", "BufferLineCyclePrev", "BufferLinePick" },
   keys = {
-    { "2", "<Cmd>BufferLineCyclePrev<CR>", silent = true, remap = false },
-    { "3", "<Cmd>BufferLineCycleNext<CR>", silent = true, remap = false },
+    { "9", "<Cmd>BufferLineCyclePrev<CR>", silent = true, remap = false },
+    { "0", "<Cmd>BufferLineCycleNext<CR>", silent = true, remap = false },
     { "<Leader>F", "<Cmd>BufferLinePick<CR>", silent = true, remap = false },
     { "<Leader>1", "<Cmd>BufferLineGoToBuffer 1<CR>", silent = true, remap = false },
     { "<Leader>2", "<Cmd>BufferLineGoToBuffer 2<CR>", silent = true, remap = false },
