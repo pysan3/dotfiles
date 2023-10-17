@@ -106,8 +106,8 @@ nnoremap <silent> <Leader><C-v> :sp<CR>
 nnoremap <silent> <Leader><C-t> :tabe<CR>
 nnoremap <silent> <Leader>tq :tabclose<CR>
 nnoremap <silent> <Leader><C-x> <C-w>o
-nnoremap <silent> <Leader>; gt
-nnoremap <silent> <Leader>, gT
+nnoremap <silent> 9 gT
+nnoremap <silent> 0 gt
 
 " Easy access to some commands
 nnoremap <Leader>:a :!zsh -ic '
