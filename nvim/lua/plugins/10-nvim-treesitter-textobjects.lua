@@ -7,7 +7,7 @@ local M = {
 }
 
 M.config = function()
-  require("nvim-treesitter.configs").setup({
+  require("nvim-treesitter.configs").setup({ ---@diagnostic disable-line
     textobjects = {
       select = {
         enable = true,
