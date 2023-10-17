@@ -59,6 +59,9 @@ M.config = function()
   local global_opts = {
     capabilities = lsp_base.capabilities(),
     on_attach = function(client, bufnr)
+      lsp_base.lsp_keymaps(bufnr)
+      require("lsp-format").on_attach(client)
+      require("inlay-hints").on_attach(client, bufnr)
       if stop_lsp_fmt[client.name] then
         client.server_capabilities.documentFormattingProvider = false
       end
@@ -66,13 +69,10 @@ M.config = function()
         require("nvim-navic").attach(client, bufnr)
       end
       client.server_capabilities.semanticTokensProvider = nil
-      lsp_base.lsp_keymaps(bufnr)
-      require("lsp-format").on_attach(client)
-      require("inlay-hints").on_attach(client, bufnr)
     end,
-    flags = {
-      debounce_text_changes = 1000,
-    },
+    -- flags = {
+    --   debounce_text_changes = 1000,
+    -- },
   }
 
   if vim.env.NVIM_LANG_NIM ~= nil then
