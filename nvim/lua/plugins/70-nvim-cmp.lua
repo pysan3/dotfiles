@@ -76,7 +76,7 @@ M.config = function()
     },
   }
 
-  cmp.setup({
+  cmp.setup({ ---@diagnostic disable-line
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
@@ -125,6 +125,7 @@ M.config = function()
       { name = "git" },
     }),
     formatting = {
+      expandable_indicator = true,
       fields = { "kind", "abbr", "menu" },
       format = function(entry, vim_item)
         vim_item.kind = lsp_icons[vim_item.kind] or " "
@@ -162,6 +163,7 @@ M.config = function()
         compare.score,
         compare.order,
       },
+      priority_weight = 2,
     },
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,
@@ -171,9 +173,12 @@ M.config = function()
       ghost_text = false,
     },
     performance = {
-      throttle = 50,
+      debounce = 60,
+      throttle = 30,
       fetching_timeout = 500,
-      max_view_entries = 10,
+      confirm_resolve_timeout = 80,
+      async_budget = 1,
+      max_view_entries = 200,
     },
     window = {
       completion = cmp.config.window.bordered(),
@@ -186,7 +191,7 @@ M.config = function()
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
   -- from cmdline
-  cmp.setup.cmdline(":", {
+  cmp.setup.cmdline(":", { ---@diagnostic disable-line
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
       { name = "path" },
