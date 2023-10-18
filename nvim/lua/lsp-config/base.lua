@@ -82,7 +82,6 @@ M.capabilities = function()
     dynamicRegistration = false,
     lineFoldingOnly = true,
   }
-  capabilities.offsetEncoding = { "utf-16" }
   return require("cmp_nvim_lsp").default_capabilities(capabilities)
 end
 

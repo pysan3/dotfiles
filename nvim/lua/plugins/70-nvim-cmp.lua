@@ -35,12 +35,12 @@ M.config = function()
   }
 
   ---Check whether `check` and call action or fallback
-  ---@param check boolean: true -> action(), false -> fallback()
+  ---@param do_action boolean: true -> action(), false -> fallback()
   ---@param action function
   ---@param fallback function
   ---@return any: result of calling action or fallback
-  local function call_with_fallback(check, action, fallback)
-    if check then
+  local function action_or_fallback(do_action, action, fallback)
+    if do_action then
       return action()
     else
       return fallback()
@@ -89,23 +89,23 @@ M.config = function()
       ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
       ["<C-Space>"] = cmp.mapping(cmp.mapping.complete({}), { "i", "c" }),
       ["<C-e>"] = cmp.mapping(function(fallback)
-        call_with_fallback(luasnip.choice_active(), function()
+        action_or_fallback(luasnip.choice_active(), function()
           luasnip.change_choice(-1)
         end, fallback)
       end, { "i", "s" }),
       ["<C-d>"] = cmp.mapping(function(fallback)
-        call_with_fallback(luasnip.choice_active(), function()
+        action_or_fallback(luasnip.choice_active(), function()
           luasnip.change_choice(1)
         end, fallback)
       end, { "i", "s" }),
       ["<CR>"] = cmp.mapping.confirm({ select = false }),
       ["<C-l>"] = cmp.mapping(function(fallback)
-        call_with_fallback(luasnip.in_snippet() and luasnip.jumpable(1), function()
+        action_or_fallback(luasnip.in_snippet() and luasnip.jumpable(1), function()
           luasnip.jump(1)
         end, fallback)
       end, { "i", "s" }),
       ["<C-a>"] = cmp.mapping(function(fallback)
-        call_with_fallback(luasnip.jumpable(-1), function()
+        action_or_fallback(luasnip.jumpable(-1), function()
           luasnip.jump(-1)
         end, fallback)
       end, { "i", "s" }),
