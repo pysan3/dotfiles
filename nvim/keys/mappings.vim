@@ -17,21 +17,9 @@ inoremap , <C-g>u,
 noremap <C-h> ^
 noremap <C-l> $
 
-" command mode shortcuts and bindings
-" cnoremap <C-w> <S-Right>
-" cnoremap <C-b> <S-Left>
-" cnoremap <C-l> <Right>
-" cnoremap <C-h> <Left>
-" cnoremap <C-j> <Down>
-" cnoremap <C-k> <Up>
-" cnoremap <C-a> <C-e>
-" cnoremap <C-x> <Del>
-" cnoremap <C-d> <C-u>
-" cnoremap <C-p> <C-r>*
-
-" move to next / previous buffer
-nnoremap <silent> H :bprevious<CR>
-nnoremap <silent> L :bnext<CR>
+" move to next / previous punctuation
+nnoremap <silent> H F.h
+nnoremap <silent> L f.l
 
 " Toggle wrap
 nnoremap <silent> <Leader>ml :set wrap!<CR>
