@@ -14,6 +14,7 @@ EnumerateSkipFirst=False
 0=Control+Alt+K
 1=Zenkaku_Hankaku
 2=Hangul
+3=Control+space
 
 [Hotkey/EnumerateGroupForwardKeys]
 0=Tab
@@ -46,7 +47,7 @@ EnumerateSkipFirst=False
 # デフォルトで有効にする
 ActiveByDefault=True
 # 入力状態を共有する
-ShareInputState=All
+ShareInputState=Program
 # アプリケーションにプリエディットを表示する
 PreeditEnabledByDefault=True
 # 入力メソッドを切り替える際に入力メソッドの情報を表示する
@@ -54,11 +55,11 @@ ShowInputMethodInformation=True
 # フォーカスを変更する際に入力メソッドの情報を表示する
 showInputMethodInformationWhenFocusIn=True
 # 入力メソッドの情報をコンパクトに表示する
-CompactInputMethodInformation=True
+CompactInputMethodInformation=False
 # 第1入力メソッドの情報を表示する
 ShowFirstInputMethodInformation=True
 # デフォルトのページサイズ
-DefaultPageSize=5
+DefaultPageSize=6
 # XKB オプションより優先する
 OverrideXkbOption=False
 # カスタム XKB オプション
