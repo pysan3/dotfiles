@@ -82,7 +82,7 @@ return {
         end)
       end,
     },
-    window = { -- see https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/popup for
+    window = {
       position = "float",
       popup = { size = { width = "80%" } },
       auto_expand_width = false,
@@ -104,7 +104,7 @@ return {
           ["D"] = "trash",
         },
       },
-      bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root
+      bind_to_cwd = false,
       filtered_items = {
         hide_dotfiles = false,
         hide_gitignored = false,
