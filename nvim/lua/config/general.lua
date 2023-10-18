@@ -107,8 +107,7 @@ vim.g.personal_module = {
     if is_config then
       path = string.format("%s/lua/%s.lua", vim.fn.stdpath("config"), path:gsub("%.", "/"))
     end
-    local st = vim.loop.fs_stat(path)
-    return st and true or false
+    return vim.loop.fs_stat(path) and true or false
   end,
   ---Add multiple lists without overwriting any table
   ---@vararg string[] | nil: tables to merge together
@@ -180,7 +179,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   group = aug,
   pattern = "*.tex",
   command = [[
+  normal m`
   silent! %s/、/，/g
   silent! %s/。/．/g
+  normal ``
   ]],
 })
