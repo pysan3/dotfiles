@@ -83,9 +83,9 @@ return {
       end,
     },
     window = { -- see https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/popup for
-      position = "left",
-      width = 40,
-      auto_expand_width = true,
+      position = "float",
+      popup = { size = { width = "80%" } },
+      auto_expand_width = false,
       mappings = {
         ["l"] = "open",
         ["s"] = "open_split",
