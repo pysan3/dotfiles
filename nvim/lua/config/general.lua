@@ -64,7 +64,10 @@ vim.g.personal_lookup = {
   },
 }
 
+---Return function that is capable of merging tables together
+---@param a string[]
 local function merge_table(a)
+  ---@param t string[]?
   return function(t)
     return vim.g.personal_module.add_table_string(t, a)
   end
@@ -152,6 +155,12 @@ vim.g.personal_module = {
           require("lsp-config.null-helper").null_register(names, disable_others)
         end,
       })
+    end
+  end,
+  load_luarocks = function()
+    if not string.find(package.path, "luarocks") then
+      local luarocks_base = vim.fn.fnamemodify("~/.luarocks/share/lua/5.1", ":p")
+      package.path = string.format([[%s;%s/?/init.lua;%s/?.lua]], package.path, luarocks_base, luarocks_base)
     end
   end,
 }
