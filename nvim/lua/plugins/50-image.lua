@@ -2,8 +2,8 @@ local function image_ft_options(ft)
   return {
     enabled = true,
     clear_in_insert_mode = false,
-    download_remote_images = true,
-    only_render_image_at_cursor = false,
+    download_remote_images = false,
+    only_render_image_at_cursor = true,
     filetypes = ft,
   }
 end
@@ -11,6 +11,8 @@ end
 return {
   "3rd/image.nvim",
   ft = vim.g.personal_module.md({ "norg" }),
+  event = "VeryLazy",
+  version = false,
   init = function()
     vim.g.personal_module.load_luarocks()
   end,
