@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+set -xe
+
+if [[ x"$XDG_SESSION_TYPE" = x"wayland" ]]; then
+  wl-copy
+elif command -v 'xclip' &>/dev/null; then
+  xclip -selection clipboard -i
+else
+  xsel -ip && xsel -op | xsel -ib
+fi
