@@ -133,7 +133,7 @@ if false || ! command -v 'cargo' &> /dev/null; then
       || err_exit "cargo failed to install"
     source "$CARGO_HOME/env"
     unset RUSTC_WRAPPER
-    cargo install sccache 
+    cargo install sccache
     export RUSTC_WRAPPER=sccache
     cargo install cargo-update cargo-cache && info "Successfully installed cargo"
   else
