@@ -175,7 +175,9 @@ while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
   command -v ${alt} &>/dev/null || pkg_list="$pkg_list $pkg"
 done < "$DOTFILES/static/list_rust_packages.txt"
-[[ -n "$pkg_list" ]] && checkyes "Execute: 'cargo install $pkg_list'?" && eval "cargo install $pkg_list 2>/dev/null &"
+uniq_pkg_list=$(echo "$pkg_list" | sed 's/ /\n/g' | uniq | xargs)
+[[ -n "$uniq_pkg_list" ]] && checkyes "Execute: 'cargo install $uniq_pkg_list'?" \
+  && eval "cargo install $uniq_pkg_list"
 while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
   alt=$(cargo_list_line_parse 'alt' $line | cut -d ' ' -f 1)
