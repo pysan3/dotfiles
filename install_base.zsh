@@ -239,6 +239,7 @@ function install_lua () {
     && cd "$LUAROCKS_INSTALL_DIR" && ./configure --with-lua="$XDG_PREFIX_HOME" --prefix="$XDG_PREFIX_HOME" \
     && make && make install \
     && info "luarocks installed successfully" || err_exit "luarocks install FAILED"
+  luarocks --local --lua-version=5.1 install magick
   cd "$current_dir"
 }
 (false || ! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null) && install_lua
