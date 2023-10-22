@@ -8,7 +8,7 @@ return {
       vim.g.bullets_outline_levels = { "num", "abc", "std-" }
     end,
   },
-  { "iamcco/markdown-preview.nvim", ft = vim.g.personal_module.md(), build = "cd app && npm install" },
+  { "iamcco/markdown-preview.nvim", ft = vim.g.personal_module.md(), build = "cd app && npx --yes yarn install" },
   { "chip/vim-fat-finger", ft = vim.g.personal_module.md(), event = "VeryLazy" },
   { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
   { "wfxr/protobuf.vim", ft = { "proto" } },
