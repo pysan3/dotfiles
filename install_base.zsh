@@ -173,7 +173,7 @@ while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
   command -v ${alt} &>/dev/null || pkg_list="$pkg_list $pkg"
 done < "$DOTFILES/static/list_rust_packages.txt"
-[[ -n "$pkg_list" ]] && checkyes "Execute: 'cargo install $pkg_list'?" && eval "cargo install $pkg_list"
+[[ -n "$pkg_list" ]] && checkyes "Execute: 'cargo install $pkg_list'?" && eval "cargo install $pkg_list 2>/dev/null &"
 while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
   alt=$(cargo_list_line_parse 'alt' $line | cut -d ' ' -f 1)
@@ -239,7 +239,6 @@ function install_lua () {
     && cd "$LUAROCKS_INSTALL_DIR" && ./configure --with-lua="$XDG_PREFIX_HOME" --prefix="$XDG_PREFIX_HOME" \
     && make && make install \
     && info "luarocks installed successfully" || err_exit "luarocks install FAILED"
-  luarocks --local --lua-version=5.1 install magick
   cd "$current_dir"
 }
 (false || ! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null) && install_lua
@@ -264,6 +263,7 @@ if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
   # nvim dependencies
   pip install --user -U pynvim neovim-remote
   pnpm i -g neovim
+  luarocks --local --lua-version=5.1 install magick
   # telescope
   checkcommand 'rg' 'cargo install ripgrep'
   # Lazy sync
