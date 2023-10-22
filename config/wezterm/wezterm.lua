@@ -37,6 +37,7 @@ local keys = {
   { key = "c", mods = "SHIFT|CTRL", action = act.CopyTo("Clipboard") },
   { key = "v", mods = "SHIFT|CTRL", action = act.PasteFrom("Clipboard") },
   { key = "phys:Space", mods = "SHIFT|CTRL", action = act.QuickSelect },
+  { key = "phys:Space", mods = "CTRL", action = "DisableDefaultAssignment" },
 
   -- Tabs
   { key = "T", mods = "SHIFT|CTRL", action = act.SpawnTab("CurrentPaneDomain") },
@@ -83,13 +84,14 @@ local keys = {
 local M = {
   -- Fonts
   font = wezterm.font("PlemolJP Console NF"),
-  font_size = 12,
+  font_size = 10,
   -- Settings
   scrollback_lines = 10000,
   enable_tab_bar = false,
   cursor_blink_rate = 0, -- stop cursor blinking
   window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
   use_ime = true,
+  enable_wayland = false,
   adjust_window_size_when_changing_font_size = true,
   allow_square_glyphs_to_overflow_width = "WhenFollowedBySpace",
   check_for_updates = false,
