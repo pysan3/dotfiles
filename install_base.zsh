@@ -133,8 +133,9 @@ if false || ! command -v 'cargo' &> /dev/null; then
       || err_exit "cargo failed to install"
     source "$CARGO_HOME/env"
     unset RUSTC_WRAPPER
-    cargo install cargo-update sccache && info "Successfully installed cargo"
+    cargo install sccache 
     export RUSTC_WRAPPER=sccache
+    cargo install cargo-update cargo-cache && info "Successfully installed cargo"
   else
     echo 'Press C-c to exit and install cargo manually. Or press ENTER to continue.'
     warning 'cargo is a MUST required dependency for further executions'
@@ -163,6 +164,7 @@ function cargo_list_line_parse() {
   if [[ x"$return_value" = x'alias' ]]; then echo "alias $cmd='$issudo$alt'"; return; fi
 }
 
+export RUSTC_WRAPPER=sccache
 CARGO_ALIAS_CACHE="${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}"
 pkg_list=''; mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
 while IFS= read -r line; do
