@@ -64,6 +64,11 @@ return {
           unstaged = "󰄱",
         },
       },
+      file_size = { enabled = true },
+      type = { enabled = true },
+      last_modified = { enabled = false },
+      created = { enabled = false },
+      symlink_target = { enabled = false },
     },
     commands = {
       system_open = function(state)
@@ -84,7 +89,7 @@ return {
     },
     window = {
       position = "float",
-      popup = { size = { width = "80%" } },
+      -- popup = { size = { width = "80%" } },
       auto_expand_width = false,
       mappings = {
         ["l"] = "open",
@@ -93,6 +98,7 @@ return {
         ["h"] = "close_node",
         ["a"] = { "add", config = { show_path = "relative" } },
         ["A"] = "add_directory",
+        ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
       },
     },
     filesystem = {
