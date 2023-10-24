@@ -1,4 +1,4 @@
 return {
-  "zah/nim.vim",
+  "alaviss/nim.nvim",
   ft = { "nim" },
 }
