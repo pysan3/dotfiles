@@ -1,5 +1,6 @@
 return {
   "akinsho/toggleterm.nvim",
+  enabled = false,
   cmd = { "ToggleTerm" },
   keys = {
     { "<esc>", [[<C-\><C-n>]], noremap = true, mode = "t" },
