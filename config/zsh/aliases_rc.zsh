@@ -60,9 +60,12 @@ export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
 function nopy () {
   export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g')
 }
+function nojs () {
+  export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v npm | grep -v nvm | xargs | sed -e 's/ /:/g')
+}
 function yay() {
   ( \
-    nopy \
+    nopy && nojs \
     && command yay --noconfirm --sudoloop $@ \
   )
 }
