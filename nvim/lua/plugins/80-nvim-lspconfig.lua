@@ -50,7 +50,7 @@ M.config = function()
   require("neoconf").setup({})
   require("mason-lspconfig").setup({
     ensure_installed = lsp_list,
-    automatic_installation = true,
+    automatic_installation = false,
   })
   require("lsp-format").setup({})
 
