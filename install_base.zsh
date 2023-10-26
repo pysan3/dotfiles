@@ -256,6 +256,25 @@ function install_golang () {
 }
 (false || ! command -v 'go' &>/dev/null) && install_golang
 
+function install_julia () {
+  set -xe
+  cargo install juliaup
+  juliaup self update
+  juliaup add release
+  juliaup update release
+}
+(true || ! command -v 'juliaup' &>/dev/null || ! command -v 'julia' &>/dev/null) && install_julia
+
+# install norg pandoc
+function install_norganic () {
+  set -xe
+  update_git_history "$XDG_DATA_HOME/norganic" git@github.com:Klafyvel/norganic.git \
+    && cd "$XDG_DATA_HOME/norganic" \
+    && make && make comonicon \
+    && info "norganic installed successfully" || err_exit "norganic install FAILED"
+}
+(true || ! command -v 'norganic' &>/dev/null) && install_norganic
+
 # install nvim from source
 if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
   NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
