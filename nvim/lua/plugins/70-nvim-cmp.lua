@@ -12,6 +12,7 @@ local M = {
     { "saadparwaiz1/cmp_luasnip" },
     { "uga-rosa/cmp-dictionary" }, -- config
     { "petertriho/cmp-git" }, -- config
+    { "Gelio/cmp-natdat", config = { cmp_kind_text = "NatDat" } },
     { "L3MON4D3/LuaSnip" },
     { "windwp/nvim-autopairs" },
   },
@@ -24,6 +25,7 @@ M.config = function()
   local luasnip = require("luasnip")
 
   local lsp_icons = vim.g.personal_options.lsp_icons
+  lsp_icons["NatDat"] = "📆"
   local entry_menu = {
     nvim_lsp = "[LSP ]",
     luasnip = "[Snip]",
@@ -32,6 +34,7 @@ M.config = function()
     dictionary = "[Text]",
     spell = "[Spll]",
     calc = "[Calc]",
+    natdat = "[NDat]",
   }
 
   ---Check whether `check` and call action or fallback
@@ -116,6 +119,7 @@ M.config = function()
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "path" },
+      { name = "natdat" },
     }, {
       buffers,
       { name = "dictionary", keyword_length = 3 },
