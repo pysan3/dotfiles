@@ -123,7 +123,7 @@ install_zsh_shell_utils \
   || error 'Zsh extensions installation failed'
 
 # RUST
-if false || ! command -v 'cargo' &> /dev/null; then
+function install_rust_cargo () {
   if checkyes "Seems you don't have cargo (rust) installed. Install?"; then
     tmp_file=$(mktemp); trap "rm -rf '$tmp_file'" 1 2 3 15
     wget -O "$tmp_file" https://sh.rustup.rs \
@@ -141,7 +141,8 @@ if false || ! command -v 'cargo' &> /dev/null; then
     warning 'cargo is a MUST required dependency for further executions'
     read tmp
   fi
-fi
+}
+(false || ! command -v 'cargo' &> /dev/null) && install_rust_cargo
 
 function cargo_list_line_parse() {
   return_value="$1"; shift 1
@@ -195,7 +196,7 @@ if command -v bat &>/dev/null && ! grep -q 'MANPAGER' "$CARGO_ALIAS_CACHE"; then
 fi
 
 # node, npm
-if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null; then
+function install_nvm () {
   if checkyes 'Installing node / npm. Can you use sudo?'; then
     sudo apt install npm -y
     sudo npm install -g n
@@ -215,13 +216,12 @@ if ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null; then
     fi
     nvm install-latest-npm
     export PATH="$(npm config get prefix)/bin:$PATH"
+    npm i -g pnpm
   fi
-fi
-if ! command -v 'pnpm' &>/dev/null; then
-  npm i -g pnpm
-  export PATH="$PNPM_HOME:$PATH"
-fi
+}
+(false || ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null) && install_nvm
 # install necessary npm cli commands
+export PATH="$PNPM_HOME:$PATH"
 pnpm i -g clipboard-cli @bitwarden/cli
 
 # nim
