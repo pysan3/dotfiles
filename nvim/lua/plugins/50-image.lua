@@ -11,7 +11,7 @@ end
 return {
   "3rd/image.nvim",
   ft = vim.g.personal_module.md({ "norg" }),
-  event = "VeryLazy",
+  lazy = false,
   version = false,
   init = function()
     vim.g.personal_module.load_luarocks()
