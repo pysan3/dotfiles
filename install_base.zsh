@@ -249,9 +249,9 @@ function install_lua () {
 
 function install_golang () {
   tmp_file=$(mktemp)
-  wget -O "$tmp_file" "https://go.dev/dl/$(wget -O- 'https://go.dev/VERSION?m=text').linux-amd64.tar.gz" \
+  wget -O "$tmp_file" "https://go.dev/dl/$(wget -O- 'https://go.dev/VERSION?m=text' | head -1).linux-amd64.tar.gz" \
+    && rm -rf "$GOPATH" \
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
-    && ln -sf "$XDG_DATA_HOME/go/bin/"* "$XDG_BIN_HOME" \
     && info "go installed successfully" || err_exit "go install FAILED"
 }
 (false || ! command -v 'go' &>/dev/null) && install_golang
