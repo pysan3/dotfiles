@@ -103,3 +103,6 @@ nnoremap <Leader>:a :!zsh -ic '
 " Do not update the register
 noremap x "_x
 noremap <Leader>c "_c
+
+" Repeat chars to make a heading
+iabbrev <expr> == repeat('=', 6)
