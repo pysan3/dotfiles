@@ -43,6 +43,8 @@ local function load_plugins()
     ["core.looking-glass"] = {},
     ["core.export"] = {},
     ["core.presenter"] = { config = { zen_mode = "zen-mode" } },
+    ["core.summary"] = {},
+    ["core.ui.calendar"] = {},
     ["core.journal"] = {
       config = {
         strategy = "nested",
