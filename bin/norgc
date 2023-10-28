@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+
+source "$DOTFILES/functions.zsh"
+
+if ! command -v 'norganic' &>/dev/null; then
+  err_exit 'You need norganic: https://github.com/klafyvel/norganic'
+fi
+if ! command -v 'pandoc' &>/dev/null; then
+  err_exit 'You need pandoc installed'
+fi
+
+OUT_FT="${1}"
+OUT_SUFFIX="$OUT_FT"
+
+if [[ x"$OUT_SUFFIX" = x'markdown' ]]; then
+  OUT_SUFFIX='md'
+fi
+
+shift
+IN_FILE="${1}"
+shift
+
+info "Converting $IN_FILE to $OUT_FT"
+
+OUT_FILE="${IN_FILE:r}.${OUT_SUFFIX}"
+
+info "Output to  $OUT_FILE"
+
+norganic json --input "$IN_FILE" | pandoc -f json -t "$OUT_FT" -o "$OUT_FILE" $@ \
+  && echo "$OUT_FILE"
