@@ -165,6 +165,7 @@ function cargo_list_line_parse() {
   if [[ x"$return_value" = x'alias' ]]; then echo "alias $cmd='$issudo$alt'"; return; fi
 }
 
+source "$CARGO_HOME/env"
 export RUSTC_WRAPPER=sccache
 CARGO_ALIAS_CACHE="${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}"
 pkg_list=''; mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
@@ -220,16 +221,17 @@ function install_nvm () {
   fi
 }
 (false || ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null) && install_nvm
+source "$NVM_DIR/nvm.sh"
+export PATH="$(npm config get prefix)/bin:$PNPM_HOME:$PATH"
 # install necessary npm cli commands
-export PATH="$PNPM_HOME:$PATH"
 pnpm i -g clipboard-cli @bitwarden/cli
 
 # nim
 function install_nim () {
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh
-  rehash
 }
 (false || ! command -v 'nim' &>/dev/null || ! command -v 'nimble' &>/dev/null) && install_nim
+rehash
 
 # lua, luarocks
 function install_lua () {
@@ -250,7 +252,7 @@ function install_lua () {
 function install_golang () {
   tmp_file=$(mktemp)
   wget -O "$tmp_file" "https://go.dev/dl/$(wget -O- 'https://go.dev/VERSION?m=text' | head -1).linux-amd64.tar.gz" \
-    && rm -rf "$GOPATH" \
+    && mkdir -p "$GOPATH" && chmod 777 -R "$GOPATH" && rm -rf "$GOPATH" \
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
     && info "go installed successfully" || err_exit "go install FAILED"
 }
@@ -267,7 +269,6 @@ function install_julia () {
 
 # install norg pandoc
 function install_norganic () {
-  set -xe
   update_git_history "$XDG_DATA_HOME/norganic" git@github.com:Klafyvel/norganic.git \
     && cd "$XDG_DATA_HOME/norganic" \
     && make && make comonicon \
@@ -277,7 +278,7 @@ function install_norganic () {
 (false || ! command -v 'norganic' &>/dev/null) && install_norganic
 
 # install nvim from source
-if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
+function install_nvim () {
   NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
   update_git_history "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git "${NVIM_BUILD_TAG:-stable}" \
     && cd "$NVIM_INSTLL_DIR" \
@@ -292,7 +293,8 @@ if ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?'; then
   checkcommand 'rg' 'cargo install ripgrep'
   # Lazy sync
   nvim --headless "+Lazy! sync | TSUpdateSync" "+noa qa"
-fi
+}
+(false || ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?') && install_nvim
 
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME/fzf"
