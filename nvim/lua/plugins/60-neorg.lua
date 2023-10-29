@@ -28,7 +28,7 @@ local function list_workspaces(w_dirs)
   for _, w in ipairs(w_dirs) do
     res[w] = "~/Nextcloud/" .. w
   end
-  return { workspaces = res }
+  return res
 end
 
 local function load_plugins()
@@ -42,6 +42,7 @@ local function load_plugins()
     ["core.qol.todo_items"] = {},
     ["core.looking-glass"] = {},
     ["core.export"] = {},
+    ["core.export.markdown"] = { config = { extensions = "all" } },
     ["core.presenter"] = { config = { zen_mode = "zen-mode" } },
     ["core.summary"] = {},
     ["core.ui.calendar"] = {},
@@ -52,10 +53,13 @@ local function load_plugins()
       },
     },
     ["core.dirman"] = {
-      config = list_workspaces({
-        M.default_workspace,
-        "Works",
-      }),
+      config = {
+        workspaces = list_workspaces({
+          M.default_workspace,
+          "Works",
+        }),
+        default_workspace = "default",
+      },
     },
     ["core.keybinds"] = {
       -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
