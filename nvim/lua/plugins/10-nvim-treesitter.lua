@@ -13,6 +13,8 @@ local ts_packages = {
   "make",
   "markdown",
   "markdown_inline",
+  "nim",
+  "nim_format_string",
   "proto",
   "python",
   "rust",
@@ -28,6 +30,7 @@ local ts_packages = {
 local M = {
   "nvim-treesitter/nvim-treesitter",
   dependencies = { "sustech-data/wildfire.nvim" },
+  version = false,
   build = ":TSUpdateSync",
   event = "BufReadPre",
   cmd = { "TSUpdate", "TSUpdateSync" },
