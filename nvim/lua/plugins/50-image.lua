@@ -8,11 +8,13 @@ local function image_ft_options(ft)
   }
 end
 
+local exts = { "*.gif", "*.ico", "*.jpeg", "*.jpg", "*.png", "*.svg", "*.tiff", "*.webp", "*.bmp"}
+
 return {
   "3rd/image.nvim",
   ft = vim.g.personal_module.md({ "norg" }),
-  lazy = false,
   version = false,
+  event = "BufReadPre " .. table.concat(exts, ","),
   init = function()
     vim.g.personal_module.load_luarocks()
   end,
@@ -23,5 +25,6 @@ return {
       neorg = image_ft_options({ "norg" }),
     },
     tmux_show_only_in_active_window = true,
+    hijack_file_patterns = exts,
   },
 }
