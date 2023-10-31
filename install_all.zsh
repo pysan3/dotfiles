@@ -116,16 +116,18 @@ if [ ! -z "$ff_profile_dir" ]; then
 else
   info "firefox configurations is invalid or already installed"
 fi
-# install for windows
-if [[ -d /mnt/c/Users ]]; then
-  ff_profile_dir=$(echo /mnt/c/Users/i84203609/AppData/Roaming/Mozilla/Firefox/Profiles/*.default-release)
+
+# mercury configurations
+ff_profile_dir=$(echo "$HOME/.mercury/"*.default-default)
+if [ ! -z "$ff_profile_dir" ]; then
   userChrome="$ff_profile_dir/chrome/userChrome.css"
-  [ ! -z "$ff_profile_dir" ] && mkdir -p "$ff_profile_dir/chrome" \
+  mkdir -p "$ff_profile_dir/chrome" \
     && touch "$userChrome" && rm "$userChrome" \
     && wget 'https://codeberg.org/Freeplay/Firefox-Onebar/raw/branch/main/userChrome.css' -O "$userChrome" \
-    && cp -f "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
-    && info "Installed firefox configurations for Windows" \
-    || error "Failed to install firefox configurations in Windows"
+    && ln -sf "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
+    && info "Installed mercury configurations" || error "Failed to install mercury configurations"
+else
+  info "mercury configurations is invalid or already installed"
 fi
 
 true
