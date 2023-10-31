@@ -1,6 +1,7 @@
 local M = {
   "neovim/nvim-lspconfig", -- enable LSP
   event = "BufReadPre",
+  version = false,
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
     { "SmiteshP/nvim-navic" },
