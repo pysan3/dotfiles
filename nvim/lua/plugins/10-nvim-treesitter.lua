@@ -8,6 +8,7 @@ local ts_packages = {
   "html",
   "javascript",
   "json",
+  "jsonc",
   "latex",
   "lua",
   "make",
