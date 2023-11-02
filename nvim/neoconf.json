@@ -24,6 +24,11 @@
       "python.analysis.diagnosticMode": "openFilesOnly",
       "python.analysis.autoSearchPaths": true,
       "python.analysis.useLibraryCodeForTypes": true
+    },
+    "pylsp": {
+      "pylsp.plugins.pycodestyle.maxLineLength": 120,
+      "pylsp.plugins.pyflakes.enabled": false,
+      "disabled": true
     }
   }
 }

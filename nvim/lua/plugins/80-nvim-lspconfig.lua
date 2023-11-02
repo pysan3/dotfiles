@@ -32,6 +32,7 @@ local lsp_list = {
   "texlab",
   "lua_ls",
   "pyright",
+  "pylsp",
   "rust_analyzer",
   "taplo",
   "vimls",
@@ -46,13 +47,7 @@ local stop_lsp_fmt = {
 }
 
 M.config = function()
-  local lspconfig = require("lspconfig")
-
   require("neoconf").setup({})
-  require("mason-lspconfig").setup({
-    ensure_installed = lsp_list,
-    automatic_installation = false,
-  })
   require("lsp-format").setup({})
 
   local lsp_base = require("lsp-config.base")
@@ -71,24 +66,29 @@ M.config = function()
       end
       client.server_capabilities.semanticTokensProvider = nil
     end,
-    -- flags = {
-    --   debounce_text_changes = 1000,
-    -- },
   }
-
   if vim.env.NVIM_LANG_NIM ~= nil then
     lsp_list[#lsp_list + 1] = "nim_langserver"
     vim.g.personal_module.null_register({ "f.nimpretty" })
   end
 
-  for _, server_name in ipairs(lsp_list) do
-    local opts = global_opts
-    local config_path = "lsp-config.settings." .. server_name
-    if vim.g.personal_module.exists(config_path, true) then
-      opts = vim.tbl_deep_extend("force", opts, require(config_path))
-    end
-    lspconfig[server_name].setup(opts)
-  end
+  require("mason-lspconfig").setup({
+    ensure_installed = lsp_list,
+    automatic_installation = false,
+  })
+  require("mason-lspconfig").setup_handlers({
+    function(server_name)
+      if require("neoconf").get("lspconfig." .. server_name .. ".disabled") then
+        return
+      end
+      local opts = global_opts
+      local config_path = "lsp-config.settings." .. server_name
+      if vim.g.personal_module.exists(config_path, true) then
+        opts = vim.tbl_deep_extend("force", opts, require(config_path))
+      end
+      require("lspconfig")[server_name].setup(opts)
+    end,
+  })
 end
 
 return M
