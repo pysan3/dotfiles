@@ -12,7 +12,7 @@ local function format_on_save(_)
     callback = function()
       vim.cmd([[
       StripWhitespace
-      normal m`=gG``
+      " normal m`=gG``
       ]])
     end,
   })
