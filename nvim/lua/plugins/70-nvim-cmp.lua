@@ -90,7 +90,7 @@ M.config = function()
       ["<C-n>"] = cmp.mapping.select_next_item(),
       ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
       ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-      ["<C-Space>"] = cmp.mapping(cmp.mapping.complete({}), { "i", "c" }),
+      -- ["<C-Space>"] = cmp.mapping(cmp.mapping.complete({}), { "i", "c" }),
       ["<C-e>"] = cmp.mapping(function(fallback)
         action_or_fallback(luasnip.choice_active(), function()
           luasnip.change_choice(-1)
