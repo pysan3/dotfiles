@@ -36,7 +36,7 @@ local function load_plugins()
     ["core.defaults"] = {},
     ["core.concealer"] = { config = { icon_preset = "diamond" } },
     ["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
-    ["core.esupports.metagen"] = { config = { type = "empty", update_date = true } },
+    ["core.esupports.metagen"] = { config = { type = "auto", update_date = true } },
     ["core.integrations.nvim-cmp"] = {},
     ["core.qol.toc"] = {},
     ["core.qol.todo_items"] = {},
