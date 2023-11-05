@@ -8,7 +8,7 @@ local function image_ft_options(ft)
   }
 end
 
-local exts = { "*.gif", "*.ico", "*.jpeg", "*.jpg", "*.png", "*.svg", "*.tiff", "*.webp", "*.bmp"}
+local exts = { "*.gif", "*.ico", "*.jpeg", "*.jpg", "*.png", "*.svg", "*.tiff", "*.webp", "*.bmp" }
 
 return {
   "3rd/image.nvim",
