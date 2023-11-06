@@ -1,23 +1,29 @@
 #!/usr/bin/env zsh
 
+set -e
+
 source "$DOTFILES/functions.zsh"
 
-if ! command -v 'norganic' &>/dev/null; then
-  err_exit 'You need norganic: https://github.com/klafyvel/norganic'
-fi
 if ! command -v 'pandoc' &>/dev/null; then
   err_exit 'You need pandoc installed'
 fi
+
+pandoc_dir="$HOME/Git/norg-pandoc"
+if [ ! -d "$pandoc_dir" ]; then
+  git clone git@github.com:boltlessengineer/norg-pandoc.git "$pandoc_dir"
+fi
+
+IN_FILE="$(realpath "$1")"
+shift
 
 OUT_FT="${1}"
 OUT_SUFFIX="$OUT_FT"
 
 if [[ x"$OUT_SUFFIX" = x'markdown' ]]; then
   OUT_SUFFIX='md'
+elif [[ x"$OUT_SUFFIX" = x'gfm' ]]; then
+  OUT_SUFFIX='md'
 fi
-
-shift
-IN_FILE="${1}"
 shift
 
 info "Converting $IN_FILE to $OUT_FT"
@@ -26,5 +32,12 @@ OUT_FILE="${IN_FILE:r}.${OUT_SUFFIX}"
 
 info "Output to  $OUT_FILE"
 
-norganic json --input "$IN_FILE" | pandoc -f json -t "$OUT_FT" -o "$OUT_FILE" $@ \
+cd "$pandoc_dir"
+pandoc -f ./init.lua -t "$OUT_FT" "$IN_FILE" -o "$OUT_FILE" $@ \
   && echo "$OUT_FILE"
+
+if [[ x"$OUT_SUFFIX" = x'md' ]]; then
+  sed -i 's/\\!\[/![/g' "$OUT_FILE"
+fi
+
+cd -
