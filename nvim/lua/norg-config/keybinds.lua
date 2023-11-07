@@ -55,5 +55,6 @@ return {
     kb.map("norg", "n", "]h", function()
       goto_headline("next")
     end, { desc = "Neorg: Go to next headline" })
+    kb.remap_key("norg", "i", "<M-d>", "<C-b>")
   end,
 }
