@@ -3,7 +3,13 @@
     "lua_ls": {
       "Lua.hint.enable": true,
       "Lua.runtime.version": "Lua 5.1",
-      "Lua.workspace.checkThirdParty": false,
+      "Lua.diagnostics.globals": [
+        "describe",
+        "it",
+        "vim",
+        "setup",
+        "teardown"
+      ],
       "Lua.format.enable": false
     },
     "tsserver": {

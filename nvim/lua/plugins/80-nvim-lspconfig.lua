@@ -5,7 +5,7 @@ local M = {
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
     { "SmiteshP/nvim-navic" },
-    { "folke/neoconf.nvim", cmd = { "Neoconf" } },
+    { "folke/neoconf.nvim" },
     { "lukas-reineke/lsp-format.nvim" },
     { "simrat39/inlay-hints.nvim" },
     {
@@ -47,7 +47,6 @@ local stop_lsp_fmt = {
 }
 
 M.config = function()
-  require("neoconf").setup({})
   require("lsp-format").setup({})
 
   local lsp_base = require("lsp-config.base")
