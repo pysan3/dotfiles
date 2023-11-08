@@ -296,6 +296,7 @@ user_pref("mousewheel.default.delta_multiplier_y", 275); // 250-500
 // PREF: use KDE file picker in FireFox
 user_pref("widget.use-xdg-desktop-portal", 1);
 user_pref("widget.use-xdg-desktop-portal.file-picker", 1);
+user_pref("widget.disable-workspace-management", true);
 
 // PREF: restore form autofill
 user_pref("extensions.formautofill.addresses.enabled", true);
