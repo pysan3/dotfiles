@@ -119,7 +119,7 @@ local M = {
 }
 
 M.config = function()
-  require("Comment").setup({
+  require("Comment").setup({ ---@diagnostic disable-line
     ignore = "^$",
     mappings = {
       basic = true,
@@ -134,17 +134,16 @@ M.config = function()
         elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
           location = require("ts_context_commentstring.utils").get_visual_start_location()
         end
-        return require("ts_context_commentstring.internal").calculate_commentstring({
-          ---@diagnostic disable-line
+        return require("ts_context_commentstring.internal").calculate_commentstring({ ---@diagnostic disable-line
           key = ctx.ctype == U.ctype.linewise and "__default" or "__multiline",
-          location = location,
+          location = location, ---@diagnostic disable-line
         })
       end
       return nil ---@diagnostic disable-line
     end,
   })
 
-  require("nvim-treesitter.configs").setup({
+  require("nvim-treesitter.configs").setup({ ---@diagnostic disable-line
     context_commentstring = {
       enable = true,
       enable_autocmd = false,
