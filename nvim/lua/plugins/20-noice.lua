@@ -129,9 +129,7 @@ M.opts = {
       ["cmp.entry.get_documentation"] = true,
     },
     hover = { enabled = true },
-    signature = {
-      enabled = true,
-    },
+    signature = { enabled = true },
   },
   presets = {
     bottom_search = false,
