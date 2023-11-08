@@ -331,7 +331,7 @@ return {
       -- popup = { size = { width = "80%" } },
       auto_expand_width = false,
       mappings = {
-        ["l"] = { "open", config = { no_expand_file = true } },
+        ["l"] = "open",
         ["s"] = "open_split",
         ["v"] = "open_vsplit",
         ["h"] = "close_node",
