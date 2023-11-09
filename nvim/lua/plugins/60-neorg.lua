@@ -8,6 +8,8 @@ local M = {
     "mason.nvim",
     "nvim-lua/plenary.nvim",
     "ntpeters/vim-better-whitespace",
+    "nvim-lua/plenary.nvim",
+    "laher/neorg-exec",
     {
       "pysan3/neorg-templates-draft",
       dependencies = { "L3MON4D3/LuaSnip" },
@@ -74,6 +76,7 @@ local function load_plugins()
         templates_dir = vim.fn.stdpath("config") .. "/templates/norg",
       },
     },
+    ["external.exec"] = {},
   }
 end
 

@@ -56,5 +56,7 @@ return {
       goto_headline("next")
     end, { desc = "Neorg: Go to next headline" })
     kb.remap_key("norg", "i", "<M-d>", "<C-b>")
+    kb.map("norg", "n", vim.g.personal_options.prefix.iron .. "x", "<Cmd>Neorg exec cursor<CR>")
+    kb.map("norg", "n", vim.g.personal_options.prefix.iron .. "X", "<Cmd>Neorg exec current-file<CR>")
   end,
 }
