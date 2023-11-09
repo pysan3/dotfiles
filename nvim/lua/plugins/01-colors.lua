@@ -21,6 +21,10 @@ return {
     },
   }),
   nolazy({
+    "EdenEast/nightfox.nvim",
+    colorscheme = "carboxfox",
+  }),
+  nolazy({
     "dasupradyumna/midnight.nvim",
     colorscheme = "midnight",
   }),
