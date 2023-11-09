@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+set -e
+
+source "$DOTFILES/functions.zsh"
+
+if ! command -v 'pandoc' &>/dev/null; then
+  err_exit 'You need pandoc installed'
+fi
+
+IN_FT="${1}"
+shift
+
+info "Converting from $IN_FT"
+
+pandoc -f "$IN_FT" -t json | jq | minorg generate $@
