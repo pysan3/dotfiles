@@ -1,7 +1,7 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
   dev = vim.g.personal_options.debug.neotree,
-  version = false,
+  -- version = false,
   dependencies = {
     { "MunifTanjim/nui.nvim" },
     { "nvim-tree/nvim-web-devicons" },
@@ -182,7 +182,7 @@ return {
         },
       },
       ["readme"] = {
-        pattern = "^readme.*",
+        pattern = "^readme.md",
         ignore_case = true,
         files = {
           "authors",
@@ -199,7 +199,6 @@ return {
           "history.md",
           "license*",
           "maintainers",
-          "readme*",
           "security.md",
           "sponsors*",
         },
