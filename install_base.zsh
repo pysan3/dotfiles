@@ -224,7 +224,7 @@ function install_nvm () {
 source "$NVM_DIR/nvm.sh"
 export PATH="$(npm config get prefix)/bin:$PNPM_HOME:$PATH"
 # install necessary npm cli commands
-pnpm i -g clipboard-cli @bitwarden/cli
+pnpm i -g clipboard-cli @bitwarden/cli bun
 
 # nim
 function install_nim () {
