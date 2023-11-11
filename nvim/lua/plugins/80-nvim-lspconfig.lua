@@ -83,7 +83,7 @@ M.config = function()
       local opts = global_opts
       local config_path = "lsp-config.settings." .. server_name
       if vim.g.personal_module.exists(config_path, true) then
-        opts = vim.tbl_deep_extend("force", opts, require(config_path))
+        opts = vim.tbl_deep_extend("force", opts, require(config_path)) or opts
       end
       require("lspconfig")[server_name].setup(opts)
     end,
