@@ -1,7 +1,7 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
   dev = vim.g.personal_options.debug.neotree,
-  -- version = false,
+  version = false,
   dependencies = {
     { "MunifTanjim/nui.nvim" },
     { "nvim-tree/nvim-web-devicons" },
