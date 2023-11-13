@@ -162,6 +162,14 @@ M.opts = {
       },
       view = "mini",
     },
+    { -- hide `written` message
+      filter = {
+        event = "msg_show",
+        kind = "",
+        find = "written",
+      },
+      opts = { skip = true },
+    },
   },
   views = {
     split = {
