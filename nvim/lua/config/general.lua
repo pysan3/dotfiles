@@ -195,3 +195,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   normal ``
   ]],
 })
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight Copied Text for a Split Second",
+  group = aug,
+  callback = function()
+    vim.highlight.on_yank({ timeout = 200 })
+  end,
+})
