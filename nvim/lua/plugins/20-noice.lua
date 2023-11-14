@@ -170,6 +170,17 @@ M.opts = {
       },
       opts = { skip = true },
     },
+    { -- send annoying msgs to mini
+      filter = {
+        event = "msg_show",
+        any = {
+          { find = "; after #%d+" },
+          { find = "; before #%d+" },
+          { find = "fewer lines" },
+        },
+      },
+      view = "mini",
+    },
   },
   views = {
     split = {
