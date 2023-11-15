@@ -56,6 +56,8 @@ function get_workdir () { basename "$PWD" | sed -e s'/[.-]/_/g' }
 alias ..='cd ..'
 
 alias g='git'
+alias clone='g clone'
+alias main='(g co main || g co master) && g pl'
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
 function nopy () {
   export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g')
