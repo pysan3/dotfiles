@@ -67,10 +67,10 @@ return {
         },
       },
       file_size = { enabled = true },
-      type = { enabled = true },
-      last_modified = { enabled = false },
+      type = { enabled = false },
+      last_modified = { enabled = true },
       created = { enabled = false },
-      symlink_target = { enabled = false },
+      symlink_target = { enabled = true },
     },
     nesting_rules = {
       ["js"] = {
