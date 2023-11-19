@@ -46,6 +46,7 @@ nnoremap N Nzz
 nnoremap * *Nzz
 nnoremap # #nzz
 nnoremap g* g*zz
+nnoremap <expr> <Leader>. '<esc>' . repeat('.', v:count1)
 
 " Move while in insert mode
 inoremap <C-j> <Down>
