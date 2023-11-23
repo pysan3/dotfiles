@@ -36,6 +36,7 @@ return {
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
       disabled_filetypes = { "toggleterm" },
+      globalstatus = true,
       always_divide_middle = false,
     },
     sections = {
