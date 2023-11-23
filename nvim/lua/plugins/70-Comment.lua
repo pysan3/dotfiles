@@ -100,7 +100,6 @@ end
 local M = {
   "numToStr/Comment.nvim",
   dependencies = {
-    "nvim-treesitter/nvim-treesitter",
     "JoosepAlviste/nvim-ts-context-commentstring",
   },
   keys = {
@@ -119,6 +118,7 @@ local M = {
 }
 
 M.config = function()
+  vim.g.skip_ts_context_commentstring_module = true
   require("Comment").setup({ ---@diagnostic disable-line
     ignore = "^$",
     mappings = {
@@ -141,13 +141,6 @@ M.config = function()
       end
       return nil ---@diagnostic disable-line
     end,
-  })
-
-  require("nvim-treesitter.configs").setup({ ---@diagnostic disable-line
-    context_commentstring = {
-      enable = true,
-      enable_autocmd = false,
-    },
   })
 end
 
