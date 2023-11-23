@@ -74,6 +74,7 @@ local function load_plugins()
     ["external.templates"] = {
       config = {
         templates_dir = vim.fn.stdpath("config") .. "/templates/norg",
+        keywords = require("norg-config.templates"),
       },
     },
     ["external.exec"] = {},
