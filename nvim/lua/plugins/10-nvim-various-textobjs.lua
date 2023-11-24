@@ -3,7 +3,7 @@ return {
   event = "BufReadPre",
   opts = {
     useDefaultKeymaps = true,
-    disabledKeymaps = { "gc" },
+    disabledKeymaps = { "gc", "n" },
   },
 }
 
