@@ -1,6 +1,7 @@
 local M = {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
+  version = false,
   dependencies = {
     { "hrsh7th/cmp-buffer" }, -- buffer completions
     { "hrsh7th/cmp-path" }, -- path completions
@@ -136,6 +137,13 @@ M.config = function()
         vim_item.menu = entry_menu[entry.source.name]
         return vim_item
       end,
+    },
+    matching = {
+      disallow_fuzzy_matching = false, -- fmodify -> fnamemodify
+      disallow_fullfuzzy_matching = true,
+      disallow_partial_fuzzy_matching = true,
+      disallow_partial_matching = false, -- fb -> foo_bar
+      disallow_prefix_unmatching = true, -- bar -> foo_bar
     },
     sorting = {
       -- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/compare.lua
