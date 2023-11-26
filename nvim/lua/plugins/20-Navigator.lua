@@ -1,22 +1,46 @@
-local function navigator_keymap(key, method)
-  return {
-    key,
-    function()
-      require("Navigator")[method]()
-    end,
-    desc = "Navigator: " .. method,
-    mode = { "n", "v", "o", "i", "c", "t" },
-  }
-end
-
 return {
   "numToStr/Navigator.nvim",
   keys = {
-    navigator_keymap("<A-h>", "left"),
-    navigator_keymap("<A-l>", "right"),
-    navigator_keymap("<A-k>", "up"),
-    navigator_keymap("<A-j>", "down"),
-    navigator_keymap("<A-p>", "previous"),
+    {
+      "<A-h>",
+      function()
+        require("Navigator").left()
+      end,
+      desc = "Navigator: left",
+      mode = { "n", "v", "o", "i", "c", "t" },
+    },
+    {
+      "<A-l>",
+      function()
+        require("Navigator").right()
+      end,
+      desc = "Navigator: right",
+      mode = { "n", "v", "o", "i", "c", "t" },
+    },
+    {
+      "<A-k>",
+      function()
+        require("Navigator").up()
+      end,
+      desc = "Navigator: up",
+      mode = { "n", "v", "o", "i", "c", "t" },
+    },
+    {
+      "<A-j>",
+      function()
+        require("Navigator").down()
+      end,
+      desc = "Navigator: down",
+      mode = { "n", "v", "o", "i", "c", "t" },
+    },
+    {
+      "<A-p>",
+      function()
+        require("Navigator").previous()
+      end,
+      desc = "Navigator: previous",
+      mode = { "n", "v", "o", "i", "c", "t" },
+    },
   },
   opts = {},
 }

@@ -36,16 +36,15 @@ return {
       require("debugHelper").attachToRemote()
     end, nil, "debugHelper.attachToRemote()"),
     dap_keybind("pn", function()
-      require("dap-python").test_method({})
+      require("dap-python").test_method()
     end, nil, "dap_python.test_method"),
     dap_keybind("pf", function()
-      require("dap-python").test_class({})
+      require("dap-python").test_class()
     end, nil, "dap_python.test_class"),
     dap_keybind("ps", function()
-      require("dap-python").debug_selection({})
+      require("dap-python").debug_selection()
     end, nil, "dap_python.debug_selection"),
   },
-  ---@type dapui.Config
   opts = {
     icons = { expanded = "", collapsed = "󰐊" },
     mappings = {
