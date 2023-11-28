@@ -219,6 +219,9 @@ M.config = function()
   end
 
   local function update_choice_popup(choiceNode)
+    if not current_win then
+      return
+    end
     vim.api.nvim_win_close(current_win.win_id, true)
     vim.api.nvim_buf_del_extmark(current_win.buf, current_nsid, current_win.extmark)
     local create_win = window_for_choiceNode(choiceNode)
@@ -228,6 +231,9 @@ M.config = function()
   end
 
   local function choice_popup_close()
+    if not current_win then
+      return
+    end
     vim.api.nvim_win_close(current_win.win_id, true)
     vim.api.nvim_buf_del_extmark(current_win.buf, current_nsid, current_win.extmark)
     -- now we are checking if we still have previous choice we were in after exit nested choice
