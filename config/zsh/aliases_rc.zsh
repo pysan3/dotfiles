@@ -44,6 +44,7 @@ alias trm='trash-put'
 alias tls='trash-list'
 alias trs='trash-restore'
 alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
+alias tst="./node_modules/.bin/tree-sitter"
 
 alias dt='date "+%F"'
 alias egr="env | grep -i"
