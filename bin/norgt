@@ -2,14 +2,18 @@
 
 set -e
 
-source "$DOTFILES/functions.zsh"
+[ -d "$DOTFILES" ] && source "$DOTFILES/functions.zsh"
+checkdependency 'pandoc'
+checkdependency 'minorg'
 
-if ! command -v 'pandoc' &>/dev/null; then
-  err_exit 'You need pandoc installed'
+if [ x${1[1,1]} = x- ]; then
+  error 'norgt requires one argument: E.g. `norgt gfm`'
+  minorg help
+  exit 0
+else
+  IN_FT="${1:-gfm}"
+  [ $# -lt 1 ] || shift
 fi
-
-IN_FT="${1}"
-shift
 
 info "Converting from $IN_FT"
 

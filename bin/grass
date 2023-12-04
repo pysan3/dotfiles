@@ -1,0 +1,37 @@
+#!/usr/bin/env zsh
+
+set -e
+
+[ -d "$DOTFILES" ] && source "$DOTFILES/functions.zsh"
+checkdependency 'getoptions'
+
+VERSION="0.1"
+
+parser_definition () {
+  setup REST help:usage -- "Usage: ${2##./} [options...] [arguments]" ''
+  msg -- 'Options:'
+  param START -s --start init:="0" validate:number  -- "Start delta date relative to today."
+  param UNTIL -t --until init:="30" validate:number -- "Go back delta dates relative to today."
+  disp :usage -h --help
+  disp VERSION -V --version
+}
+
+eval "$(getoptions parser_definition - "$0") exit 1"
+
+git remote show origin
+
+info "START=$START"
+info "UNTIL=$UNTIL"
+
+local til=$(($start+$length))
+for ((d=$start;d<$til;d++)); do
+  local rand=$((1+$RANDOM%3))
+  for ((n=0;n<$rand;n++)); do
+    git commit --allow-empty \
+      --date=$(date '+%F' -d "-$d days") \
+      -m "The grass is always greener on the other side."
+  done
+done
+
+git push
+

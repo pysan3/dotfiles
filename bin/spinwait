@@ -1,24 +1,30 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
+
+set -e
+
+[ -d "$DOTFILES" ] && source "$DOTFILES/functions.zsh"
+checkdependency 'getoptions'
 
 VERSION="0.1"
 
 parser_definition () {
-  setup REST help:usage -- "Usage: spinwait <grep name>" ''
+  setup REST help:usage -- "Usage: ${2##./} <grep name>" ''
   msg -- 'Options:'
   disp :usage -h --help
   disp VERSION -V --version
 }
 
-eval "$(getoptions parser_definition) exit 1"
+eval "$(getoptions parser_definition - "$0") exit 1"
 
-spinners="●∙∙""∙●∙""∙∙●""∙∙∙"
-counter=0; spinner_len=3
-spin () {
-  printf "\r${spinners:counter:spinner_len} $1"
-  counter=$((counter+spinner_len))
-  [[ $counter -ge ${#spinners} ]] && counter=0
+spinners="●∙∙","∙●∙","∙∙●","∙∙∙"
+counter=1; spinner_len=4
+
+function spin () {
+  echo "$spinners" | cut -d ',' -f $counter | xargs -I % printf "\r% $1"
+  counter=$((counter+1))
+  [[ $counter -gt $spinner_len ]] && counter=1 || true
 }
-endspin () {
+function endspin () {
   printf "\r%s\n" "$@"
 }
 

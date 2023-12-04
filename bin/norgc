@@ -2,11 +2,24 @@
 
 set -e
 
-source "$DOTFILES/functions.zsh"
+[ -d "$DOTFILES" ] && source "$DOTFILES/functions.zsh"
+checkdependency 'getoptions'
 
-if ! command -v 'pandoc' &>/dev/null; then
-  err_exit 'You need pandoc installed'
-fi
+VERSION="0.1"
+
+parser_definition () {
+  setup REST help:usage -- "Usage: ${2##./} <input file> [<output filetype>]" ''
+  msg -- 'Arguments:'
+  msg label:'input file' -- 'Path to input file.'
+  msg label:'output filetype' -- 'Output filetype. Passed to pandoc with option `-t`.' 'Default: gfm'
+  msg -- 'Options:'
+  disp :usage -h --help
+  disp VERSION -V --version
+}
+
+eval "$(getoptions parser_definition - "$0") exit 1"
+
+checkdependency 'pandoc'
 
 pandoc_dir="$HOME/Git/norg-pandoc"
 if [ ! -d "$pandoc_dir" ]; then
@@ -15,8 +28,10 @@ fi
 
 IN_FILE="$(realpath "$1")"
 shift
+[[ x"${IN_FILE:e}" = x'norg' ]] || err_exit "Extension of $IN_FILE must be '.norg'"
 
-OUT_FT="${1}"
+OUT_FT="${1:-gfm}"
+[ $# -lt 1 ] || shift
 OUT_SUFFIX="$OUT_FT"
 
 if [[ x"$OUT_SUFFIX" = x'markdown' ]]; then
@@ -24,13 +39,12 @@ if [[ x"$OUT_SUFFIX" = x'markdown' ]]; then
 elif [[ x"$OUT_SUFFIX" = x'gfm' ]]; then
   OUT_SUFFIX='md'
 fi
-shift
 
 info "Converting $IN_FILE to $OUT_FT"
 
 OUT_FILE="${IN_FILE:r}.${OUT_SUFFIX}"
 
-info "Output to  $OUT_FILE"
+info "Output to $OUT_FILE"
 
 cd "$pandoc_dir"
 pandoc -f ./init.lua -t "$OUT_FT" "$IN_FILE" -o "$OUT_FILE" $@ \

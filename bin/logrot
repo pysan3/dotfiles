@@ -1,11 +1,5 @@
 #!/usr/bin/env zsh
 
-if ! command -v "ulog_rotate" &>/dev/null; then
-  source "$DOTFILES/functions.zsh"
-  error 'Command `ulog_rotate` not found.'
-  exit
-fi
-
 # Load the default settings
 LOGROT_DIR_PATH="${LOGROT_DIR_PATH:-/tmp/logrot}"
 LOGROT_FILE_PATH="${LOGROT_FILE_PATH:-$LOGROT_DIR_PATH/$(basename $PWD).log}"
@@ -13,8 +7,14 @@ LOGROT_FILE_PATH="${LOGROT_FILE_PATH:-$LOGROT_DIR_PATH/$(basename $PWD).log}"
 LOGROT_FILE_SIZE="${LOGROT_FILE_SIZE:-1000000}" # 1MB
 LOGROT_FILE_NUMBER="${LOGROT_FILE_NUMBER:-10}"
 
+set -e
+
+[ -d "$DOTFILES" ] && source "$DOTFILES/functions.zsh"
+checkdependency 'getoptions'
+checkdependency 'ulog_rotate'
+
 # Overwrite with command line arguments and remember other options
-opts=""; idx=1
+opts=""; idx=0
 for arg in $@; do
   if [[ x$(printf %.1s "$arg") == x- ]]; then
     opts="$opts $arg"
@@ -30,5 +30,7 @@ for arg in $@; do
   fi
   ((idx++))
 done
+
+[ $idx -ge 1 ] && shift $idx
 
 eval ulog_rotate --file-path "$LOGROT_FILE_PATH" --file-size "$LOGROT_FILE_SIZE" --file-number "$LOGROT_FILE_NUMBER" $opts
