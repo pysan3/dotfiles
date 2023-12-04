@@ -30,10 +30,7 @@ alias e='exit 0'
 alias c='clear'
 alias sc='sudo systemctl'
 alias p='python'
-function pm () {
-  file="${1:r}"; shift 1
-  p -m "$(echo "$file" | sed 's,/,.,g' | sed 's/\.\.//g')" "$@"
-}
+function pm () { local file="${1:r}" && shift 1 && p -m "$(echo "$file" | sed 's,/,.,g' | sed 's/\.\.//g')" "$@" }
 
 alias rm='rm -i --preserve-root'
 alias rmf='rm -rf'
@@ -57,21 +54,14 @@ function get_workdir () { basename "$PWD" | sed -e s'/[.-]/_/g' }
 alias ..='cd ..'
 
 alias g='git'
-alias clone='g clone'
+function cgit () { cd "${GIT_PREFIX_HOME:-$HOME/Git}" }
 alias main='(g co main || g co master) && g pl'
+clone () { cgit && git clone "$1" && cd "$(basename "$1" .git)" }
+function rmcwd () { local _DELETE="$(basename "$PWD")" && cd .. && rm -rf "$_DELETE" }
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
-function nopy () {
-  export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g')
-}
-function nojs () {
-  export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v npm | grep -v nvm | xargs | sed -e 's/ /:/g')
-}
-function yay() {
-  ( \
-    nopy && nojs \
-    && command yay --noconfirm --sudoloop $@ \
-  )
-}
+function nopy () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') }
+function nojs () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v npm | grep -v nvm | xargs | sed -e 's/ /:/g') }
+function yay () { ( nopy && nojs && command yay --noconfirm --sudoloop $@ ) }
 alias flatpak='flatpak --user -y'
 alias res="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
@@ -101,11 +91,12 @@ function upgradeall() {
       || error "FAIL: $(alias upgrade$lang)"
   done
 }
+
 function pyenv () {
-  command pyenv $@
-  cd "$PYENV_ROOT/versions/"
-  ln -sf "$(command pyenv global)" global
-  cd - >/dev/null
+  command pyenv $@ \
+    && cd "$PYENV_ROOT/versions/" \
+    && ln -sf "$(command pyenv global)" global \
+    && cd - >/dev/null
 }
 
 alias vm="dot nvim $DOTFILES/.vimrc"
@@ -119,6 +110,7 @@ alias ve="nvim .env"
 alias vh="vim $XDG_CACHE_HOME/zsh/.zsh_history"
 alias vl="vim $ZDOTDIR/local_rc.zsh"
 alias vlocal="vim $XDG_CONFIG_HOME/nvim/local.vim"
+function zk () { tvim "$NCPATH/Notes" }
 
 alias dc="docker-compose"
 alias rp='realpath'
@@ -135,17 +127,14 @@ alias ytaudio='yt --extract-audio --audio-format mp3 --audio-quality 0 --write-t
 alias op='xdg-open'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
-function act!() {
+function act! () {
   [ -f 'bin/activate' ] && source bin/activate
   [ -f '.venv/bin/activate' ] && source .venv/bin/activate
   [ -f 'environment.yml' ] && conda activate $(cat environment.yml | grep name: | head -n 1 | cut -f 2 -d ':')
   [ -f 'environment.yaml' ] && conda activate $(cat environment.yaml | grep name: | head -n 1 | cut -f 2 -d ':')
   return 0
 }
-function act() {
-  [ -z "$TMUX" ] && return 0
-  act!
-}
+function act () { [ -z "$TMUX" ] && return 0 && act! }
 act
 
 # depends on local_rc.zsh
@@ -210,10 +199,6 @@ function pushd () {
   builtin pushd "$@"; act; dotenv
 }
 
-function zk () {
-  tvim "$NCPATH/Notes"
-}
-
 function syncit () {
   if ! command -v 'syncthing' &> /dev/null; then
     echo 'install syncthing'
@@ -257,10 +242,7 @@ function cpp () {
   cp $@
 }
 
-function timer () {
-  termdown $1 && cvlc "$NCPATH/900-その他/Music/Clock-Alarm.mp3" --play-and-exit >/dev/null 2>/dev/null
-}
-
+function timer () { termdown $1 && cvlc "$NCPATH/900-その他/Music/Clock-Alarm.mp3" --play-and-exit >/dev/null 2>/dev/null }
 alias ramen='timer 150'
 
 function pdflock () {
@@ -274,12 +256,9 @@ function pdflock () {
   qpdf --encrypt "$1" "$1" 256 -- "$F" "$TO"
 }
 
-function lx () {
-  command lynx -cfg="$LYNX_CFG" -lss="$LYNX_LSS" --useragent="$LYNX_USERAGENT" $*
-}
-
+function lx () { command lynx -cfg="$LYNX_CFG" -lss="$LYNX_LSS" --useragent="$LYNX_USERAGENT" $* }
 function urlencode () {
-  declare str="$*"; declare encoded=""; declare i c x
+  local str="$*"; local encoded=""; local i c x
   for (( i=0; i<${#str}; i++ )); do
     c=${str:$i:1}
     case "$c" in
@@ -290,26 +269,12 @@ function urlencode () {
   done
   echo "$encoded"
 }
+function duck () { local url=$(urlencode "$*") lx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=us-en&q=$url" }
+function duckja () { local url=$(urlencode "$*") lx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=jp-jp&q=$url" }
+function google () { local url=$(urlencode "$*") lx -cmd_script "$DOTFILES/static/lynx/google.key.log" "https://google.com/search?q=$url" }
+alias "?"=duck "??"=duckja "?g"=google
 
-function duck () {
-  declare url=$(urlencode "$*")
-  lx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=us-en&q=$url"
-}
-alias "?"=duck
-function duckja () {
-  declare url=$(urlencode "$*")
-  lx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=jp-jp&q=$url"
-}
-alias "??"=duckja
-function google () {
-  declare url=$(urlencode "$*")
-  lx -cmd_script "$DOTFILES/static/lynx/google.key.log" "https://google.com/search?q=$url"
-}
-alias "?g"=google
-
-function pdfcompress () {
-  	ps2pdf -dPDFSETTINGS=/prepress -dCompatibilityLevel=1.4 -sOutputFile="compressed-$1" "$1"
-}
+function pdfcompress () { ps2pdf -dPDFSETTINGS=/prepress -dCompatibilityLevel=1.4 -sOutputFile="compressed-$1" "$1" }
 
 function colortest () {
   T='gYw'   # The test text
@@ -341,11 +306,7 @@ function cv2_get () {
   yes | cp "$cv2_path/__init__.pyi" "$cv2_path/cv2.pyi"
 }
 
-function tmv () {
-  sessioncmd="-t $1"
-  [ -z "$TMUX" ] && tmux a $sessioncmd || tmux switchc $sessioncmd
-}
-
+function tmv () { local sessioncmd="-t $1" && [ -z "$TMUX" ] && tmux a $sessioncmd || tmux switchc $sessioncmd }
 function tvim() {
   [ $# -ge 1 ] && cd "$1" && trap 'popd &>/dev/null' EXIT
   workdir=$(get_workdir)
@@ -411,14 +372,18 @@ function tinit () {
 }
 
 function cinit() {
+  local current_dir="$PWD"
+  if [ x"$(basename "$PWD")" = xbuild ]; then
+    cd ..
+  fi
   rm -rf build
   mkdir build && cd build
   cmake ..
+  cd "$current_dir"
 }
 
 function pfwd() {
-  # ssh -fNT -L 127.0.0.1:$2:127.0.0.1:$2 $1 && echo "Port forward to: http://127.0.0.1:$2"
-  svr="$1"; port="$2"; shift 2
+  local svr="$1" port="$2"; shift 2
   eval "ssh -fNT $@ 127.0.0.1:${port}:127.0.0.1:${port} ${svr}" && echo "Port forward to: http://127.0.0.1:${port}"
 }
 
