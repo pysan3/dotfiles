@@ -9,7 +9,6 @@ return {
   opts = {
     restore_on_setup = true,
     autosave_on_quit = true,
-    force_autosave = true,
     sessionfile_name = ".vim/session.vim",
     warn_on_setup = false,
   },
