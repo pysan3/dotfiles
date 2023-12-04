@@ -47,7 +47,7 @@ alias ts="ts '[%Y-%m-%d %H:%M:%S]'"
 alias tst="./node_modules/.bin/tree-sitter"
 
 alias dt='date "+%F"'
-alias eng="env | grep -i"
+alias eng="env | grep -i "
 alias xgs="xargs "
 alias exportenv='while read -r f; do echo "${(q)f}"; done <<(env) > .env'
 alias nowrap='setterm --linewrap off'
