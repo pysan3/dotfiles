@@ -1,29 +1,43 @@
-export DISPLAY=$(python3 ~/set_configs.py display)':0'
+# Define environment
 export LANG='en_US.UTF-8'
-export MYENV='WSL'
-export PCNAME='gpu2'
+export MYENV='undefined'
+export PCNAME='undefined'
 
+# Define default file explorer and basic envvars
 export FE='dolphin'
-export TERM=screen-256color
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
-alias tmux="tmux -u"
-alias cgit="cd $HOME/Storage/"
-alias clip="clipboard"
-alias python='python3'
-alias pip='pip3'
-# alias pdfpc="pdfpc -Ss" # for WSL
+export GIT_PREFIX_HOME="$HOME/Git"
+alias tmux="tmux -u" # force utf-8 support with tmux
 
+# Define neovim vars
 export NVIM_COLOR='jellybeans-nvim'
+export NVIM_USE_TRANSPARENT=1
 export NVIM_BUILD_TAG='nightly'
 
-# export CUDA_VISIBLE_DEVICES=7,6
-# export CUDA_COMPUTE_DEVICE='CUDA'
+# Define clipboard commands
+case x"$MYENV" in
+  xwayland|xWayland) alias clip="wl-copy" paste="wl-paste" ;;
+  *) alias clip="clipboard" paste="clipboard" ;;
+esac
 
-export PYOPENGL_PLATFORM=egl
-# export MESA_GL_VERSION_OVERRIDE=3.3
-# export MESA_GLSL_VERSION_OVERRIDE=330
-export LIBGL_ALWAYS_INDIRECT=1
+# WSL specific aliases
+if [ x"$MYENV" = xWSL ]; then
+  alias pdfpc="pdfpc -Ss" # for WSL
+  export PYOPENGL_PLATFORM=egl
+  export LIBGL_ALWAYS_INDIRECT=1
+  if false; then
+    export MESA_GL_VERSION_OVERRIDE=3.3
+    export MESA_GLSL_VERSION_OVERRIDE=330
+  fi
+fi
 
+# Unsafe connections
+if false; then
+  export REQUESTS_CA_BUNDLE=/usr/lib/ssl/certs/ca-certificates.crt
+  export NODE_TLS_REJECT_UNAUTHORIZED=0
+fi
+
+# Define HTTP_PROXY on ssh connection
 if [[ -n $LC_HTTP_PROXY ]]; then
   export HTTP_PROXY=$LC_HTTP_PROXY
   export HTTPS_PROXY=$LC_HTTP_PROXY
@@ -34,8 +48,6 @@ if [[ -n $LC_NO_PROXY ]]; then
   export NO_PROXY=$LC_NO_PROXY
   export no_proxy=$LC_NO_PROXY
 fi
-# export REQUESTS_CA_BUNDLE=/usr/lib/ssl/certs/ca-certificates.crt
-# export NODE_TLS_REJECT_UNAUTHORIZED=0
 
 function crop () {
   set -x
@@ -60,49 +72,6 @@ function crop () {
   set +x
 }
 
-function setdns () {
-  windowshost=`python ~/set_configs.py windowshost`
-  dnspath='/etc/resolv.conf'
-  prev=`cat $dnspath`
-  echo "" | sudo tee $dnspath
-  while read line; do
-    if [[ x$line != x ]]; then
-      echo "nameserver $line" | sudo tee -a $dnspath
-    fi
-  done <<-EOF
-8.8.8.8
-8.8.4.4
-$windowshost
-EOF
-echo "$prev" | sudo tee -a $dnspath
-}
-
-function grass () {
-  set -x
-  if [ $# -eq 1 ]; then
-    length=$1
-    start=0
-  elif [ $# -eq 2 ]; then
-    start=$1
-    length=$2
-  else
-    echo 'Usage: cheatGit [start] length'
-    return 1
-  fi
-  til=$(($start+$length))
-  for ((d=$start;d<$til;d++)); do
-    rand=$((1+$RANDOM%3))
-    for ((n=0;n<$rand;n++)); do
-      git commit \
-        --allow-empty \
-        --date=`date +%F -d "-$d days"` \
-        -m "The grass is always greener on the other side."
-      done
-    done
-    git push
-    set +x
-}
-
 function syncddns () {
   cbw get item mydns.jp | jq '.login' | jq -r '"\(.username):\(.password)"'
   cbw get item mydns.jp | jq '.login' | jq -r '"\(.username):\(.password)"' | { read login; for v in 4 6; do curl -u "$login" "https://ipv$v.mydns.jp/login.html"; done }
@@ -116,5 +85,20 @@ function mount_netd_wsl() {
   sudo mkdir -p "$to"
   sudo mount -t cifs -o user="$user",pass="$pass",vers=1.0 "$from" "$to"
 }
+
+# # >>> conda initialize >>>
+# # !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$("$HOME/.local/share/miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#   eval "$__conda_setup"
+# else
+#   if [ -f "$HOME/.local/share/miniconda3/etc/profile.d/conda.sh" ]; then
+#     . "$HOME/.local/share/miniconda3/etc/profile.d/conda.sh"
+#   else
+#     export PATH="$HOME/.local/share/miniconda3/bin:$PATH"
+#   fi
+# fi
+# unset __conda_setup
+# # <<< conda initialize <<<
 
 true
