@@ -20,6 +20,7 @@ return {
         pcall(require, "neo-tree")
       end)
     end
+    vim.api.nvim_set_hl(0, "NeoTreeNormal", { link = "NormalFloat", default = true })
   end,
   opts = {
     sources = {
@@ -328,7 +329,7 @@ return {
     },
     window = {
       position = "float",
-      -- popup = { size = { width = "80%" } },
+      popup = { border = "none" },
       auto_expand_width = false,
       mappings = {
         ["l"] = "open",
