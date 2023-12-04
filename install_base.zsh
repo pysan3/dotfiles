@@ -107,7 +107,7 @@ if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
 fi
 
 python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
-python -m pip install -U --user pipupgrade rich trash-cli yt-dlp video-cli
+python -m pip install -U --user pipupgrade rich trash-cli yt-dlp
 info 'python programs installation done'
 
 # install zsh shell utils
