@@ -1,5 +1,8 @@
+local tl_prefix = vim.g.personal_options.prefix.telescope
+local ls_prefix = vim.g.personal_options.prefix.lsp
+
 local function telescope_keymap(key, picker, func, pre_leader, lsp_prefix, opts)
-  local prefix = vim.g.personal_options.prefix[lsp_prefix and "lsp" or "telescope"]
+  local prefix = lsp_prefix and ls_prefix or tl_prefix
   return {
     (pre_leader and "<Leader>" or "") .. prefix .. key,
     func or function()
@@ -32,7 +35,6 @@ local M = {
   keys = {
     -- telescope fzf bindings
     telescope_keymap("f", "buffers"),
-    telescope_keymap("p", "git_files"),
     telescope_keymap("l", "find_files"),
     telescope_keymap("s", "live_grep"),
     telescope_keymap("h", "help_tags"),
@@ -49,6 +51,7 @@ local M = {
     telescope_keymap("g", "lsp_definitions", nil, nil, true),
     telescope_keymap("D", "diagnostics", nil, nil, true),
     -- telescope git bindings
+    telescope_keymap("p", "git_files"),
     telescope_keymap("m", "git_commits"),
     telescope_keymap("M", "git_bcommits"),
     telescope_keymap("b", "git_branches"),
