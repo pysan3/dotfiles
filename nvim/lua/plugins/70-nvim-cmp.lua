@@ -120,7 +120,6 @@ M.config = function()
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "path" },
-      { name = "natdat" },
     }, {
       buffers,
       { name = "dictionary", keyword_length = 3 },
@@ -128,6 +127,7 @@ M.config = function()
       { name = "calc" },
       { name = "emoji" },
       { name = "git" },
+      { name = "natdat" },
     }),
     formatting = {
       expandable_indicator = true,
