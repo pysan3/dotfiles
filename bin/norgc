@@ -52,6 +52,10 @@ pandoc -f ./init.lua -t "$OUT_FT" "$IN_FILE" -o "$OUT_FILE" $@ \
 
 if [[ x"$OUT_SUFFIX" = x'md' ]]; then
   sed -i 's/\\!\[/![/g' "$OUT_FILE"
+  linr=$(grep -n '^```$' "$OUT_FILE" | head -1 | cut -d ':' -f 1)
+  if [ -n "$linr" ]; then
+    sed -i 1,"$((linr+1))"d "$OUT_FILE"
+  fi
 fi
 
 cd -
