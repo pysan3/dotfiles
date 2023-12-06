@@ -63,7 +63,6 @@ M.config = function()
       if client.server_capabilities.documentSymbolProvider then
         require("nvim-navic").attach(client, bufnr)
       end
-      client.server_capabilities.semanticTokensProvider = nil
     end,
   }
   if vim.env.NVIM_LANG_NIM ~= nil then
