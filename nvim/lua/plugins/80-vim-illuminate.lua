@@ -31,6 +31,8 @@ M.config = function()
     filetypes_denylist = {
       "dirvish",
       "fugitive",
+      "neo-tree",
+      "norg",
     },
   })
   vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = "#2C313C" })
