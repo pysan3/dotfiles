@@ -259,6 +259,7 @@ return {
       end)
     end
     vim.api.nvim_set_hl(0, "NeoTreeNormal", { link = "NormalFloat", default = true })
+    vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { link = "NormalFloat", default = true })
   end,
   opts = {
     sources = {
