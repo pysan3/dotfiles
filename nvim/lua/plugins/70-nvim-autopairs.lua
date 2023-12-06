@@ -25,6 +25,7 @@ return {
       Rule("$$", "$$", "tex"),
       Rule(".", ".", "nim"):with_pair(cond.before_text("{")),
       Rule(":", ":", "norg"):with_pair(cond.before_text("{")),
+      Rule("$", "$", "norg"),
       Rule("$$", "$$", "norg"),
     })
   end,
