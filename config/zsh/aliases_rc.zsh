@@ -110,7 +110,7 @@ alias ve="nvim .env"
 alias vh="vim $XDG_CACHE_HOME/zsh/.zsh_history"
 alias vl="vim $ZDOTDIR/local_rc.zsh"
 alias vlocal="vim $XDG_CONFIG_HOME/nvim/local.vim"
-function zk () { tvim "$NCPATH/Notes" }
+function zk () { cd "$NCPATH/Notes" && cd - && tvim "$NCPATH/Notes" }
 
 alias dc="docker-compose"
 alias rp='realpath'
