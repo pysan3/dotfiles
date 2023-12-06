@@ -4,6 +4,7 @@ return {
   dependencies = {
     { "kevinhwang91/promise-async" },
     { "nvim-treesitter/nvim-treesitter" },
+    { "neovim/nvim-lspconfig" },
   },
   opts = {
     provider_selector = function(_, _, _)
