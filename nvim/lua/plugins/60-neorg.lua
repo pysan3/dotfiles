@@ -22,7 +22,6 @@ local M = {
 
 M.init = function()
   require("norg-config.commands").setup({})
-  require("norg-config.autocmds").setup({})
 end
 
 local function list_workspaces(w_dirs)
