@@ -11,12 +11,12 @@ return {
     "haya14busa/vim-asterisk",
   },
   keys = {
-    keys({ "n", [[<Cmd>execute("normal! " . v:count1 . "n")<CR><Cmd>lua require("hlslens").start()<CR>]] }),
-    keys({ "N", [[<Cmd>execute("normal! " . v:count1 . "N")<CR><Cmd>lua require("hlslens").start()<CR>]] }),
-    keys({ "*", [[<Plug>(asterisk-z*)<Cmd>lua require("hlslens").start()<CR>]], mode = { "n", "x" } }),
-    keys({ "#", [[<Plug>(asterisk-z#)<Cmd>lua require("hlslens").start()<CR>]], mode = { "n", "x" } }),
-    keys({ "g*", [[<Plug>(asterisk-g*)<Cmd>lua require("hlslens").start()<CR>]], mode = { "n", "x" } }),
-    keys({ "g#", [[<Plug>(asterisk-g#)<Cmd>lua require("hlslens").start()<CR>]], mode = { "n", "x" } }),
+    keys({ "n", [[<Cmd>execute("normal! " . v:count1 . "n")<CR><Cmd>lua require("hlslens").start()<CR>zz]] }),
+    keys({ "N", [[<Cmd>execute("normal! " . v:count1 . "N")<CR><Cmd>lua require("hlslens").start()<CR>zz]] }),
+    keys({ "*", [[<Plug>(asterisk-z*)<Cmd>lua require("hlslens").start()<CR>zz]], mode = { "n", "x" } }),
+    keys({ "#", [[<Plug>(asterisk-z#)<Cmd>lua require("hlslens").start()<CR>zz]], mode = { "n", "x" } }),
+    keys({ "g*", [[<Plug>(asterisk-g*)<Cmd>lua require("hlslens").start()<CR>zz]], mode = { "n", "x" } }),
+    keys({ "g#", [[<Plug>(asterisk-g#)<Cmd>lua require("hlslens").start()<CR>zz]], mode = { "n", "x" } }),
   },
   opts = {
     auto_enable = true,
