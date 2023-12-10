@@ -134,7 +134,7 @@ function act! () {
   [ -f 'environment.yaml' ] && conda activate $(cat environment.yaml | grep name: | head -n 1 | cut -f 2 -d ':')
   return 0
 }
-function act () { [ -z "$TMUX" ] && return 0 && act! }
+function act () { [ -z "$TMUX" ] && return 0 || act! }
 act
 
 # depends on local_rc.zsh
