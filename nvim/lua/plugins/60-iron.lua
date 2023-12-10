@@ -1,6 +1,7 @@
 return {
   "hkupty/iron.nvim",
   cmd = { "IronRepl", "IronRestart", "IronFocus", "IronHide" },
+  version = false,
   keys = {
     { vim.g.personal_options.prefix.iron .. "r", "<Cmd>IronRepl<CR>", noremap = true },
     { vim.g.personal_options.prefix.iron .. "R", "<Cmd>IronRestart<CR>", noremap = true },
