@@ -9,7 +9,7 @@ end
 return {
   nolazy({
     "metalelf0/jellybeans-nvim",
-    dependencies = { "rktjmp/lush.nvim" },
+    dependencies = { { "rktjmp/lush.nvim", version = false } },
     colorscheme = "jellybeans-nvim",
   }),
   nolazy({
