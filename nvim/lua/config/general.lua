@@ -172,7 +172,6 @@ vim.opt.cmdheight = 0
 vim.opt.exrc = true
 vim.opt.signcolumn = "yes:1"
 vim.opt.spelloptions = "camel,noplainbuffer"
-vim.opt.inccommand = "split"
 vim.opt.ignorecase = true
 
 -- global status line
