@@ -30,7 +30,7 @@ return {
     colors = {
       error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
       warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
-      info = { "#0db9d7" }, -- or "DiagnosticInfo"
+      info = { "#0DB9D7" }, -- or "DiagnosticInfo"
       hint = { "DiagnosticHint", "#10B981" },
       default = { "Identifier", "#7C3AED" },
     },
