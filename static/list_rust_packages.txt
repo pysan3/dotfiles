@@ -15,3 +15,5 @@ http-server:miniserve
 diff:difft:difftastic
 bc:eva
 _:tldr:tealdeer
+ggb:git-graph -s round
+ggl:git-graph -s round -f short
