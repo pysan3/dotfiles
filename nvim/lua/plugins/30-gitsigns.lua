@@ -30,7 +30,6 @@ return {
     move_hunk("[g", "prev_hunk"),
     map({ vim.g.personal_options.prefix.gitsigns .. "s", "<Cmd>Gitsigns stage_hunk<CR>" }),
     map({ vim.g.personal_options.prefix.gitsigns .. "r", "<Cmd>Gitsigns reset_hunk<CR>" }),
-    map({ vim.g.personal_options.prefix.gitsigns .. "r", "<Cmd>Gitsigns reset_hunk<CR>" }),
     map({ vim.g.personal_options.prefix.gitsigns .. "S", "<Cmd>Gitsigns stage_buffer<CR>" }),
     map({ vim.g.personal_options.prefix.gitsigns .. "u", "<Cmd>Gitsigns undo_stage_hunk<CR>" }),
     map({ vim.g.personal_options.prefix.gitsigns .. "t", "<Cmd>Gitsigns toggle_deleted<CR>" }),
@@ -53,13 +52,6 @@ return {
     }),
     map({ "ih", "<Cmd><C-u>Gitsigns select_hunk<CR>", mode = { "o", "x" } }),
   },
-  init = function()
-    vim.cmd([[
-    highlight GitGutterAdd    guifg=#227700 ctermfg=2
-    highlight GitGutterChange guifg=#2222ff ctermfg=3
-    highlight GitGutterDelete guifg=#880000 ctermfg=1
-    ]])
-  end,
   opts = {
     -- signs = {}, https://github.com/lewis6991/gitsigns.nvim/blob/main/lua/gitsigns/config.lua
     signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
