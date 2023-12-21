@@ -6,6 +6,7 @@ export XDG_STATE_HOME="$XDG_PREFIX_HOME/state"
 export XDG_BIN_HOME="$XDG_PREFIX_HOME/bin"
 export PATH="$XDG_BIN_HOME:$PATH"
 
+export SUDO_EDITOR=nvim
 export skip_global_compinit=1
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
