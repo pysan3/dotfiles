@@ -93,7 +93,7 @@ python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
 python -m pip install -U --user pipupgrade rich trash-cli yt-dlp ttfautohint-py
 info 'python programs installation done'
 
-repo="yuru7/HackGen"; font_name="$(basename $repo)"
+repo="yuru7/PlemolJP"; font_name="$(basename $repo)"
 function install_yuru_fonts () {
   tmp_dir=$(mktemp -d); mkdir -p "$XDG_DATA_HOME/fonts/$font_name"; trap "rm -v -rf '$tmp_dir'" 1 2 3 15
   set -e
@@ -144,10 +144,8 @@ function install_yuru_fonts () {
     && sudo fc-cache -vrf
   rm -v -rf "$tmp_dir"
 }
-(true || [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && checkyes "Install ${font_name} fonts?") \
+(false || [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && checkyes "Install ${font_name} fonts?") \
   && install_yuru_fonts
-
-exit 0
 
 # install zsh shell utils
 function install_zsh_shell_utils () {
