@@ -399,11 +399,21 @@ function img2eps () {
 }
 
 function ex () {
+  if command -v aunpack &> /dev/null; then
+    set -xe
+    for filename in "$@"; do
+      aunpack "$filename"
+    done
+    set +x
+    return 0
+  fi
+  warning 'Command aunpack not found. Install `atool`.'
   for filename in "$@"; do
     if [ -f "$filename" ]; then
       case "$filename" in
         *.tar.bz2)  tar xjf "$filename"  ;;
         *.tar.gz)   tar xzf "$filename"  ;;
+        *.tar.xz)   tar xf "$filename"  ;;
         *.bz2)      bunzip2 "$filename"  ;;
         *.rar)      unrar x "$filename"  ;;
         *.gz)       gunzip "$filename"   ;;
