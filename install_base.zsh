@@ -70,23 +70,6 @@ function checkcommand () {
   fi
 }
 
-repo="yuru7/PlemolJP"; font_name="$(basename $repo)"
-if [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && checkyes 'Install PlemolJP fonts?'; then
-  tmp_dir=$(mktemp -d); mkdir -p "$XDG_DATA_HOME/fonts/$font_name"; trap "rm -v -rf '$tmp_dir'" 1 2 3 15
-  latest=$(get_latest_release "$repo") \
-    && info "Downloading version: $latest" \
-    && download_release "$repo" "$latest/${font_name}_NF_$latest.zip" "$tmp_dir/x.zip" \
-    && unzip -d "$tmp_dir" "$tmp_dir/x.zip" \
-    && rm -rf "$XDG_DATA_HOME/fonts/$font_name"* \
-    && mv "$tmp_dir/$font_name"*/* "$XDG_DATA_HOME/fonts/" \
-    && fc-cache -vrf \
-    && checkyes 'Install to /usr/local/share/fonts?' \
-    && sudo mkdir -p "/usr/local/share/fonts" && sudo cp -r "$XDG_DATA_HOME/fonts/$font_name"* $_ \
-    && rm -rf "$XDG_DATA_HOME/fonts/$font_name"* \
-    && sudo fc-cache -vrf
-  rm -v -rf "$tmp_dir"
-fi
-
 # install pyenv and poetry
 if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]]; then
   error 'No python command found'
@@ -107,8 +90,64 @@ if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
 fi
 
 python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
-python -m pip install -U --user pipupgrade rich trash-cli yt-dlp
+python -m pip install -U --user pipupgrade rich trash-cli yt-dlp ttfautohint-py
 info 'python programs installation done'
+
+repo="yuru7/HackGen"; font_name="$(basename $repo)"
+function install_yuru_fonts () {
+  tmp_dir=$(mktemp -d); mkdir -p "$XDG_DATA_HOME/fonts/$font_name"; trap "rm -v -rf '$tmp_dir'" 1 2 3 15
+  set -e
+  local nerd='ryanoasis/nerd-fonts'
+  local latest=$(get_latest_release "$nerd")
+  download_release "$nerd" "$latest/IBMPlexMono.tar.xz" "$tmp_dir/IBMPlexMono.tar.xz" \
+    && tar vxf "$tmp_dir/IBMPlexMono.tar.xz" --directory "$tmp_dir"
+  download_release "$nerd" "$latest/Hack.tar.xz" "$tmp_dir/Hack.tar.xz" \
+    && tar vxf "$tmp_dir/Hack.tar.xz" --directory "$tmp_dir"
+  if checkyes 'Rebuild against latest nerd fonts?'; then
+    local BASE_DIR="$XDG_DATA_HOME/${font_name}"
+    update_git_repo "$BASE_DIR" git@github.com:"$repo".git \
+      && command cp "$tmp_dir/"*.ttf "$XDG_DATA_HOME/${font_name}/source"
+    echo '#!/bin/bash' >> "$BASE_DIR/cmap_patch.sh"
+    chmod +x "$BASE_DIR/cmap_patch.sh"
+    local opts=""
+    [[ x"$font_name" = x"PlemolJP" ]] && local opts="-n -v"
+    [[ x"$font_name" = x"HackGen" ]] && local opts="''"
+    ( \
+      cd "$BASE_DIR" \
+      && echo "$BASE_DIR" \
+      && eval "$BASE_DIR/${font_name:l}_generator.sh $opts ${plemoljp_version:=$latest}" \
+      && "$BASE_DIR/os2_patch.sh" \
+      && "$BASE_DIR/copyright.sh" \
+      && ("$BASE_DIR/cmap_patch.sh" 2>&1 | grep -v egrep) \
+      && mkdir -p "$BASE_DIR/build/${font_name}Console_NF" \
+      && mkdir -p "$BASE_DIR/build/${font_name}35Console_NF" \
+      && command mv -f "$BASE_DIR/"${font_name}35Console*.ttf "$BASE_DIR/build/${font_name}35Console_NF/" \
+      && command mv -f "$BASE_DIR/"${font_name}Console*.ttf "$BASE_DIR/build/${font_name}Console_NF/" \
+      && command rm -f "$BASE_DIR/"${font_name}*.ttf \
+    )
+    command cp -rf "$BASE_DIR/build/$font_name"*_NF "$tmp_dir"
+  else
+    local latest=$(get_latest_release "$repo")
+    info "Downloading version: $latest" \
+      && download_release "$repo" "$latest/${font_name}_NF_$latest.zip" "$tmp_dir/x.zip" \
+      && unzip -d "$tmp_dir" "$tmp_dir/x.zip"
+  fi
+  info 'Installing these fonts.' && ls -la "$tmp_dir/$font_name"*/* \
+    && rm -rf "$XDG_DATA_HOME/fonts/$font_name"* \
+    && mv "$tmp_dir/$font_name"*/* "$XDG_DATA_HOME/fonts/" \
+    && mv "$tmp_dir/"*.ttf "$XDG_DATA_HOME/fonts/" \
+    && fc-cache -vrf \
+    && checkyes 'Install to /usr/local/share/fonts?' \
+    && sudo mkdir -p "/usr/local/share/fonts" \
+    && sudo cp -r "$XDG_DATA_HOME/fonts/$font_name"* "/usr/local/share/fonts" \
+    && rm -rf "$XDG_DATA_HOME/fonts/$font_name"* \
+    && sudo fc-cache -vrf
+  rm -v -rf "$tmp_dir"
+}
+(true || [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && checkyes "Install ${font_name} fonts?") \
+  && install_yuru_fonts
+
+exit 0
 
 # install zsh shell utils
 function install_zsh_shell_utils () {
