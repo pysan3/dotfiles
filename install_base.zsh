@@ -325,7 +325,7 @@ function install_nvim () {
   # nvim dependencies
   pip install --user -U pynvim neovim-remote
   pnpm i -g neovim
-  luarocks --local --lua-version=5.1 install magick
+  luarocks --local --lua-version=5.1 install image.nvim
   # telescope
   checkcommand 'rg' 'cargo install ripgrep'
   # Lazy sync
