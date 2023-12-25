@@ -12,7 +12,7 @@ setopt sh_word_split
 current_dir="$PWD"
 
 function update_git_history () {
-  dist="$1"; repo_url="$2"
+  local dist="$1" repo_url="$2"
   if [ ! -d "$dist" ]; then
     info "Installing $dist"
     mkdir -p "$dist" && git clone "$repo_url" "$dist" \
@@ -22,7 +22,7 @@ function update_git_history () {
     && git -C "$dist" submodule update --init --recursive \
     && git -C "$dist" fetch --tags -f \
     || err_exit "Failed to update $dist"
-  [ $# -ge 3 ] && tag="$3" || tag=$(git -C "$dist" describe --tags $(git -C "$dist" rev-list --tags --max-count=1)) \
+  [ $# -ge 3 ] && local tag="$3" || local tag=$(git -C "$dist" describe --tags $(git -C "$dist" rev-list --tags --max-count=1)) \
     && git -C "$dist" checkout "$tag" \
     || err_exit "Failed to checkout to tag: $tag in $dist"
   for file in $(command find "$dist" -name '*.zsh' -type f); do
@@ -35,10 +35,10 @@ function update_git_history () {
 }
 
 function update_git_repo () {
-  dist="$1"; repo_url="$2"
+  local dist="$1" repo_url="$2"
   [ -d "$dist" ] && rm -rf "$dist"
-  [ $# -ge 3 ] && tag="--branch $3" || tag=""
-  cmd="git clone --depth 1 $tag $repo_url $dist"
+  [ $# -ge 3 ] && local tag="--branch $3" || local tag=""
+  local cmd="git clone --depth 1 $tag $repo_url $dist"
   info "Running command:\n$ $cmd" \
     && eval "$cmd" \
     && info "Success" || err_exit "Failed to run $cmd"
@@ -52,7 +52,7 @@ function get_latest_release () {
 }
 
 function download_release () {
-  repo="$1"; file="$2"; dest="$3"
+  local repo="$1" file="$2" dest="$3"
   info "Downloading https://github.com/$repo/releases/download/$file to $dest"
   curl -gL "https://github.com/$repo/releases/download/$file" -o "$dest"
 }
