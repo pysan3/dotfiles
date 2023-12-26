@@ -57,8 +57,13 @@ alias ..='cd ..'
 
 alias g='git'
 function cgit () { cd "${GIT_PREFIX_HOME:-$HOME/Git}" }
-alias main='(g co main || g co master) && g pl'
-clone () { cgit && git clone "$1" && cd "$(basename "$1" .git)" }
+function main () {
+  g co main || g co master \
+    && local branch="$(git rev-parse --abbrev-ref HEAD)" \
+    && g pull origin "$branch" \
+    && ([ $(g remote -v | grep upstream | wcl) -ge 1 ] && g pull upstream "$branch")
+}
+function clone () { cgit && git clone "$1" && cd "$(basename "$1" .git)" }
 function rmcwd () { local _DELETE="$(basename "$PWD")" && cd .. && rm -rf "$_DELETE" }
 export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
 function nopy () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') }
