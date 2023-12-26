@@ -18,10 +18,16 @@ local M = {
   build = ":Neorg sync-parsers",
   cmd = "Neorg",
   default_workspace = "Notes",
+  aug = vim.api.nvim_create_augroup("NorgAuG", { clear = true }),
 }
 
 M.init = function()
   require("norg-config.commands").setup({})
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    group = M.aug,
+    pattern = "*.norg",
+    command = "Neorg tangle current-file",
+  })
 end
 
 local function list_workspaces(w_dirs)
@@ -46,6 +52,7 @@ local function load_plugins()
     ["core.export.markdown"] = { config = { extensions = "all" } },
     ["core.presenter"] = { config = { zen_mode = "zen-mode" } },
     ["core.summary"] = {},
+    ["core.tangle"] = { config = { report_on_empty = false } },
     ["core.ui.calendar"] = {},
     ["core.journal"] = {
       config = {
