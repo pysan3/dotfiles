@@ -43,6 +43,7 @@ return {
     local norg_utils = require("norg-config.utils")
     kb.map("norg", "n", vim.g.personal_options.prefix.neorg .. "e", function()
       vim.cmd([[!norgc % gfm >/dev/null]])
+      vim.cmd.vsplit(vim.fn.expand("%:p:.:r") .. ".md")
     end, { desc = "Neorg: export to markdown and open file" })
     kb.map("norg", "n", vim.g.personal_options.prefix.neorg .. "E", function()
       vim.cmd([[!norgc % gfm >/dev/null]])
