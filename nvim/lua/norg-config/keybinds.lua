@@ -47,7 +47,7 @@ return {
     kb.map("norg", "n", vim.g.personal_options.prefix.neorg .. "E", function()
       vim.cmd([[!norgc % gfm >/dev/null]])
       vim.cmd.vsplit(vim.fn.expand("%:p:.:r") .. ".md")
-      vim.cmd([[GithubPreviewToggle]])
+      vim.cmd([[GithubPreviewStart]])
     end, { desc = "Neorg: export to markdown and open MarkdownPreview" })
     kb.map_event("norg", "n", vim.g.personal_options.prefix.neorg .. "c", "core.looking-glass.magnify-code-block")
     kb.map("norg", "n", vim.g.personal_options.prefix.neorg .. "q", "<Cmd>Neorg return<CR>")
