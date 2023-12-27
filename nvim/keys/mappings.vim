@@ -106,4 +106,7 @@ noremap x "_x
 noremap <Leader>c "_c
 
 " Repeat chars to make a heading
-iabbrev <expr> === repeat('=', 6)
+iabbrev <expr> 4= repeat('=', 4)
+iabbrev <expr> 5= repeat('=', 5)
+iabbrev <expr> 6= repeat('=', 6)
+iabbrev <expr> 8= repeat('=', 8)
