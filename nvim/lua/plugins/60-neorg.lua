@@ -18,6 +18,9 @@ local M = {
   },
   build = ":Neorg sync-parsers",
   cmd = "Neorg",
+  keys = {
+    { ",ni", "<Cmd>Neorg index<CR>" },
+  },
   default_workspace = "Notes",
   aug = vim.api.nvim_create_augroup("NorgAuG", { clear = true }),
 }
