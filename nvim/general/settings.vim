@@ -63,7 +63,7 @@ set showcmd                             " Show command line
 set splitbelow                          " Horizontal splits will automatically be below
 set splitright                          " Vertical splits will automatically be to the right
 set background=dark                     " Set background mode
-set title                               "Allow the window to display the edited filename
+set title                               " Allow the window to display the edited filename
 set autoread                            " Automatically read files modified in other editors
 
 "----------------------------------------------------------
