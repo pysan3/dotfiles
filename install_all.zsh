@@ -117,17 +117,4 @@ else
   info "firefox configurations is invalid or already installed"
 fi
 
-# mercury configurations
-ff_profile_dir=$(echo "$HOME/.mercury/"*.default-default)
-if [ ! -z "$ff_profile_dir" ]; then
-  userChrome="$ff_profile_dir/chrome/userChrome.css"
-  mkdir -p "$ff_profile_dir/chrome" \
-    && touch "$userChrome" && rm "$userChrome" \
-    && wget 'https://codeberg.org/Freeplay/Firefox-Onebar/raw/branch/main/userChrome.css' -O "$userChrome" \
-    && ln -sf "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
-    && info "Installed mercury configurations" || error "Failed to install mercury configurations"
-else
-  info "mercury configurations is invalid or already installed"
-fi
-
 true
