@@ -73,11 +73,11 @@ alias flatpak='flatpak --user -y'
 alias res="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
 function def() {
-  cmd="${@[$#]}" # last argument
-  res=$(whence -v "$cmd"); raw=$(whence "$cmd" | cut -d ' ' -f 1); lesscmd='less'
-  [ x"$cmd" = x"$raw" ] && res=${res//an alias/a recursive}
-  [ $(alias less &>/dev/null; echo $?) -eq 0 ] && lesscmd="$lesscmd -l zsh -pn"
-  echo "$res"; draw_help () { c=$(basename $1); tldr $c 2>/dev/null || eval "'$1' --help | $MANPAGER" || man $c }
+  local cmd="${@[$#]}" # last argument
+  local res="$(whence -v "$cmd")" raw="$(whence "$cmd" | cut -d ' ' -f 1)" lesscmd='less'
+  [ x"$cmd" = x"$raw" ] && local res=${res//an alias/a recursive}
+  [ $(alias less &>/dev/null; echo $?) -eq 0 ] && local lesscmd="$lesscmd -l zsh -pn"
+  echo "$res"; draw_help () { local c=$(basename $1); tldr $c 2>/dev/null || eval "'$1' --help | $MANPAGER" || man $c }
   case $res in
     *'not found'*)  checkyes "Google it?" && eval "?g linux cli $cmd";;
     *function*)     (printf '#!/usr/bin/env zsh\n\n'; whence -f "$raw") | eval "$lesscmd" ;;
@@ -91,7 +91,7 @@ alias upgradepy='pip install --upgrade --user pip pipupgrade && python -m pipupg
 alias upgraders='rustup update && nonohup cargo install-update --all 2>/dev/null &' # cargo install cargo-update
 alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
 function upgradeall() {
-  upgradecmds='py rs js'
+  local upgradecmds='py rs js'
   for lang in $upgradecmds; do
     eval "upgrade$lang" \
       && info "Success: $(alias upgrade$lang)" \
@@ -149,7 +149,7 @@ function cbw () {
   ( \
     set -a && source ~/.mySecrets.env && set +a \
     && bw unlock --passwordenv BW_PASSWORD >/dev/null;
-    echo $BW_PASSWORD | bw $*
+    echo $BW_PASSWORD | bw $@
   )
 }
 alias bwpass="jq '.login' | jq -r '.password' | sed 's/^ *\| *$//'"
@@ -172,7 +172,7 @@ function update_zwc () {
 }
 
 function dot() {
-  local old_dir="$PWD"
+  old_dir="$PWD"
   cd $DOTFILES
   if [ $# -ne 0 ]; then
     eval "$@"
@@ -215,8 +215,7 @@ function syncit () {
 }
 
 function textemplate () {
-  template="$1"
-  target="$2"
+  local template="$1" target="$2"
   if [ ! -f "$template" ]; then
     error "$template not found."
     return 1
@@ -253,19 +252,19 @@ function timer () { termdown $1 && cvlc "$NCPATH/900-その他/Music/Clock-Alarm
 alias ramen='timer 150'
 
 function pdflock () {
-  F="$2"
+  local F="$2"
   if [ ! -f "$F" ]; then
     echo "'$F' not found."; return 1
   fi
-  [ $# -lt 3 ] && TO="${2:r}_lock.pdf" || TO="$3"
+  [ $# -lt 3 ] && local TO="${2:r}_lock.pdf" || local TO="$3"
   echo "Found file: $F"
   echo "Locked file created: $TO"
   qpdf --encrypt "$1" "$1" 256 -- "$F" "$TO"
 }
 
-function lx () { command lynx -cfg="$LYNX_CFG" -lss="$LYNX_LSS" --useragent="$LYNX_USERAGENT" $* }
+function lx () { command lynx -cfg="$LYNX_CFG" -lss="$LYNX_LSS" --useragent="$LYNX_USERAGENT" $@ }
 function urlencode () {
-  local str="$*"; local encoded=""; local i c x
+  local str="$@" encoded="" i c x
   for (( i=0; i<${#str}; i++ )); do
     c=${str:$i:1}
     case "$c" in
@@ -276,22 +275,23 @@ function urlencode () {
   done
   echo "$encoded"
 }
-function duck () { local url=$(urlencode "$*") lx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=us-en&q=$url" }
-function duckja () { local url=$(urlencode "$*") lx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=jp-jp&q=$url" }
-function google () { local url=$(urlencode "$*") lx -cmd_script "$DOTFILES/static/lynx/google.key.log" "https://google.com/search?q=$url" }
+function duck () { lx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=us-en&q=$(urlencode $@)" }
+function duckja () { lx -cmd_script "$DOTFILES/static/lynx/duckduckgo.key.log" "https://duckduckgo.com/lite?kl=jp-jp&q=$(urlencode $@)" }
+function google () { lx -cmd_script "$DOTFILES/static/lynx/google.key.log" "https://google.com/search?q=$(urlencode $@)" }
+function imi () { lx "https://eow.alc.co.jp/search?q=$(urlencode $@)#resultsList-section" }
 alias "?"=duck "??"=duckja "?g"=google
 
 function pdfcompress () { ps2pdf -dPDFSETTINGS=/prepress -dCompatibilityLevel=1.4 -sOutputFile="compressed-$1" "$1" }
 
 function colortest () {
-  T='gYw'   # The test text
+  local T='gYw'   # The test text
   echo 'Color Test'
   echo '‾‾‾‾‾‾‾‾‾‾'
   echo -e "                 40m     41m     42m     43m     44m     45m     46m     47m"
   for FGs in '    m' '   1m' '  30m' '1;30m' '  31m' '1;31m' '  32m' \
              '1;32m' '  33m' '1;33m' '  34m' '1;34m' '  35m' '1;35m' \
              '  36m' '1;36m' '  37m' '1;37m'; do
-    FG=${FGs// /}
+    local FG=${FGs// /}
     echo -en " $FGs \033[$FG  $T  "
     for BG in 40m 41m 42m 43m 44m 45m 46m 47m; do echo -en "$EINS \033[$FG\033[$BG  $T  \033[0m"; done
     echo;
@@ -316,7 +316,7 @@ function cv2_get () {
 function tmv () { local sessioncmd="-t $1" && [ -z "$TMUX" ] && tmux a $sessioncmd || tmux switchc $sessioncmd }
 function tvim() {
   [ $# -ge 1 ] && cd "$1" && trap 'popd &>/dev/null' EXIT
-  workdir=$(get_workdir)
+  local workdir=$(get_workdir)
   if $(tmux has-session -t "=$workdir" 2> /dev/null); then
     tmv "$workdir"
     return 0
@@ -338,10 +338,10 @@ function venv() {
 }
 
 function pinit() {
-  cmd='pipenv install'
+  local cmd='pipenv install'
   if [ -f requirements.txt ] && checkyes 'Found a requirements.txt in the project. Do you want to reference it?'; then
     echo 'Installing from requirements.txt'
-    cmd="$cmd -r requirements.txt"
+    local cmd="$cmd -r requirements.txt"
   fi
   eval $cmd
   act
@@ -352,37 +352,31 @@ function pinit() {
 
 function tinit () {
   po init
-  res=$?
+  local res=$?
   po config virtualenvs.in-project true
   po env use $(python -c "import sys; i=sys.version_info; print(f'{i.major}.{i.minor}')")
-  if [ $res -ne 0 ]; then
-    if checkyes '`pyproject.toml` might already exist. Do you want to install packages from it?'; then
-      echo 'Installing from pyproject.toml'
-      po install
-    fi
-  elif [ -f requirements.txt ]; then
-    if checkyes 'Found a requirements.txt in the project. Do you want to reference it?'; then
-      echo 'Installing from requirements.txt'
-      checkyes 'Do you want to install the strict versions?'
-      strict_version=$?
-      packages=' '
-      cat requirements.txt | cut -f1 -d';' | while read package; do
-        if [[ x"$package" =~ ^x[#-].* ]]; then continue; fi
-        if [[ x"$package" = x ]]; then continue; fi
-        if [ $strict_version -ne 0 ]; then package=$(echo "$package" | cut -d'=' -f1); fi
-        packages="$packages '$package'"
-      done
-      eval "po add $packages"
-    fi
+  if [ $res -ne 0 ] && if checkyes '`pyproject.toml` might already exist. Do you want to install packages from it?'; then
+    echo 'Installing from pyproject.toml'
+    po install
+  elif [ -f requirements.txt ] && checkyes 'Found a requirements.txt in the project. Do you want to reference it?'; then
+    echo 'Installing from requirements.txt'
+    checkyes 'Do you want to install the strict versions?'
+    strict_version=$?
+    local packages=' '
+    cat requirements.txt | cut -f1 -d';' | while read package; do
+      [[ x"$package" =~ ^x[#-].* ]] && continue
+      [[ x"$package" = x ]] && continue
+      [ $strict_version -ne 0 ] && package=$(echo "$package" | cut -d'=' -f1)
+      packages="$packages '$package'"
+    done
+    eval "po add $packages"
   fi
-  act
+  act!
 }
 
 function cinit() {
   local current_dir="$PWD"
-  if [ x"$(basename "$PWD")" = xbuild ]; then
-    cd ..
-  fi
+  [ x"$(basename "$PWD")" = xbuild ] && cd ..
   rm -rf build
   mkdir build && cd build
   cmake ..
@@ -391,16 +385,18 @@ function cinit() {
 
 function pfwd() {
   local svr="$1" port="$2"; shift 2
-  eval "ssh -fNT $@ 127.0.0.1:${port}:127.0.0.1:${port} ${svr}" && echo "Port forward to: http://127.0.0.1:${port}"
+  eval "ssh -fNT $@ 127.0.0.1:${port}:127.0.0.1:${port} ${svr}" \
+    && echo "Port forward to: http://127.0.0.1:${port}"
 }
 
 function img2eps () {
   if ! command -v 'convert' &> /dev/null; then
+    error '`convert` not installed.'
     sudo apt install imagemagick -y
   fi
   for filename in $@; do
     echo "$filename"
-    name=$(echo $filename | cut -f 1 -d '.')
+    local name=$(echo $filename | cut -f 1 -d '.')
     convert $filename eps2:$name.eps
   done
 }
@@ -440,7 +436,7 @@ function ex () {
 
 function bak () {
   for filename in $@; do
-    bak_file="$filename.bak"
+    local bak_file="$filename.bak"
     if [ -f "$filename" ]; then
       mv -i "$filename" "$bak_file"
       [ -f "$filename" ] && warning "Skipping $filename"
@@ -454,7 +450,7 @@ function rebak () {
       error "$filename does not end with '.bak'. Skipping."
       continue
     fi
-    bak_file="${filename:r}"
+    local bak_file="${filename:r}"
     if [ -f "$filename" ]; then
       mv -i "$filename" "${bak_file}"
       [ -f "$filename" ] && warning "Skipping $filename"
