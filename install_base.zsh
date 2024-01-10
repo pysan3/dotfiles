@@ -1,6 +1,7 @@
 #!/usr/bin/zsh
 
-if [[ 'xdotfiles' != x$(basename ${DOTFILES:=$HOME/dotfiles}) ]]; then
+export DOTFILES=${DOTFILES:=$HOME/dotfiles}
+if [[ 'xdotfiles' != x$(basename "$DOTFILES") ]]; then
   echo "install_base.zsh might not be placed in the right place."
   echo "Try running it inside dotfile directory."
   exit
