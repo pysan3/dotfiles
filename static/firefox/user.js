@@ -286,7 +286,8 @@ user_pref("layout.css.has-selector.enabled", true);
 // see https://github.com/yokoffing/Betterfox/blob/master/Smoothfox.js
 // Enter your scrolling prefs below this line:
 user_pref("general.smoothScroll", true); // DEFAULT
-user_pref("mousewheel.default.delta_multiplier_y", 275); // 250-500
+user_pref("mousewheel.default.delta_multiplier_y", 250); // 250-500
+user_pref("apz.gtk.kinetic_scroll.enabled", false);
 
 /****************************************************************************
  * START: MY OVERRIDES                                                      *
@@ -343,3 +344,16 @@ user_pref("security.cert_pinning.enforcement_level", 0);
 /****************************************************************************
  * END: BETTERFOX                                                           *
  ****************************************************************************/
+
+/****************************************************************************
+ * Onebar configs
+ ****************************************************************************/
+user_pref("onebar.hide-all-URLbar-icons", false);            // Autohide all URLbar icons until hover
+user_pref("onebar.disable-autohide-of-URLbar-icons", false); // Disable autohiding of URLbar icons (prevents movement of URLbar)
+user_pref("onebar.disable-https-truncate", false);           // Disable truncating of https://
+user_pref("onebar.disable-centering-of-URLbar", false);      // Disable centering of URLbar on focus
+user_pref("onebar.disable-single-tab", true);                // Disable single-tab styling
+user_pref("onebar.hide-unified-extensions-button", false);   // Hide unified extensions button
+user_pref("onebar.hide-all-tabs-button", false);             // Hide all tabs button
+user_pref("onebar.conditional-navigation-buttons", true);    // Hide navigation buttons when disabled
+user_pref("onebar.hide-navigation-buttons", false);          // Allow hiding navigation buttons by dragging to the right of the URLbar
