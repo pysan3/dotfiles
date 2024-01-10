@@ -45,7 +45,7 @@ export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export SSB_HOME="$XDG_DATA_HOME/zoom"
 
 export GTK_USE_PORTAL=1
-export GTK_IM_MODULE='fcitx'
-export QT_IM_MODULE='fcitx'
-export XMODIFIERS='@im=fcitx'
-export SDL_IM_MODULE='fcitx'
+# export XMODIFIERS='@im=fcitx'
+# export GTK_IM_MODULE='fcitx'
+# export QT_IM_MODULE='fcitx'
+# export SDL_IM_MODULE='fcitx'
