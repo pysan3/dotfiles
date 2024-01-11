@@ -1,0 +1,37 @@
+#!/usr/bin/env zsh
+
+set -e
+
+[ -d "$DOTFILES" ] && source "$DOTFILES/functions.zsh"
+checkdependency 'getoptions'
+
+VERSION="0.1"
+
+parser_definition () {
+  setup REST help:usage -- "Usage: ${2##./} [-is]" ''
+  msg -- 'Options:'
+  flag SAVE   -s --save   -- "Start delta date relative to today."
+  flag IMPORT -i --import -- "Go back delta dates relative to today."
+  disp :usage -h --help
+  disp VERSION -V --version
+}
+
+eval "$(getoptions parser_definition - "$0") exit 1"
+
+checkdependency 'konsave'
+
+profile_name='plasma'
+save_path="$NCPATH/900-その他/${profile_name}.knsv"
+
+if [ "$SAVE" ]; then
+  info "Save plasma config with 'konsave' to ${save_path}."
+  konsave -s "$profile_name" -f
+  konsave -e "$profile_name" -d $(dirname "$save_path") -f
+fi
+
+if [ "$IMPORT" ]; then
+  info "Importing plasma config files from ${save_path}."
+  konsave -r "$profile_name" || true
+  konsave -i "$save_path"
+  konsave -a "$profile_name"
+fi
