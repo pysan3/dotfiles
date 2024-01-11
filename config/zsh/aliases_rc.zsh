@@ -171,8 +171,8 @@ function update_zwc () {
   return 0
 }
 
-function dot() {
-  old_dir="$PWD"
+function dot () {
+  local old_dir="$PWD"
   cd $DOTFILES
   if [ $# -ne 0 ]; then
     eval "$@"
@@ -307,7 +307,7 @@ function appearance () {
 }
 
 function cv2_get () {
-  cv2_path="$(python -c 'import cv2, os; print(os.path.dirname(cv2.__file__))')"
+  local cv2_path="$(python -c 'import cv2, os; print(os.path.dirname(cv2.__file__))')"
   wget https://raw.githubusercontent.com/microsoft/python-type-stubs/main/stubs/cv2-stubs/__init__.pyi \
     -O "$cv2_path/__init__.pyi"
   yes | cp "$cv2_path/__init__.pyi" "$cv2_path/cv2.pyi"
@@ -396,8 +396,7 @@ function img2eps () {
   fi
   for filename in $@; do
     echo "$filename"
-    local name=$(echo $filename | cut -f 1 -d '.')
-    convert $filename eps2:$name.eps
+    convert $filename eps2:${name:r}.eps
   done
 }
 
