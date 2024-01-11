@@ -4,7 +4,7 @@ export XDG_PREFIX_HOME="$HOME/.local"
 export XDG_DATA_HOME="$XDG_PREFIX_HOME/share"
 export XDG_STATE_HOME="$XDG_PREFIX_HOME/state"
 export XDG_BIN_HOME="$XDG_PREFIX_HOME/bin"
-export PATH="$XDG_BIN_HOME:$PATH"
+[[ "$PATH" == *"$XDG_BIN_HOME"* ]] || export PATH="$XDG_BIN_HOME:$PATH"
 
 export SUDO_EDITOR=nvim
 export skip_global_compinit=1

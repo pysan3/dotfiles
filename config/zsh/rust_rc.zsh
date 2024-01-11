@@ -11,6 +11,7 @@ function _append() {
 # js
 function load_nvm () {
   [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+  [[ "$PATH" == *"$PNPM_HOME"* ]] || export PATH="$PATH:$PNPM_HOME"
 }
 async_start_worker nvm_worker -n
 async_register_callback nvm_worker load_nvm
