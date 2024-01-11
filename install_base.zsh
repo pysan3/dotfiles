@@ -226,13 +226,13 @@ while IFS= read -r line; do
   [ x_ = x$(cargo_list_line_parse 'cmd' $line) ] && continue
   echo "$(cargo_list_line_parse 'alias' $line)" >> "$CARGO_ALIAS_CACHE"
 done < "$DOTFILES/static/list_rust_packages.txt"
-zcompile "$CARGO_ALIAS_CACHE"
 info 'cargo cli tools setup done'
 
 # use `bat` to display man pages
 if command -v bat &>/dev/null && ! grep -q 'MANROFFOPT' "$CARGO_ALIAS_CACHE"; then
   echo "export MANROFFOPT='-c' MANPAGER=\"sh -c 'col -bx | bat -l man -p'\"" >> "$CARGO_ALIAS_CACHE"
 fi
+zcompile "$CARGO_ALIAS_CACHE"
 
 # node, npm
 function install_nvm () {
