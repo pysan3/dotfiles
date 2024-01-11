@@ -81,7 +81,7 @@ function def() {
   case $res in
     *'not found'*)  checkyes "Google it?" && eval "?g linux cli $cmd";;
     *function*)     (printf '#!/usr/bin/env zsh\n\n'; whence -f "$raw") | eval "$lesscmd" ;;
-    *alias*)        def "$raw" ;;
+    *'an alias'*)   def "$raw" ;;
     *)              echo; draw_help "$raw"; whence "$raw" ;; # binary, builtin
   esac
 }
