@@ -144,9 +144,9 @@ bindkey "^[[3~" delete-char
 [ -f "$ZDOTDIR/aliases_rc.zsh" ] && source "$ZDOTDIR/aliases_rc.zsh"
 
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-source "$XDG_DATA_HOME"/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source "$XDG_DATA_HOME"/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source "$XDG_CONFIG_HOME"/fzf/fzf.zsh
+source "$XDG_DATA_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$XDG_DATA_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 # keybinds for plugins
 bindkey '^l' autosuggest-accept
 
