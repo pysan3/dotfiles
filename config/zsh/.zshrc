@@ -139,6 +139,7 @@ stty erase ""
 bindkey "^?" backward-delete-char
 bindkey "^[[3~" delete-char
 
+source "$XDG_DATA_HOME/zsh/zsh-async/async.zsh"
 [ -f "$ZDOTDIR/local_rc.zsh" ] && source "$ZDOTDIR/local_rc.zsh"
 [ -f "$ZDOTDIR/rust_rc.zsh" ] && source "$ZDOTDIR/rust_rc.zsh"
 [ -f "$ZDOTDIR/aliases_rc.zsh" ] && source "$ZDOTDIR/aliases_rc.zsh"

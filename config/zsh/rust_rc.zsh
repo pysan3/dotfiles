@@ -1,13 +1,5 @@
 #!/usr/bin/zsh
 
-function add_completions() {
-  # cmd="$1"; cache_file="$2"
-  if [ ! -f "$2" ]; then
-    eval "$1" > "$2"
-  fi
-  source "$2"
-}
-
 prepends='' appends=''
 function _prepend() {
   prepends="$1:$prepends"
@@ -17,9 +9,12 @@ function _append() {
 }
 
 # js
-local nvm_version=$(cat "$NVM_DIR/alias/default")
-_prepend "$NVM_DIR/versions/node/v${nvm_version}/bin"
-alias nvm="unalias nvm 2>/dev/null; source $NVM_DIR/nvm.sh; rehash; nvm"
+function load_nvm () {
+  [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+}
+async_start_worker nvm_worker -n
+async_register_callback nvm_worker load_nvm
+async_job nvm_worker sleep 0.1
 
 # Python
 _prepend "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin"

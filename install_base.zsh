@@ -155,6 +155,8 @@ function install_zsh_shell_utils () {
   update_git_history "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" https://github.com/zsh-users/zsh-syntax-highlighting.git
   ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-autosuggestions"
   update_git_history "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git
+  ZSH_ASYNC_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-async"
+  update_git_history "$ZSH_ASYNC_INSTALL_DIR" https://github.com/mafredri/zsh-async.git
 }
 install_zsh_shell_utils \
   && info 'Zsh extensions installation done' \
