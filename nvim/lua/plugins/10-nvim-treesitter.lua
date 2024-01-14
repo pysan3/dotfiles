@@ -19,6 +19,7 @@ local ts_packages = {
   "proto",
   "python",
   "rust",
+  "regex",
   "toml",
   "tsx",
   "typescript",
