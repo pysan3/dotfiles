@@ -91,7 +91,7 @@ if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
 fi
 
 python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
-python -m pip install -U --user pipupgrade rich trash-cli yt-dlp ttfautohint-py
+python -m pip install -U --user pipupgrade rich trash-cli yt-dlp ttfautohint-py termdown
 info 'python programs installation done'
 
 repo="yuru7/PlemolJP"; font_name="$(basename $repo)"
