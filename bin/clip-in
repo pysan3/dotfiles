@@ -5,5 +5,5 @@ if [[ x"$XDG_SESSION_TYPE" = x"wayland" ]]; then
 elif command -v 'xclip' &>/dev/null; then
   xclip -selection clipboard -i
 else
-  xsel -ip && xsel -op | xsel -ib
+  xsel -ib
 fi

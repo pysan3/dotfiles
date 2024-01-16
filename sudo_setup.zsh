@@ -30,7 +30,7 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
     use_yay=true
   fi
   set -xe
-  alias pacman="sudo pacman --noconfirm"
+  alias pacman="sudo pacman --noconfirm --sudoloop"
   pacman -Syu
   # basics
   pacman -S base-devel neofetch git tmux vim curl moreutils atool
@@ -49,7 +49,7 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
     error 'yay not found'
     exit 1
   fi
-  alias yay="yay --noconfirm"
+  alias yay="yay --noconfirm --sudoloop"
   # utils
   yay -S bmon btop
   # words
@@ -58,6 +58,8 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
   yay -S xdg-desktop-portal-kde xdg-desktop-portal-gtk xdg-desktop-portal-gnome
   # plemol install
   yay -S fontforge
+  # wayland stuffs
+  yay -S clipboard-sync
   # delete all cache
   pacman -Scc
   yay -Scc
