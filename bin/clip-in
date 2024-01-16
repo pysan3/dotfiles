@@ -2,8 +2,6 @@
 
 if [[ x"$XDG_SESSION_TYPE" = x"wayland" ]]; then
   wl-copy
-elif command -v 'clipboard' &/dev/null; then
-  clipboard
 elif command -v 'xclip' &>/dev/null; then
   xclip -selection clipboard -i
 else
