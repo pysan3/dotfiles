@@ -8,15 +8,17 @@ local M = {
   },
 }
 
+local config_path = vim.fn.stdpath("config") --[[@as string]]
+
 M.init = function()
   -- Command to edit snippets of the current file
   local snippet_file_infos = {
     snipmate = {
-      prefix = vim.fn.stdpath("config") .. "/snippets",
+      prefix = config_path .. "/snippets",
       ext = "snippets",
     },
     lua = {
-      prefix = vim.fn.stdpath("config") .. "/lua/snippets",
+      prefix = config_path .. "/lua/snippets",
       ext = "lua",
     },
   }
@@ -54,12 +56,11 @@ M.config = function()
   require("luasnip.loaders.from_snipmate").lazy_load()
   require("luasnip.loaders.from_vscode").lazy_load()
 
-  -- manually load snippets from `molleweide/LuaSnip-snippets.nvim`
+  ---Manually loaded snippets from `molleweide/LuaSnip-snippets.nvim`
+  local snippet_paths = vim.api.nvim_get_runtime_file("lua/luasnip_snippets/snippets", false)
+  table.insert(snippet_paths, config_path .. "/lua/snippets")
   require("luasnip.loaders.from_lua").lazy_load({
-    paths = vim.api.nvim_get_runtime_file("lua/luasnip_snippets/snippets", false),
-  })
-  require("luasnip.loaders.from_lua").lazy_load({
-    paths = vim.fn.stdpath("config") .. "/lua/snippets",
+    paths = snippet_paths,
   })
   -- code comment presets
   require("luasnip").filetype_extend("typescript", { "tsdoc" })
