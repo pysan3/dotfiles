@@ -19,14 +19,15 @@ function err_exit () {
 
 # warning 'dotfiles/functions.zsh is being loaded'
 
-function checkyes() {
-  result=1
+function checkyes () {
+  local result=1
   tput setaf 6
-  if [[ x$(basename $SHELL) = x'bash' ]]; then
-    read -p "$@ [y/N]: " yn; case "$yn" in [yY]*) result=0;; *) result=1;; esac
-  elif [[ x$(basename $SHELL) = x'zsh' ]]; then
-    printf "$@ [y/N]: "; if read -q; then result=0; else result=1; fi; echo
-  fi
+  printf "$@ [y/N]: " && read yn
+  case "$yn" in
+    [yY]*) local result=0 ;;
+    [qQ]*) exit 0 ;;
+    *) local result=1 ;;
+  esac
   tput sgr0
   return $result
 }
