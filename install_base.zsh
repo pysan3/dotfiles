@@ -90,7 +90,7 @@ if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
   info "Installing poetry" && curl https://install.python-poetry.org | python -
   export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin:$PATH"
   pyenv install --list | grep '^  3.'
-  read -p "Install python version: " python_version
+  echo -n "Install python version: " && read python_version
   pyenv install "$python_version"
   local installed_version=$(ls -1 "$PYENV_ROOT/versions/" | grep -v '>' | grep 3. | tail -1)
   pyenv global "$installed_version"
