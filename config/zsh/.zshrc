@@ -12,17 +12,11 @@
 #   builtin . $@
 # }
 
-mkdir -p "$XDG_CONFIG_HOME"
-mkdir -p "$XDG_CACHE_HOME"
-mkdir -p "$XDG_DATA_HOME"
-mkdir -p "$XDG_STATE_HOME"
-mkdir -p "$XDG_BIN_HOME"
-
 export LANG=en_US.utf8
 
 export EDITOR='vim'
-export XDG_CONFIG_HOME="$HOME/.config"
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 
 # load better run-help
 alias run-help &>/dev/null && unalias run-help
@@ -59,7 +53,7 @@ setopt INTERACTIVE_COMMENTS # allow comments in command line
 setopt NO_FLOW_CONTROL  # Disable Ctrl+S and Ctrl+Q
 
 # ${fg[blue]}等で色が利用できるようにする
-export TERM=xterm-256color
+export TERM="${TERM:-xterm-256color}"
 autoload -Uz colors && colors
 # PROMPTの色
 PROMPT="%{${fg_bold[green]}%}@%m%{${fg_bold[yellow]}%}>%{${fg_bold[red]}%}>%{${reset_color}%} "

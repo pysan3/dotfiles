@@ -12,8 +12,15 @@ if [[ x"$PWD" != x"$DOTFILES" ]]; then
   exit
 fi
 
+source "$DOTFILES/.zshenv"
 zcompile "$DOTFILES/functions.zsh"
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
+
+mkdir -p "$XDG_CONFIG_HOME"
+mkdir -p "$XDG_CACHE_HOME/zsh"
+mkdir -p "$XDG_DATA_HOME"
+mkdir -p "$XDG_STATE_HOME"
+mkdir -p "$XDG_BIN_HOME"
 
 # Create gnupg dir
 [ ! -d "$XDG_DATA_HOME/gnupg" ] && (mkdir -p "$XDG_DATA_HOME/gnupg" && chmod 600 "$XDG_DATA_HOME/gnupg")
