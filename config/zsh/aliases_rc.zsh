@@ -2,7 +2,6 @@ export DOTFILES=$HOME/dotfiles
 source "$DOTFILES/functions.zsh"
 
 # export PATH="$HOME"/myCommands:"$HOME"/myCommands/bin:$PATH
-export FZF_DEFAULT_OPTS='--height=40% --cycle --info=hidden --tabstop=4 --black'
 
 export PIPENV_VENV_IN_PROJECT=1
 export PIPENV_NO_INHERIT=1
@@ -14,7 +13,6 @@ export CONDA_ALWAYS_YES="true"
 export CLICOLOR=1
 export EDITOR='vim'
 export MAKEFLAGS="-j$(nproc)"
-export RUSTC_WRAPPER=sccache
 
 [ x"$MYENV" = 'x' ] && export MYENV='undefined'
 [ x"$PCNAME" = 'x' ] && export PCNAME='undefined'
@@ -65,7 +63,6 @@ function main () {
 }
 function clone () { cgit && git clone "$1" && cd "$(basename "$1" .git)" }
 function rmcwd () { local _DELETE="$(basename "$PWD")" && cd .. && rm -rf "$_DELETE" }
-export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
 function nopy () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') }
 function nojs () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v npm | grep -v nvm | xargs | sed -e 's/ /:/g') }
 function yay () { ( nopy && nojs && command yay --noconfirm --sudoloop $@ ) }

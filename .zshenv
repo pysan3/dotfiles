@@ -6,6 +6,7 @@ export XDG_STATE_HOME="$XDG_PREFIX_HOME/state"
 export XDG_BIN_HOME="$XDG_PREFIX_HOME/bin"
 [[ "$PATH" == *"$XDG_BIN_HOME"* ]] || export PATH="$XDG_BIN_HOME:$PATH"
 
+export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
 export SUDO_EDITOR=nvim
 export skip_global_compinit=1
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
@@ -14,6 +15,7 @@ export CABAL_DIR="$XDG_CACHE_HOME/cabal"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export FZF_DEFAULT_OPTS='--height=40% --cycle --info=hidden --tabstop=4 --black'
 export GHCUP_USE_XDG_DIRS=1
 export STACK_ROOT="$XDG_DATA_HOME/stack"
 export GOPATH="$XDG_DATA_HOME/go"
@@ -41,6 +43,7 @@ export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 export GEM_HOME="$XDG_DATA_HOME/gem"
 export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export RUSTC_WRAPPER=sccache
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export SSB_HOME="$XDG_DATA_HOME/zoom"
 
