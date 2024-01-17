@@ -83,11 +83,20 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
     err_exit 'Please set `python` command to run Python 3.x'
   fi
 fi
+
 if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
+  set -xe
   info "Installing pyenv" && curl https://pyenv.run | bash
   info "Installing poetry" && curl https://install.python-poetry.org | python -
-  err_exit "Install the appropriate python version first. Aborting."
-  exit 0
+  export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin:$PATH"
+  pyenv install --list | grep '^  3.'
+  read -p "Install python version: " python_version
+  pyenv install "$python_version"
+  local installed_version=$(ls -1 "$PYENV_ROOT/versions/" | grep -v '>' | grep 3. | tail -1)
+  pyenv global "$installed_version"
+  ( cd "$PYENV_ROOT/versions/" && ls -sf "$installed_version" global )
+  rehash
+  set +xe
 fi
 
 python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
