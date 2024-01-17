@@ -94,7 +94,7 @@ if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
   pyenv install "$python_version"
   local installed_version=$(ls -1 "$PYENV_ROOT/versions/" | grep -v '>' | grep 3. | tail -1)
   pyenv global "$installed_version"
-  ( cd "$PYENV_ROOT/versions/" && ls -sf "$installed_version" global )
+  ( cd "$PYENV_ROOT/versions/" && ln -sf "$installed_version" global )
   rehash
   set +e
 fi
