@@ -140,7 +140,7 @@ function install_yuru_fonts () {
     && tar vxf "$tmp_dir/Hack.tar.xz" --directory "$tmp_dir"
   if _checkyes 'Rebuild against latest nerd fonts?'; then
     local BASE_DIR="$XDG_DATA_HOME/${font_name}"
-    update_git_repo "$BASE_DIR" git@github.com:"$repo".git \
+    update_git_repo "$BASE_DIR" https://github.com/"$repo".git \
       && command cp "$tmp_dir/"*.ttf "$XDG_DATA_HOME/${font_name}/source"
     echo '#!/bin/bash' >> "$BASE_DIR/cmap_patch.sh"
     chmod +x "$BASE_DIR/cmap_patch.sh"
@@ -343,7 +343,7 @@ function install_julia () {
 
 # install norg pandoc
 function install_norganic () {
-  update_git_history "$XDG_DATA_HOME/norganic" git@github.com:Klafyvel/norganic.git \
+  update_git_history "$XDG_DATA_HOME/norganic" https://github.com/Klafyvel/norganic.git \
     && cd "$XDG_DATA_HOME/norganic" \
     && make && make comonicon \
     && ln -s "$XDG_DATA_HOME/norganic/build/norganic/bin/norganic" "$XDG_BIN_HOME" \
