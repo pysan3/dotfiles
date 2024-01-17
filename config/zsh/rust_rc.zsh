@@ -24,7 +24,7 @@ _prepend "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POE
 _prepend "$GOPATH/bin"
 
 # alias to command line utils
-_append "$CARGO_HOME/bin"
+_prepend "$CARGO_HOME/bin"
 [ -f "${CARGO_ALIAS_CACHE:=$XDG_CACHE_HOME/cargo/alias_local.zsh}" ] && source "$CARGO_ALIAS_CACHE"
 
 # Nim

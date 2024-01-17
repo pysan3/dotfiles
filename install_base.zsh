@@ -191,7 +191,7 @@ function install_rust_cargo () {
     read tmp
   fi
 }
-(false || ! command -v 'cargo' &> /dev/null) && install_rust_cargo
+(false || ! command -v 'cargo' &> /dev/null || ! [[ "$(which cargo)" == *"$CARGO_HOME"* ]]) && install_rust_cargo
 
 function cargo_list_line_parse() {
   return_value="$1"; shift 1
