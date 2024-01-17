@@ -11,6 +11,7 @@ source "$DOTFILES/.zshenv"
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 setopt sh_word_split
 current_dir="$PWD"
+first_install=false
 
 function update_git_history () {
   local dist="$1" repo_url="$2"
@@ -95,6 +96,7 @@ if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
   local installed_version=$(ls -1 "$PYENV_ROOT/versions/" | grep -v '>' | grep 3. | tail -1)
   pyenv global "$installed_version"
   ( cd "$PYENV_ROOT/versions/" && ln -sf "$installed_version" global )
+  first_install=true
   rehash
   set +e
 fi
@@ -154,7 +156,7 @@ function install_yuru_fonts () {
     && sudo fc-cache -vrf
   rm -v -rf "$tmp_dir"
 }
-(false || [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && checkyes "Install ${font_name} fonts?") \
+(first_install || [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && checkyes "Install ${font_name} fonts?") \
   && install_yuru_fonts
 
 # install zsh shell utils
@@ -191,7 +193,7 @@ function install_rust_cargo () {
     read tmp
   fi
 }
-(false || ! command -v 'cargo' &> /dev/null || ! [[ "$(which cargo)" == *"$CARGO_HOME"* ]]) && install_rust_cargo
+(first_install || ! command -v 'cargo' &> /dev/null || ! [[ "$(which cargo)" == *"$CARGO_HOME"* ]]) && install_rust_cargo
 
 function cargo_list_line_parse() {
   return_value="$1"; shift 1
@@ -269,7 +271,7 @@ function install_nvm () {
     npm i -g pnpm
   fi
 }
-(false || ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null) && install_nvm
+(first_install || ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null) && install_nvm
 source "$NVM_DIR/nvm.sh"
 export PATH="$(npm config get prefix)/bin:$PNPM_HOME:$PATH"
 # install necessary npm cli commands
@@ -279,7 +281,7 @@ pnpm i -g @bitwarden/cli bun
 function install_nim () {
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh
 }
-(false || ! command -v 'nim' &>/dev/null || ! command -v 'nimble' &>/dev/null) && install_nim
+(first_install || ! command -v 'nim' &>/dev/null || ! command -v 'nimble' &>/dev/null) && install_nim
 rehash
 
 # lua, luarocks
@@ -296,7 +298,7 @@ function install_lua () {
     && info "luarocks installed successfully" || err_exit "luarocks install FAILED"
   cd "$current_dir"
 }
-(false || ! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null) && install_lua
+(first_install || ! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null) && install_lua
 
 function install_golang () {
   tmp_file=$(mktemp)
@@ -305,7 +307,7 @@ function install_golang () {
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
     && info "go installed successfully" || err_exit "go install FAILED"
 }
-(false || ! command -v 'go' &>/dev/null) && install_golang
+(first_install || ! command -v 'go' &>/dev/null) && install_golang
 
 function install_julia () {
   set -xe
@@ -314,7 +316,7 @@ function install_julia () {
   juliaup add release
   juliaup update release
 }
-(false || ! command -v 'juliaup' &>/dev/null || ! command -v 'julia' &>/dev/null) && install_julia
+(first_install || ! command -v 'juliaup' &>/dev/null || ! command -v 'julia' &>/dev/null) && install_julia
 
 # install norg pandoc
 function install_norganic () {
@@ -324,7 +326,7 @@ function install_norganic () {
     && ln -s "$XDG_DATA_HOME/norganic/build/norganic/bin/norganic" "$XDG_BIN_HOME" \
     && info "norganic installed successfully" || err_exit "norganic install FAILED"
 }
-(false || ! command -v 'norganic' &>/dev/null) && install_norganic
+(first_install || ! command -v 'norganic' &>/dev/null) && install_norganic
 
 # install nvim from source
 function install_nvim () {
@@ -343,7 +345,7 @@ function install_nvim () {
   # Lazy sync
   nvim --headless "+Lazy! sync | TSUpdateSync" "+noa qa"
 }
-(false || ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?') && install_nvim
+(first_install || ! command -v 'nvim' &>/dev/null || checkyes 'Install nvim from source?') && install_nvim
 
 # install fzf
 FZF_INSTALL_DIR="$XDG_DATA_HOME/fzf"
@@ -353,14 +355,14 @@ function install_fzf () {
     && zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh" \
     && info 'fzf setup done' || err_exit 'fzf setup failed'
 }
-(false || ! command -v 'fzf' &>/dev/null) && install_fzf
+(first_install || ! command -v 'fzf' &>/dev/null) && install_fzf
 
 # install getoptions
 function install_getoptions () {
   wget https://github.com/ko1nksm/getoptions/releases/latest/download/getoptions -O $XDG_BIN_HOME/getoptions
   chmod +x $XDG_BIN_HOME/getoptions
 }
-(false || ! command -v 'getoptions' &>/dev/null) && install_getoptions
+(first_install || ! command -v 'getoptions' &>/dev/null) && install_getoptions
 
 # install ulog / logrotate
 function install_log_rotate () {
