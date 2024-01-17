@@ -85,7 +85,7 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
 fi
 
 if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
-  set -xe
+  set -e
   info "Installing pyenv" && curl https://pyenv.run | bash
   info "Installing poetry" && curl https://install.python-poetry.org | python -
   export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin:$PATH"
@@ -96,7 +96,7 @@ if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
   pyenv global "$installed_version"
   ( cd "$PYENV_ROOT/versions/" && ls -sf "$installed_version" global )
   rehash
-  set +xe
+  set +e
 fi
 
 python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
