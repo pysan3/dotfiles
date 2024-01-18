@@ -232,6 +232,7 @@ install_zsh_shell_utils \
   || error 'Zsh extensions installation failed'
 
 # RUST
+alias cargobi='cargo binstall --no-confirm'
 function install_rust_cargo () {
   if t $CARGO || $first_install || checkyes "Seems you don't have cargo (rust) installed. Install?"; then
     tmp_file=$(mktemp); trap "rm -rf '$tmp_file'" 1 2 3 15
@@ -241,10 +242,8 @@ function install_rust_cargo () {
       && rm "$tmp_file" \
       || err_exit "cargo failed to install"
     source "$CARGO_HOME/env"
-    unset RUSTC_WRAPPER
-    cargo install sccache
-    export RUSTC_WRAPPER=sccache
-    cargo install cargo-update cargo-cache && info "Successfully installed cargo"
+    wget -O- https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+    cargobi cargo-update cargo-cache && info "Successfully installed cargo"
   else
     echo 'Press C-c to exit and install cargo manually. Or press ENTER to continue.'
     warning 'cargo is a MUST required dependency for further executions'
@@ -276,7 +275,6 @@ function cargo_list_line_parse() {
 }
 
 source "$CARGO_HOME/env"
-export RUSTC_WRAPPER=sccache
 CARGO_ALIAS_CACHE="${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}"
 pkg_list=''; mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
 while IFS= read -r line; do
@@ -288,8 +286,8 @@ while IFS= read -r line; do
   command -v ${alt} &>/dev/null || pkg_list="$pkg_list $pkg"
 done < "$DOTFILES/static/list_rust_packages.txt"
 uniq_pkg_list=$(echo "$pkg_list" | sed 's/ /\n/g' | uniq | xargs)
-[[ -n "$uniq_pkg_list" ]] && ( $CARGO || $first_install || _checkyes "Execute: 'cargo install $uniq_pkg_list'?" ) \
-  && eval "cargo install $uniq_pkg_list"
+[[ -n "$uniq_pkg_list" ]] && ( t $CARGO || $first_install || checkyes "Execute: 'cargo binstall $uniq_pkg_list'?" ) \
+  && eval "cargobi $uniq_pkg_list"
 while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
   alt=$(cargo_list_line_parse 'alt' $line | cut -d ' ' -f 1)
@@ -399,7 +397,7 @@ function install_nvim () {
   pnpm i -g neovim
   luarocks --local --lua-version=5.1 install image.nvim
   # telescope
-  checkcommand 'rg' 'cargo install ripgrep'
+  checkcommand 'rg' 'cargobi ripgrep'
   # Lazy sync
   nvim --headless "+Lazy! sync | TSUpdateSync" "+noa qa"
 }

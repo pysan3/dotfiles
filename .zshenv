@@ -43,7 +43,6 @@ export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 export GEM_HOME="$XDG_DATA_HOME/gem"
 export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-export RUSTC_WRAPPER=sccache
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export SSB_HOME="$XDG_DATA_HOME/zoom"
 
