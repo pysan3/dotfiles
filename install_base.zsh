@@ -366,26 +366,25 @@ function install_golang () {
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
     && info "go installed successfully" || err_exit "go install FAILED"
 }
-($GO || $first_install || ! command -v 'go' &>/dev/null) && install_golang
+(t $GO || $first_install || ! command -v 'go' &>/dev/null) && install_golang
 
-function install_julia () {
-  set -xe
-  cargo install juliaup
-  juliaup self update
-  juliaup add release
-  juliaup update release
-}
-($JULUA || $first_install || ! command -v 'juliaup' &>/dev/null || ! command -v 'julia' &>/dev/null) && install_julia
-
-# install norg pandoc
-function install_norganic () {
-  update_git_history "$XDG_DATA_HOME/norganic" https://github.com/Klafyvel/norganic.git \
-    && cd "$XDG_DATA_HOME/norganic" \
-    && make && make comonicon \
-    && ln -s "$XDG_DATA_HOME/norganic/build/norganic/bin/norganic" "$XDG_BIN_HOME" \
-    && info "norganic installed successfully" || err_exit "norganic install FAILED"
-}
-($JULIA || $first_install || ! command -v 'norganic' &>/dev/null) && install_norganic
+# # install norg pandoc
+# function install_julia () {
+#   set -xe
+#   cargobi juliaup
+#   juliaup self update
+#   juliaup add release
+#   juliaup update release
+# }
+# (t $JULUA || $first_install || ! command -v 'juliaup' &>/dev/null || ! command -v 'julia' &>/dev/null) && install_julia
+# function install_norganic () {
+#   update_git_history "$XDG_DATA_HOME/norganic" https://github.com/Klafyvel/norganic.git \
+#     && cd "$XDG_DATA_HOME/norganic" \
+#     && make && make comonicon \
+#     && ln -s "$XDG_DATA_HOME/norganic/build/norganic/bin/norganic" "$XDG_BIN_HOME" \
+#     && info "norganic installed successfully" || err_exit "norganic install FAILED"
+# }
+# ($JULIA || $first_install || ! command -v 'norganic' &>/dev/null) && install_norganic
 
 # install nvim from source
 function install_nvim () {
