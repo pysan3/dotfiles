@@ -117,6 +117,18 @@ parser_definition () {
   msg -- 'Options:'
   flag YES -y --yes -- "Answer yes to all questions"
   flag NO  -n --no  -- "Answer no to all questions"
+  flag FONTS --fonts -- "Install fonts"
+  flag FZF   --fzf   -- "Install fzf"
+  flag ULOG  --ulog  -- "Install ulog / ulog_rotate"
+  flag CARGO --cargo -- "Install missing rust packages"
+  flag NODE  --node  -- "Install node, npm, pnpm"
+  flag NIM   --nim   -- "Install nim from choosenim"
+  flag LUA   --lua   -- "Install lua and luarocks"
+  flag GO    --go    -- "Install go"
+  flag JULUA --julia -- "Install julia (requires cargo)"
+  flag TMUX  --tmux  -- "Install tmux"
+  flag LYNX  --lynx  -- "Install lynx"
+  flag PROTO --proto -- "Install google protobuf (protoc)"
   disp :usage -h --help
 }
 eval "$(getoptions parser_definition - "$0") exit 1"
@@ -138,7 +150,7 @@ function install_yuru_fonts () {
     && tar vxf "$tmp_dir/IBMPlexMono.tar.xz" --directory "$tmp_dir"
   download_release "$nerd" "$latest/Hack.tar.xz" "$tmp_dir/Hack.tar.xz" \
     && tar vxf "$tmp_dir/Hack.tar.xz" --directory "$tmp_dir"
-  if _checkyes 'Rebuild against latest nerd fonts?'; then
+  if checkyes 'Rebuild against latest nerd fonts?'; then
     local BASE_DIR="$XDG_DATA_HOME/${font_name}"
     update_git_repo "$BASE_DIR" https://github.com/"$repo".git \
       && command cp "$tmp_dir/"*.ttf "$XDG_DATA_HOME/${font_name}/source"
@@ -172,15 +184,36 @@ function install_yuru_fonts () {
     && mv "$tmp_dir/$font_name"*/* "$XDG_DATA_HOME/fonts/" \
     && mv "$tmp_dir/"*.ttf "$XDG_DATA_HOME/fonts/" \
     && fc-cache -vrf \
-    && _checkyes 'Install to /usr/local/share/fonts?' \
+    && checkyes 'Install to /usr/local/share/fonts?' \
     && sudo mkdir -p "/usr/local/share/fonts" \
     && sudo cp -r "$XDG_DATA_HOME/fonts/$font_name"* "/usr/local/share/fonts" \
     && rm -rf "$XDG_DATA_HOME/fonts/$font_name"* \
     && sudo fc-cache -vrf
   rm -v -rf "$tmp_dir"
 }
-($first_install || [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && _checkyes "Install ${font_name} fonts?") \
+($FONTS || $first_install || [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && _checkyes "Install ${font_name} fonts?") \
   && install_yuru_fonts
+
+# install fzf
+FZF_INSTALL_DIR="$XDG_DATA_HOME/fzf"
+function install_fzf () {
+  update_git_history "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh \
+    && "$FZF_INSTALL_DIR/install" --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish \
+    && zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh" \
+    && info 'fzf setup done' || err_exit 'fzf setup failed'
+}
+($FZF || $first_install || ! command -v 'fzf' &>/dev/null) && install_fzf
+
+# install ulog / logrotate
+function install_log_rotate () {
+  update_git_history "$XDG_DATA_HOME/ulog" https://github.com/shawnfeng0/ulog.git
+  mkdir -p "$XDG_DATA_HOME/ulog/build" && cd "$_" \
+    && cmake .. && make \
+    && ln -sf "$XDG_DATA_HOME/ulog/build/tools/logrotate/logrotate" "$XDG_BIN_HOME/ulog_rotate" \
+    && info 'ulog_rotate setup done' || err_exit 'ulog_rotate setup failed'
+  cd "$current_dir"
+}
+command -v 'ulog_rotate' &>/dev/null && info 'ulog_rotate found' || install_log_rotate
 
 # install zsh shell utils
 function install_zsh_shell_utils () {
@@ -198,7 +231,7 @@ install_zsh_shell_utils \
 
 # RUST
 function install_rust_cargo () {
-  if _checkyes "Seems you don't have cargo (rust) installed. Install?"; then
+  if $first_install || _checkyes "Seems you don't have cargo (rust) installed. Install?"; then
     tmp_file=$(mktemp); trap "rm -rf '$tmp_file'" 1 2 3 15
     wget -O "$tmp_file" https://sh.rustup.rs \
       && chmod +x "$tmp_file" \
@@ -252,7 +285,7 @@ while IFS= read -r line; do
   command -v ${alt} &>/dev/null || pkg_list="$pkg_list $pkg"
 done < "$DOTFILES/static/list_rust_packages.txt"
 uniq_pkg_list=$(echo "$pkg_list" | sed 's/ /\n/g' | uniq | xargs)
-[[ -n "$uniq_pkg_list" ]] && _checkyes "Execute: 'cargo install $uniq_pkg_list'?" \
+[[ -n "$uniq_pkg_list" ]] && ( $CARGO || $first_install || _checkyes "Execute: 'cargo install $uniq_pkg_list'?" ) \
   && eval "cargo install $uniq_pkg_list"
 while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
@@ -272,7 +305,7 @@ zcompile "$CARGO_ALIAS_CACHE"
 
 # node, npm
 function install_nvm () {
-  if _checkyes 'Installing node / npm. Can you use sudo?'; then
+  if checkyes 'Installing node / npm. Can you use sudo?'; then
     sudo apt install npm -y
     sudo npm install -g n
     sudo n stable
@@ -284,7 +317,7 @@ function install_nvm () {
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
     zcompile "$NVM_DIR/nvm.sh"
     source "$NVM_DIR/nvm.sh"
-    if _checkyes 'Use --lts (y) or latest node (N)?'; then
+    if checkyes 'Use --lts (y) or latest node (N)?'; then
       nvm install --lts
     else
       nvm install node
@@ -294,8 +327,8 @@ function install_nvm () {
     npm i -g pnpm
   fi
 }
-($first_install || ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null) && install_nvm
-source "$NVM_DIR/nvm.sh"
+($NODE || $first_install || ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null) && install_nvm
+[ -f "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
 export PATH="$(npm config get prefix)/bin:$PNPM_HOME:$PATH"
 # install necessary npm cli commands
 pnpm i -g @bitwarden/cli bun
@@ -304,7 +337,7 @@ pnpm i -g @bitwarden/cli bun
 function install_nim () {
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh
 }
-($first_install || ! command -v 'nim' &>/dev/null || ! command -v 'nimble' &>/dev/null) && install_nim
+($NIM || $first_install || ! command -v 'nim' &>/dev/null || ! command -v 'nimble' &>/dev/null) && install_nim
 rehash
 
 # lua, luarocks
@@ -321,7 +354,7 @@ function install_lua () {
     && info "luarocks installed successfully" || err_exit "luarocks install FAILED"
   cd "$current_dir"
 }
-($first_install || ! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null) && install_lua
+($LUA || $first_install || ! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null) && install_lua
 
 function install_golang () {
   tmp_file=$(mktemp)
@@ -330,7 +363,7 @@ function install_golang () {
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
     && info "go installed successfully" || err_exit "go install FAILED"
 }
-($first_install || ! command -v 'go' &>/dev/null) && install_golang
+($GO || $first_install || ! command -v 'go' &>/dev/null) && install_golang
 
 function install_julia () {
   set -xe
@@ -339,7 +372,7 @@ function install_julia () {
   juliaup add release
   juliaup update release
 }
-($first_install || ! command -v 'juliaup' &>/dev/null || ! command -v 'julia' &>/dev/null) && install_julia
+($JULUA || $first_install || ! command -v 'juliaup' &>/dev/null || ! command -v 'julia' &>/dev/null) && install_julia
 
 # install norg pandoc
 function install_norganic () {
@@ -349,7 +382,7 @@ function install_norganic () {
     && ln -s "$XDG_DATA_HOME/norganic/build/norganic/bin/norganic" "$XDG_BIN_HOME" \
     && info "norganic installed successfully" || err_exit "norganic install FAILED"
 }
-($first_install || ! command -v 'norganic' &>/dev/null) && install_norganic
+($JULIA || $first_install || ! command -v 'norganic' &>/dev/null) && install_norganic
 
 # install nvim from source
 function install_nvim () {
@@ -371,63 +404,9 @@ function install_nvim () {
 # ($first_install || ! command -v 'nvim' &>/dev/null || _checkyes 'Install nvim from source?') && install_nvim
 install_nvim
 
-# install fzf
-FZF_INSTALL_DIR="$XDG_DATA_HOME/fzf"
-function install_fzf () {
-  update_git_history "$FZF_INSTALL_DIR" https://github.com/junegunn/fzf.git shell/completion.zsh \
-    && "$FZF_INSTALL_DIR/install" --xdg --key-bindings --completion --no-update-rc --no-bash --no-fish \
-    && zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh" \
-    && info 'fzf setup done' || err_exit 'fzf setup failed'
-}
-($first_install || ! command -v 'fzf' &>/dev/null) && install_fzf
-
-# install ulog / logrotate
-function install_log_rotate () {
-  update_git_history "$XDG_DATA_HOME/ulog" https://github.com/shawnfeng0/ulog.git
-  mkdir -p "$XDG_DATA_HOME/ulog/build" && cd "$_" \
-    && cmake .. && make \
-    && ln -sf "$XDG_DATA_HOME/ulog/build/tools/logrotate/logrotate" "$XDG_BIN_HOME/ulog_rotate" \
-    && info 'ulog_rotate setup done' || err_exit 'ulog_rotate setup failed'
-  cd "$current_dir"
-}
-command -v 'ulog_rotate' &>/dev/null && info 'ulog_rotate found' || install_log_rotate
-
-# install lynx from source
-command -v 'lynx' &>/dev/null && info 'lynx found' || warning 'lynx not found.'
-if _checkyes 'Install lynx from source?'; then
-  cd "$XDG_DATA_HOME" && wget -c http://invisible-island.net/datafiles/release/lynx-cur.zip \
-    && unzip -o lynx-cur.zip && rm -rf lynx-cur.zip && cd $(ls -d lynx*/ | grep -v lynx_ | tail -1) \
-    && ./configure --prefix="$XDG_PREFIX_HOME" --exec-prefix="$XDG_PREFIX_HOME" --mandir="$XDG_PREFIX_HOME/man" \
-        --enable-externs --enable-find-leaks --enable-gnutls-compat --enable-gzip-help \
-        --enable-internal-links --enable-ipv6 --enable-japanese-utf8 --enable-local-docs --enable-nested-tables \
-        --enable-nls --enable-widec --with-ssl --with-screen=ncursesw --without-cfg-file --with-zlib \
-    && make install && make install-help && make install-doc \
-    && info 'lynx setup done' || err_exit 'lynx setup failed'
-  cd "$current_dir"
-fi
-
-# install nvtop from source
-command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found.'
-if _checkyes 'Install nvtop from source?'; then
-  update_git_history "$XDG_DATA_HOME/nvtop" https://github.com/Syllo/nvtop.git \
-    && mkdir -p "$XDG_DATA_HOME/nvtop/build" && cd "$_" \
-    && cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make install \
-    && info 'nvtop setup done' || err_exit 'nvtop setup failed'
-  cd "$current_dir"
-fi
-
-# install gh from source
-command -v 'gh' &>/dev/null && info 'gh found' || warning 'gh not found.'
-if _checkyes 'Install gh from source?'; then
-  update_git_history "$XDG_DATA_HOME/gh-cli" https://github.com/cli/cli.git \
-    && cd "$XDG_DATA_HOME/gh-cli" && make install prefix="$XDG_PREFIX_HOME" \
-    && info 'gh setup done' || err_exit 'gh setup failed'
-  cd "$current_dir"
-fi
-
 # install tmux from source
 command -v 'tmux' &>/dev/null && info 'tmux found' || warning 'tmux not found.'
-if _checkyes 'Install tmux from source?'; then
+if $TMUX || _checkyes 'Install tmux from source?'; then
   update_git_history "$XDG_DATA_HOME/tmux-git" https://github.com/tmux/tmux.git 'master'
   cd "$XDG_DATA_HOME/tmux-git" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
     && make -j$(nproc) && make install \
@@ -439,34 +418,67 @@ TPM_INSTALL_DIR="$XDG_DATA_HOME/tmux/plugins/tpm"
 update_git_history "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm \
   && info 'tmux plugmngr setup done' || err_exit 'tmux plugmngr setup failed'
 
-# install btop from source
-command -v 'btop' &>/dev/null && info 'btop found' || warning 'btop not found.'
-if _checkyes 'Install btop from source?'; then
-  # sudo apt install coreutils sed git build-essential gcc-11 g++-11
-  # gcc-11, g++-11 => gcc-10, g++-10
-  BTOP_INSTALL_DIR="$XDG_DATA_HOME/btop"
-  update_git_history "$BTOP_INSTALL_DIR" https://github.com/aristocratos/btop.git
-  _checkyes 'Use g++-10 (y) or g++-11 (N)?' && CXX="g++-10" || CXX="g++-11"
-  make -C "$BTOP_INSTALL_DIR" QUIET=true ADDFLAGS=-march=native CXX="$CXX" \
-    && make -C "$BTOP_INSTALL_DIR" install PREFIX="$XDG_PREFIX_HOME" \
-    && info 'btop setup done' || err_exit 'btop setup failed'
-fi
-
-# install bmon (bandwidth monitor)
-command -v 'bmon' &>/dev/null && info 'bmon found' || warning 'bmon not found.'
-if _checkyes 'Install bmon from source?'; then
-  # sudo apt install build-essential make libconfuse-dev libnl-3-dev libnl-route-3-dev libncurses-dev pkg-config dh-autoreconf
-  BMON_INSTALL_DIR="$XDG_DATA_HOME/bmon"
-  update_git_history "$BMON_INSTALL_DIR" https://github.com/tgraf/bmon.git
-  cd "$BMON_INSTALL_DIR" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
-    && make -j$(nproc) && make install \
-    && info 'bmon setup done' || err_exit 'bmon setup failed'
+# install lynx from source
+command -v 'lynx' &>/dev/null && info 'lynx found' || warning 'lynx not found.'
+if $LYNX || _checkyes 'Install lynx from source?'; then
+  cd "$XDG_DATA_HOME" && wget -c http://invisible-island.net/datafiles/release/lynx-cur.zip \
+    && unzip -o lynx-cur.zip && rm -rf lynx-cur.zip && cd $(ls -d lynx*/ | grep -v lynx_ | tail -1) \
+    && ./configure --prefix="$XDG_PREFIX_HOME" --exec-prefix="$XDG_PREFIX_HOME" --mandir="$XDG_PREFIX_HOME/man" \
+        --enable-externs --enable-find-leaks --enable-gnutls-compat --enable-gzip-help \
+        --enable-internal-links --enable-ipv6 --enable-japanese-utf8 --enable-local-docs --enable-nested-tables \
+        --enable-nls --enable-widec --with-ssl --with-screen=ncursesw --without-cfg-file --with-zlib \
+    && make install && make install-help && make install-doc \
+    && info 'lynx setup done' || err_exit 'lynx setup failed'
   cd "$current_dir"
 fi
 
+# # install nvtop from source
+# command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found.'
+# if $NVTOP || _checkyes 'Install nvtop from source?'; then
+#   update_git_history "$XDG_DATA_HOME/nvtop" https://github.com/Syllo/nvtop.git \
+#     && mkdir -p "$XDG_DATA_HOME/nvtop/build" && cd "$_" \
+#     && cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make install \
+#     && info 'nvtop setup done' || err_exit 'nvtop setup failed'
+#   cd "$current_dir"
+# fi
+
+# # install gh from source
+# command -v 'gh' &>/dev/null && info 'gh found' || warning 'gh not found.'
+# if _checkyes 'Install gh from source?'; then
+#   update_git_history "$XDG_DATA_HOME/gh-cli" https://github.com/cli/cli.git \
+#     && cd "$XDG_DATA_HOME/gh-cli" && make install prefix="$XDG_PREFIX_HOME" \
+#     && info 'gh setup done' || err_exit 'gh setup failed'
+#   cd "$current_dir"
+# fi
+
+# # install btop from source
+# command -v 'btop' &>/dev/null && info 'btop found' || warning 'btop not found.'
+# if _checkyes 'Install btop from source?'; then
+#   # sudo apt install coreutils sed git build-essential gcc-11 g++-11
+#   # gcc-11, g++-11 => gcc-10, g++-10
+#   BTOP_INSTALL_DIR="$XDG_DATA_HOME/btop"
+#   update_git_history "$BTOP_INSTALL_DIR" https://github.com/aristocratos/btop.git
+#   checkyes 'Use g++-10 (y) or g++-11 (N)?' && CXX="g++-10" || CXX="g++-11"
+#   make -C "$BTOP_INSTALL_DIR" QUIET=true ADDFLAGS=-march=native CXX="$CXX" \
+#     && make -C "$BTOP_INSTALL_DIR" install PREFIX="$XDG_PREFIX_HOME" \
+#     && info 'btop setup done' || err_exit 'btop setup failed'
+# fi
+
+# # install bmon (bandwidth monitor)
+# command -v 'bmon' &>/dev/null && info 'bmon found' || warning 'bmon not found.'
+# if _checkyes 'Install bmon from source?'; then
+#   # sudo apt install build-essential make libconfuse-dev libnl-3-dev libnl-route-3-dev libncurses-dev pkg-config dh-autoreconf
+#   BMON_INSTALL_DIR="$XDG_DATA_HOME/bmon"
+#   update_git_history "$BMON_INSTALL_DIR" https://github.com/tgraf/bmon.git
+#   cd "$BMON_INSTALL_DIR" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+#     && make -j$(nproc) && make install \
+#     && info 'bmon setup done' || err_exit 'bmon setup failed'
+#   cd "$current_dir"
+# fi
+
 # install protoc from source
 command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
-if _checkyes 'Install protoc from source?'; then
+if $PROTO || _checkyes 'Install protoc from source?'; then
   update_git_history "$XDG_DATA_HOME/protoc" https://github.com/protocolbuffers/protobuf.git 'v3.20.1'
   cd "$XDG_DATA_HOME/protoc" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
     && make -j$(nproc) && make install -j$(nproc) \
