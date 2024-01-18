@@ -72,39 +72,6 @@ function checkcommand () {
   fi
 }
 
-# install pyenv and poetry
-if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]]; then
-  error 'No python command found'
-  if _checkyes 'Do you want to create a systemwide symlink to python3?'; then
-    sudo ln -s "$(which python3)" /usr/bin/python
-  elif _checkyes 'Do you want to create an alias?'; then
-    alias python='python3'
-    alias pip='pip3'
-  else
-    err_exit 'Please set `python` command to run Python 3.x'
-  fi
-fi
-
-if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
-  set -e
-  info "Installing pyenv" && curl https://pyenv.run | bash
-  info "Installing poetry" && curl https://install.python-poetry.org | python -
-  export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin:$PATH"
-  pyenv install --list | grep '^  3.'
-  echo -n "Install python version: " && read python_version
-  pyenv install "$python_version"
-  local installed_version=$(ls -1 "$PYENV_ROOT/versions/" | grep -v '>' | grep 3. | tail -1)
-  pyenv global "$installed_version"
-  ( cd "$PYENV_ROOT/versions/" && ln -sf "$installed_version" global )
-  first_install=true
-  rehash
-  set +e
-fi
-
-python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
-python -m pip install -U --user pipupgrade rich trash-cli yt-dlp ttfautohint-py termdown
-info 'python programs installation done'
-
 # install getoptions
 function install_getoptions () {
   wget https://github.com/ko1nksm/getoptions/releases/latest/download/getoptions -O $XDG_BIN_HOME/getoptions
@@ -140,6 +107,39 @@ function _checkyes () {
   checkyes "$@"
   return $?
 }
+
+# install pyenv and poetry
+if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]]; then
+  error 'No python command found'
+  if _checkyes 'Do you want to create a systemwide symlink to python3?'; then
+    sudo ln -s "$(which python3)" /usr/bin/python
+  elif _checkyes 'Do you want to create an alias?'; then
+    alias python='python3'
+    alias pip='pip3'
+  else
+    err_exit 'Please set `python` command to run Python 3.x'
+  fi
+fi
+
+if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
+  set -e
+  info "Installing pyenv" && curl https://pyenv.run | bash
+  info "Installing poetry" && curl https://install.python-poetry.org | python -
+  export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin:$PATH"
+  pyenv install --list | grep '^  3.'
+  echo -n "Install python version: " && read python_version
+  pyenv install "$python_version"
+  local installed_version=$(ls -1 "$PYENV_ROOT/versions/" | grep -v '>' | grep 3. | tail -1)
+  pyenv global "$installed_version"
+  ( cd "$PYENV_ROOT/versions/" && ln -sf "$installed_version" global )
+  first_install=true
+  rehash
+  set +e
+fi
+
+python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
+python -m pip install -U --user pipupgrade rich trash-cli yt-dlp ttfautohint-py termdown
+info 'python programs installation done'
 
 repo="yuru7/PlemolJP"; font_name="$(basename $repo)"
 function install_yuru_fonts () {
