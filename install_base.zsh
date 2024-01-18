@@ -132,10 +132,11 @@ parser_definition () {
   disp :usage -h --help
 }
 eval "$(getoptions parser_definition - "$0") exit 1"
+alias t='test'
 
 function _checkyes () {
-  [ $YES ] && return 0
-  [ $NO ] && return 1
+  t $YES && info "$@ -> YES" && return 0
+  t $NO && warning "$@ -> NO" && return 1
   checkyes "$@"
   return $?
 }
@@ -191,7 +192,7 @@ function install_yuru_fonts () {
     && sudo fc-cache -vrf
   rm -v -rf "$tmp_dir"
 }
-($FONTS || $first_install || [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && _checkyes "Install ${font_name} fonts?") \
+(t $FONTS || $first_install || [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && _checkyes "Install ${font_name} fonts?") \
   && install_yuru_fonts
 
 # install fzf
@@ -202,7 +203,7 @@ function install_fzf () {
     && zcompile "$XDG_CONFIG_HOME/fzf/fzf.zsh" \
     && info 'fzf setup done' || err_exit 'fzf setup failed'
 }
-($FZF || $first_install || ! command -v 'fzf' &>/dev/null) && install_fzf
+(t $FZF || $first_install || ! command -v 'fzf' &>/dev/null) && install_fzf
 
 # install ulog / logrotate
 function install_log_rotate () {
@@ -213,7 +214,8 @@ function install_log_rotate () {
     && info 'ulog_rotate setup done' || err_exit 'ulog_rotate setup failed'
   cd "$current_dir"
 }
-command -v 'ulog_rotate' &>/dev/null && info 'ulog_rotate found' || install_log_rotate
+(t $ULOG || ! command -v 'ulog_rotate' &>/dev/null) \
+  && install_log_rotate
 
 # install zsh shell utils
 function install_zsh_shell_utils () {
@@ -231,7 +233,7 @@ install_zsh_shell_utils \
 
 # RUST
 function install_rust_cargo () {
-  if $first_install || _checkyes "Seems you don't have cargo (rust) installed. Install?"; then
+  if t $CARGO || $first_install || checkyes "Seems you don't have cargo (rust) installed. Install?"; then
     tmp_file=$(mktemp); trap "rm -rf '$tmp_file'" 1 2 3 15
     wget -O "$tmp_file" https://sh.rustup.rs \
       && chmod +x "$tmp_file" \
@@ -249,7 +251,8 @@ function install_rust_cargo () {
     read tmp
   fi
 }
-($first_install || ! command -v 'cargo' &> /dev/null || ! [[ "$(which cargo)" == *"$CARGO_HOME"* ]]) && install_rust_cargo
+(t $CARGO || $first_install || ! command -v 'cargo' &> /dev/null || ! [[ "$(which cargo)" == *"$CARGO_HOME"* ]]) \
+  && install_rust_cargo
 
 function cargo_list_line_parse() {
   return_value="$1"; shift 1
@@ -327,8 +330,8 @@ function install_nvm () {
     npm i -g pnpm
   fi
 }
-($NODE || $first_install || ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null) && install_nvm
-[ -f "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+(t $NODE || $first_install || ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null) && install_nvm
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
 export PATH="$(npm config get prefix)/bin:$PNPM_HOME:$PATH"
 # install necessary npm cli commands
 pnpm i -g @bitwarden/cli bun
@@ -337,7 +340,7 @@ pnpm i -g @bitwarden/cli bun
 function install_nim () {
   curl https://nim-lang.org/choosenim/init.sh -sSf | sh
 }
-($NIM || $first_install || ! command -v 'nim' &>/dev/null || ! command -v 'nimble' &>/dev/null) && install_nim
+(t $NIM || $first_install || ! command -v 'nim' &>/dev/null || ! command -v 'nimble' &>/dev/null) && install_nim
 rehash
 
 # lua, luarocks
@@ -354,7 +357,7 @@ function install_lua () {
     && info "luarocks installed successfully" || err_exit "luarocks install FAILED"
   cd "$current_dir"
 }
-($LUA || $first_install || ! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null) && install_lua
+(t $LUA || $first_install || ! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null) && install_lua
 
 function install_golang () {
   tmp_file=$(mktemp)
@@ -406,7 +409,7 @@ install_nvim
 
 # install tmux from source
 command -v 'tmux' &>/dev/null && info 'tmux found' || warning 'tmux not found.'
-if $TMUX || _checkyes 'Install tmux from source?'; then
+if t $TMUX || _checkyes 'Install tmux from source?'; then
   update_git_history "$XDG_DATA_HOME/tmux-git" https://github.com/tmux/tmux.git 'master'
   cd "$XDG_DATA_HOME/tmux-git" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
     && make -j$(nproc) && make install \
@@ -420,7 +423,7 @@ update_git_history "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm \
 
 # install lynx from source
 command -v 'lynx' &>/dev/null && info 'lynx found' || warning 'lynx not found.'
-if $LYNX || _checkyes 'Install lynx from source?'; then
+if t $LYNX || _checkyes 'Install lynx from source?'; then
   cd "$XDG_DATA_HOME" && wget -c http://invisible-island.net/datafiles/release/lynx-cur.zip \
     && unzip -o lynx-cur.zip && rm -rf lynx-cur.zip && cd $(ls -d lynx*/ | grep -v lynx_ | tail -1) \
     && ./configure --prefix="$XDG_PREFIX_HOME" --exec-prefix="$XDG_PREFIX_HOME" --mandir="$XDG_PREFIX_HOME/man" \
@@ -478,7 +481,7 @@ fi
 
 # install protoc from source
 command -v 'protoc' &>/dev/null && info 'protoc found' || warning 'protoc not found.'
-if $PROTO || _checkyes 'Install protoc from source?'; then
+if t $PROTO || _checkyes 'Install protoc from source?'; then
   update_git_history "$XDG_DATA_HOME/protoc" https://github.com/protocolbuffers/protobuf.git 'v3.20.1'
   cd "$XDG_DATA_HOME/protoc" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
     && make -j$(nproc) && make install -j$(nproc) \
