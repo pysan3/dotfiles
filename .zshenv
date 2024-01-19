@@ -7,7 +7,6 @@ export XDG_BIN_HOME="$XDG_PREFIX_HOME/bin"
 [[ "$PATH" == *"$XDG_BIN_HOME"* ]] || export PATH="$XDG_BIN_HOME:$PATH"
 
 ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export skip_global_compinit=1
 export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_git"
 export SUDO_EDITOR=nvim
 export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"

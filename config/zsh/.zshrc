@@ -22,7 +22,6 @@ export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 alias run-help &>/dev/null && unalias run-help
 autoload run-help
 
-# History
 # dont store duplicate lines in the history file
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
@@ -30,19 +29,18 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt SHARE_HISTORY
 setopt HIST_FIND_NO_DUPS
 # Ignore histories starting with space
-setopt hist_ignore_space # Ignore histories starting with space
+setopt hist_ignore_space
 HISTORY_IGNORE='([bf]g *|l[alsh]#( *)#|n#vim# *|conda i*|v[]|(cd|cat|less|dust|git|p|pip|curl|wget|grep|rm|mv|cp|ln) *|v[mzvarlsceh]|vlocal)'
 HISTFILE="$XDG_CACHE_HOME/zsh/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=10000
 HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
 HISTCONTROL=ignoreboth
-
-# Other
+# options
 setopt auto_param_slash # if completed parameter is a directory, add a trailing slash
-setopt magic_equal_subst # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
-setopt auto_pushd # 遷移したディレクトリをスタックする
-setopt pushd_ignore_dups # 重複したディレクトリはスタックしない
+setopt magic_equal_subst # enable auto completion after `=` like `--prefix=/usr`
+setopt auto_pushd # record change directory history
+setopt pushd_ignore_dups # do not stack duplicate dir history
 setopt sh_word_split # enable word splitting of unquoted expansion in for loop
 setopt AUTO_LIST # automatically list choices on ambiguous completion
 setopt AUTO_MENU # show completion menu on a successive tab press
@@ -52,30 +50,29 @@ setopt ALWAYS_TO_END # Always place the cursor to the end of the word completed.
 setopt INTERACTIVE_COMMENTS # allow comments in command line
 setopt NO_FLOW_CONTROL  # Disable Ctrl+S and Ctrl+Q
 
-# ${fg[blue]}等で色が利用できるようにする
 export TERM="${TERM:-xterm-256color}"
 autoload -Uz colors && colors
-# PROMPTの色
 PROMPT="%{${fg_bold[green]}%}@%m%{${fg_bold[yellow]}%}>%{${fg_bold[red]}%}>%{${reset_color}%} "
 
 # Completion for files
+export skip_global_compinit=1
 autoload -Uz compinit
-compinit -d $ZDOTDIR/.zcompdump
-_comp_options+=(globdots)		# Include hidden files.
+compinit -d "$XDG_CACHE_HOME/zsh/.zcompdump"
+_comp_options+=(globdots) # Include hidden files.
 export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-zstyle ':completion:*' use-cache true # キャッシュによる補完の高速化
-zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
-zstyle ':completion:*:default' menu select=2 # 補完後、メニュー選択モードになり左右キーで移動が出来る
-zstyle ':completion:*' completer _expand _complete _history _prefix # 補完の出し方
-zstyle ':completion:*' matcher-list "m:{a-z}={A-Z}" # 補完で大文字にもマッチ
-zstyle ':completion:*' verbose true # 補完を詳細に表示
+zstyle ':completion:*' use-cache true
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
+zstyle ':completion:*:default' menu select=2 # move between completions with arrow key
+zstyle ':completion:*' completer _expand _complete _history _prefix # order of completions
+zstyle ':completion:*' matcher-list "m:{a-z}={A-Z}" # suggest upper case as well
+zstyle ':completion:*' verbose true # more verbose completions
 zstyle ':completion:*:messages' format "%{${fg_bold[yellow]}%}%d%{${reset_color}%}"
 zstyle ':completion:*:warnings' format "%{${fg_bold[red]}%}No matches for:%{${fg_bold[yellow]}%} %d%{${reset_color}%}"
 zstyle ':completion:*:descriptions' format "%{${fg_bold[yellow]}%}completing %B%d%b%{${reset_color}%}"
 zstyle ':completion:*:corrections' format "%{${fg_bold[yellow]}%}%B%d ""%{${fg_bold[red]}%}(errors: %e)%b%{${reset_color}%}"
 zstyle ':completion:*:options' description 'yes'
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補に色を付ける
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # colorize completions
 # git completions and information
 RPROMPT="%{${fg[cyan]}%}[%~]%{${fg[blue]}%}[%*]%{${reset_color}%}"
 autoload -Uz vcs_info
@@ -142,7 +139,6 @@ export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source "$XDG_DATA_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$XDG_DATA_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$XDG_CONFIG_HOME/fzf/fzf.zsh"
-# keybinds for plugins
 bindkey '^l' autosuggest-accept
 
 [ -f "$ZDOTDIR/scripts_rc.zsh" ] && source "$ZDOTDIR/scripts_rc.zsh"

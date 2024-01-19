@@ -1,8 +1,6 @@
 export DOTFILES=$HOME/dotfiles
 source "$DOTFILES/functions.zsh"
 
-# export PATH="$HOME"/myCommands:"$HOME"/myCommands/bin:$PATH
-
 export PIPENV_VENV_IN_PROJECT=1
 export PIPENV_NO_INHERIT=1
 export PIPENV_IGNORE_VIRTUALENVS=1
@@ -62,7 +60,7 @@ function main () {
     && ([ $(g remote -v | grep upstream | wcl) -ge 1 ] && g pull upstream "$branch")
 }
 function clone () { cgit && git clone "$1" && cd "$(basename "$1" .git)" }
-function rmcwd () { local _DELETE="$(basename "$PWD")" && cd .. && rm -rf "$_DELETE" }
+function rmcwd () { local _DELETE="$PWD" && cd .. && rm -rf "$_DELETE" }
 function nopy () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') }
 function nojs () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v npm | grep -v nvm | xargs | sed -e 's/ /:/g') }
 function yay () { ( nopy && nojs && command yay --noconfirm --sudoloop $@ ) }
@@ -72,8 +70,8 @@ alias res="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 function def() {
   local cmd="${@[$#]}" # last argument
   local res="$(whence -v "$cmd")" raw="$(whence "$cmd" | cut -d ' ' -f 1)" lesscmd='less'
-  [ x"$cmd" = x"$raw" ] && local res=${res//an alias/a recursive}
-  [ $(alias less &>/dev/null; echo $?) -eq 0 ] && local lesscmd="$lesscmd -l zsh -pn"
+  [ x"$cmd" = x"$raw" ] && res=${res//an alias/a recursive}
+  [ $(alias less &>/dev/null; echo $?) -eq 0 ] && lesscmd="$lesscmd -l zsh -pn"
   echo "$res"; draw_help () { local c=$(basename $1); tldr $c 2>/dev/null || eval "'$1' --help | $MANPAGER" || man $c }
   case $res in
     *'not found'*)  checkyes "Google it?" && eval "?g linux cli $cmd";;
@@ -83,13 +81,12 @@ function def() {
   esac
 }
 
-alias upgradefp='flatpak update && flatpak remove --unused'
+alias upgradefp='! command -v flatpak &>/dev/null || ( flatpak update && flatpak remove --unused )'
 alias upgradepy='pip install --upgrade --user pip pipupgrade && python -m pipupgrade --latest --yes && poetry self update && pyenv update' # pip install pipupgrade
 alias upgraders='rustup update && nonohup cargo install-update --all 2>/dev/null &' # cargo install cargo-update
 alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
 function upgradeall() {
-  local upgradecmds='py rs js'
-  for lang in $upgradecmds; do
+  for lang in fp py rs js; do
     eval "upgrade$lang" \
       && info "Success: $(alias upgrade$lang)" \
       || error "FAIL: $(alias upgrade$lang)"
@@ -97,10 +94,9 @@ function upgradeall() {
 }
 
 function pyenv () {
-  command pyenv $@ \
-    && cd "$PYENV_ROOT/versions/" \
-    && ln -sf "$(command pyenv global)" global \
-    && cd - >/dev/null
+  local global="$(command pyenv global)"
+  [ -n "$global" ] && ( cd "$PYENV_ROOT/versions/" && ln -sf "$global" global )
+  command pyenv $@
 }
 
 alias vm="dot nvim $DOTFILES/.vimrc"
@@ -109,10 +105,10 @@ alias vz="dot nvim $ZDOTDIR/.zshrc"
 alias va="dot nvim $ZDOTDIR/aliases_rc.zsh"
 alias vr="dot nvim $ZDOTDIR/rust_rc.zsh"
 alias vs="dot nvim $ZDOTDIR/script_rc.zsh"
-alias vc="nvim ~/.mySecrets.env"
+alias vc="nvim $HOME/.mySecrets.env"
 alias ve="nvim .env"
 alias vh="vim $XDG_CACHE_HOME/zsh/.zsh_history"
-alias vl="vim $ZDOTDIR/local_rc.zsh"
+alias vl="nvim $ZDOTDIR/local_rc.zsh"
 alias vlocal="vim $XDG_CONFIG_HOME/nvim/local.vim"
 function zk () { cd "$NCPATH/Notes" && cd - && tvim "$NCPATH/Notes" }
 
@@ -146,8 +142,8 @@ act
 function cbw () {
   ( \
     set -a && source ~/.mySecrets.env && set +a \
-    && bw unlock --passwordenv BW_PASSWORD >/dev/null;
-    echo $BW_PASSWORD | bw $@
+      && bw unlock --passwordenv BW_PASSWORD >/dev/null; \
+    echo $BW_PASSWORD | bw $@ \
   )
 }
 alias bwpass="jq '.login' | jq -r '.password' | sed 's/^ *\| *$//'"
@@ -162,7 +158,7 @@ function update_zwc () {
   compile_zdot "$ZDOTDIR/script_rc.zsh"
   # compile_zdot .zlogin
   # compile_zdot .zlogout
-  compile_zdot "$ZDOTDIR/.zcompdump"
+  compile_zdot "$XDG_CACHE_HOME/zsh/.zcompdump"
   compile_zdot "$HOME/.zshenv"
   # compile_zdot .zprofile
   compile_zdot "$ZDOTDIR/.zshrc"
@@ -251,15 +247,17 @@ alias ramen1='timer 30s'
 alias ramen3='timer 2m30s'
 alias ramen5='timer 4m30s'
 
+function pdfcompress () { ps2pdf -dPDFSETTINGS=/prepress -dCompatibilityLevel=1.4 -sOutputFile="compressed-$1" "$1" }
 function pdflock () {
-  local F="$2"
+  local F="$2" TO="${2:r}_lock.pdf"
   if [ ! -f "$F" ]; then
-    echo "'$F' not found."; return 1
+    error "'$F' not found."; return 1
   fi
-  [ $# -lt 3 ] && local TO="${2:r}_lock.pdf" || local TO="$3"
-  echo "Found file: $F"
-  echo "Locked file created: $TO"
-  qpdf --encrypt "$1" "$1" 256 -- "$F" "$TO"
+  [ $# -ge 3 ] && TO="$3"
+  info "Found file: $F"
+  qpdf --encrypt "$1" "$1" 256 -- "$F" "$TO" \
+    && info "Locked file created: $TO" \
+    || warning "Failed to create: $TO"
 }
 
 function lx () { command lynx -cfg="$LYNX_CFG" -lss="$LYNX_LSS" --useragent="$LYNX_USERAGENT" $@ }
@@ -281,10 +279,8 @@ function google () { lx -cmd_script "$DOTFILES/static/lynx/google.key.log" "http
 function imi () { lx "https://eow.alc.co.jp/search?q=$(urlencode $@)#resultsList-section" }
 alias "?"=duck "??"=duckja "?g"=google
 
-function pdfcompress () { ps2pdf -dPDFSETTINGS=/prepress -dCompatibilityLevel=1.4 -sOutputFile="compressed-$1" "$1" }
-
 function colortest () {
-  local T='gYw'   # The test text
+  local T='gYw' FGs BG # The test text
   echo 'Color Test'
   echo '‾‾‾‾‾‾‾‾‾‾'
   echo -e "                 40m     41m     42m     43m     44m     45m     46m     47m"
@@ -293,8 +289,10 @@ function colortest () {
              '  36m' '1;36m' '  37m' '1;37m'; do
     local FG=${FGs// /}
     echo -en " $FGs \033[$FG  $T  "
-    for BG in 40m 41m 42m 43m 44m 45m 46m 47m; do echo -en "$EINS \033[$FG\033[$BG  $T  \033[0m"; done
-    echo;
+    for BG in 40m 41m 42m 43m 44m 45m 46m 47m; do
+      echo -en "$EINS \033[$FG\033[$BG  $T  \033[0m"
+    done
+    echo
   done
 }
 
@@ -316,12 +314,12 @@ function cv2_get () {
 function tmv () { [ -z "$TMUX" ] && tmux a -t "$1" || tmux switchc -t "$1" }
 function tvim() {
   [ $# -ge 1 ] && cd "$1" && trap 'popd &>/dev/null' EXIT
-  local workdir=$(get_workdir)
+  local workdir=$(get_workdir) vimcmd='nvim .'
   if $(tmux has-session -t "=$workdir" 2> /dev/null); then
     tmv "$workdir"
     return 0
   fi
-  [ -f "$PWD/.vim/session.vim" ] && vimcmd='nvim' || vimcmd='nvim .'
+  [ -f "$PWD/.vim/session.vim" ] && vimcmd='nvim'
   tmux new-session -s "$workdir" -d
   [ x$MYENV = xWSL ] && sleep 1
   tmux send-keys -t "$workdir" "$vimcmd" ENTER
@@ -341,7 +339,7 @@ function pinit() {
   local cmd='pipenv install'
   if [ -f requirements.txt ] && checkyes 'Found a requirements.txt in the project. Do you want to reference it?'; then
     echo 'Installing from requirements.txt'
-    local cmd="$cmd -r requirements.txt"
+    cmd="$cmd -r requirements.txt"
   fi
   eval $cmd
   act
@@ -390,23 +388,21 @@ function pfwd() {
 }
 
 function img2eps () {
-  if ! command -v 'convert' &> /dev/null; then
-    error '`convert` not installed.'
-    sudo apt install imagemagick -y
-  fi
-  for filename in $@; do
-    echo "$filename"
-    convert $filename eps2:${name:r}.eps
+  checkdependency 'convert' || err_exit 'sudo apt install imagemagick -y'
+  local filename
+  setopt sh_word_split
+  for filename in "$@"; do
+    local dst="${filename:r}.eps"
+    info "converting $filename -> $dst"
+    convert "$filename" eps2:"$dst"
   done
 }
 
 function ex () {
+  local filename
+  setopt sh_word_split
   if command -v aunpack &> /dev/null; then
-    set -xe
-    for filename in "$@"; do
-      aunpack "$filename"
-    done
-    set +x
+    ( set -xe; for filename in "$@"; do aunpack "$filename"; done )
     return 0
   fi
   warning 'Command aunpack not found. Install `atool`.'
@@ -434,7 +430,9 @@ function ex () {
 }
 
 function bak () {
-  for filename in $@; do
+  local filename
+  setopt sh_word_split
+  for filename in "$@"; do
     local bak_file="$filename.bak"
     if [ -f "$filename" ]; then
       mv -i "$filename" "$bak_file"
@@ -444,7 +442,9 @@ function bak () {
 }
 
 function rebak () {
-  for filename in $@; do
+  local filename
+  setopt sh_word_split
+  for filename in "$@"; do
     if ! [[ x"$filename" =~ .*bak ]]; then
       error "$filename does not end with '.bak'. Skipping."
       continue
