@@ -6,10 +6,10 @@ export XDG_STATE_HOME="$XDG_PREFIX_HOME/state"
 export XDG_BIN_HOME="$XDG_PREFIX_HOME/bin"
 [[ "$PATH" == *"$XDG_BIN_HOME"* ]] || export PATH="$XDG_BIN_HOME:$PATH"
 
-export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_git -F /dev/null'
-export SUDO_EDITOR=nvim
+ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export skip_global_compinit=1
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_git"
+export SUDO_EDITOR=nvim
 export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
 export CABAL_DIR="$XDG_CACHE_HOME/cabal"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
