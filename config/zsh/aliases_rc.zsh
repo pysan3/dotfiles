@@ -313,7 +313,7 @@ function cv2_get () {
   yes | cp "$cv2_path/__init__.pyi" "$cv2_path/cv2.pyi"
 }
 
-function tmv () { local sessioncmd="-t $1" && [ -z "$TMUX" ] && tmux a $sessioncmd || tmux switchc $sessioncmd }
+function tmv () { [ -z "$TMUX" ] && tmux a -t "$1" || tmux switchc -t "$1" }
 function tvim() {
   [ $# -ge 1 ] && cd "$1" && trap 'popd &>/dev/null' EXIT
   local workdir=$(get_workdir)
