@@ -9,8 +9,10 @@ local M = {
     "nvim-lua/plenary.nvim",
     "ntpeters/vim-better-whitespace",
     "nvim-lua/plenary.nvim",
-    "laher/neorg-exec",
     "3rd/image.nvim",
+    -- external modules
+    "laher/neorg-exec",
+    "phenax/neorg-hop-extras",
     { "pysan3/neorg-templates-draft", dependencies = { "L3MON4D3/LuaSnip" } },
     { "nvim-neorg/neorg-telescope", dependencies = { "nvim-telescope/telescope.nvim" } },
   },
@@ -89,6 +91,7 @@ local function load_plugins()
       },
     },
     ["external.exec"] = {},
+    ["external.hop-extras"] = {},
   }
 end
 
