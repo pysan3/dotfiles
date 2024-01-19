@@ -60,5 +60,8 @@ return {
     kb.remap_key("norg", "i", "<M-d>", "<C-b>")
     kb.map("norg", "n", vim.g.personal_options.prefix.iron .. "x", "<Cmd>Neorg exec cursor<CR>")
     kb.map("norg", "n", vim.g.personal_options.prefix.iron .. "X", "<Cmd>Neorg exec current-file<CR>")
+    -- https://github.com/nvim-neorg/neorg-telescope
+    kb.map("norg", "n", vim.g.personal_options.prefix.telescope .. "l", "core.integrations.telescope.find_linkable")
+    kb.map("norg", "i", "<C-l>", "core.integrations.telescope.insert_link")
   end,
 }
