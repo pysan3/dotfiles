@@ -100,20 +100,21 @@ M.config = function()
       -- ripgrep remove indentation
       vimgrep_arguments = {
         "rg",
+        "-HnS.", -- hidden, line-number, smart-case, hidden
         "--color=never",
         "--no-heading",
-        "--with-filename",
-        "--line-number",
         "--column",
-        "--smart-case",
         "--trim",
-        "--hidden",
+        "--no-ignore",
+        "-g=!.git",
+        "-g=!node_modules",
+        "-g=!.venv",
       },
     },
     pickers = {
       -- remove ./ from fd results
       find_files = {
-        find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+        find_command = { "fd", "-HIL", "-t=f", "--strip-cwd-prefix" },
         hidden = true,
       },
       live_grep = hide,
