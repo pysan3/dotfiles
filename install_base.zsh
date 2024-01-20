@@ -14,7 +14,7 @@ current_dir="$PWD"
 first_install=false
 
 function update_git_history () {
-  local dist="$1" repo_url="$2"
+  local dist="$1" repo_url="$2" tag="$3" file
   if [ ! -d "$dist" ]; then
     info "Installing $dist"
     mkdir -p "$dist" && git clone "$repo_url" "$dist" \
@@ -24,7 +24,7 @@ function update_git_history () {
     && git -C "$dist" submodule update --init --recursive \
     && git -C "$dist" fetch --tags -f \
     || err_exit "Failed to update $dist"
-  [ $# -ge 3 ] && local tag="$3" || local tag=$(git -C "$dist" describe --tags $(git -C "$dist" rev-list --tags --max-count=1)) \
+  [ -n "$tag" ] || tag=$(git -C "$dist" describe --tags $(git -C "$dist" rev-list --tags --max-count=1)) \
     && git -C "$dist" checkout "$tag" \
     || err_exit "Failed to checkout to tag: $tag in $dist"
   for file in $(command find "$dist" -name '*.zsh' -type f); do
@@ -37,9 +37,9 @@ function update_git_history () {
 }
 
 function update_git_repo () {
-  local dist="$1" repo_url="$2"
+  local dist="$1" repo_url="$2" tag="$3"
   [ -d "$dist" ] && rm -rf "$dist"
-  [ $# -ge 3 ] && local tag="--branch $3" || local tag=""
+  [ -n "$tag" ] && tag="--branch $tag"
   local cmd="git clone --depth 1 $tag $repo_url $dist"
   info "Running command:\n$ $cmd" \
     && eval "$cmd" \
@@ -143,23 +143,21 @@ info 'python programs installation done'
 
 repo="yuru7/PlemolJP"; font_name="$(basename $repo)"
 function install_yuru_fonts () {
-  tmp_dir=$(mktemp -d); mkdir -p "$XDG_DATA_HOME/fonts/$font_name"; trap "rm -v -rf '$tmp_dir'" 1 2 3 15
+  local tmp_dir=$(mktemp -d); mkdir -p "$XDG_DATA_HOME/fonts/$font_name"; trap "rm -v -rf '$tmp_dir'" 1 2 3 15
   set -e
-  local nerd='ryanoasis/nerd-fonts'
+  local nerd='ryanoasis/nerd-fonts' opts='' BASE_DIR="$XDG_DATA_HOME/${font_name}"
   local latest=$(get_latest_release "$nerd")
   download_release "$nerd" "$latest/IBMPlexMono.tar.xz" "$tmp_dir/IBMPlexMono.tar.xz" \
     && tar vxf "$tmp_dir/IBMPlexMono.tar.xz" --directory "$tmp_dir"
   download_release "$nerd" "$latest/Hack.tar.xz" "$tmp_dir/Hack.tar.xz" \
     && tar vxf "$tmp_dir/Hack.tar.xz" --directory "$tmp_dir"
   if checkyes 'Rebuild against latest nerd fonts?'; then
-    local BASE_DIR="$XDG_DATA_HOME/${font_name}"
     update_git_repo "$BASE_DIR" https://github.com/"$repo".git \
       && command cp "$tmp_dir/"*.ttf "$XDG_DATA_HOME/${font_name}/source"
     echo '#!/bin/bash' >> "$BASE_DIR/cmap_patch.sh"
     chmod +x "$BASE_DIR/cmap_patch.sh"
-    local opts=""
-    [[ x"$font_name" = x"PlemolJP" ]] && local opts="-n -v"
-    [[ x"$font_name" = x"HackGen" ]] && local opts="''"
+    [[ x"$font_name" = x"PlemolJP" ]] && opts="-n -v"
+    [[ x"$font_name" = x"HackGen" ]] && opts="''"
     ( \
       cd "$BASE_DIR" \
       && echo "$BASE_DIR" \
@@ -175,7 +173,7 @@ function install_yuru_fonts () {
     )
     command cp -rf "$BASE_DIR/build/$font_name"*_NF "$tmp_dir"
   else
-    local latest=$(get_latest_release "$repo")
+    latest=$(get_latest_release "$repo")
     info "Downloading version: $latest" \
       && download_release "$repo" "$latest/${font_name}_NF_$latest.zip" "$tmp_dir/x.zip" \
       && unzip -d "$tmp_dir" "$tmp_dir/x.zip"
@@ -235,7 +233,7 @@ install_zsh_shell_utils \
 alias cargobi='cargo binstall --no-confirm'
 function install_rust_cargo () {
   if t $CARGO || $first_install || checkyes "Seems you don't have cargo (rust) installed. Install?"; then
-    tmp_file=$(mktemp); trap "rm -rf '$tmp_file'" 1 2 3 15
+    local tmp_file=$(mktemp); trap "rm -rf '$tmp_file'" 1 2 3 15
     wget -O "$tmp_file" https://sh.rustup.rs \
       && chmod +x "$tmp_file" \
       && "$tmp_file" -y --no-modify-path \
@@ -254,45 +252,42 @@ function install_rust_cargo () {
   && install_rust_cargo
 
 function cargo_list_line_parse() {
-  return_value="$1"; shift 1
+  local return_value="$1" cmdArr; shift 1
   IFS=':' read -r -A cmdArr <<< $(echo "$@" | sed -e 's/^#\s*//')
   # add one dummy in bash because zsh array is 1-index
   [[ x$(basename $SHELL) = x'bash' ]] && cmdArr="tmp $cmdArr"
-  cmd=${cmdArr[1]}; alt=${cmdArr[2]}; issudo=""
+  local cmd=${cmdArr[1]} alt=${cmdArr[2]} issudo=""
   if [[ x"$return_value" = x'cmd' ]]; then echo "$cmd"; return; fi
   if [[ x"$alt" == xsudo* ]]; then
     alt="${alt:5}"
     issudo="sudo "
   fi
   if [[ x"$return_value" = x'alt' ]]; then echo "$alt"; return; fi
-  if [ ${#cmdArr[@]} -gt 2 ]; then
-    pkg=${cmdArr[3]}
-  else
-    pkg="${alt%% *}"
-  fi
+  local pkg="${alt%% *}"
+  [ ${#cmdArr[@]} -gt 2 ] && pkg=${cmdArr[3]}
   if [[ x"$return_value" = x'pkg' ]]; then echo "$pkg"; return; fi
   if [[ x"$return_value" = x'alias' ]]; then echo "alias $cmd='$issudo$alt'"; return; fi
 }
 
 source "$CARGO_HOME/env"
 CARGO_ALIAS_CACHE="${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}"
-pkg_list=''; mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
+local pkg_list=''; mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
 while IFS= read -r line; do
-  cmd=$(cargo_list_line_parse 'cmd' $line)
-  alt=$(cargo_list_line_parse 'alt' $line | cut -d ' ' -f 1)
-  pkg=$(cargo_list_line_parse 'pkg' $line)
+  local cmd=$(cargo_list_line_parse 'cmd' $line)
+  local alt=$(cargo_list_line_parse 'alt' $line | cut -d ' ' -f 1)
+  local pkg=$(cargo_list_line_parse 'pkg' $line)
   [ x_ = x$cmd ] || cat "$CARGO_ALIAS_CACHE" | grep -v $cmd | sponge "$CARGO_ALIAS_CACHE"
-  if [ 'x#' = x${line:0:1} ]; then continue; fi
+  [ 'x#' = x${line:0:1} ] && continue
   command -v ${alt} &>/dev/null || pkg_list="$pkg_list $pkg"
 done < "$DOTFILES/static/list_rust_packages.txt"
-uniq_pkg_list=$(echo "$pkg_list" | sed 's/ /\n/g' | uniq | xargs)
+local uniq_pkg_list=$(echo "$pkg_list" | sed 's/ /\n/g' | uniq | xargs) line
 [[ -n "$uniq_pkg_list" ]] && ( t $CARGO || $first_install || checkyes "Execute: 'cargo binstall $uniq_pkg_list'?" ) \
   && eval "cargobi $uniq_pkg_list"
 while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
-  alt=$(cargo_list_line_parse 'alt' $line | cut -d ' ' -f 1)
-  pkg=$(cargo_list_line_parse 'pkg' $line)
-  command -v ${alt} &>/dev/null || (error "installation $pkg failed" && continue)
+  local alt=$(cargo_list_line_parse 'alt' $line | cut -d ' ' -f 1)
+  local pkg=$(cargo_list_line_parse 'pkg' $line)
+  command -v ${alt} &>/dev/null || (error "Installation $pkg failed" && continue)
   [ x_ = x$(cargo_list_line_parse 'cmd' $line) ] && continue
   echo "$(cargo_list_line_parse 'alias' $line)" >> "$CARGO_ALIAS_CACHE"
 done < "$DOTFILES/static/list_rust_packages.txt"
@@ -343,7 +338,7 @@ rehash
 
 # lua, luarocks
 function install_lua () {
-  tmp_file=$(mktemp); LUA_INSTALL_DIR="$XDG_DATA_HOME/lua-${LOCAL_LUA_VERSION:=5.1.5}"
+  local tmp_file=$(mktemp); LUA_INSTALL_DIR="$XDG_DATA_HOME/lua-${LOCAL_LUA_VERSION:=5.1.5}"
   wget -O "$tmp_file" https://www.lua.org/ftp/lua-$LOCAL_LUA_VERSION.tar.gz \
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
     && make -C "$LUA_INSTALL_DIR" linux && make -C "$LUA_INSTALL_DIR" install INSTALL_TOP="$XDG_PREFIX_HOME" \
@@ -358,7 +353,7 @@ function install_lua () {
 (t $LUA || $first_install || ! command -v 'lua' &>/dev/null || ! command -v 'luarocks' &>/dev/null) && install_lua
 
 function install_golang () {
-  tmp_file=$(mktemp)
+  local tmp_file=$(mktemp)
   wget -O "$tmp_file" "https://go.dev/dl/$(wget -O- 'https://go.dev/VERSION?m=text' | head -1).linux-amd64.tar.gz" \
     && mkdir -p "$GOPATH" && chmod 777 -R "$GOPATH" && rm -rf "$GOPATH" \
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
@@ -399,7 +394,7 @@ function install_nvim () {
   # telescope
   checkcommand 'rg' 'cargobi ripgrep'
   # Lazy sync
-  nvim --headless "+Lazy! sync | TSUpdateSync" "+noa qa"
+  nvim --headless "+Lazy! sync" "+noa qa"
 }
 # ($first_install || ! command -v 'nvim' &>/dev/null || _checkyes 'Install nvim from source?') && install_nvim
 install_nvim
