@@ -243,9 +243,7 @@ function cpp () {
 }
 
 function timer () { termdown $1 && cvlc "$NCPATH/900-その他/Music/Clock-Alarm.mp3" --play-and-exit >/dev/null 2>/dev/null }
-alias ramen1='timer 30s'
-alias ramen3='timer 2m30s'
-alias ramen5='timer 4m30s'
+function ramen () { timer $((${1:-5}-1))m30s }
 
 function pdfcompress () { ps2pdf -dPDFSETTINGS=/prepress -dCompatibilityLevel=1.4 -sOutputFile="compressed-$1" "$1" }
 function pdflock () {
