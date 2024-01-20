@@ -280,7 +280,7 @@ while IFS= read -r line; do
   [ 'x#' = x${line:0:1} ] && continue
   command -v ${alt} &>/dev/null || pkg_list="$pkg_list $pkg"
 done < "$DOTFILES/static/list_rust_packages.txt"
-local uniq_pkg_list=$(echo "$pkg_list" | sed 's/ /\n/g' | uniq | xargs) line
+local uniq_pkg_list=$(echo "$pkg_list" | sed 's/ /\n/g' | uniq | xargs)
 [[ -n "$uniq_pkg_list" ]] && ( t $CARGO || $first_install || checkyes "Execute: 'cargo binstall $uniq_pkg_list'?" ) \
   && eval "cargobi $uniq_pkg_list"
 while IFS= read -r line; do
