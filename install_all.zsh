@@ -112,8 +112,8 @@ done < "$DOTFILES/static/npm/npmrc"
 info "Installed npmrc"
 
 # firefox configurations
-ff_profile_dir=$(echo "$HOME/.mozilla/firefox/"*.default-release)
-if [ ! -z "$ff_profile_dir" ]; then
+ff_profile_dir=$(ls -1 "$HOME/.mozilla/firefox/" | grep default-release)
+if [ -n "$ff_profile_dir" ]; then
   userChrome="$ff_profile_dir/chrome/userChrome.css"
   mkdir -p "$ff_profile_dir/chrome" \
     && touch "$userChrome" && rm "$userChrome" \
