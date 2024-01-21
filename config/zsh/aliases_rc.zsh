@@ -64,7 +64,7 @@ function rmcwd () { local _DELETE="$PWD" && cd .. && rm -rf "$_DELETE" }
 function nopy () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') }
 function nojs () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v npm | grep -v nvm | xargs | sed -e 's/ /:/g') }
 function yay () { ( nopy && nojs && command yay --noconfirm --sudoloop $@ ) }
-alias flatpak='flatpak --user -y'
+alias fpak='flatpak --user -y'
 alias res="source $HOME/.zshenv && source $ZDOTDIR/.zshrc"
 
 function def() {
@@ -81,7 +81,7 @@ function def() {
   esac
 }
 
-alias upgradefp='! command -v flatpak &>/dev/null || ( flatpak update && flatpak remove --unused )'
+alias upgradefp='! command -v flatpak &>/dev/null || ( fpak update && fpak remove --unused )'
 alias upgradepy='pip install --upgrade --user pip pipupgrade && python -m pipupgrade --latest --yes && poetry self update && pyenv update' # pip install pipupgrade
 alias upgraders='rustup update && nonohup cargo install-update --all 2>/dev/null &' # cargo install cargo-update
 alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
