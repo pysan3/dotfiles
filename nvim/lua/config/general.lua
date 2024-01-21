@@ -157,7 +157,7 @@ vim.g.personal_module = {
       })
     end
   end,
-  luarocks_base = vim.fn.fnamemodify("~/.luarocks/share/lua/5.1", ":p:h"),
+  luarocks_base = vim.fn.fnamemodify("~/.luarocks/share/lua/5.1", ":p"),
   load_luarocks = function()
     if not string.find(package.path, "luarocks") then
       local luarocks_base = vim.g.personal_module.luarocks_base
