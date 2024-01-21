@@ -1,6 +1,7 @@
 return {
   "pysan3/autosession.nvim", -- restore previous session
   event = { "VeryLazy" },
+  enabled = vim.env.NVIM_DISABLE_AUTOSESSION == nil,
   lazy = false,
   init = function()
     vim.api.nvim_create_user_command("CL", "AutoSessionSave <bar> :wqa", {})
