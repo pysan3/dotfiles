@@ -1,3 +1,10 @@
+local function find_all_dicts()
+  local dict_source = { "/usr/share/dict/words" }
+  for filepath in vim.fn.glob(vim.fn.stdpath("config") .. "/spell/*.add"):gmatch("[^\n]+") do
+    dict_source[#dict_source + 1] = filepath
+  end
+end
+
 return {
   {
     "uga-rosa/cmp-dictionary",
@@ -5,7 +12,7 @@ return {
       { "nvim-lua/plenary.nvim" },
     },
     opts = {
-      paths = { "/usr/share/dict/words" },
+      paths = find_all_dicts(),
       first_case_insensitive = true,
       exact_length = 2,
       document = {
