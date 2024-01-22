@@ -5,7 +5,7 @@ return {
       { "nvim-lua/plenary.nvim" },
     },
     opts = {
-      paths = "/usr/share/dict/words",
+      paths = { "/usr/share/dict/words" },
       first_case_insensitive = true,
       exact_length = 2,
       document = {
