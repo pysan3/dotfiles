@@ -14,7 +14,7 @@ M.tools = {
   -- Linter
   "cmakelang",
   "cpplint",
-  "eslint_d",
+  "eslint-language-server",
   "flake8",
   -- "luacheck",
   "markdownlint",
