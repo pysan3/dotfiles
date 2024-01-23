@@ -14,9 +14,8 @@ M.tools = {
   -- Linter
   "cmakelang",
   "cpplint",
-  "eslint-language-server",
+  "eslint-lsp",
   "flake8",
-  -- "luacheck",
   "markdownlint",
   "pylint",
   "yamllint",
@@ -26,7 +25,6 @@ M.tools = {
   "black",
   "cmakelang",
   "isort",
-  -- "luaformatter",
   "prettier",
   "shfmt",
   "stylua",
