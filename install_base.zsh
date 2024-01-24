@@ -25,7 +25,7 @@ function update_git_history () {
     && git -C "$dist" fetch --tags -f \
     || err_exit "Failed to update $dist"
   [ -n "$tag" ] || tag=$(git -C "$dist" describe --tags $(git -C "$dist" rev-list --tags --max-count=1)) \
-    && git -C "$dist" checkout "$tag" \
+    && git -C "$dist" checkout "$tag" && ( git -C "$dist" pull 2>/dev/null || true ) \
     || err_exit "Failed to checkout to tag: $tag in $dist"
   for file in $(command find "$dist" -name '*.zsh' -type f); do
     if [ ! "$file.zwc" -nt "$file" ]; then
@@ -221,7 +221,7 @@ function install_zsh_shell_utils () {
   ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-syntax-highlighting"
   update_git_history "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" https://github.com/zsh-users/zsh-syntax-highlighting.git
   ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-autosuggestions"
-  update_git_history "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git
+  update_git_history "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git "master"
   ZSH_ASYNC_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-async"
   update_git_history "$ZSH_ASYNC_INSTALL_DIR" https://github.com/mafredri/zsh-async.git
 }
