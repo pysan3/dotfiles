@@ -81,18 +81,6 @@ function def() {
   esac
 }
 
-alias upgradefp='! command -v flatpak &>/dev/null || ( flatpak update -y && flatpak remove --unused -y )'
-alias upgradepy='pip install --upgrade --user pip pipupgrade && python -m pipupgrade --latest --yes && poetry self update && pyenv update' # pip install pipupgrade
-alias upgraders='rustup update && nonohup cargo install-update --all 2>/dev/null &' # cargo install cargo-update
-alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
-function upgradeall() {
-  for lang in fp py rs js; do
-    eval "upgrade$lang" \
-      && info "Success: $(alias upgrade$lang)" \
-      || error "FAIL: $(alias upgrade$lang)"
-  done
-}
-
 function pyenv () {
   local global="$(command pyenv global)"
   [ -n "$global" ] && ( cd "$PYENV_ROOT/versions/" && ln -sf "$global" global )
@@ -309,6 +297,7 @@ function cv2_get () {
   yes | cp "$cv2_path/__init__.pyi" "$cv2_path/cv2.pyi"
 }
 
+function trun () { tmux new -d "$@" }
 function tmv () { [ -z "$TMUX" ] && tmux a -t "$1" || tmux switchc -t "$1" }
 function tvim() {
   [ $# -ge 1 ] && cd "$1" && trap 'popd &>/dev/null' EXIT
@@ -452,6 +441,18 @@ function rebak () {
       mv -i "$filename" "${bak_file}"
       [ -f "$filename" ] && warning "Skipping $filename"
     fi
+  done
+}
+
+alias upgradefp='! command -v flatpak &>/dev/null || ( flatpak update -y && flatpak remove --unused -y )'
+alias upgradepy='pip install --upgrade --user pip pipupgrade && poetry self update && pyenv update && trun python -m pipupgrade --latest --yes'
+alias upgraders='rustup update && trun cargo install-update --all'
+alias upgradejs='npm install -g npm@latest pnpm && pnpm upgrade -g'
+function upgradeall() {
+  for lang in fp py rs js; do
+    eval "upgrade$lang" \
+      && info "Success: $(alias upgrade$lang)" \
+      || error "FAIL: $(alias upgrade$lang)"
   done
 }
 
