@@ -20,12 +20,13 @@ function update_git_history () {
     mkdir -p "$dist" && git clone "$repo_url" "$dist" \
       || err_exit "Failed to clone $repo_url to $dist"
   fi
+  function G () { git -C "$dist" "$@" }
   info "Updating $dist" \
-    && git -C "$dist" submodule update --init --recursive \
-    && git -C "$dist" fetch --tags -f \
+    && G submodule update --init --recursive \
+    && G fetch --tags -f \
     || err_exit "Failed to update $dist"
-  [ -n "$tag" ] || tag=$(git -C "$dist" describe --tags $(git -C "$dist" rev-list --tags --max-count=1)) \
-    && git -C "$dist" checkout "$tag" && ( git -C "$dist" pull 2>/dev/null || true ) \
+  [ -n "$tag" ] || tag=$(G describe --tags $(G rev-list --tags --max-count=1)) \
+    && G checkout "$tag" && ( G rev-parse "refs/tags/$tag" &>/dev/null || G pull ) \
     || err_exit "Failed to checkout to tag: $tag in $dist"
   for file in $(command find "$dist" -name '*.zsh' -type f); do
     if [ ! "$file.zwc" -nt "$file" ]; then
