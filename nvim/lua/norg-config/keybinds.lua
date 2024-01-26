@@ -40,17 +40,18 @@ end
 
 return {
   hook = function(kb)
-    local norg_utils = require("norg-config.utils")
-    kb.map("norg", "n", vim.g.personal_options.prefix.neorg .. "e", function()
+    local prefix = vim.g.personal_options.prefix
+    local neorg_prefix = prefix.neorg
+    kb.map("norg", "n", neorg_prefix .. "e", function()
       vim.cmd([[!norgc % gfm >/dev/null]])
     end, { desc = "Neorg: export to markdown and open file" })
-    kb.map("norg", "n", vim.g.personal_options.prefix.neorg .. "E", function()
+    kb.map("norg", "n", neorg_prefix .. "E", function()
       vim.cmd([[!norgc % gfm >/dev/null]])
       vim.cmd.vsplit(vim.fn.expand("%:p:.:r") .. ".md")
       vim.cmd([[GithubPreviewStart]])
     end, { desc = "Neorg: export to markdown and open MarkdownPreview" })
-    kb.map_event("norg", "n", vim.g.personal_options.prefix.neorg .. "c", "core.looking-glass.magnify-code-block")
-    kb.map("norg", "n", vim.g.personal_options.prefix.neorg .. "q", "<Cmd>Neorg return<CR>")
+    kb.map_event("norg", "n", neorg_prefix .. "c", "core.looking-glass.magnify-code-block")
+    kb.map("norg", "n", neorg_prefix .. "q", "<Cmd>Neorg return<CR>")
     kb.map("norg", "n", "[h", function()
       goto_headline("previous")
     end, { desc = "Neorg: Go to previous headline" })
@@ -58,10 +59,10 @@ return {
       goto_headline("next")
     end, { desc = "Neorg: Go to next headline" })
     kb.remap_key("norg", "i", "<M-d>", "<C-b>")
-    kb.map("norg", "n", vim.g.personal_options.prefix.iron .. "x", "<Cmd>Neorg exec cursor<CR>")
-    kb.map("norg", "n", vim.g.personal_options.prefix.iron .. "X", "<Cmd>Neorg exec current-file<CR>")
+    kb.map("norg", "n", prefix.iron .. "x", "<Cmd>Neorg exec cursor<CR>")
+    kb.map("norg", "n", prefix.iron .. "X", "<Cmd>Neorg exec current-file<CR>")
     -- https://github.com/nvim-neorg/neorg-telescope
-    kb.map("norg", "n", vim.g.personal_options.prefix.telescope .. "l", "core.integrations.telescope.find_linkable")
-    kb.map("norg", "i", "<C-l>", "core.integrations.telescope.insert_link")
+    kb.map_event("norg", "n", prefix.telescope .. "l", "core.integrations.telescope.find_linkable")
+    kb.map_event("norg", "i", "<C-l>", "core.integrations.telescope.insert_link")
   end,
 }
