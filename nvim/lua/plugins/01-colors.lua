@@ -2,6 +2,8 @@ local function nolazy(plugin)
   if vim.g.personal_options.colorscheme == plugin.colorscheme and not vim.g.started_by_firenvim then
     plugin.lazy = false
     plugin.priority = 100
+  else
+    plugin.event = "VeryLazy"
   end
   return plugin
 end
