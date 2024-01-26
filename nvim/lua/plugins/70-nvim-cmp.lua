@@ -71,7 +71,7 @@ M.config = function()
         local bufs = {}
         for _, bufn in ipairs(vim.api.nvim_list_bufs()) do
           local buf_size = vim.api.nvim_buf_get_offset(bufn, vim.api.nvim_buf_line_count(bufn))
-          if buf_size < 1024 * 1024 then
+          if buf_size < 10 * 1024 then
             table.insert(bufs, bufn)
           end
         end
