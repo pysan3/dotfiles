@@ -3,6 +3,7 @@ local function find_all_dicts()
   for filepath in vim.fn.glob(vim.fn.stdpath("config") .. "/spell/*.add"):gmatch("[^\n]+") do
     dict_source[#dict_source + 1] = filepath
   end
+  return dict_source
 end
 
 return {
