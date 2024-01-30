@@ -191,7 +191,7 @@ function install_yuru_fonts () {
     && sudo fc-cache -vrf
   rm -v -rf "$tmp_dir"
 }
-(t $FONTS || $first_install || [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] && _checkyes "Install ${font_name} fonts?") \
+(t $FONTS || $first_install || [ $(fc-list | grep "$font_name" | wc -l) -eq 0 ] || _checkyes "Install ${font_name} fonts?") \
   && install_yuru_fonts
 
 # install fzf
