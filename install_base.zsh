@@ -302,27 +302,19 @@ zcompile "$CARGO_ALIAS_CACHE"
 
 # node, npm
 function install_nvm () {
-  if checkyes 'Installing node / npm. Can you use sudo?'; then
-    sudo apt install npm -y
-    sudo npm install -g n
-    sudo n stable
-    sudo npm update -g npm
-    npm config set prefix "$XDG_DATA_HOME/npm"
+  rm -rf "${NVM_DIR:=$XDG_DATA_HOME/nvm}"
+  mkdir -p "$NVM_DIR"
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+  zcompile "$NVM_DIR/nvm.sh"
+  source "$NVM_DIR/nvm.sh"
+  if checkyes 'Use --lts (y) or latest node (N)?'; then
+    nvm install --lts
   else
-    rm -rf "${NVM_DIR:=$XDG_DATA_HOME/nvm}"
-    mkdir -p "$NVM_DIR"
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
-    zcompile "$NVM_DIR/nvm.sh"
-    source "$NVM_DIR/nvm.sh"
-    if checkyes 'Use --lts (y) or latest node (N)?'; then
-      nvm install --lts
-    else
-      nvm install node
-    fi
-    nvm install-latest-npm
-    export PATH="$(npm config get prefix)/bin:$PATH"
-    npm i -g pnpm
+    nvm install node
   fi
+  nvm install-latest-npm
+  export PATH="$(npm config get prefix)/bin:$PATH"
+  npm i -g pnpm
 }
 (t $NODE || $first_install || ! command -v 'node' &>/dev/null || ! command -v 'npm' &>/dev/null) && install_nvm
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
