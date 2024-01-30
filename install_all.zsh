@@ -80,6 +80,13 @@ for f in $(command find "config" -type f); do
   fi
 done
 
+# create local_rc.zsh if not exists
+local_rc_path="$XDG_CONFIG_HOME/zsh/local_rc.zsh"
+if ! [ -f "$local_rc_path" ]; then
+  cp "$(realpath "./config/zsh/local_rc.template.zsh")" "$local_rc_path"
+fi
+
+
 # neovim configs and install extensions
 function link_nvim () {
   NFROM="$1"; NTO="$2"; NMSG="$3 to $2"
