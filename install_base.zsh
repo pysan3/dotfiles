@@ -138,8 +138,8 @@ if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
   set +e
 fi
 
-python -m ensurepip --upgrade && python -m pip install --upgrade --user pip
-python -m pip install -U --user pipupgrade rich trash-cli yt-dlp ttfautohint-py termdown
+python -m ensurepip --upgrade && python -m pip install --upgrade --user pip --force
+python -m pip install -U --user pipupgrade rich trash-cli yt-dlp ttfautohint-py fonttools termdown --force
 info 'python programs installation done'
 
 repo="yuru7/PlemolJP"; font_name="$(basename $repo)"
