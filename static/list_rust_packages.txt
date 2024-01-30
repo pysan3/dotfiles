@@ -11,7 +11,7 @@ time:hyperfine
 top:btm:bottom
 hexdump:hx
 objdump:bingrep
-http-server:miniserve
+http-server:miniserve --readme --index index.html
 diff:difft:difftastic
 bc:eva
 _:tldr:tealdeer
