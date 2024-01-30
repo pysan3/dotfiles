@@ -47,11 +47,13 @@ OUT_FILE="${IN_FILE:r}.${OUT_SUFFIX}"
 info "Output to $OUT_FILE"
 
 cd "$pandoc_dir"
-pandoc -f ./init.lua -t "$OUT_FT" "$IN_FILE" -o "$OUT_FILE" $@ \
+pandoc -f ./init.lua -t "$OUT_FT" "$IN_FILE" -o "$OUT_FILE" --wrap=none $@ \
   && echo "$OUT_FILE"
 
 if [[ x"$OUT_SUFFIX" = x'md' ]]; then
   sed -i 's/\\!\[/![/g' "$OUT_FILE"
+  sed 's/\n\n\([ \t]*- \)/\n\1/' "$OUT_FILE"
+  cat "$OUT_FILE" | python "$DOTFILES/static/remove_empty_lines_in_lists.py" | sponge "$OUT_FILE"
   linr=$(grep -n '^```$' "$OUT_FILE" | head -1 | cut -d ':' -f 1)
   if [ -n "$linr" ]; then
     sed -i 1,"$((linr+1))"d "$OUT_FILE"
