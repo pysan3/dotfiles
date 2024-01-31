@@ -124,17 +124,17 @@ fi
 
 if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
   set -e
-  info "Installing pyenv" && curl https://pyenv.run | bash
-  info "Installing poetry" && curl https://install.python-poetry.org | python -
   export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin:$PATH"
+  info "Installing pyenv" && curl https://pyenv.run | bash
   pyenv install --list | grep '^  3.'
   echo -n "Install python version: " && read python_version
   pyenv install "$python_version"
   local installed_version=$(ls -1 "$PYENV_ROOT/versions/" | grep -v '>' | grep 3. | tail -1)
   pyenv global "$installed_version"
   ( cd "$PYENV_ROOT/versions/" && ln -sf "$installed_version" global )
-  first_install=true
   rehash
+  info "Installing poetry" && curl https://install.python-poetry.org | python -
+  first_install=true
   set +e
 fi
 
