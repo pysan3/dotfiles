@@ -153,26 +153,25 @@ function install_yuru_fonts () {
   download_release "$nerd" "$latest/Hack.tar.xz" "$tmp_dir/Hack.tar.xz" \
     && tar vxf "$tmp_dir/Hack.tar.xz" --directory "$tmp_dir"
   if checkyes 'Rebuild against latest nerd fonts?'; then
-    update_git_repo "$BASE_DIR" https://github.com/"$repo".git \
+    update_git_repo "$BASE_DIR" "https://github.com/$repo.git" "main" \
       && command cp "$tmp_dir/"*.ttf "$XDG_DATA_HOME/${font_name}/source"
     echo '#!/bin/bash' >> "$BASE_DIR/cmap_patch.sh"
     chmod +x "$BASE_DIR/cmap_patch.sh"
     [[ x"$font_name" = x"PlemolJP" ]] && opts="-n -v"
     [[ x"$font_name" = x"HackGen" ]] && opts="''"
-    ( \
-      cd "$BASE_DIR" \
+    cd "$BASE_DIR" \
       && echo "$BASE_DIR" \
       && eval "$BASE_DIR/${font_name:l}_generator.sh $opts ${plemoljp_version:=$latest}" \
       && "$BASE_DIR/os2_patch.sh" \
       && "$BASE_DIR/copyright.sh" \
-      && ("$BASE_DIR/cmap_patch.sh" 2>&1 | grep -v egrep) \
+      && "$BASE_DIR/cmap_patch.sh" \
       && mkdir -p "$BASE_DIR/build/${font_name}Console_NF" \
       && mkdir -p "$BASE_DIR/build/${font_name}35Console_NF" \
       && command mv -f "$BASE_DIR/"${font_name}35Console*.ttf "$BASE_DIR/build/${font_name}35Console_NF/" \
       && command mv -f "$BASE_DIR/"${font_name}Console*.ttf "$BASE_DIR/build/${font_name}Console_NF/" \
-      && command rm -f "$BASE_DIR/"${font_name}*.ttf \
-    )
-    command cp -rf "$BASE_DIR/build/$font_name"*_NF "$tmp_dir"
+      && ls -la "$BASE_DIR" && info 'Build done.'
+    command cp -rf "$BASE_DIR/build/"${font_name}*_NF "$tmp_dir"
+    cd "$current_dir"
   else
     latest=$(get_latest_release "$repo")
     info "Downloading version: $latest" \
