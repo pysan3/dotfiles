@@ -20,7 +20,7 @@ async_job nvm_worker sleep 0.1
 # Python
 _prepend "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin"
 
-# Python
+# Golang
 _prepend "$GOPATH/bin"
 
 # alias to command line utils
