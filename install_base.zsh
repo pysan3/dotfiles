@@ -92,11 +92,11 @@ parser_definition () {
   flag NODE  --node  -- "Install node, npm, pnpm"
   flag NIM   --nim   -- "Install nim from choosenim"
   flag LUA   --lua   -- "Install lua and luarocks"
-  flag GO    --go    -- "Install go"
   flag JULUA --julia -- "Install julia (requires cargo)"
   flag TMUX  --tmux  -- "Install tmux"
-  flag GH    --gh    -- "Install gh (GitHub CLI)"
   flag LYNX  --lynx  -- "Install lynx"
+  flag GO    --go    -- "Install go"
+  flag GH    --gh    -- "Install gh (GitHub CLI)"
   flag PROTO --proto -- "Install google protobuf (protoc)"
   disp :usage -h --help
 }
@@ -423,6 +423,9 @@ fi
 # install gh from source
 command -v 'gh' &>/dev/null && info 'gh found' || warning 'gh not found.'
 if t $GH || _checkyes 'Install gh from source?'; then
+  if ! checkdependency 'go'; then
+    install_golang
+  fi
   update_git_history "$XDG_DATA_HOME/gh-cli" https://github.com/cli/cli.git \
     && cd "$XDG_DATA_HOME/gh-cli" && make install prefix="$XDG_PREFIX_HOME" \
     && info 'gh setup done' || err_exit 'gh setup failed'
