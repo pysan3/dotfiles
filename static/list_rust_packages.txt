@@ -1,6 +1,6 @@
 ls:eza
-ezat:eza -aFhl --color=always -RT --icons --git --git-ignore -I .git
-ezal:eza -lFG --icons --git --group-directories-first --no-permissions --no-filesize --no-user --no-time
+ezat:eza -Ahl --color=always -RT --icons --git --git-ignore -I .git
+ezal:eza -lG --icons --git --group-directories-first --no-permissions --no-filesize --no-user --no-time
 ps:procs
 cat:bat --paging=never
 less:bat
