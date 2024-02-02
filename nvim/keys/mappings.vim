@@ -105,6 +105,10 @@ nnoremap <Leader>:a :!zsh -ic '
 noremap x "_x
 noremap <Leader>c "_c
 
+" Very fast macro execution
+nnoremap @ <Cmd>execute "noautocmd norm! " . v:count1 . "@" . getcharstr()<CR>
+xnoremap @ <Cmd><C-u>execute "noautocmd '<,'>norm! " . v:count1 . "@" . getcharstr()<CR>
+
 " Repeat chars to make a heading
 iabbrev <expr> 4= repeat('=', 4)
 iabbrev <expr> 5= repeat('=', 5)
