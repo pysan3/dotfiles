@@ -95,6 +95,7 @@ parser_definition () {
   flag GO    --go    -- "Install go"
   flag JULUA --julia -- "Install julia (requires cargo)"
   flag TMUX  --tmux  -- "Install tmux"
+  flag GH    --gh    -- "Install gh (GitHub CLI)"
   flag LYNX  --lynx  -- "Install lynx"
   flag PROTO --proto -- "Install google protobuf (protoc)"
   disp :usage -h --help
@@ -419,6 +420,15 @@ if t $LYNX || _checkyes 'Install lynx from source?'; then
   cd "$current_dir"
 fi
 
+# install gh from source
+command -v 'gh' &>/dev/null && info 'gh found' || warning 'gh not found.'
+if t $GH || _checkyes 'Install gh from source?'; then
+  update_git_history "$XDG_DATA_HOME/gh-cli" https://github.com/cli/cli.git \
+    && cd "$XDG_DATA_HOME/gh-cli" && make install prefix="$XDG_PREFIX_HOME" \
+    && info 'gh setup done' || err_exit 'gh setup failed'
+  cd "$current_dir"
+fi
+
 # # install nvtop from source
 # command -v 'nvtop' &>/dev/null && info 'nvtop found' || warning 'nvtop not found.'
 # if $NVTOP || _checkyes 'Install nvtop from source?'; then
@@ -426,15 +436,6 @@ fi
 #     && mkdir -p "$XDG_DATA_HOME/nvtop/build" && cd "$_" \
 #     && cmake .. -DCMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" && make && make install \
 #     && info 'nvtop setup done' || err_exit 'nvtop setup failed'
-#   cd "$current_dir"
-# fi
-
-# # install gh from source
-# command -v 'gh' &>/dev/null && info 'gh found' || warning 'gh not found.'
-# if _checkyes 'Install gh from source?'; then
-#   update_git_history "$XDG_DATA_HOME/gh-cli" https://github.com/cli/cli.git \
-#     && cd "$XDG_DATA_HOME/gh-cli" && make install prefix="$XDG_PREFIX_HOME" \
-#     && info 'gh setup done' || err_exit 'gh setup failed'
 #   cd "$current_dir"
 # fi
 
