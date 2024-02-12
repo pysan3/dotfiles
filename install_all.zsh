@@ -135,5 +135,8 @@ touch "$HOME/.gitconfig" # Generate user specific git config.
 if [ $(cat "$HOME/.gitconfig" | grep '[user]' | wc -l) -eq 0 ]; then
   warning "Don't forget to add git user inside $HOME/.gitconfig"
 fi
+if [ $(cat "$HOME/.gitconfig" | grep 'signingkey' | wc -l) -eq 0 ]; then
+  warning "Don't forget to generate a gpg key and add it to $HOME/.gitconfig"
+fi
 
 true
