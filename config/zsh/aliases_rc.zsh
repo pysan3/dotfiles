@@ -179,6 +179,7 @@ dotenv
 function cd () {
   command -v 'deactivate' &>/dev/null && deactivate
   builtin cd "$@"; act; dotenv
+  nonohup git maintenance start >/dev/null 2>&1
 }
 function popd () {
   command -v 'deactivate' &>/dev/null && deactivate
