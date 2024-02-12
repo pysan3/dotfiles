@@ -4,7 +4,7 @@ local M = {
   version = false,
   dependencies = {
     { "hrsh7th/cmp-buffer" }, -- buffer completions
-    { "hrsh7th/cmp-path" }, -- path completions
+    { "riton/cmp-path", branch = "feature/get_cwd_array" }, -- path completions
     { "hrsh7th/cmp-cmdline" }, -- cmdline completions
     { "hrsh7th/cmp-calc" },
     { "f3fora/cmp-spell" },
@@ -79,6 +79,15 @@ M.config = function()
       end,
     },
   }
+  local cwd = vim.fn.getcwd()
+  local paths = {
+    name = "path",
+    option = {
+      get_cwd = function(params)
+        return { vim.fn.expand(("#%d:p:h"):format(params.context.bufnr)), cwd }
+      end,
+    },
+  }
 
   cmp.setup({ ---@diagnostic disable-line
     snippet = {
@@ -119,7 +128,7 @@ M.config = function()
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "luasnip" },
-      { name = "path" },
+      paths,
     }, {
       buffers,
       { name = "dictionary", keyword_length = 3 },
