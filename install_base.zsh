@@ -255,8 +255,6 @@ function install_rust_cargo () {
 function cargo_list_line_parse() {
   local return_value="$1" cmdArr; shift 1
   IFS=':' read -r -A cmdArr <<< $(echo "$@" | sed -e 's/^#\s*//')
-  # add one dummy in bash because zsh array is 1-index
-  [[ x$(basename $SHELL) = x'bash' ]] && cmdArr="tmp $cmdArr"
   local cmd=${cmdArr[1]} alt=${cmdArr[2]} issudo=""
   if [[ x"$return_value" = x'cmd' ]]; then echo "$cmd"; return; fi
   if [[ x"$alt" == xsudo* ]]; then
