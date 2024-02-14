@@ -52,7 +52,6 @@ pandoc -f ./init.lua -t "$OUT_FT" "$IN_FILE" -o "$OUT_FILE" --wrap=none $@ \
 
 if [[ x"$OUT_SUFFIX" = x'md' ]]; then
   sed -i 's/\\!\[/![/g' "$OUT_FILE"
-  sed 's/\n\n\([ \t]*- \)/\n\1/' "$OUT_FILE"
   cat "$OUT_FILE" | python "$DOTFILES/static/remove_empty_lines_in_lists.py" | sponge "$OUT_FILE"
   linr=$(grep -n '^```$' "$OUT_FILE" | head -1 | cut -d ':' -f 1)
   if [ -n "$linr" ]; then
