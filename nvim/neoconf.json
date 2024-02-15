@@ -5,6 +5,7 @@
       "Lua.runtime.version": "LuaJIT",
       "Lua.diagnostics.globals": [
         "describe",
+        "assert",
         "it",
         "vim",
         "setup",
