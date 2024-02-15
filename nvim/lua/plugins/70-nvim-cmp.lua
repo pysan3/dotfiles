@@ -128,6 +128,7 @@ M.config = function()
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "luasnip" },
+      { name = "neorg" },
       paths,
     }, {
       buffers,

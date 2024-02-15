@@ -1,6 +1,7 @@
 local M = {
   "nvim-neorg/neorg",
   ft = "norg",
+  version = false,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-treesitter/nvim-treesitter-textobjects",
