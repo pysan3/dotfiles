@@ -23,7 +23,7 @@ vim.g.personal_options = {
   debug = {
     lsp = false,
     null = false,
-    neotree = false,
+    neotree = (vim.env.NVIM_NEOTREE_DEV or "0") ~= "0",
   },
   signcolumn_length = 4,
   -- stylua: ignore

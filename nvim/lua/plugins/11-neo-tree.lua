@@ -236,12 +236,26 @@ local nesting_rules = {
   },
 }
 
+local function sources()
+  if vim.g.personal_options.debug.neotree then
+    return { "filetree" }
+  else
+    return {
+      "filesystem",
+      "buffers",
+      "git_status",
+      "document_symbols",
+      "netman.ui.neo-tree",
+    }
+  end
+end
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   dev = vim.g.personal_options.debug.neotree,
   version = false,
   dependencies = {
-    { "MunifTanjim/nui.nvim" },
+    { "MunifTanjim/nui.nvim", version = false },
     { "nvim-tree/nvim-web-devicons" },
     { "3rd/image.nvim" },
   },
@@ -262,12 +276,7 @@ return {
     vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { link = "NormalFloat", default = true })
   end,
   opts = {
-    sources = {
-      "filesystem",
-      "buffers",
-      "git_status",
-      "document_symbols",
-    },
+    sources = sources(),
     auto_clean_after_session_restore = true,
     close_if_last_window = true,
     log_level = vim.g.personal_options.debug.neotree and "trace" or "fatal",
@@ -333,7 +342,7 @@ return {
     window = {
       position = "float",
       popup = { border = "none" },
-      auto_expand_width = false,
+      auto_expand_width = true,
       mappings = {
         ["l"] = "open",
         ["s"] = "open_split",
@@ -342,6 +351,7 @@ return {
         ["a"] = { "add", config = { show_path = "relative" } },
         ["A"] = "add_directory",
         ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+        ["b"] = "toggle_node",
       },
     },
     filesystem = {
