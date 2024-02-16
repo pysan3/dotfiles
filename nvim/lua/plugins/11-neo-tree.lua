@@ -255,9 +255,10 @@ return {
   dev = vim.g.personal_options.debug.neotree,
   version = false,
   dependencies = {
-    { "MunifTanjim/nui.nvim", version = false },
+    { "MunifTanjim/nui.nvim" },
     { "nvim-tree/nvim-web-devicons" },
     { "3rd/image.nvim" },
+    { "miversen33/netman.nvim" },
   },
   cmd = { "Neotree" },
   keys = {
