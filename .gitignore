@@ -3,6 +3,9 @@
 !lynx.cfg
 !static/lynx/*.log
 
+### Norg index file ###
+/index.norg
+
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
