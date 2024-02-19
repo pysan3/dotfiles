@@ -28,11 +28,12 @@ return {
       NOTE = { icon = " ", color = "hint", alt = { "INFO", "HINT" } },
     },
     colors = {
-      error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
-      warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
-      info = { "#0DB9D7" }, -- or "DiagnosticInfo"
-      hint = { "DiagnosticHint", "#10B981" },
-      default = { "Identifier", "#7C3AED" },
+      error = { "#DC2626" }, -- or "DiagnosticError", "ErrorMsg"
+      warning = { "#FBBF24" }, -- or "DiagnosticWarn", "WarningMsg"
+      info = { "#2563EB" }, -- or "DiagnosticInfo"
+      hint = { "#10B981" }, -- or "DiagnosticHint"
+      default = { "#7C3AED" }, -- or "Identifier"
+      test = { "#FF00FF" }, -- or "Identifier"
     },
   },
 }
