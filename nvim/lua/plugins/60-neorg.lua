@@ -1,24 +1,3 @@
-local popup = nil
-local function open_index_in_popup()
-  if not popup or not popup.winid or not vim.api.nvim_win_is_valid(popup.winid) then
-    popup = require("nui.popup")({
-      size = { width = "80%", height = "90%" },
-      position = { col = "50%", row = "50%" },
-      enter = true,
-      focusable = true,
-      relative = "editor",
-      border = {
-        style = "rounded",
-      },
-      win_options = {
-        winhighlight = "Normal:Normal,FloatBorder:WinSeparator",
-      },
-    })
-  end
-  popup:mount()
-  vim.api.nvim_command("Neorg index")
-end
-
 local M = {
   "nvim-neorg/neorg",
   ft = "norg",
@@ -40,12 +19,53 @@ local M = {
   },
   build = ":Neorg sync-parsers",
   cmd = "Neorg",
-  keys = {
-    { ",ni", "<Cmd>Neorg index<CR>" },
-    { "<Leader>tt", open_index_in_popup, desc = "Open Neorg index in a popup window" },
-  },
   default_workspace = "Notes",
   aug = vim.api.nvim_create_augroup("NorgAuG", { clear = true }),
+}
+
+M.popup = nil
+M.bufnr = nil
+M.open_index_in_popup = function()
+  if not M.popup then
+    M.popup = require("nui.popup")({
+      bufnr = M.bufnr,
+      size = { width = "80%", height = "90%" },
+      position = { col = "50%", row = "50%" },
+      enter = true,
+      focusable = true,
+      relative = "editor",
+      border = {
+        style = "rounded",
+      },
+      win_options = {
+        winhighlight = "Normal:Normal,FloatBorder:WinSeparator",
+      },
+    })
+  end
+  vim.api.nvim_create_autocmd("WinLeave", {
+    group = M.aug,
+    callback = function(args)
+      if vim.api.nvim_get_current_win() == M.popup.winid then
+        M.bufnr = args.buf
+        M.popup:hide()
+      end
+    end,
+  })
+  if M.bufnr and vim.api.nvim_buf_is_valid(M.bufnr) then
+    M.popup.bufnr = M.bufnr
+  end
+  M.popup:mount()
+  M.popup:show()
+  vim.schedule(function()
+    if vim.bo[vim.api.nvim_win_get_buf(M.popup.winid)].filetype ~= "norg" then
+      vim.cmd("Neorg index")
+    end
+  end)
+end
+
+M.keys = {
+  { ",ni", "<Cmd>Neorg index<CR>" },
+  { "<Leader>tt", M.open_index_in_popup, desc = "Open Neorg index in a popup window" },
 }
 
 M.init = function()
@@ -103,7 +123,7 @@ local function load_plugins()
       -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
       config = {
         default_keybinds = true,
-        neorg_leader = "<Leader>",
+        neorg_leader = ",",
         hook = require("norg-config.keybinds").hook,
       },
     },
