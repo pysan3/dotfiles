@@ -42,6 +42,18 @@ M.open_index_in_popup = function()
       },
     })
   end
+  vim.api.nvim_create_autocmd("WinEnter", {
+    group = M.aug,
+    pattern = "*.norg",
+    callback = function()
+      if vim.api.nvim_get_current_win() == M.popup.winid then
+        vim.keymap.set({ "n", "i", "v" }, "<C-q>", function()
+          vim.cmd.write()
+          M.popup:hide()
+        end, { buffer = M.popup.bufnr, remap = false })
+      end
+    end,
+  })
   vim.api.nvim_create_autocmd("WinLeave", {
     group = M.aug,
     callback = function(args)
@@ -56,11 +68,9 @@ M.open_index_in_popup = function()
   end
   M.popup:mount()
   M.popup:show()
-  vim.schedule(function()
-    if vim.bo[vim.api.nvim_win_get_buf(M.popup.winid)].filetype ~= "norg" then
-      vim.cmd("Neorg index")
-    end
-  end)
+  if vim.bo[vim.api.nvim_win_get_buf(M.popup.winid)].filetype ~= "norg" then
+    vim.cmd("Neorg index")
+  end
 end
 
 M.keys = {
