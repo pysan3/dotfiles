@@ -63,6 +63,5 @@ return {
     kb.map("norg", "n", prefix.iron .. "X", "<Cmd>Neorg exec current-file<CR>")
     -- https://github.com/nvim-neorg/neorg-telescope
     kb.map_event("norg", "n", prefix.telescope .. "l", "core.integrations.telescope.find_linkable")
-    kb.map_event("norg", "i", "<C-l>", "core.integrations.telescope.insert_link")
   end,
 }
