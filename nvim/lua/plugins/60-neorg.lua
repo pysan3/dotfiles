@@ -1,3 +1,24 @@
+local popup = nil
+local function open_index_in_popup()
+  if not popup or not popup.winid or not vim.api.nvim_win_is_valid(popup.winid) then
+    popup = require("nui.popup")({
+      size = { width = "80%", height = "90%" },
+      position = { col = "50%", row = "50%" },
+      enter = true,
+      focusable = true,
+      relative = "editor",
+      border = {
+        style = "rounded",
+      },
+      win_options = {
+        winhighlight = "Normal:Normal,FloatBorder:WinSeparator",
+      },
+    })
+  end
+  popup:mount()
+  vim.api.nvim_command("Neorg index")
+end
+
 local M = {
   "nvim-neorg/neorg",
   ft = "norg",
@@ -21,6 +42,7 @@ local M = {
   cmd = "Neorg",
   keys = {
     { ",ni", "<Cmd>Neorg index<CR>" },
+    { "<Leader>tt", open_index_in_popup, desc = "Open Neorg index in a popup window" },
   },
   default_workspace = "Notes",
   aug = vim.api.nvim_create_augroup("NorgAuG", { clear = true }),
