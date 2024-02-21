@@ -55,7 +55,8 @@ return {
     colorscheme = "vscode",
     opts = {
       transparent = vim.g.personal_options.use_transparent,
-      italic_comments = true,
+      italic_comments = false,
+      underline_links = true,
     },
   }),
   nolazy({
