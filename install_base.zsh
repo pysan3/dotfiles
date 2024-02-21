@@ -350,7 +350,7 @@ function install_golang () {
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
     && info "go installed successfully" || err_exit "go install FAILED"
 }
-(t $GO || $first_install || ! command -v 'go' &>/dev/null) && install_golang
+(t $GO || t $GH || $first_install || ! command -v 'go' &>/dev/null) && install_golang
 
 # # install norg pandoc
 # function install_julia () {
