@@ -166,22 +166,19 @@ function install_yuru_fonts () {
       && "$BASE_DIR/os2_patch.sh" \
       && "$BASE_DIR/copyright.sh" \
       && "$BASE_DIR/cmap_patch.sh" \
-      && mkdir -p "$BASE_DIR/build/${font_name}Console_NF" \
-      && mkdir -p "$BASE_DIR/build/${font_name}35Console_NF" \
-      && command mv -f "$BASE_DIR/"${font_name}35Console*.ttf "$BASE_DIR/build/${font_name}35Console_NF/" \
-      && command mv -f "$BASE_DIR/"${font_name}Console*.ttf "$BASE_DIR/build/${font_name}Console_NF/" \
       && ls -la "$BASE_DIR" && info 'Build done.'
-    command cp -rf "$BASE_DIR/build/"${font_name}*_NF "$tmp_dir"
+    command cp -rf "$BASE_DIR/${font_name}"*.ttf "$tmp_dir"
     cd "$current_dir"
   else
     latest=$(get_latest_release "$repo")
     info "Downloading version: $latest" \
       && download_release "$repo" "$latest/${font_name}_NF_$latest.zip" "$tmp_dir/x.zip" \
-      && unzip -d "$tmp_dir" "$tmp_dir/x.zip"
+      && unzip -d "$tmp_dir" "$tmp_dir/x.zip" \
+      && command find "$tmp_dir" -name "${font_name}*.ttf" -type f | xargs -I % cp % "$tmp_dir" \
+      && command find "$tmp_dir" -type d | xargs rm -rf
   fi
-  info 'Installing these fonts.' && ls -la "$tmp_dir/$font_name"*/* \
+  info 'Installing these fonts.' && ls -la "$tmp_dir/$font_name"* \
     && rm -rf "$XDG_DATA_HOME/fonts/$font_name"* \
-    && mv "$tmp_dir/$font_name"*/* "$XDG_DATA_HOME/fonts/" \
     && mv "$tmp_dir/"*.ttf "$XDG_DATA_HOME/fonts/" \
     && fc-cache -vrf \
     && checkyes 'Install to /usr/local/share/fonts?' \
