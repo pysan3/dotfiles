@@ -114,7 +114,7 @@ set noswapfile                          " Whether to create a swap file
 "----------------------------------------------------------
 " Status Line
 "----------------------------------------------------------
-set shortmess=aTcoOsWAIcF
+set shortmess=aoOsWTAIcCFS
 
 "----------------------------------------------------------
 " Command mode
