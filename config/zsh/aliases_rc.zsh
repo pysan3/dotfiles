@@ -60,8 +60,8 @@ function main () {
     && g pull origin "$branch" \
     && ([ $(g remote -v | grep upstream | wcl) -ge 1 ] && g pull upstream "$branch")
 }
-function clone () { cgit && gh repo clone "$1" && cd "$(basename "$1")" }
-function fork () { cgit && gh repo fork "$1" && cd "$(basename "$1")" }
+function clone () { cgit && R=$(paste | xargs | sed 's/  *//g') && gh repo clone "$R" && cd "$(basename "$R")" }
+function fork () { cgit && R=$(paste | xargs | sed 's/  *//g') && gh repo fork "$R" && cd "$(basename "$R")" }
 function rmcwd () { local _DELETE="$PWD" && cd .. && rm -rf "$_DELETE" }
 function nopy () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') }
 function nojs () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v npm | grep -v nvm | xargs | sed -e 's/ /:/g') }
