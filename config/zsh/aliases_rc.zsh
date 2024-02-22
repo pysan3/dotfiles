@@ -89,16 +89,16 @@ function pyenv () {
   command pyenv $@
 }
 
-alias vm="dot nvim $DOTFILES/.vimrc"
-alias vv="dot nvim $DOTFILES/.zshenv"
-alias vz="dot nvim $ZDOTDIR/.zshrc"
-alias va="dot nvim $ZDOTDIR/aliases_rc.zsh"
-alias vr="dot nvim $ZDOTDIR/rust_rc.zsh"
-alias vs="dot nvim $ZDOTDIR/script_rc.zsh"
-alias vc="nvim $HOME/.mySecrets.env"
-alias ve="nvim .env"
-alias vh="vim $XDG_CACHE_HOME/zsh/.zsh_history"
-alias vl="nvim $ZDOTDIR/local_rc.zsh"
+alias vm="NVIM_DISABLE_AUTOSESSION=1 dot nvim $DOTFILES/.vimrc"
+alias vv="NVIM_DISABLE_AUTOSESSION=1 dot nvim $DOTFILES/.zshenv"
+alias vz="NVIM_DISABLE_AUTOSESSION=1 dot nvim $ZDOTDIR/.zshrc"
+alias va="NVIM_DISABLE_AUTOSESSION=1 dot nvim $ZDOTDIR/aliases_rc.zsh"
+alias vr="NVIM_DISABLE_AUTOSESSION=1 dot nvim $ZDOTDIR/rust_rc.zsh"
+alias vs="NVIM_DISABLE_AUTOSESSION=1 dot nvim $ZDOTDIR/script_rc.zsh"
+alias vc="NVIM_DISABLE_AUTOSESSION=1 nvim $HOME/.mySecrets.env"
+alias ve="NVIM_DISABLE_AUTOSESSION=1 nvim .env"
+alias vh="NVIM_DISABLE_AUTOSESSION=1 vim $XDG_CACHE_HOME/zsh/.zsh_history"
+alias vl="NVIM_DISABLE_AUTOSESSION=1 nvim $ZDOTDIR/local_rc.zsh"
 alias vlocal="vim $XDG_CONFIG_HOME/nvim/local.vim"
 function zk () { cd "$NCPATH/Notes" && cd - && tvim "$NCPATH/Notes" }
 
