@@ -126,7 +126,7 @@ M.config = function()
       ["<S-Tab>"] = cmp.mapping.select_prev_item(),
     },
     sources = cmp.config.sources({
-      { name = "nvim_lsp" },
+      { name = "nvim_lsp", keyword_length = 3 },
       { name = "luasnip" },
       { name = "neorg" },
       paths,
