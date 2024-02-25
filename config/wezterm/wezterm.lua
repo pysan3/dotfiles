@@ -81,6 +81,19 @@ local keys = {
   },
 }
 
+local mouse_bindings = {
+  {
+    event = { Up = { streak = 1, button = "Left" } },
+    mods = "CTRL",
+    action = act.OpenLinkAtMouseCursor,
+  },
+  {
+    event = { Down = { streak = 1, button = "Left" } },
+    mods = "CTRL",
+    action = wezterm.action.Nop,
+  },
+}
+
 local M = {
   -- Fonts
   font = wezterm.font("PlemolJP Console NF"),
@@ -97,6 +110,7 @@ local M = {
   allow_square_glyphs_to_overflow_width = "WhenFollowedBySpace",
   check_for_updates = false,
   keys = keys,
+  mouse_bindings = mouse_bindings,
   disable_default_key_bindings = true,
   color_scheme = colorschemes[1],
   colors = {
