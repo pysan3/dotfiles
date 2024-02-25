@@ -6,11 +6,11 @@ local M = {}
 M.null_register = function(names, disable_others)
   local null = require("null-ls")
   local builtins = {
-    f = null.builtins.formatting,
-    d = null.builtins.diagnostics,
-    a = null.builtins.code_actions,
-    c = null.builtins.completion,
-    h = null.builtins.hover,
+    f = "formatting",
+    d = "diagnostics",
+    a = "code_actions",
+    c = "completion",
+    h = "hover",
   }
   local sources = {}
   local filetypes = {}
@@ -19,7 +19,11 @@ M.null_register = function(names, disable_others)
       name = opts
       opts = vim.g.personal_lookup.get("null", name)
     end
-    local source = builtins[name:sub(1, 1)][name:sub(3)]
+    local mod_name = "." .. builtins[name:sub(1, 1)] .. name:sub(2)
+    local suc, source = pcall(require, "none-ls" .. mod_name)
+    if not suc or not source then
+      source = require("null-ls.builtins" .. mod_name)
+    end
     if not vim.tbl_isempty(opts) then
       source = source.with(opts)
     end

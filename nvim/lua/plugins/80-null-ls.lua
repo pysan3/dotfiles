@@ -3,6 +3,7 @@ local M = {
   dependencies = {
     { "lukas-reineke/lsp-format.nvim" },
     { "neovim/nvim-lspconfig" },
+    { "nvimtools/none-ls-extras.nvim" },
   },
   cmd = { "NullLsLog", "NullLsInfo" },
   event = "BufReadPre",
@@ -14,7 +15,7 @@ M.init = function()
   if debug then
     local log_file = vim.fn.stdpath("cache") .. "/null-ls.log"
     if vim.g.personal_module.exists(log_file) then
-      vim.loop.fs_unlink(log_file)
+      vim.loop.fs_unlink(log_file) ---@diagnostic disable-line
     end
   end
 end
@@ -28,8 +29,8 @@ M.config = function()
     end,
   })
   require("lsp-config.null-helper").null_register({
-    -- "f.autopep8",
-    -- "d.flake8",
+    "f.autopep8",
+    "d.flake8",
     "f.stylua",
   })
 end
