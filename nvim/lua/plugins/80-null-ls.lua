@@ -28,10 +28,9 @@ M.config = function()
     end,
   })
   require("lsp-config.null-helper").null_register({
-    "f.autopep8",
-    "d.flake8",
+    -- "f.autopep8",
+    -- "d.flake8",
     "f.stylua",
-    "f.rustfmt",
   })
 end
 
