@@ -24,7 +24,6 @@ return {
     npairs.add_rules({
       Rule("$$", "$$", "tex"),
       Rule(".", ".", "nim"):with_pair(cond.before_text("{")),
-      Rule("$", "$", "norg"):with_pair(cond.not_before_text(":")),
       Rule("$$", "$$", "norg"),
     })
   end,
