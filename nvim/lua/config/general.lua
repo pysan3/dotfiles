@@ -173,6 +173,7 @@ vim.opt.exrc = true
 vim.opt.signcolumn = "yes:1"
 vim.opt.spelloptions = "camel,noplainbuffer"
 vim.opt.ignorecase = true
+vim.opt.shortmess:append("C")
 
 -- global status line
 vim.opt.laststatus = 3
