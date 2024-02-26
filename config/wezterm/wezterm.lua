@@ -119,6 +119,7 @@ local M = {
     cursor_fg = "#151515",
     cursor_border = "#b0d0f0",
   },
+  window_background_opacity = 0.9,
 }
 
 if colorschemes[colorscheme] ~= nil then
