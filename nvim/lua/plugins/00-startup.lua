@@ -7,7 +7,7 @@ end
 return {
   nolazy({ "nvim-lua/popup.nvim" }),
   nolazy({ "nvim-lua/plenary.nvim" }),
-  nolazy({ "LunarVim/bigfile.nvim" }),
+  nolazy({ "pteroctopus/faster.nvim" }),
   nolazy({
     "dstein64/vim-startuptime",
     cmd = "StartupTime",

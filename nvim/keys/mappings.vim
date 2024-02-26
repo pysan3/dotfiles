@@ -107,10 +107,6 @@ nnoremap <Leader>:a :!zsh -ic '
 noremap x "_x
 noremap <Leader>c "_c
 
-" Very fast macro execution
-nnoremap <silent> @ <Cmd>execute "noautocmd norm! " . v:count1 . "@" . getcharstr()<CR>
-xnoremap <silent> @ <Esc><Cmd>execute "noautocmd '<,'>norm! " . v:count1 . "@" . getcharstr()<CR>
-
 " noa everything
 nnoremap <silent> .     <Cmd>execute "noautocmd norm! " . v:count1 . "."<CR>
 nnoremap <silent> u     <Cmd>execute "noautocmd norm! " . v:count1 . "u"<CR>
