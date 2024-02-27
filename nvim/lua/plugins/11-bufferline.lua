@@ -62,5 +62,10 @@ return {
         return mod_a.mtime.sec > mod_b.mtime.sec
       end,
     },
+    highlights = {
+      tab_selected = {
+        link = "Title",
+      },
+    },
   },
 }
