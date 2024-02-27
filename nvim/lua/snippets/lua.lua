@@ -48,4 +48,22 @@ snippets[#snippets + 1] = s(
   )
 )
 
+snippets[#snippets + 1] = s(
+  e("debug", "vim.print + string.format"),
+  fmt([=[vim.print(string.format([[{var}: %s]], {inspect}))]=], {
+    var = i(1),
+    inspect = d(2, function(args)
+      vim.print(string.format([[args: %s]], vim.inspect(args)))
+      return sn(
+        1,
+        c(1, {
+          fmt([[vim.inspect({})]], { i(1, args[1][1]) }),
+          i(1, args[1][1]),
+          fmt([[tostring({})]], { i(1, args[1][1]) }),
+        })
+      )
+    end, 1),
+  })
+)
+
 return snippets, autosnippets
