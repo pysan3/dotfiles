@@ -69,7 +69,7 @@ M.open_index_in_popup = function()
   M.popup:mount()
   M.popup:show()
   if vim.bo[vim.api.nvim_win_get_buf(M.popup.winid)].filetype ~= "norg" then
-    vim.cmd("Neorg index")
+    vim.cmd.edit("index.norg")
   end
 end
 
