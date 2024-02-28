@@ -1,8 +1,8 @@
 local M = {
   "nvimtools/none-ls.nvim",
   dependencies = {
+    "nvim-lspconfig",
     { "lukas-reineke/lsp-format.nvim" },
-    { "neovim/nvim-lspconfig" },
     { "nvimtools/none-ls-extras.nvim" },
   },
   cmd = { "NullLsLog", "NullLsInfo" },

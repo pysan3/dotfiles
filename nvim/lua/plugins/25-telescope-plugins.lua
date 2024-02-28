@@ -2,7 +2,7 @@ local function plugin(repo, name, maps, setup)
   local m = {
     repo,
     dependencies = {
-      { "nvim-telescope/telescope.nvim" },
+      "telescope.nvim",
     },
     keys = {},
   }

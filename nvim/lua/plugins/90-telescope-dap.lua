@@ -12,8 +12,8 @@ end
 return {
   "nvim-telescope/telescope-dap.nvim",
   dependencies = {
-    { "rcarriga/nvim-dap-ui" },
-    { "nvim-telescope/telescope.nvim" },
+    "nvim-dap-ui",
+    "telescope.nvim",
   },
   keys = {
     dap_telescope_keybind("m", "commands", {}),

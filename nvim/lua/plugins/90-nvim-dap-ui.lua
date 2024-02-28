@@ -17,7 +17,7 @@ end
 return {
   "rcarriga/nvim-dap-ui",
   dependencies = {
-    { "mfussenegger/nvim-dap" },
+    "nvim-dap",
   },
   keys = {
     dap_keybind("<F5>", "continue", nil, nil, true),

@@ -19,7 +19,7 @@ end
 return {
   "AckslD/nvim-neoclip.lua",
   dependencies = {
-    { "nvim-telescope/telescope.nvim" },
+    "telescope.nvim",
     { "kkharji/sqlite.lua", module = "sqlite" },
   },
   event = { "VeryLazy" },

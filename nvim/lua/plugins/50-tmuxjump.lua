@@ -2,7 +2,7 @@ return {
   "shivamashtikar/tmuxjump.vim",
   cond = string.len(vim.env.TMUX or "") > 0,
   dependencies = {
-    { "nvim-telescope/telescope.nvim" },
+    "telescope.nvim",
   },
   keys = {
     { vim.g.personal_options.prefix.telescope .. "t", "<Cmd>TmuxJumpFile<CR>" },

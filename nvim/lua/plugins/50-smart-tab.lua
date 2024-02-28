@@ -1,6 +1,6 @@
 return {
   "boltlessengineer/smart-tab.nvim",
-  dependencies = { "nvim-treesitter/nvim-treesitter" },
+  dependencies = { "nvim-treesitter" },
   version = false,
   event = "InsertEnter",
   keys = {

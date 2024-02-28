@@ -1,6 +1,6 @@
 return {
   "pysan3/autosession.nvim", -- restore previous session
-  event = { "VeryLazy" },
+  event = "VeryLazy",
   enabled = vim.env.NVIM_DISABLE_AUTOSESSION == nil,
   lazy = false,
   init = function()

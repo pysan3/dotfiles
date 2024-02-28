@@ -2,7 +2,7 @@ local M = {
   "RRethy/vim-illuminate",
   event = { "VeryLazy" },
   dependencies = {
-    { "nvim-lspconfig" },
+    "nvim-lspconfig",
   },
 }
 

@@ -18,8 +18,8 @@ local M = {
   cmd = { "Noice" },
   cond = not vim.g.started_by_firenvim,
   dependencies = {
-    { "MunifTanjim/nui.nvim" },
-    { "rcarriga/nvim-notify" },
+    "nui.nvim",
+    "nvim-notify",
   },
   keys = {
     { "<Leader>n", "<Cmd>Noice history<CR>", silent = true },
