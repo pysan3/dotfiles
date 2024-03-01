@@ -1,7 +1,11 @@
 local function find_all_dicts()
-  local dict_source = { "/usr/share/dict/words" }
+  local dict_source = {}
+  local default = "/usr/share/dict/words"
+  if vim.loop.fs_stat(default) then
+    table.insert(dict_source, default)
+  end
   for filepath in vim.fn.glob(vim.fn.stdpath("config") .. "/spell/*.add"):gmatch("[^\n]+") do
-    dict_source[#dict_source + 1] = filepath
+    table.insert(dict_source, filepath)
   end
   return dict_source
 end
