@@ -382,7 +382,7 @@ function install_nvim () {
   # telescope
   checkcommand 'rg' 'cargobi ripgrep'
   # Lazy sync
-  nvim --headless "+Lazy! sync" "+noa qa"
+  NVIM_DISABLE_AUTOSESSION=1 nvim --headless "+Lazy! sync" "+noa qa"
 }
 # ($first_install || ! command -v 'nvim' &>/dev/null || _checkyes 'Install nvim from source?') && install_nvim
 install_nvim
