@@ -98,7 +98,12 @@ end
 local function load_plugins()
   return {
     ["core.defaults"] = {},
-    ["core.concealer"] = { config = { icon_preset = "diamond" } },
+    ["core.concealer"] = {
+      config = {
+        icon_preset = "diamond",
+        icons = { code_block = { spell_check = false } },
+      },
+    },
     ["core.completion"] = { config = { engine = "nvim-cmp", name = "[Norg]" } },
     ["core.esupports.metagen"] = { config = { type = "auto", update_date = true } },
     ["core.integrations.nvim-cmp"] = {},
