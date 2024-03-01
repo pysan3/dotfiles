@@ -5,6 +5,7 @@ local function nolazy(plugin)
 end
 
 return {
+  nolazy({ "folke/lazy.nvim", version = "*" }),
   nolazy({ "nvim-lua/popup.nvim" }),
   nolazy({ "nvim-lua/plenary.nvim" }),
   nolazy({ "pteroctopus/faster.nvim" }),
