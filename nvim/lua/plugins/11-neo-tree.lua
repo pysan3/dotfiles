@@ -258,7 +258,6 @@ return {
     "nui.nvim",
     "image.nvim",
     { "nvim-tree/nvim-web-devicons" },
-    { "3rd/image.nvim" },
     { "miversen33/netman.nvim" },
   },
   cmd = { "Neotree" },
