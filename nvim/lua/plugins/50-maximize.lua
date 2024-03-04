@@ -2,7 +2,7 @@ return {
   "declancm/maximize.nvim",
   keys = {
     {
-      "<Leader>mz",
+      "<C-w>z",
       function()
         require("maximize").toggle()
       end,
