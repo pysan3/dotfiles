@@ -110,6 +110,7 @@ noremap <Leader>c "_c
 " noa everything
 nnoremap <silent> .     <Cmd>execute "noautocmd norm! " . v:count1 . "."<CR>
 nnoremap <silent> u     <Cmd>execute "noautocmd norm! " . v:count1 . "u"<CR>
+nnoremap <silent> U     u
 nnoremap <silent> <C-r> <Cmd>execute "noautocmd norm! " . v:count1 . "<C-r>"<CR>
 
 " Repeat chars to make a heading
