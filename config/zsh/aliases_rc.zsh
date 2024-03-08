@@ -55,10 +55,14 @@ alias ..='cd ..'
 alias g='git'
 function cgit () { cd "${GIT_PREFIX_HOME:-$HOME/Git}" }
 function main () {
-  g co main || g co master \
-    && local branch="$(git rev-parse --abbrev-ref HEAD)" \
-    && g pull origin "$branch" \
-    && ([ $(g remote -v | grep upstream | wcl) -ge 1 ] && g pull upstream "$branch")
+  g co main || g co master
+  local branch="$(git rev-parse --abbrev-ref HEAD)"
+  g pull origin "$branch"
+  if [ $(g remote -v | grep upstream | wcl) -ge 1 ]; then
+    g pull upstream "$branch"
+  else
+    warning 'upstream branch not found.'
+  fi
 }
 function clone () { cgit && R=$(paste | xargs | sed 's/  *//g') && gh repo clone "$R" && cd "$(basename "$R")" }
 function fork () { cgit && R=$(paste | xargs | sed 's/  *//g') && gh repo fork --clone "$R" && cd "$(basename "$R")" }
