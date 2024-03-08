@@ -77,6 +77,8 @@ def assert_pandoc():
 
 
 def search_files(input_dir: Path):
+    if input_dir.exists() and input_dir.is_file():
+        return [input_dir]
     result: list[Path] = []
     for file in input_dir.glob("**/*.norg"):
         if file.exists() and file.is_file() and file.suffix == ".norg":
@@ -152,7 +154,7 @@ def extract_metadata(content: dict[str, Any], convert: bool = True):
 def convert_file(args: ParseArgs, input_file: Path, output_file: Path, metadata: bool = True):
     print(f"Convert {input_file} -> {output_file}.")
     if not args.force and output_file.exists():
-        msg = f"{output_file = } exists. Overwrite? [Y/n] "
+        msg = f"{output_file = } exists. Overwrite? [Y/n] "  # noqa
         if input(msg) in ["n", "N"]:
             print(f"Abort. {input_file} not converted.")
             return False
