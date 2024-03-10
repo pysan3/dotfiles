@@ -14,6 +14,7 @@ return {
   "3rd/image.nvim",
   ft = vim.g.personal_module.md({ "norg" }),
   version = false,
+  enabled = false,
   event = "BufReadPre " .. table.concat(exts, ","),
   init = function()
     vim.g.personal_module.load_luarocks()

@@ -256,7 +256,7 @@ return {
   version = false,
   dependencies = {
     "MunifTanjim/nui.nvim",
-    "3rd/image.nvim",
+    -- "3rd/image.nvim",
     { "pysan3/pathlib.nvim" },
     { "nvim-neotest/nvim-nio" },
     { "nvim-tree/nvim-web-devicons" },
