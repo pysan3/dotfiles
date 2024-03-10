@@ -140,6 +140,7 @@ vim.g.personal_module = {
     end
     if cursor_pos then
       vim.api.nvim_win_set_cursor(0, { cursor_pos.line or 0, cursor_pos.col or 0 })
+      vim.cmd.normal("zt")
     end
   end,
   ---Register new null-ls source
