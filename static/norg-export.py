@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+from datetime import datetime, timedelta
 import argparse
 from dataclasses import dataclass
 from pathlib import Path
@@ -12,11 +13,18 @@ from typing import Any
 
 
 @dataclass
+class ToFormat:
+    ext: str
+    format: str
+
+
+@dataclass
 class ParseArgs:
     input: Path
     output: Path
     force: bool
     concat: bool
+    toformat: ToFormat
     norg_pandoc: Path
     unknown: list[str]
 
@@ -28,6 +36,7 @@ def parse_args(_args: list[str]):
     )
     parser.add_argument("-o", "--output", type=str, required=True, help="Output Directory or file when `--concat`.")
     parser.add_argument("-f", "--force", action="store_true", help="Overwrite file without confirmation.")
+    parser.add_argument("--html", action="store_true", help="Output html instead of markdown.")
     parser.add_argument(
         "--concat",
         action="store_true",
@@ -41,16 +50,40 @@ def parse_args(_args: list[str]):
     )
 
     parsed, unknown = parser.parse_known_args(_args)
+    if parsed.html:
+        toformat = ToFormat(".html", "html")
+    else:
+        toformat = ToFormat(".md", "gfm")
     args = ParseArgs(
         input=Path(parsed.input).expanduser().absolute(),
         output=Path(parsed.output).expanduser().absolute(),
         force=bool(parsed.force),
         concat=bool(parsed.concat),
+        toformat=toformat,
         norg_pandoc=Path(parsed.norg_pandoc).expanduser().absolute(),
         unknown=unknown,
     )
     assert args.input.exists(), f"{args.input=} is not found."
     return args
+
+
+lua_filter_code = """
+function Link(element)
+  local s = element.target
+  local hash = string.find(s, "#", nil, true)
+  local dump = ""
+  if hash then
+    dump = string.sub(s, hash)
+    s = string.sub(s, 1, hash - 1)
+  end
+  s = string.gsub(s, "%.norg$", "") .. dump
+  if string.sub(s, 1, 1) == "$" then
+    s = string.sub(s, 2)
+  end
+  element.target = s
+  return element
+end
+"""
 
 
 def prepare_norg_pandoc(dir: Path):
@@ -125,35 +158,102 @@ def process_file(content: list[str]):
     return result
 
 
-def list2comma(match: re.Match):
-    result = []
-    for x in match.groups():
-        result.extend(x.split("\n"))
-    return "[" + ", ".join(filter(bool, map(lambda x: x.strip(), result))) + "]"
+def convert_data_type(value: str):
+    try:
+        return int(value)
+    except Exception:
+        pass
+    try:
+        return float(value)
+    except Exception:
+        pass
+    if value.startswith("[") and value.endswith("]"):
+        return [convert_data_type(e.strip()) for e in value[1:-1].split(",")]
+    if value == "{}":
+        return {}
+    return value
 
 
-def extract_metadata(content: dict[str, Any], convert: bool = True):
+def parse_metadata(content: str):
+    storage: dict = {}
+    focused = [storage]
+    inside_array = False
+    for line in content.split("\n"):
+        line = line.strip()
+        if len(line) == 0 or line.startswith("-"):
+            # is empty
+            # is delimiter -> ignore
+            continue
+        if inside_array:
+            if line == "]":
+                inside_array = False
+                focused.pop()
+            else:
+                focused[-1].append(convert_data_type(line))  # type: ignore
+            continue
+        key, *values = line.split(":")
+        if len(values) == 0:
+            if key == "}":  # end dict
+                focused.pop()
+            else:  # empty rhs
+                focused[-1][key] = ""
+            continue
+        value = ":".join(values).strip()
+        if value == "{":  # start dict # }
+            focused[-1][key] = {}
+            focused.append(focused[-1][key])
+        elif value == "[":  # start list # ]
+            focused[-1][key] = []
+            inside_array = True
+            focused.append(focused[-1][key])
+        else:
+            focused[-1][key] = convert_data_type(value)
+    if "weight" in storage:
+        # hijack `date` key to order posts with weight parameter
+        date = datetime.fromtimestamp(0)
+        date += timedelta(days=int(storage["weight"]))
+        storage["date"] = date.strftime("%Y-%m-%d")
+    if "authors" in storage and "author" not in storage:
+        # put first person in `authors` to `author` field
+        authors = storage["authors"]
+        if isinstance(authors, list) and len(authors) > 0:
+            storage["author"] = authors[0]
+        elif isinstance(authors, str) and len(authors) > 0:
+            storage["author"] = authors
+            storage["authors"] = [authors]
+    if "categories" in storage and "tags" not in storage:
+        # convert `categories` to `tags`, if categories is a string, listify it.
+        categories = storage["categories"]
+        if isinstance(categories, list):
+            storage["tags"] = categories
+        elif isinstance(categories, str) and categories == "":
+            pass
+        else:
+            storage["tags"] = [categories]
+    if "draft" not in storage:
+        storage["draft"] = False
+    return storage
+
+
+def extract_metadata(content: dict[str, Any]):
     """
     Args:
         content: Json representation given by pandoc.
-        convert: When true, metadata is converted to yaml style. Else ignored.
     """
     blocks: list[Any] = content["blocks"]
+    remove_blocks: set[int] = set()
+    metadata = dict()
     for i, block in enumerate(blocks):
         if block["t"] == "CodeBlock":
             attrs = block["c"][0][1]
             if len(attrs) > 0 and attrs[0] == "document.meta":
-                if convert:
-                    meta = block["c"][1]
-                    converted = "---\n" + re.sub(r"\[([^\]]+)\]", list2comma, meta) + "---\n"
-                else:
-                    converted = ""
-                blocks[i] = {"t": "Para", "c": [{"t": "Str", "c": converted}]}
-    content["blocks"] = blocks
-    return content
+                remove_blocks.add(i)
+                metadata = parse_metadata(block["c"][1])
+    content["blocks"] = [block for i, block in enumerate(blocks) if i not in remove_blocks]
+    return metadata
 
 
-def convert_file(args: ParseArgs, input_file: Path, output_file: Path, metadata: bool = True):
+def convert_file(args: ParseArgs, input_file: Path, output_file: Path, save_metadata: bool = True):
     print(f"Convert {input_file} -> {output_file}.")
     if not args.force and output_file.exists():
         msg = f"{output_file = } exists. Overwrite? [Y/n] "  # noqa
@@ -161,22 +261,34 @@ def convert_file(args: ParseArgs, input_file: Path, output_file: Path, metadata:
             print(f"Abort. {input_file} not converted.")
             return False
     output_file.parent.mkdir(parents=True, exist_ok=True)
+    link_filter_file = output_file.parent / ".hardcode-norg-link-filter.lua"
+    with link_filter_file.open("w") as f:
+        f.write(lua_filter_code)
     pandoc_args = {
         "--output": str(output_file),
         "--from": "./init.lua",
         "--to": "json",
+        "--lua-filter": str(link_filter_file),
     }
     pandoc = ["pandoc", str(input_file)] + [f"{k}={v}" for k, v in pandoc_args.items()] + args.unknown
     result = Popen(pandoc, shell=False, cwd=str(args.norg_pandoc), stdout=DEVNULL)
     result.wait()
-    assert output_file.exists(), f"Something went wrong. {output_file} does not exist after '{' '.join(pandoc)}'."
+    assert (
+        output_file.exists() and result.returncode == 0
+    ), f"Something went wrong. {output_file} does not exist after '{' '.join(pandoc)}'."
     with output_file.open("r") as f:
         pandoc_content = json.load(f)
-        pandoc_content = extract_metadata(pandoc_content, metadata)
+    metadata = extract_metadata(pandoc_content)
+    if save_metadata:
+        metafile = output_file.with_suffix(".json")
+        generated = json.dumps(metadata, indent=2)
+        with metafile.open("w") as f:
+            print("Generate metadata into", metafile, generated)
+            f.write(generated)
     pandoc_args = {
         "--output": str(output_file),
         "--from": "json",
-        "--to": "gfm",
+        "--to": args.toformat.format,
         "--wrap": "none",
     }
     pandoc = ["pandoc"] + [f"{k}={v}" for k, v in pandoc_args.items()] + args.unknown
@@ -194,7 +306,7 @@ def convert_file(args: ParseArgs, input_file: Path, output_file: Path, metadata:
 
 def convert_each(files: list[Path], args: ParseArgs):
     for file in files:
-        convert_file(args, file, args.output / file.relative_to(args.input).with_suffix(".md"))
+        convert_file(args, file, args.output / file.relative_to(args.input).with_suffix(args.toformat.ext))
 
 
 def concat_all(files: list[Path], args: ParseArgs):
@@ -226,7 +338,7 @@ def concat_all(files: list[Path], args: ParseArgs):
         temp_dir = Path(td)
         for w in sorted_weights:
             for file in weights[w]:
-                out = temp_dir / file.relative_to(args.input).with_suffix(".md")
+                out = temp_dir / file.relative_to(args.input).with_suffix(args.toformat.ext)
                 convert_file(args, file, out, False)  # without metadata
                 with out.open("r") as r:
                     with dest.open("a") as a:
