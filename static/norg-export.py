@@ -49,7 +49,7 @@ def parse_args(_args: list[str]):
         norg_pandoc=Path(parsed.norg_pandoc).expanduser().absolute(),
         unknown=unknown,
     )
-    assert args.input.is_dir(), f"{args.input=} is not found."
+    assert args.input.exists(), f"{args.input=} is not found."
     return args
 
 
@@ -76,11 +76,13 @@ def assert_pandoc():
     check_call(["pandoc", "--help"], shell=False, stdout=DEVNULL)
 
 
-def search_files(input_dir: Path):
-    if input_dir.exists() and input_dir.is_file():
-        return [input_dir]
+def search_files(args: ParseArgs):
+    if args.input.exists() and args.input.is_file():
+        file = args.input
+        args.input = args.input.parent
+        return [file]
     result: list[Path] = []
-    for file in input_dir.glob("**/*.norg"):
+    for file in args.input.glob("**/*.norg"):
         if file.exists() and file.is_file() and file.suffix == ".norg":
             result.append(file.absolute())
     return sorted(result)
@@ -237,7 +239,7 @@ def main():
     assert_pandoc()
     args = parse_args(sys.argv[1:])
     prepare_norg_pandoc(args.norg_pandoc)
-    files = search_files(args.input)
+    files = search_files(args)
     if args.concat:
         concat_all(files, args)
     else:
