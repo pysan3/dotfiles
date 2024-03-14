@@ -1,5 +1,6 @@
 return {
   "kevinhwang91/nvim-ufo",
+  version = false,
   event = { "BufRead" },
   dependencies = {
     "nvim-treesitter",
