@@ -2,7 +2,6 @@ local M = {
   "nvim-neorg/neorg",
   ft = "norg",
   version = false,
-  branch = "luarocks",
   dependencies = {
     "luarocks.nvim",
     "nvim-treesitter/nvim-treesitter",

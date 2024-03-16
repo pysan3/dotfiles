@@ -72,7 +72,7 @@ M.config = function()
 
   require("mason-lspconfig").setup({
     ensure_installed = lsp_list,
-    automatic_installation = false,
+    automatic_installation = true,
   })
   require("mason-lspconfig").setup_handlers({
     function(server_name)
