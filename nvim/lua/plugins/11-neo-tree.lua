@@ -396,6 +396,7 @@ return {
       kinds = vim.tbl_map(function(value)
         return { icon = value }
       end, vim.g.personal_options.lsp_icons),
+      follow_cursor = true,
     },
     event_handlers = {
       {
