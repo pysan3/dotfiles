@@ -147,37 +147,13 @@ repo="yuru7/PlemolJP"; font_name="$(basename $repo)"
 function install_yuru_fonts () {
   local tmp_dir=$(mktemp -d); mkdir -p "$XDG_DATA_HOME/fonts/$font_name"; trap "rm -v -rf '$tmp_dir'" 1 2 3 15
   set -e
-  local nerd='ryanoasis/nerd-fonts' opts='' BASE_DIR="$XDG_DATA_HOME/${font_name}"
-  local latest=$(get_latest_release "$nerd")
-  download_release "$nerd" "$latest/IBMPlexMono.tar.xz" "$tmp_dir/IBMPlexMono.tar.xz" \
-    && tar vxf "$tmp_dir/IBMPlexMono.tar.xz" --directory "$tmp_dir"
-  download_release "$nerd" "$latest/Hack.tar.xz" "$tmp_dir/Hack.tar.xz" \
-    && tar vxf "$tmp_dir/Hack.tar.xz" --directory "$tmp_dir"
-  if checkyes 'Rebuild against latest nerd fonts?'; then
-    update_git_repo "$BASE_DIR" "https://github.com/$repo.git" "main" \
-      && command cp "$tmp_dir/"*.ttf "$XDG_DATA_HOME/${font_name}/source"
-    echo '#!/bin/bash' >> "$BASE_DIR/cmap_patch.sh"
-    chmod +x "$BASE_DIR/cmap_patch.sh"
-    [[ x"$font_name" = x"PlemolJP" ]] && opts="-n -v"
-    [[ x"$font_name" = x"HackGen" ]] && opts="''"
-    cd "$BASE_DIR" \
-      && echo "$BASE_DIR" \
-      && eval "$BASE_DIR/${font_name:l}_generator.sh $opts ${plemoljp_version:=$latest}" \
-      && "$BASE_DIR/os2_patch.sh" \
-      && "$BASE_DIR/copyright.sh" \
-      && "$BASE_DIR/cmap_patch.sh" \
-      && ls -la "$BASE_DIR" && info 'Build done.'
-    command cp -rf "$BASE_DIR/${font_name}"*.ttf "$tmp_dir"
-    cd "$current_dir"
-  else
-    latest=$(get_latest_release "$repo")
-    info "Downloading version: $latest" \
-      && download_release "$repo" "$latest/${font_name}_NF_$latest.zip" "$tmp_dir/x.zip" \
-      && unzip -d "$tmp_dir" "$tmp_dir/x.zip" \
-      && command find "$tmp_dir" -name "${font_name}*.ttf" -type f | xargs -I % cp % "$tmp_dir" \
-      && command find "$tmp_dir" -type d | xargs rm -rf
-  fi
-  info 'Installing these fonts.' && ls -la "$tmp_dir/$font_name"* \
+  local latest=$(get_latest_release "$repo")
+  info "Downloading version: $latest" \
+    && download_release "$repo" "$latest/${font_name}_NF_$latest.zip" "$tmp_dir/x.zip" \
+    && unzip -d "$tmp_dir" "$tmp_dir/x.zip" \
+    && command find "$tmp_dir" -name "${font_name}*.ttf" -type f | xargs -I % cp % "$tmp_dir" \
+    && command find "$tmp_dir" -mindepth 1 -type d | xargs rm -rf
+  info 'Installing these fonts.' && ls -la "$tmp_dir/"*.ttf \
     && rm -rf "$XDG_DATA_HOME/fonts/$font_name"* \
     && mv "$tmp_dir/"*.ttf "$XDG_DATA_HOME/fonts/" \
     && fc-cache -vrf \
