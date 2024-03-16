@@ -2,15 +2,15 @@
 title: {TODAY_OF_FILETREE}
 description:
 authors: {AUTHOR}
-categories:
+categories: journal
 created: {TODAY_OF_FILETREE}
 updated: {TODAY}
-version: 1.0.0
+version: 1.1.1
 @end
 
 * {TODAY_OF_FILETREE}
   #weather {WEATHER}
-  {{:{YESTERDAY_OF_FILETREE}:}}[Yesterday] - {{:{TOMORROW_OF_FILETREE}:}}[Tomorrow]
+  {{:{YESTERDAY_OF_FILEPATH}:}}[Yesterday] - {{:{TOMORROW_OF_FILEPATH}:}}[Tomorrow]
 
 ** Daily Review
    - {CURSOR}
