@@ -15,6 +15,15 @@ return {
     colorscheme = "jellybeans-nvim",
   }),
   nolazy({
+    "daneofmanythings/chalktone.nvim",
+    colorscheme = "chalktone",
+    opts = {
+      formatting = {
+        String = { italic = false },
+      },
+    },
+  }),
+  nolazy({
     "folke/tokyonight.nvim",
     colorscheme = "tokyonight",
     opts = {
