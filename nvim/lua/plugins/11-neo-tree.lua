@@ -392,6 +392,9 @@ return {
       hijack_netrw_behavior = "open_current",
       use_libuv_file_watcher = true,
     },
+    buffers = {
+      bind_to_cwd = false,
+    },
     document_symbols = {
       kinds = vim.tbl_map(function(value)
         return { icon = value }
