@@ -53,7 +53,6 @@ snippets[#snippets + 1] = s(
   fmt([=[vim.print(string.format([[{var}: %s]], {inspect}))]=], {
     var = i(1),
     inspect = d(2, function(args)
-      vim.print(string.format([[args: %s]], vim.inspect(args)))
       return sn(
         1,
         c(1, {
