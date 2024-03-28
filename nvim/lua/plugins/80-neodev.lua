@@ -6,6 +6,8 @@ return {
         options.enabled = true
       elseif vim.g.personal_module.exists(root_dir .. "/.nvim.lua") then
         options.enabled = true
+      elseif vim.g.personal_module.exists(root_dir .. "/lua") then
+        options.enabled = true
       end
     end,
   },

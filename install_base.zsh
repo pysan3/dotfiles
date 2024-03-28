@@ -92,7 +92,7 @@ parser_definition () {
   flag NODE  --node  -- "Install node, npm, pnpm"
   flag NIM   --nim   -- "Install nim from choosenim"
   flag LUA   --lua   -- "Install lua and luarocks"
-  flag JULUA --julia -- "Install julia (requires cargo)"
+  flag JULIA --julia -- "Install julia (requires cargo)"
   flag TMUX  --tmux  -- "Install tmux"
   flag LYNX  --lynx  -- "Install lynx"
   flag GO    --go    -- "Install go"
@@ -333,7 +333,7 @@ function install_julia () {
   juliaup add release
   juliaup update release
 }
-(t $JULUA || $first_install || ! command -v 'juliaup' &>/dev/null || ! command -v 'julia' &>/dev/null) && install_julia
+(t $JULIA || $first_install || ! command -v 'juliaup' &>/dev/null || ! command -v 'julia' &>/dev/null) && install_julia
 function install_norganic () {
   update_git_history "$XDG_DATA_HOME/norganic" https://github.com/Klafyvel/norganic.git \
     && cd "$XDG_DATA_HOME/norganic" \
