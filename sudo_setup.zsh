@@ -65,3 +65,17 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
   yay -Scc
   set +xe
 fi
+
+if command -v 'brew' &>/dev/null; then
+  # basics
+  brew install wget moreutils
+  # neovim
+  xcode-select --install
+  brew install ninja cmake gettext curl
+  # lua
+  brew install luajit luarocks
+  # apps
+  brew install tmux htop btop gh lynx
+  # protobuf
+  brew install protobuf
+fi
