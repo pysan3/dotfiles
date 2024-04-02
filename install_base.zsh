@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 
 export DOTFILES=${DOTFILES:=$HOME/dotfiles}
 if [[ 'xdotfiles' != x$(basename "$DOTFILES") ]]; then
@@ -12,6 +12,10 @@ unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 setopt sh_word_split
 current_dir="$PWD"
 first_install=false
+is_macos=false
+if [[ $(uname) == "Darwin" ]]; then
+  is_macos=true
+fi
 
 function update_git_history () {
   local dist="$1" repo_url="$2" tag="$3" file
@@ -135,7 +139,7 @@ if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
   ( cd "$PYENV_ROOT/versions/" && ln -sf "$installed_version" global )
   rehash
   info "Installing poetry" && curl https://install.python-poetry.org | python -
-  first_install=true
+  [ $is_macos ] || first_install=true
   set +e
 fi
 
@@ -291,7 +295,10 @@ function install_nvm () {
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
 export PATH="$(npm config get prefix)/bin:$PNPM_HOME:$PATH"
 # install necessary npm cli commands
-pnpm i -g @bitwarden/cli bun '@11ty/eleventy'
+pnpm i -g bun tree-sitter-cli '@11ty/eleventy'
+if ! [ $is_macos ]; then
+  pnpm i -g @bitwarden/cli
+fi
 
 # nim
 function install_nim () {
@@ -303,9 +310,10 @@ rehash
 # lua, luarocks
 function install_lua () {
   local tmp_file=$(mktemp); LUA_INSTALL_DIR="$XDG_DATA_HOME/lua-${LOCAL_LUA_VERSION:=5.1.5}"
+  [ $is_macos ] && target='macosx' || target='linux'
   wget -O "$tmp_file" https://www.lua.org/ftp/lua-$LOCAL_LUA_VERSION.tar.gz \
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
-    && make -C "$LUA_INSTALL_DIR" linux && make -C "$LUA_INSTALL_DIR" install INSTALL_TOP="$XDG_PREFIX_HOME" \
+    && make -C "$LUA_INSTALL_DIR" "$target" && make -C "$LUA_INSTALL_DIR" install INSTALL_TOP="$XDG_PREFIX_HOME" \
     && info "lua-$LOCAL_LUA_VERSION install done" || err_exit "lua-$LOCAL_LUA_VERSION install FAILED!!"
   LUAROCKS_INSTALL_DIR="$XDG_DATA_HOME/luarocks"
   update_git_history "$LUAROCKS_INSTALL_DIR" https://github.com/luarocks/luarocks \
@@ -319,7 +327,7 @@ function install_lua () {
 function install_golang () {
   local tmp_file=$(mktemp)
   wget -O "$tmp_file" "https://go.dev/dl/$(wget -O- 'https://go.dev/VERSION?m=text' | head -1).linux-amd64.tar.gz" \
-    && mkdir -p "$GOPATH" && chmod 777 -R "$GOPATH" && rm -rf "$GOPATH" \
+    && mkdir -p "$GOPATH" && chmod -R 777 "$GOPATH" && rm -rf "$GOPATH" \
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
     && info "go installed successfully" || err_exit "go install FAILED"
 }

@@ -10,7 +10,7 @@ export CONDA_ALWAYS_YES="true"
 # alias conda='mamba'
 export CLICOLOR=1
 export EDITOR='vim'
-export MAKEFLAGS="-j$(nproc)"
+export MAKEFLAGS="-j$(nproc 2>/dev/null || sysctl -n hw.logicalcpu)"
 
 [ x"$MYENV" = 'x' ] && export MYENV='undefined'
 [ x"$PCNAME" = 'x' ] && export PCNAME='undefined'
