@@ -31,7 +31,7 @@ alias p='python'
 alias serve='http-server'
 function pm () { local file="${1:r}" && shift 1 && p -m "$(echo "$file" | sed 's,/,.,g' | sed 's/\.\.//g')" "$@" }
 
-alias rm='rm -i --preserve-root'
+alias rm='rm -i'
 alias rmf='rm -rf'
 alias mv='mv -i'
 alias cp='cp -i'
