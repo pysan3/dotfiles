@@ -37,4 +37,6 @@ unset -f _append
 unset prepends
 unset appends
 
+export PATH="$XDG_BIN_HOME:$PATH"
+
 true

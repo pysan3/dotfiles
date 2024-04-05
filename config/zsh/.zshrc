@@ -142,6 +142,7 @@ source "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 bindkey '^l' autosuggest-accept
 
 [ -f "$ZDOTDIR/scripts_rc.zsh" ] && source "$ZDOTDIR/scripts_rc.zsh"
+[ -f "$HOME/.zprofile" ] && source "$HOME/.zprofile"
 
 # zprof
 true
