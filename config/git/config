@@ -47,6 +47,7 @@
   rebase = false
 [core]
   excludeFile = ~/.config/git/ignore
+  ignorecase = false
 [init]
   defaultBranch = main
 [rerere]

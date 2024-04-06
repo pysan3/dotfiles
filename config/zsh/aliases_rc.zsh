@@ -10,7 +10,7 @@ export CONDA_ALWAYS_YES="true"
 # alias conda='mamba'
 export CLICOLOR=1
 export EDITOR='vim'
-export MAKEFLAGS="-j$(nproc)"
+export MAKEFLAGS="-j$(nproc 2>/dev/null || sysctl -n hw.logicalcpu)"
 
 [ x"$MYENV" = 'x' ] && export MYENV='undefined'
 [ x"$PCNAME" = 'x' ] && export PCNAME='undefined'
@@ -31,7 +31,7 @@ alias p='python'
 alias serve='http-server'
 function pm () { local file="${1:r}" && shift 1 && p -m "$(echo "$file" | sed 's,/,.,g' | sed 's/\.\.//g')" "$@" }
 
-alias rm='rm -i --preserve-root'
+alias rm='rm -i'
 alias rmf='rm -rf'
 alias mv='mv -i'
 alias cp='cp -i'

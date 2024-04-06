@@ -11,7 +11,7 @@ require("lazy").setup("plugins", {
     version = "*",
   },
   lockfile = vim.fn.stdpath("cache") .. "/lazy-lock.json", -- lockfile generated after running update.
-  -- concurrency = 5,
+  concurrency = 5,
   dev = {
     path = "~/Git",
   },
