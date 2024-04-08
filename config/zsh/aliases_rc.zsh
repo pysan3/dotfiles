@@ -50,6 +50,14 @@ alias nowrap='setterm --linewrap off'
 alias wrap='setterm --linewrap on'
 function get_workdir () { basename "$PWD" | sed -e s'/[.-]/_/g' }
 
+# bazel
+function br () {
+  local p="$(realpath --relative-to="$PWD" "$1")" j="$2"
+  ([ -z "$p" ] || [ -z "$j" ]) && error "Invalid args: <relpath> <job>: [$# < 2] $@" && return
+  shift 2
+  bazel run "//${p}:${j}" "$@"
+}
+
 alias ..='cd ..'
 
 alias g='git'
