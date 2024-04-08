@@ -1,0 +1,48 @@
+# focus window
+cmd + ctrl - x : ctrl - x ; yabai -m window --focus recent
+cmd + ctrl - h : ctrl - h ; yabai -m window --focus west
+cmd + ctrl - j : ctrl - j ; yabai -m window --focus south
+cmd + ctrl - k : ctrl - k ; yabai -m window --focus north
+cmd + ctrl - l : ctrl - l ; yabai -m window --focus east
+
+# swap window
+shift + ctrl - x : yabai -m window --swap recent
+shift + ctrl - h : yabai -m window --swap west
+shift + ctrl - j : yabai -m window --swap south
+shift + ctrl - k : yabai -m window --swap north
+shift + ctrl - l : yabai -m window --swap east
+
+# move window
+shift + cmd - h : yabai -m window --warp west
+shift + cmd - j : yabai -m window --warp south
+shift + cmd - k : yabai -m window --warp north
+shift + cmd - l : yabai -m window --warp east
+
+# destroy desktop
+cmd + ctrl - w : yabai -m space --destroy
+
+# focus monitor
+alt + cmd + ctrl - x  : yabai -m display --focus last
+alt + cmd + ctrl - z  : yabai -m display --focus prev
+alt + cmd + ctrl - c  : yabai -m display --focus next
+alt + cmd + ctrl - 1  : yabai -m display --focus 1
+alt + cmd + ctrl - 2  : yabai -m display --focus 2
+alt + cmd + ctrl - 3  : yabai -m display --focus 3
+
+# send window to monitor and follow focus
+shift + alt + cmd + ctrl - x  : yabai -m window --display last; yabai -m display --focus last
+shift + alt + cmd + ctrl - z  : yabai -m window --display prev; yabai -m display --focus prev
+shift + alt + cmd + ctrl - c  : yabai -m window --display next; yabai -m display --focus next
+shift + alt + cmd + ctrl - 1  : yabai -m window --display 1; yabai -m display --focus 1
+shift + alt + cmd + ctrl - 2  : yabai -m window --display 2; yabai -m display --focus 2
+shift + alt + cmd + ctrl - 3  : yabai -m window --display 3; yabai -m display --focus 3
+
+# toggle window fullscreen zoom
+cmd + ctrl - z : yabai -m window --toggle zoom-fullscreen
+
+# toggle window native fullscreen
+shift + ctrl - f : yabai -m window --toggle native-fullscreen
+
+# float / unfloat window and restore position
+cmd + ctrl - f : yabai -m window --toggle float && yabai -m window --grid 4:4:1:1:2:2
+
