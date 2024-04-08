@@ -1,9 +1,10 @@
 # focus window
-cmd + ctrl - x : ctrl - x ; yabai -m window --focus recent
-cmd + ctrl - h : ctrl - h ; yabai -m window --focus west
-cmd + ctrl - j : ctrl - j ; yabai -m window --focus south
-cmd + ctrl - k : ctrl - k ; yabai -m window --focus north
-cmd + ctrl - l : ctrl - l ; yabai -m window --focus east
+cmd + ctrl - h : yabai -m window --focus west || yabai -m display --focus west
+cmd + ctrl - l : yabai -m window --focus east || yabai -m display --focus east
+cmd + ctrl - j : yabai -m window --focus south || yabai -m display --focus south
+cmd + ctrl - k : yabai -m window --focus north || yabai -m display --focus north
+cmd + ctrl - n : yabai -m window --focus next || yabai -m display --focus next
+cmd + ctrl - p : yabai -m window --focus prev || yabai -m display --focus prev
 
 # swap window
 shift + ctrl - x : yabai -m window --swap recent
@@ -18,24 +19,28 @@ shift + cmd - j : yabai -m window --warp south
 shift + cmd - k : yabai -m window --warp north
 shift + cmd - l : yabai -m window --warp east
 
-# destroy desktop
-cmd + ctrl - w : yabai -m space --destroy
+# focus window
+shift + cmd + ctrl - x : yabai -m window --space recent
+shift + cmd + ctrl - 1 : yabai -m window --space 1
+shift + cmd + ctrl - 2 : yabai -m window --space 2
+shift + cmd + ctrl - 3 : yabai -m window --space 3
+shift + cmd + ctrl - 4 : yabai -m window --space 4
 
 # focus monitor
-alt + cmd + ctrl - x  : yabai -m display --focus last
-alt + cmd + ctrl - z  : yabai -m display --focus prev
-alt + cmd + ctrl - c  : yabai -m display --focus next
-alt + cmd + ctrl - 1  : yabai -m display --focus 1
-alt + cmd + ctrl - 2  : yabai -m display --focus 2
-alt + cmd + ctrl - 3  : yabai -m display --focus 3
+alt + cmd + ctrl - x : yabai -m display --focus last
+alt + cmd + ctrl - z : yabai -m display --focus prev
+alt + cmd + ctrl - c : yabai -m display --focus next
+alt + cmd + ctrl - 1 : yabai -m display --focus 1
+alt + cmd + ctrl - 2 : yabai -m display --focus 2
+alt + cmd + ctrl - 3 : yabai -m display --focus 3
 
 # send window to monitor and follow focus
-shift + alt + cmd + ctrl - x  : yabai -m window --display last; yabai -m display --focus last
-shift + alt + cmd + ctrl - z  : yabai -m window --display prev; yabai -m display --focus prev
-shift + alt + cmd + ctrl - c  : yabai -m window --display next; yabai -m display --focus next
-shift + alt + cmd + ctrl - 1  : yabai -m window --display 1; yabai -m display --focus 1
-shift + alt + cmd + ctrl - 2  : yabai -m window --display 2; yabai -m display --focus 2
-shift + alt + cmd + ctrl - 3  : yabai -m window --display 3; yabai -m display --focus 3
+shift + alt + cmd + ctrl - x : yabai -m window --display last; yabai -m display --focus last
+shift + alt + cmd + ctrl - z : yabai -m window --display prev; yabai -m display --focus prev
+shift + alt + cmd + ctrl - c : yabai -m window --display next; yabai -m display --focus next
+shift + alt + cmd + ctrl - 1 : yabai -m window --display 1; yabai -m display --focus 1
+shift + alt + cmd + ctrl - 2 : yabai -m window --display 2; yabai -m display --focus 2
+shift + alt + cmd + ctrl - 3 : yabai -m window --display 3; yabai -m display --focus 3
 
 # toggle window fullscreen zoom
 cmd + ctrl - z : yabai -m window --toggle zoom-fullscreen
