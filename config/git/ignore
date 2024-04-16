@@ -117,7 +117,7 @@ ENV/
 
 # Session
 Session.vim
-.vim/*
+.vim/
 .luarc.json
 
 # Temporary
