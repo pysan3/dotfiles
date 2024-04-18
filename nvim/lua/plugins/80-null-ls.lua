@@ -33,6 +33,8 @@ M.config = function()
     "f.black",
     "f.isort",
     "f.stylua",
+    "f.buildifier",
+    "d.buildifier",
   })
 end
 

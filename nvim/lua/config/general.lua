@@ -206,3 +206,5 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank({ timeout = 200 })
   end,
 })
+
+vim.g.python3_host_prog = vim.env.PYENV_ROOT .. "/versions/global/bin/python"
