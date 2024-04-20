@@ -14,6 +14,7 @@ local M = {
     { "uga-rosa/cmp-dictionary" }, -- config
     { "petertriho/cmp-git" }, -- config
     { "Gelio/cmp-natdat", config = { cmp_kind_text = "NatDat" } },
+    { "alexander-born/cmp-bazel" },
     { "L3MON4D3/LuaSnip" },
     { "windwp/nvim-autopairs" },
   },
@@ -129,6 +130,7 @@ M.config = function()
       { name = "nvim_lsp", keyword_length = 3 },
       { name = "luasnip" },
       { name = "neorg" },
+      { name = "bazel" },
       paths,
     }, {
       buffers,
