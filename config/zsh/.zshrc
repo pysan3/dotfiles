@@ -144,5 +144,7 @@ bindkey '^l' autosuggest-accept
 [ -f "$ZDOTDIR/scripts_rc.zsh" ] && source "$ZDOTDIR/scripts_rc.zsh"
 [ -f "$HOME/.zprofile" ] && source "$HOME/.zprofile"
 
+act; dotenv
+
 # zprof
 true
