@@ -26,6 +26,8 @@ return {
     neogit_map("p", "push"),
   },
   init = function()
+    vim.g.conflict_marker_highlight_group = ""
+    vim.g.conflict_marker_enable_mappings = 1
     vim.cmd([[
     highlight ConflictMarkerBegin guibg=#2f7366
     highlight ConflictMarkerOurs guibg=#2e5049
