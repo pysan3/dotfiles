@@ -207,4 +207,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-vim.g.python3_host_prog = vim.env.PYENV_ROOT .. "/versions/global/bin/python"
+if vim.env.PYENV_ROOT then
+  vim.g.python3_host_prog = vim.env.PYENV_ROOT .. "/versions/global/bin/python"
+end

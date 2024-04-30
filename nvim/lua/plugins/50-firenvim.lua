@@ -4,7 +4,7 @@ end
 
 local M = {
   "glacambre/firenvim",
-  lazy = false,
+  lazy = not vim.g.started_by_firenvim,
 }
 
 M.build = function()
