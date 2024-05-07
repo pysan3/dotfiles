@@ -43,11 +43,11 @@ return {
     local prefix = vim.g.personal_options.prefix
     local neorg_prefix = prefix.neorg
     kb.map("norg", "n", neorg_prefix .. "e", function()
-      vim.cmd([[!norgc % gfm >/dev/null]])
+      vim.cmd([[!norgc '%' gfm >/dev/null]])
     end, { desc = "Neorg: export to markdown and open file" })
     kb.map("norg", "n", neorg_prefix .. "E", function()
-      vim.cmd([[!norgc % gfm >/dev/null]])
-      vim.cmd.vsplit(vim.fn.expand("%:p:.:r") .. ".md")
+      vim.cmd([[!norgc '%' gfm >/dev/null]])
+      vim.cmd.vsplit(vim.fn.fnameescape(vim.fn.expand("%:p:.:r") .. ".md"))
       vim.cmd([[GithubPreviewStart]])
     end, { desc = "Neorg: export to markdown and open MarkdownPreview" })
     kb.map_event("norg", "n", neorg_prefix .. "c", "core.looking-glass.magnify-code-block")
