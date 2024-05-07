@@ -3,6 +3,10 @@ local nesting_rules = {
     pattern = "(.+)%.js$",
     files = { "%1.js.map", "%1.min.js", "%1.d.ts" },
   },
+  ["norg compiled"] = {
+    pattern = "(.+)%.norg$",
+    files = { "%1.md", "%1.pdf", "%1.html" },
+  },
   [".gitignore"] = {
     pattern = "^%.gitignore$",
     files = { ".gitattributes", ".gitmodules", ".gitmessage", ".mailmap", ".git-blame*" },
@@ -23,7 +27,6 @@ local nesting_rules = {
       ".eslint*",
       ".firebase*",
       ".flowconfig",
-      ".github*",
       ".gitlab*",
       ".gitpod*",
       ".huskyrc*",
