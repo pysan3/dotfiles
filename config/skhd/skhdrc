@@ -1,10 +1,10 @@
 # focus window
-cmd + ctrl - h : yabai -m window --focus west || yabai -m display --focus west
-cmd + ctrl - l : yabai -m window --focus east || yabai -m display --focus east
-cmd + ctrl - j : yabai -m window --focus south || yabai -m display --focus south
-cmd + ctrl - k : yabai -m window --focus north || yabai -m display --focus north
-cmd + ctrl - n : yabai -m window --focus next || yabai -m display --focus next
-cmd + ctrl - p : yabai -m window --focus prev || yabai -m display --focus prev
+shift + alt - h : yabai -m window --focus west || yabai -m display --focus west
+shift + alt - l : yabai -m window --focus east || yabai -m display --focus east
+shift + alt - j : yabai -m window --focus south || yabai -m display --focus south
+shift + alt - k : yabai -m window --focus north || yabai -m display --focus north
+shift + alt - n : yabai -m window --focus next || yabai -m display --focus next
+shift + alt - p : yabai -m window --focus prev || yabai -m display --focus prev
 
 # swap window
 shift + ctrl - x : yabai -m window --swap recent
