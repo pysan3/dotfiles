@@ -2,6 +2,9 @@
 tmp*
 *secret*
 
+### Norg ###
+*.norg
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
