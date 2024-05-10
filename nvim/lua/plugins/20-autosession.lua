@@ -3,8 +3,10 @@ return {
   event = "VeryLazy",
   lazy = false,
   init = function()
-    vim.api.nvim_create_user_command("CL", "AutoSessionSave <bar> :wqa", {})
-    vim.api.nvim_create_user_command("A", ":qa", {})
+    if not vim.env.NVIM_DISABLE_AUTOSESSION or vim.env.NVIM_DISABLE_AUTOSESSION == "0" then
+      vim.api.nvim_create_user_command("CL", "AutoSessionSave <bar> :wqa", {})
+      vim.api.nvim_create_user_command("A", ":qa", {})
+    end
   end,
   opts = {
     restore_on_setup = true,
