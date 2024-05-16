@@ -10,6 +10,7 @@ return {
       "null-ls",
       "jdtls",
       "lua_ls",
+      "pyright",
     },
   },
 }
