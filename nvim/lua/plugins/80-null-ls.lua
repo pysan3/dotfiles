@@ -35,6 +35,7 @@ M.config = function()
     "f.stylua",
     "f.buildifier",
     "d.buildifier",
+    "d.mypy",
   })
 end
 
