@@ -27,6 +27,8 @@
   st = status
   sha = stash --all
   shp = stash pop
+  sw = switch
+  swc = switch -c
   br = branch
   ba = branch -a
   bm = branch --merged
