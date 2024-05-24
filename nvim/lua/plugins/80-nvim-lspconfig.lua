@@ -7,7 +7,6 @@ local M = {
     { "SmiteshP/nvim-navic" },
     { "folke/neoconf.nvim" },
     { "lukas-reineke/lsp-format.nvim" },
-    { "simrat39/inlay-hints.nvim" },
     {
       "andrewferrier/textobj-diagnostic.nvim",
       opts = {},
@@ -56,7 +55,6 @@ M.config = function()
     on_attach = function(client, bufnr)
       lsp_base.lsp_keymaps(bufnr)
       require("lsp-format").on_attach(client)
-      require("inlay-hints").on_attach(client, bufnr)
       if stop_lsp_fmt[client.name] then
         client.server_capabilities.documentFormattingProvider = false
       end
