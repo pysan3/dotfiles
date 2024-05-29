@@ -27,10 +27,10 @@ return {
     keymaps("vx", "<Cmd>STSSelectMasterNode<CR>", "n", false, true),
     keymaps("vn", "<Cmd>STSSelectCurrentNode<CR>", "n", false, true),
     -- Select Nodes in Visual Mode
-    keymaps("J", "<Cmd>STSSelectNextSiblingNode<CR>", "x", false, true),
-    keymaps("K", "<Cmd>STSSelectPrevSiblingNode<CR>", "x", false, true),
-    keymaps("H", "<Cmd>STSSelectParentNode<CR>", "x", false, true),
-    keymaps("L", "<Cmd>STSSelectChildNode<CR>", "x", false, true),
+    -- keymaps("J", "<Cmd>STSSelectNextSiblingNode<CR>", "x", false, true),
+    -- keymaps("K", "<Cmd>STSSelectPrevSiblingNode<CR>", "x", false, true),
+    -- keymaps("H", "<Cmd>STSSelectParentNode<CR>", "x", false, true),
+    -- keymaps("L", "<Cmd>STSSelectChildNode<CR>", "x", false, true),
     -- Swapping Nodes in Visual Mode
     keymaps("[n", "<Cmd>STSSwapPrevVisual<CR>", "x", false, true),
     keymaps("]n", "<Cmd>STSSwapNextVisual<CR>", "x", false, true),
