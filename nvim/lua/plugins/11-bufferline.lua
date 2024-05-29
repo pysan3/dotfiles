@@ -46,7 +46,11 @@ return {
       enforce_regular_tabs = false,
       always_show_bufferline = true,
       custom_filter = function(buf, _)
-        return string.len(vim.fn.bufname(buf) or "") ~= 0
+        local bufname = vim.fn.bufname(buf) or ""
+        if vim.endswith(bufname, ".vira_prompt") then
+          return false
+        end
+        return string.len(bufname) ~= 0
       end,
       sort_by = function(a, b) ---@diagnostic disable-line
         -- sort by modified time (newer to left)
