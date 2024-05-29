@@ -1,6 +1,6 @@
 return {
   "n0v1c3/vira",
-  build = "./install.sh",
+  build = vim.fn.fnamemodify(vim.g.python3_host_prog, ":h") .. "/pip install --user -r requirements.txt",
   cmd = { "ViraServers", "ViraIssues", "ViraReport", "ViraFilterEdit" },
   keys = {
     { vim.g.personal_options.prefix.vira .. "f", "ViraFilterEdit" },
