@@ -1,5 +1,6 @@
 return {
   "aaron-p1/virt-notes.nvim",
+  enabled = false,
   keys = {
     { vim.g.personal_options.prefix.virt_notes },
   },

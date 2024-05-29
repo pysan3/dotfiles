@@ -17,7 +17,8 @@ vim.g.personal_options = {
     iron = "<Leader>r",
     lsp = "<Leader>k",
     neorg = "<Leader>k",
-    virt_notes = "<Leader>v",
+    -- virt_notes = "<Leader>v",
+    vira = "<Leader>v",
     dap = "<Leader>d",
   },
   debug = {
@@ -207,6 +208,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-if vim.env.PYENV_ROOT then
-  vim.g.python3_host_prog = vim.env.PYENV_ROOT .. "/versions/global/bin/python"
-end
+-- if vim.env.PYENV_ROOT then
+--   vim.g.python3_host_prog = vim.env.PYENV_ROOT .. "/versions/global/bin/python"
+-- end
