@@ -55,6 +55,7 @@ function br () {
   local p="$(realpath --relative-to="$PWD" "$1")" j="$2"
   ([ -z "$p" ] || [ -z "$j" ]) && error "Invalid args: <relpath> <job>: [$# < 2] $@" && return
   shift 2
+  warning "Running command: bazel run" "//${p}:${j}" "$@"
   bazel run "//${p}:${j}" "$@"
 }
 
