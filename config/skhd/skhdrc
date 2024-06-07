@@ -1,8 +1,8 @@
 # focus window
 shift + alt - h : yabai -m window --focus west || yabai -m display --focus west
 shift + alt - l : yabai -m window --focus east || yabai -m display --focus east
-shift + alt - j : yabai -m window --focus south || yabai -m display --focus south
-shift + alt - k : yabai -m window --focus north || yabai -m display --focus north
+shift + alt - j : yabai -m window --focus south || yabai -m display --focus west
+shift + alt - k : yabai -m window --focus north || yabai -m display --focus east
 shift + alt - n : yabai -m window --focus next || yabai -m display --focus next
 shift + alt - p : yabai -m window --focus prev || yabai -m display --focus prev
 
