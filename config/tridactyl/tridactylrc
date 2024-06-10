@@ -28,6 +28,9 @@ bind d scrollpage 0.5
 bind e scrollpage -0.5
 bind u scrollpage -0.5
 
+" builtin `gi` breaks with duckduckgo
+bind gi focusinput
+
 " x to close tab
 bind x composite tabprev; tabclose #
 bind X tabclose
