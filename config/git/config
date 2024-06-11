@@ -20,10 +20,11 @@
   co = checkout
   ci = commit
   ca = commit -a -m
-  ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
-  psf = "!git push origin $(git rev-parse --abbrev-ref HEAD) --force-with-lease"
+  name = rev-parse --abbrev-ref HEAD
+  ps = "!git push origin $(git name)"
+  psf = "!git push origin $(git name) --force-with-lease"
   pu = push -u origin HEAD
-  pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
+  pl = "!git pull origin $(git name)"
   st = status
   sha = stash --all
   shp = stash pop
