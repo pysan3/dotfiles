@@ -26,7 +26,8 @@
   pu = push -u origin HEAD
   pl = "!git pull origin $(git name)"
   st = status
-  sha = stash --all
+  sha = stash
+  shl = stash --all
   shp = stash pop
   sw = switch
   swc = switch -c
