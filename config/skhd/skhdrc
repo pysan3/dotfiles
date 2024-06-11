@@ -13,12 +13,6 @@ shift + ctrl - j : yabai -m window --swap south
 shift + ctrl - k : yabai -m window --swap north
 shift + ctrl - l : yabai -m window --swap east
 
-# move window
-shift + cmd - h : yabai -m window --warp west
-shift + cmd - j : yabai -m window --warp south
-shift + cmd - k : yabai -m window --warp north
-shift + cmd - l : yabai -m window --warp east
-
 # focus monitor
 alt + cmd + ctrl - x : yabai -m display --focus last
 alt + cmd + ctrl - z : yabai -m display --focus prev
