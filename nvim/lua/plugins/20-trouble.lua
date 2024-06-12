@@ -3,16 +3,16 @@ return {
   "folke/trouble.nvim",
   cmd = { "TroubleToggle", "Trouble" },
   keys = {
-    { "<Leader>xx", "<Cmd>TroubleToggle document_diagnostics<CR>", desc = "Trouble: Document Diagnostics" },
-    { "<Leader>xX", "<Cmd>TroubleToggle workspace_diagnostics<CR>", desc = "Trouble: Workspace Diagnostics" },
-    { "<Leader>xL", "<Cmd>TroubleToggle loclist<CR>", desc = "Trouble: Location List" },
-    { "<Leader>xQ", "<Cmd>TroubleToggle quickfix<CR>", desc = "Trouble: Quickfix List" },
-    { "<Leader>X", "<Cmd>TroubleToggle<CR>", desc = "Trouble: toggle" },
+    { "<Leader>xx", "<Cmd>Trouble document_diagnostics toggle<CR>", desc = "Trouble: Document Diagnostics" },
+    { "<Leader>xX", "<Cmd>Trouble workspace_diagnostics toggle<CR>", desc = "Trouble: Workspace Diagnostics" },
+    { "<Leader>xL", "<Cmd>Trouble loclist toggle<CR>", desc = "Trouble: Location List" },
+    { "<Leader>xQ", "<Cmd>Trouble quickfix toggle<CR>", desc = "Trouble: Quickfix List" },
+    { "<Leader>X", "<Cmd>Trouble toggle<CR>", desc = "Trouble: toggle" },
     {
       "<C-p>",
       function()
         if require("trouble").is_open() then
-          require("trouble").previous({ skip_groups = true, jump = true })
+          require("trouble").prev({ skip_groups = true, jump = true }) ---@diagnostic disable-line
         else
           vim.cmd.cprev()
         end
@@ -23,7 +23,7 @@ return {
       "<C-n>",
       function()
         if require("trouble").is_open() then
-          require("trouble").next({ skip_groups = true, jump = true })
+          require("trouble").next({ skip_groups = true, jump = true }) ---@diagnostic disable-line
         else
           vim.cmd.cnext()
         end
