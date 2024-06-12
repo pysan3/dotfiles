@@ -30,7 +30,7 @@ M.config = function()
   })
   require("lsp-config.null-helper").null_register({
     "d.mypy",
-    "d.flake8",
+    -- "d.flake8",
     "f.black",
     "f.isort",
     "f.stylua",
