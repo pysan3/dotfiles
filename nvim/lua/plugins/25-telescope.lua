@@ -78,7 +78,7 @@ M.config = function()
           -- open quickfix list in trouble.nvim
           ["<C-q>"] = function(...)
             require("trouble")
-            return require("trouble.providers.telescope").open_with_trouble(...)
+            return require("trouble.sources.telescope").open(...)
           end,
         },
       },
