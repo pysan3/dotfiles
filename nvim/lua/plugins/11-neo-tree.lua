@@ -386,6 +386,9 @@ return {
           ".DS_Store",
           "thumbs.db",
         },
+        never_show_by_pattern = {
+          ".null-ls_*",
+        },
       },
       find_by_full_path_words = true,
       follow_current_file = {
