@@ -58,6 +58,13 @@ function br () {
   warning "Running command: bazel run" "//${p}:${j}" "$@"
   bazel run "//${p}:${j}" "$@"
 }
+function bt () {
+  local p="$(realpath --relative-to="$PWD" "$1")"
+  ([ -z "$p" ]) && error "Invalid args: <relpath>: [$# < 1] $@" && return
+  shift 1
+  warning "Running command: bazel test" "//${p}" "$@"
+  bazel test "//${p}" "$@"
+}
 
 alias ..='cd ..'
 
