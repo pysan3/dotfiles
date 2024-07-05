@@ -2,7 +2,7 @@
 
 set -e
 
-[ -d "$DOTFILES" ] && source "$DOTFILES/functions.zsh"
+[ -d "${DOTFILES:=$HOME/dotfiles}" ] && source "$DOTFILES/functions.zsh"
 checkdependency 'getoptions'
 
 VERSION="0.1"
