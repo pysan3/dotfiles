@@ -87,7 +87,7 @@ RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
 # vi mode
 bindkey -v
-export KEYTIMEOUT=20
+export KEYTIMEOUT=100
 bindkey -M viins 'jk' vi-cmd-mode
 bindkey '^[[Z' reverse-menu-complete # shift-tab to go backward in menu
 # use the vi navigation keys in menu completion
@@ -139,6 +139,7 @@ export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source "$XDG_DATA_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$XDG_DATA_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$XDG_CONFIG_HOME/fzf/fzf.zsh"
+source "$XDG_DATA_HOME/zsh/fzf-git/fzf-git.sh"
 bindkey '^l' autosuggest-accept
 
 [ -f "$ZDOTDIR/scripts_rc.zsh" ] && source "$ZDOTDIR/scripts_rc.zsh"
