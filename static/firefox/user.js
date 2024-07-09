@@ -357,3 +357,8 @@ user_pref("onebar.hide-unified-extensions-button", false);   // Hide unified ext
 user_pref("onebar.hide-all-tabs-button", false);             // Hide all tabs button
 user_pref("onebar.conditional-navigation-buttons", true);    // Hide navigation buttons when disabled
 user_pref("onebar.hide-navigation-buttons", false);          // Allow hiding navigation buttons by dragging to the right of the URLbar
+
+/****************************************************************************
+ * Allow GO Links
+ ****************************************************************************/
+user_pref("browser.fixup.domainwhitelist.go", true);
