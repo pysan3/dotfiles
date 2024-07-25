@@ -140,6 +140,7 @@ alias ttmp="tmux new-session -A -s tmp"
 function tn() { tmux new-session -A -s $(get_workdir) }
 alias yt='yt-dlp --sponsorblock-remove default --part --format "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]"'
 alias ytaudio='yt --extract-audio --audio-format mp3 --audio-quality 0 --write-thumbnail'
+alias alembic-gen='alembic revision --autogenerate -m'
 alias op='xdg-open'
 
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
