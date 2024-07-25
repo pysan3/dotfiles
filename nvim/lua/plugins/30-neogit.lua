@@ -14,7 +14,7 @@ return {
       cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     },
     { "nvim-lua/plenary.nvim" },
-    { "rhysd/conflict-marker.vim" },
+    { "akinsho/git-conflict.nvim", opts = { default_mappings = true }, keys = { "]x", "[x" } },
   },
   cond = vim.g.personal_options.use_git_plugins,
   keys = {
