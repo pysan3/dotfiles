@@ -66,6 +66,11 @@ function bt () {
   bazel test "//${p}" "$@"
 }
 
+# kubectl
+function k () {
+  kubectl --context="$CONTEXT" -n "$NAMESPACE" "$@"
+}
+
 alias ..='cd ..'
 
 alias g='git'
