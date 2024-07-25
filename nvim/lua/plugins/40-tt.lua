@@ -1,5 +1,6 @@
 return {
   "distek/tt.nvim",
+  enabled = false,
   opts = {
     termlist = {
       enabled = false,
