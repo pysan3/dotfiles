@@ -149,6 +149,10 @@ local nesting_rules = {
     pattern = "^%.env$",
     files = { "*.env", ".env.*", ".envrc", "env.d.ts" },
   },
+  ["pyproject"] = {
+    pattern = "pyproject%.toml",
+    files = { "poetry.lock" },
+  },
   ["vite.config"] = {
     pattern = "^vite%.config%..*",
     files = {
