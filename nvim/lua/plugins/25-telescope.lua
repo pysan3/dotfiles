@@ -28,7 +28,7 @@ local M = {
   "nvim-telescope/telescope.nvim",
   dependencies = {
     { "BurntSushi/ripgrep" },
-    { "natecraddock/telescope-zf-native.nvim" },
+    { "natecraddock/telescope-zf-native.nvim", build = "make" },
     { "nvim-telescope/telescope-symbols.nvim" },
     { "folke/trouble.nvim" },
   },
