@@ -8,7 +8,10 @@ end
 
 return {
   "tpope/vim-fugitive",
-  cmd = { "G", "GBranches", "Gdiff" },
+  dependencies = {
+    { "tpope/vim-rhubarb" },
+  },
+  cmd = { "G", "GBranches", "Gdiff", "GBrowse" },
   cond = vim.g.personal_options.use_git_plugins,
   keys = {
     fugitive_map("S", ""),
