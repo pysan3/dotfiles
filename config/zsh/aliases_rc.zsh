@@ -69,6 +69,46 @@ function bt () {
   bazel test "//${p}" "$@"
 }
 
+setopt extended_glob
+typeset -A abbreviations
+abbreviations=(
+  "G"    "| grep"
+  "X"    "| xargs"
+  "T"    "| tail"
+  "C"    "| cat"
+  "W"    "| wc"
+  "A"    "| awk"
+  "S"    "| sed"
+  "E"    "2>&1 > /dev/null"
+  "N"    "> /dev/null"
+)
+function magic-abbrev-expand () {
+  local MATCH
+  LBUFFER=${LBUFFER%%(#m)[-_a-zA-Z0-9]#}
+  LBUFFER+=${abbreviations[$MATCH]:-$MATCH}
+  zle self-insert
+}
+function no-magic-abbrev-expand () { LBUFFER+=' ' }
+zle -N magic-abbrev-expand
+zle -N no-magic-abbrev-expand
+bindkey " " magic-abbrev-expand
+bindkey "^x " no-magic-abbrev-expand
+
+function jwtd () {
+  echo "${1}" | jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
+  echo "Signature: $(echo "${1}" | awk -F'.' '{print $3}')"
+}
+
+function jwtx () {
+  local name="JWT_TOKEN_${1:u}"
+  local token="${(P)name}"
+  if [ -n "$token" ]; then
+    export JWT_TOKEN="$token"
+    info "export JWT_TOKEN=\$${name}"
+    echo "$JWT_TOKEN" && jwtd "$JWT_TOKEN"
+  fi
+}
+
 # kubectl
 function k () {
   kubectl --context="$CONTEXT" -n "$NAMESPACE" "$@"
