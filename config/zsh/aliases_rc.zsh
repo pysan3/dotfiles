@@ -54,9 +54,10 @@ function get_workdir () { basename "$PWD" | sed -e s'/[.-]/_/g' }
 
 # bazel
 function br () {
-  local p="$(realpath --relative-to="$PWD" "$1")" j="$2"
+  local p="$(realpath --relative-to="$PWD" "$1")" j="$2" s='2'
+  if [ -z "$z" ] && [[ -f "$p" ]]; then j="${p:t:r}" ; p="$(dirname "$p")" ; s='1'; fi
   ([ -z "$p" ] || [ -z "$j" ]) && error "Invalid args: <relpath> <job>: [$# < 2] $@" && return
-  shift 2
+  shift "$s"
   warning "$ bazel run" "//${p}:${j}" "$@"
   bazel run "//${p}:${j}" "$@"
 }
