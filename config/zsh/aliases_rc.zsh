@@ -120,7 +120,7 @@ alias g='git'
 function cgit () { cd "${GIT_PREFIX_HOME:-$HOME/Git}" }
 function main () {
   g co main || g co master
-  local branch="$(git rev-parse --abbrev-ref HEAD)"
+  local branch="$(g name)"
   g pull origin "$branch"
   if [ $(g remote -v | grep upstream | wcl) -ge 1 ]; then
     g pull upstream "$branch"
