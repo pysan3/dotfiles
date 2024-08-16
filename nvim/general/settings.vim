@@ -1,5 +1,6 @@
 " set leader key
 let g:mapleader = "\<Space>"
+let g:maplocalleader = ","
 
 "----------------------------------------------------------
 " Color schema
