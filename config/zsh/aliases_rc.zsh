@@ -96,7 +96,8 @@ bindkey "^x " no-magic-abbrev-expand
 
 function jwtd () {
   echo "${1}" | jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
-  echo "Signature: $(echo "${1}" | awk -F'.' '{print $3}')"
+  echo -n "Signature: "
+  [ -n "$2" ] && echo "${1}" | cut -d '.' -f 3 || echo "********"
 }
 
 function jwtx () {
@@ -105,7 +106,8 @@ function jwtx () {
   if [ -n "$token" ]; then
     export JWT_TOKEN="$token"
     info "export JWT_TOKEN=\$${name}"
-    echo "$JWT_TOKEN" && jwtd "$JWT_TOKEN"
+    shift 1
+    jwtd "$JWT_TOKEN" "$@"
   fi
 }
 
