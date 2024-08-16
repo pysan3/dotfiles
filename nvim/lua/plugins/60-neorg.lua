@@ -77,6 +77,40 @@ M.keys = {
   { "<Leader>tt", M.open_index_in_popup, desc = "Open Neorg index in a popup window" },
 }
 
+local function map(ft, mode, key, cmd, opts)
+  M.keys[#M.keys + 1] = vim.tbl_extend("force", opts or {}, { key, cmd, mode = mode, ft = ft })
+end
+
+local function map_event(ft, mode, key, action, opts)
+  opts = opts or {}
+  opts.noremap = false
+  map(ft, mode, key, string.format("<Plug>(%s)", action), opts)
+end
+
+local prefix = vim.g.personal_options.prefix
+local neorg_prefix = prefix.neorg
+map("norg", "n", neorg_prefix .. "e", function()
+  vim.cmd([[!norgc '%' gfm >/dev/null]])
+end, { desc = "Neorg: export to markdown and open file" })
+map("norg", "n", neorg_prefix .. "E", function()
+  vim.cmd([[!norgc '%' gfm >/dev/null]])
+  vim.cmd.vsplit(vim.fn.fnameescape(vim.fn.expand("%:p:.:r") .. ".md"))
+  vim.cmd([[GithubPreviewStart]])
+end, { desc = "Neorg: export to markdown and open MarkdownPreview" })
+map_event("norg", "n", neorg_prefix .. "c", "neorg.looking-glass.magnify-code-block")
+map("norg", "n", neorg_prefix .. "q", "<Cmd>Neorg return<CR>")
+map("norg", "n", "[h", function()
+  require("norg-config.keybinds").goto_headline("previous")
+end, { desc = "Neorg: Go to previous headline" })
+map("norg", "n", "]h", function()
+  require("norg-config.keybinds").goto_headline("next")
+end, { desc = "Neorg: Go to next headline" })
+map_event("norg", "i", "<M-CR>", "neorg.itero.next-iteration")
+map("norg", "n", prefix.iron .. "x", "<Cmd>Neorg exec cursor<CR>")
+map("norg", "n", prefix.iron .. "X", "<Cmd>Neorg exec current-file<CR>")
+-- https://github.com/nvim-neorg/neorg-telescope
+map_event("norg", "n", prefix.telescope .. "l", "neorg.integrations.telescope.find_linkable")
+
 M.init = function()
   require("norg-config.commands").setup({})
   vim.api.nvim_create_autocmd("BufWritePost", {
@@ -137,8 +171,6 @@ local function load_plugins()
       -- https://github.com/nvim-neorg/neorg/blob/main/lua/neorg/modules/core/keybinds/keybinds.lua
       config = {
         default_keybinds = true,
-        neorg_leader = ",",
-        hook = require("norg-config.keybinds").hook,
       },
     },
     ["external.templates"] = {
@@ -147,8 +179,8 @@ local function load_plugins()
         keywords = require("norg-config.templates"),
       },
     },
-    ["external.exec"] = {},
-    ["external.hop-extras"] = {},
+    -- ["external.exec"] = {},
+    -- ["external.hop-extras"] = {},
   }
 end
 
