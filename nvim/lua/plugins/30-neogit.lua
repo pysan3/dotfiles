@@ -68,7 +68,7 @@ return {
         hidden = false,
       },
       stashes = {
-        folded = false,
+        folded = true,
         hidden = false,
       },
       unpulled_upstream = {
