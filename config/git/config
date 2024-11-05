@@ -23,8 +23,10 @@
   name = rev-parse --abbrev-ref HEAD
   ps = "!git push origin $(git name)"
   psf = "!git push origin $(git name) --force-with-lease"
+  psF = "!git push origin $(git name) --force"
   pu = push -u origin HEAD
   pl = "!git pull origin $(git name)"
+  ri = rebase -i
   st = status
   sha = stash
   shl = stash --all
