@@ -44,6 +44,7 @@ export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export SSB_HOME="$XDG_DATA_HOME/zoom"
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 export GTK_USE_PORTAL=1
 # export XMODIFIERS='@im=fcitx'
