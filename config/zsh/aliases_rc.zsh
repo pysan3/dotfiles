@@ -113,6 +113,7 @@ function jwtx () {
 
 # kubectl
 function k () {
+  info "kubectl --context=$CONTEXT -n $NAMESPACE $@"
   kubectl --context="$CONTEXT" -n "$NAMESPACE" "$@"
 }
 
