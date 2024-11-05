@@ -105,7 +105,7 @@ end, { desc = "Neorg: Go to previous headline" })
 map("norg", "n", "]h", function()
   require("norg-config.keybinds").goto_headline("next")
 end, { desc = "Neorg: Go to next headline" })
-map_event("norg", "i", "<M-CR>", "neorg.itero.next-iteration")
+map_event("norg", "i", "<C-o>", "neorg.itero.next-iteration")
 map("norg", "n", prefix.iron .. "x", "<Cmd>Neorg exec cursor<CR>")
 map("norg", "n", prefix.iron .. "X", "<Cmd>Neorg exec current-file<CR>")
 -- https://github.com/nvim-neorg/neorg-telescope
