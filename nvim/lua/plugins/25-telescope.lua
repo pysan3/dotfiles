@@ -75,6 +75,7 @@ M.config = function()
           ["<C-k>"] = actions.cycle_history_prev,
           ["<Down>"] = actions.cycle_history_next,
           ["<Up>"] = actions.cycle_history_prev,
+          ["<C-g>"] = actions.to_fuzzy_refine,
           -- open quickfix list in trouble.nvim
           ["<C-q>"] = function(...)
             require("trouble")
