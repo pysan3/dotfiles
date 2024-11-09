@@ -362,3 +362,4 @@ user_pref("onebar.hide-navigation-buttons", false);          // Allow hiding nav
  * Allow GO Links
  ****************************************************************************/
 user_pref("browser.fixup.domainwhitelist.go", true);
+user_pref("browser.fixup.dns_first_for_single_words", true);
