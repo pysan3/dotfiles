@@ -17,6 +17,7 @@ return {
     keys({ "#", [[<Plug>(asterisk-z#)<Cmd>lua require("hlslens").start()<CR>zz]], mode = { "n", "x" } }),
     keys({ "g*", [[<Plug>(asterisk-g*)<Cmd>lua require("hlslens").start()<CR>zz]], mode = { "n", "x" } }),
     keys({ "g#", [[<Plug>(asterisk-g#)<Cmd>lua require("hlslens").start()<CR>zz]], mode = { "n", "x" } }),
+    keys({ "<Esc><Esc>", [[<Cmd>nohlsearch<CR>]] }),
   },
   opts = {
     auto_enable = true,
