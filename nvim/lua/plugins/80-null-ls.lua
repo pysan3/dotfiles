@@ -29,10 +29,10 @@ M.config = function()
     end,
   })
   require("lsp-config.null-helper").null_register({
+    "f.isort",
+    "f.black",
     "d.mypy",
     -- "d.flake8",
-    "f.black",
-    "f.isort",
     "f.stylua",
     "f.buildifier",
     "d.buildifier",
