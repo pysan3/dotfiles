@@ -66,8 +66,14 @@ return {
     },
   },
   opts = {
-    general = {
-      update_interval = 1000,
+    icons = {
+      kinds = { symbols = vim.g.personal_options.lsp_icons },
+      ui = { bar = { separator = "  " } },
+    },
+    bar = {
+      padding = { left = 0, right = 0 },
+      pick = { pivots = "asdfghjklqwertyuiop" },
+      update_debounce = 1000,
       update_events = {
         win = {
           "WinEnter",
@@ -83,14 +89,6 @@ return {
           "VimResized",
         },
       },
-    },
-    icons = {
-      kinds = { symbols = vim.g.personal_options.lsp_icons },
-      ui = { bar = { separator = "  " } },
-    },
-    bar = {
-      padding = { left = 0, right = 0 },
-      pick = { pivots = "asdfghjklqwertyuiop" },
     },
     menu = {
       entry = { padding = { left = 0, right = 0 } },
