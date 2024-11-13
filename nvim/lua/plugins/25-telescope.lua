@@ -78,8 +78,8 @@ M.config = function()
           ["<C-g>"] = actions.to_fuzzy_refine,
           -- open quickfix list in trouble.nvim
           ["<C-q>"] = function(...)
-            require("trouble")
-            return require("trouble.sources.telescope").open(...)
+            actions.smart_send_to_qflist(...)
+            return require("trouble").open({ mode = "qflist", refresh = true })
           end,
         },
       },
