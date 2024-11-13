@@ -110,6 +110,10 @@ M.config = function()
         "-g=!.git",
         "-g=!node_modules",
         "-g=!.venv",
+        "-g=!htmlcov",
+        "-g=!tmp",
+        "-g=!.coverage*",
+        "-g=!.*_cache",
       },
     },
     pickers = {
