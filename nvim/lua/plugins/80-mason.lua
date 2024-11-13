@@ -26,6 +26,7 @@ M.tools = {
   "cmakelang",
   "isort",
   "prettier",
+  "ruff",
   "shfmt",
   "stylua",
 }

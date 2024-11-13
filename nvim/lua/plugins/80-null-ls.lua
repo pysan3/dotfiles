@@ -31,6 +31,7 @@ M.config = function()
   require("lsp-config.null-helper").null_register({
     "f.isort",
     "f.black",
+    -- "f.ruff_format",
     "d.mypy",
     -- "d.flake8",
     "f.stylua",

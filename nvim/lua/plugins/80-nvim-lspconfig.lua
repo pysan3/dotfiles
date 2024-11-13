@@ -27,10 +27,11 @@ local lsp_list = {
   "cmake",
   "emmet_language_server",
   "jsonls",
-  "tsserver",
+  -- "tsserver",
   "texlab",
   "lua_ls",
   "pyright",
+  "ruff",
   "pylsp",
   "rust_analyzer",
   "taplo",
@@ -38,11 +39,13 @@ local lsp_list = {
   "volar",
 }
 
-local stop_lsp_fmt = {
-  tsserver = true,
-  vuels = true,
-  eslint = true,
-  pylsp = true,
+local modify_server_capability = {
+  tsserver = { documentFormattingProvider = false },
+  vuels = { documentFormattingProvider = false },
+  eslint = { documentFormattingProvider = false },
+  ruff = { hoverProvider = false },
+  pyright = { documentFormattingProvider = false },
+  pylsp = { documentFormattingProvider = false },
 }
 
 M.config = function()
@@ -55,8 +58,8 @@ M.config = function()
     on_attach = function(client, bufnr)
       lsp_base.lsp_keymaps(bufnr)
       require("lsp-format").on_attach(client)
-      if stop_lsp_fmt[client.name] then
-        client.server_capabilities.documentFormattingProvider = false
+      for k, v in pairs(modify_server_capability[client.name] or {}) do
+        client.server_capabilities[k] = v
       end
       if client.server_capabilities.documentSymbolProvider then
         require("nvim-navic").attach(client, bufnr)
