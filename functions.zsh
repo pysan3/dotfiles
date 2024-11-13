@@ -1,15 +1,15 @@
 # [ -n "${DOTFILES_FUNCTIONS}" ] && return; export readonly DOTFILES_FUNCTIONS=0;
 
 function error () {
-  ( tput setaf 1; echo "ERROR; $@"; tput sgr0 ) 1>&2
+  ( tput setaf 1; echo "ERROR $@"; tput sgr0 ) 1>&2
 }
 
 function warning () {
-  ( tput setaf 3; echo "WARNING; $@"; tput sgr0 ) 1>&2
+  ( tput setaf 3; echo "WARNING $@"; tput sgr0 ) 1>&2
 }
 
 function info () {
-  ( tput setaf 2; echo -n "INFO; "; tput sgr0; echo "$@" ) 1>&2
+  ( tput setaf 2; echo -n "INFO "; tput sgr0; echo "$@" ) 1>&2
 }
 
 function err_exit () {
