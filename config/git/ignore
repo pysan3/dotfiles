@@ -50,6 +50,7 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+pytest.xml
 
 # Translations
 *.mo
