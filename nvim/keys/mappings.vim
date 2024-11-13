@@ -26,7 +26,8 @@ nnoremap <silent> L f.l
 " Toggle wrap
 nnoremap <silent> <Leader>ml :set wrap!<CR>
 
-" save and quit
+" Save Quit Load
+nnoremap <silent> <Leader>E :e!<CR>
 noremap  <silent> <C-Q> :wq!<CR>
 inoremap <silent> <C-Q> <Esc>:wq!<CR>
 nnoremap <silent> <Leader>w :silent w<CR>
