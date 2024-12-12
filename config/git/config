@@ -27,6 +27,8 @@
   pu = push -u origin HEAD
   pl = "!git pull origin $(git name)"
   ri = rebase -i
+  fp = format-patch
+  ap = apply -v
   st = status
   sha = stash
   shl = stash --all
