@@ -119,7 +119,7 @@ done < "$DOTFILES/static/npm/npmrc"
 info "Installed npmrc"
 
 # firefox configurations
-ff_profile_dir=$(command find "$HOME/.mozilla/firefox/" -type d -name '*.default-release*')
+ff_profile_dir=$(command find "$HOME/.mozilla/firefox/" -type d -name '*.default-release*' | head -n 1)
 if [ -n "$ff_profile_dir" ]; then
   userChrome="$ff_profile_dir/chrome/userChrome.css"
   mkdir -p "$ff_profile_dir/chrome" \
