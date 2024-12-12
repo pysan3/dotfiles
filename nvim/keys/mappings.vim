@@ -57,6 +57,11 @@ inoremap <C-k> <Up>
 inoremap <C-a> <Left>
 inoremap <C-l> <Right>
 
+" Move while in command mode
+cnoremap <C-h> <S-Left>
+cnoremap <C-l> <S-Right>
+cnoremap <C-a> <C-b>
+
 " Move up and down with wrap
 nnoremap j gj
 nnoremap k gk
