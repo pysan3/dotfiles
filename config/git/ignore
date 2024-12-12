@@ -1,6 +1,7 @@
 ### Global ###
 tmp*
 *secret*
+*.patch
 
 ### Norg ###
 *.norg
