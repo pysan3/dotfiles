@@ -28,11 +28,11 @@ alt + cmd + ctrl - 2 : yabai -m window --display 2; yabai -m display --focus 2
 alt + cmd + ctrl - 3 : yabai -m window --display 3; yabai -m display --focus 3
 
 # toggle window fullscreen zoom
-cmd + ctrl - z : yabai -m window --toggle zoom-fullscreen
+alt + shift - z : yabai -m window --toggle zoom-fullscreen
 
 # toggle window native fullscreen
 alt + cmd + ctrl - f : yabai -m window --toggle native-fullscreen
 
 # float / unfloat window and restore position
-cmd + ctrl - f : yabai -m window --toggle float && yabai -m window --grid 4:4:1:1:2:2
+alt + shift - f : yabai -m window --toggle float && yabai -m window --grid 4:4:1:1:2:2
 
