@@ -31,7 +31,7 @@ M.setup = function(_)
 end
 
 -- Automatically go to first definition even when multiple found
-local function go_to_definition(is_type, open_tab)
+local function go_to_definition(is_type, open_split)
   return function()
     vim.lsp.buf[is_type and "type_definition" or "definition"]({
       reuse_win = true,
@@ -47,7 +47,12 @@ local function go_to_definition(is_type, open_tab)
           end
         end
         vim.cmd([[normal! m']])
-        vim.g.personal_module.move_to_buf_pos(item.filename, false, { line = item.lnum, col = item.col - 1 }, open_tab)
+        vim.g.personal_module.move_to_buf_pos(
+          item.filename,
+          false,
+          { line = item.lnum, col = item.col - 1 },
+          open_split
+        )
       end,
     })
   end

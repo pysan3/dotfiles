@@ -62,6 +62,7 @@ vim.g.personal_lookup = {
     ["f.autopep8"] = { extra_args = { "--max-line-length=120", "--aggressive", "--aggressive" } },
     ["d.flake8"] = { extra_args = { "--max-line-length=120" } },
     -- ["f.black"] = { extra_args = { "--line-length=120" } },
+    ["f.isort"] = { extra_args = { "--profile=black" } },
     ["f.nimpretty"] = { extra_args = { "--maxLineLen:120" } },
   },
 }
@@ -80,9 +81,9 @@ local function check_buf(bufid, f)
   return vim.api.nvim_buf_is_loaded(bufid) and vim.api.nvim_buf_get_name(bufid) == f
 end
 
-local function go_to_buf(filepath, new_tab)
-  if new_tab then
-    vim.cmd.tabedit(filepath)
+local function go_to_buf(filepath, new_split)
+  if new_split then
+    vim.cmd.vsplit(filepath)
     return
   end
   if vim.api.nvim_buf_get_name(0) == filepath then
@@ -131,13 +132,13 @@ vim.g.personal_module = {
   ---@param filepath string? absolute path to filename
   ---@param check_exists boolean? check if filename exists beforehand
   ---@param cursor_pos { line: integer?, col: integer? }? set cursor position if not nil, values default to 0
-  ---@param new_tab boolean? open file in new tab
-  move_to_buf_pos = function(filepath, check_exists, cursor_pos, new_tab)
+  ---@param new_split boolean? open file in new tab
+  move_to_buf_pos = function(filepath, check_exists, cursor_pos, new_split)
     if check_exists and filepath and not vim.g.personal_module.exists(filepath, false) then
       return
     end
     if filepath then
-      go_to_buf(filepath, new_tab)
+      go_to_buf(filepath, new_split)
     end
     if cursor_pos then
       vim.api.nvim_win_set_cursor(0, { cursor_pos.line or 0, cursor_pos.col or 0 })
