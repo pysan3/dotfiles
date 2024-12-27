@@ -22,7 +22,7 @@ return {
     keywords = { -- keywords recognized as todo comments
       FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
       TODO = { icon = " ", color = "info" },
-      HACK = { icon = " ", color = "warning" },
+      HACK = { icon = " ", alt = { "WORKAROUND" } },
       WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
       PERF = { icon = "󱎫 ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
       NOTE = { icon = " ", color = "hint", alt = { "INFO", "HINT" } },
@@ -30,7 +30,7 @@ return {
     colors = {
       error = { "#DC2626" }, -- or "DiagnosticError", "ErrorMsg"
       warning = { "#FBBF24" }, -- or "DiagnosticWarn", "WarningMsg"
-      info = { "#2563EB" }, -- or "DiagnosticInfo"
+      -- info = { "#2563EB" }, -- or "DiagnosticInfo"
       hint = { "#10B981" }, -- or "DiagnosticHint"
       default = { "#7C3AED" }, -- or "Identifier"
       test = { "#FF00FF" }, -- or "Identifier"
