@@ -175,6 +175,7 @@ function zk () { cd "$NCPATH/Notes" && cd - && tvim "$NCPATH/Notes" }
 
 alias dc="docker-compose"
 alias rp='realpath'
+alias rel='rp -s --relative-to=$PWD'
 alias po='poetry'
 alias cargobi='cargo binstall --no-confirm'
 alias tm="tmuxinator"
