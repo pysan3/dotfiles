@@ -26,5 +26,13 @@ return {
       Rule(".", ".", "nim"):with_pair(cond.before_text("{")),
       Rule("$$", "$$", "norg"),
     })
+    npairs.add_rule(Rule("<", ">", {
+      -- Exclude these filetypes from this rule so that it doesn't conflict with nvim-ts-autotag
+      "-html",
+      "-javascriptreact",
+      "-typescriptreact",
+    }):with_pair(cond.before_regex("%a+:?:?$", 3)):with_move(function(ops)
+      return ops.char == ">"
+    end))
   end,
 }
