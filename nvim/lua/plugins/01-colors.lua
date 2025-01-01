@@ -69,6 +69,13 @@ return {
     },
   }),
   nolazy({
+    "Shatur/neovim-ayu",
+    colorscheme = "ayu",
+    ops = {
+      mirage = false,
+    },
+  }),
+  nolazy({
     "mhartington/oceanic-next",
     colorscheme = "OceanicNext",
     init = function()
