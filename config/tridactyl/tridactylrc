@@ -28,6 +28,8 @@ bind d scrollpage 0.5
 bind e scrollpage -0.5
 bind u scrollpage -0.5
 
+unbind <C-f>
+
 " builtin `gi` breaks with duckduckgo
 bind gi focusinput
 
@@ -40,10 +42,8 @@ bind <C-s> mode ignore
 bind --mode=ignore <C-s> mode normal
 
 " Configurations
-
 set smoothscroll true
 set visualenterauto false
 
 " Disable on websites
-
 blacklistadd youtube.com
