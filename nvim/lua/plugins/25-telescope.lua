@@ -108,6 +108,7 @@ M.config = function()
         "-g=!tmp",
         "-g=!.coverage*",
         "-g=!.*_cache",
+        "-g=!dbt/manifest.json",
       },
     },
     pickers = {
