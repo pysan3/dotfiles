@@ -2,8 +2,10 @@ return {
   "chrisgrieser/nvim-various-textobjs",
   event = "BufReadPre",
   opts = {
-    useDefaultKeymaps = true,
-    disabledKeymaps = { "gc", "n", "L" },
+    keymaps = {
+      useDefaults = true,
+      disabledDefaults = { "gc", "n", "L" },
+    },
   },
 }
 
