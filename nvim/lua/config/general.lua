@@ -209,6 +209,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+vim.filetype.add({
+  extension = {
+    jinja = "jinja",
+    jinja2 = "jinja",
+    j2 = "jinja",
+  },
+  pattern = {
+    [".*%.sql%.jinja"] = "sqlj",
+  },
+})
+
 if vim.env.PYENV_ROOT then
   vim.g.python3_host_prog = vim.env.PYENV_ROOT .. "/versions/global/bin/python"
 end
