@@ -29,6 +29,9 @@ return {
     opts = {
       style = "night",
       transparent = vim.g.personal_options.use_transparent,
+      on_colors = function(colors)
+        colors.terminal_black = "#6A9955"
+      end,
     },
   }),
   nolazy({
