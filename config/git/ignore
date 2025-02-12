@@ -3,6 +3,9 @@ tmp*
 *secret*
 *.patch
 
+### NeoVim ###
+.neoconf.json
+
 ### Norg ###
 *.norg
 
