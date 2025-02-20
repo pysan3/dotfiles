@@ -27,6 +27,8 @@
   pu = push -u origin HEAD
   pl = "!git pull origin $(git name)"
   ri = rebase -i
+  rc = rebase --continue
+  ra = rebase --abort
   fp = format-patch
   ap = apply -v
   st = status
