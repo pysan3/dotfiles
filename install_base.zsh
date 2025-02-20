@@ -89,6 +89,7 @@ parser_definition () {
   msg -- 'Options:'
   flag YES -y --yes -- "Answer yes to all questions"
   flag NO  -n --no  -- "Answer no to all questions"
+  flag FIRST --first -- "First time installation"
   flag FONTS --fonts -- "Install fonts"
   flag FZF   --fzf   -- "Install fzf"
   flag ULOG  --ulog  -- "Install ulog / ulog_rotate"
@@ -141,6 +142,11 @@ if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
   info "Installing poetry" && curl https://install.python-poetry.org | python -
   [ $is_macos ] || first_install=true
   set +e
+fi
+
+if t $FIRST; then
+  info 'First time installation'
+  first_install=true
 fi
 
 python -m ensurepip --upgrade && python -m pip install --upgrade --user pip --force
