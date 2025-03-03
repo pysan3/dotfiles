@@ -42,7 +42,7 @@ local lsp_list = {
 local modify_server_capability = {
   tsserver = { documentFormattingProvider = false },
   vuels = { documentFormattingProvider = false },
-  eslint = { documentFormattingProvider = false },
+  eslint = { documentFormattingProvider = true },
   ruff = { hoverProvider = false },
   pyright = { documentFormattingProvider = false },
   pylsp = { documentFormattingProvider = false },
