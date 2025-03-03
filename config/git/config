@@ -21,6 +21,7 @@
   ci = commit
   ca = commit -a -m
   name = rev-parse --abbrev-ref HEAD
+  root = rev-parse --show-toplevel
   ps = "!git push origin $(git name)"
   psf = "!git push origin $(git name) --force-with-lease"
   psF = "!git push origin $(git name) --force"
