@@ -31,6 +31,8 @@ alias p='python'
 alias serve='http-server'
 function pm () { local file="${1:r}" && shift 1 && p -m "$(echo "$file" | sed 's,/,.,g' | sed 's/\.\.//g')" "$@" }
 alias -s py='pm'
+alias pt='pm pytest'
+alias pts='pt -s'
 alias \$=''
 
 alias rm='rm -i'
