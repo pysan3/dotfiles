@@ -136,6 +136,7 @@ function main () {
 }
 function clone () { cgit && R=$(paste | xargs | sed 's/  *//g') && gh repo clone "$R" && cd "$(basename "$R")" }
 function fork () { cgit && R=$(paste | xargs | sed 's/  *//g') && gh repo fork --clone "$R" && cd "$(basename "$R")" }
+function gh_latest_run () { gh run list -L 1 -b "$(g name)" --json databaseId -q '.[0].databaseId' }
 function rmcwd () { local _DELETE="$PWD" && cd .. && rm -rf "$_DELETE" }
 function nopy () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') }
 function nojs () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v npm | grep -v nvm | xargs | sed -e 's/ /:/g') }
