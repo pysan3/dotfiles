@@ -250,6 +250,8 @@ function dot () {
 function dotenv () {
   [ -f .env ] && source .env
   [ -f .env.sh ] && source .env.sh
+  current_sh=".env.$(basename $PWD).sh"
+  [ -f "$current_sh" ] && source "$current_sh"
   return 0
 }
 
