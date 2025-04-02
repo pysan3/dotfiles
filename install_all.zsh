@@ -124,7 +124,7 @@ if [ -n "$ff_profile_dir" ]; then
   userChrome="$ff_profile_dir/chrome/userChrome.css"
   mkdir -p "$ff_profile_dir/chrome" \
     && touch "$userChrome" && rm "$userChrome" \
-    && wget 'https://git.gay/freeplay/Firefox-Onebar/raw/branch/waf/onebar.css' -O "$userChrome" \
+    && wget 'https://raw.githubusercontent.com/khuedoan/one-line-firefox/refs/heads/master/userChrome.css' -O "$userChrome" \
     && ln -sf "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
     && info "Installed firefox configurations" || error "Failed to install firefox configurations"
 else
