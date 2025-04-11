@@ -128,8 +128,9 @@ if ! command -v 'python' &>/dev/null || [[ $(python -V 2>&1) =~ 'Python 2.*' ]];
   fi
 fi
 
-if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null; then
+if ! command -v 'pyenv' &>/dev/null || ! command -v 'poetry' &> /dev/null || t $FIRST ; then
   set -e
+  command rm -rf "$PYENV_ROOT" "$POETRY_HOME"
   export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin:$PATH"
   info "Installing pyenv" && curl https://pyenv.run | bash
   pyenv install --list | grep '^  3.'
