@@ -37,6 +37,8 @@ M.config = function()
     "f.stylua",
     "f.buildifier",
     "d.buildifier",
+    "f.sqlfluff",
+    "d.sqlfluff",
   })
 end
 

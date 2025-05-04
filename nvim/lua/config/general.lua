@@ -64,6 +64,18 @@ vim.g.personal_lookup = {
     -- ["f.black"] = { extra_args = { "--line-length=120" } },
     ["f.isort"] = { extra_args = { "--profile=black" } },
     ["f.nimpretty"] = { extra_args = { "--maxLineLen:120" } },
+    ["f.sqlfluff"] = {
+      extra_args = {
+        vim.env.SQLFLUFF_CONFIG_PATH and string.format("--config=%s", vim.env.SQLFLUFF_CONFIG_PATH)
+          or "--dialect=snowflake",
+      },
+    },
+    ["d.sqlfluff"] = {
+      extra_args = {
+        vim.env.SQLFLUFF_CONFIG_PATH and string.format("--config=%s", vim.env.SQLFLUFF_CONFIG_PATH)
+          or "--dialect=snowflake",
+      },
+    },
   },
 }
 
