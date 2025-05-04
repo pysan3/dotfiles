@@ -16,6 +16,7 @@
   a = "!git status --short | fzf | awk '{print $2}' | xargs git add"
   d = diff
   dw = diff HEAD
+  isclean = diff --no-ext-diff --quiet --exit-code
   f = fetch --all
   co = checkout
   ci = commit
