@@ -57,7 +57,7 @@ function get_workdir () { basename "$PWD" | sed -e s'/[.-]/_/g' }
 # bazel
 function br () {
   local p="$(realpath --relative-to="$PWD" "$1")" j="$2" s='2'
-  if [ -z "$z" ] && [[ -f "$p" ]]; then j="${p:t:r}" ; p="$(dirname "$p")" ; s='1'; fi
+  if [ -z "$j" ] && [[ -f "$p" ]]; then j="${p:t:r}" ; p="$(dirname "$p")" ; s='1'; fi
   ([ -z "$p" ] || [ -z "$j" ]) && error "Invalid args: <relpath> <job>: [$# < 2] $@" && return
   shift "$s"
   warning "$ bazel run" "//${p}:${j}" "$@"
@@ -136,7 +136,8 @@ function main () {
 }
 function clone () { cgit && R=$(paste | xargs | sed 's/  *//g') && gh repo clone "$R" && cd "$(basename "$R")" }
 function fork () { cgit && R=$(paste | xargs | sed 's/  *//g') && gh repo fork --clone "$R" && cd "$(basename "$R")" }
-function gh_latest_run () { gh run list -L 1 -b "$(g name)" --json databaseId -q '.[0].databaseId' }
+function gh_latest_run () { gh run list -L 1 -b "$(g name)" --json databaseId -q '.[0].databaseId' -w $1 }
+function gpr () { gh pr checkout "$(echo "$1" | cut -d '#' -f 1)" }
 function rmcwd () { local _DELETE="$PWD" && cd .. && rm -rf "$_DELETE" }
 function nopy () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') }
 function nojs () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v npm | grep -v nvm | xargs | sed -e 's/ /:/g') }
