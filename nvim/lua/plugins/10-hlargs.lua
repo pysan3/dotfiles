@@ -1,5 +1,6 @@
 return {
   "m-demare/hlargs.nvim",
+  enabled = false,
   event = "VeryLazy",
   opts = {
     color = vim.g.personal_lookup.get("hlargs", vim.g.personal_options.colorscheme),
