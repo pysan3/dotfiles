@@ -138,50 +138,50 @@ M.opts = {
     inc_rename = true,
     lsp_doc_border = true,
   },
-  routes = {
-    { -- route long messages to split
-      filter = {
-        event = "msg_show",
-        any = { { min_height = 5 }, { min_width = 200 } },
-        ["not"] = {
-          kind = { "confirm", "confirm_sub", "return_prompt", "quickfix", "search_count" },
-        },
-        blocking = false,
-      },
-      view = "messages",
-      opts = { stop = true },
-    },
-    { -- route long messages to split
-      filter = {
-        event = "msg_show",
-        any = { { min_height = 5 }, { min_width = 200 } },
-        ["not"] = {
-          kind = { "confirm", "confirm_sub", "return_prompt", "quickfix", "search_count" },
-        },
-        blocking = true,
-      },
-      view = "mini",
-    },
-    { -- hide `written` message
-      filter = {
-        event = "msg_show",
-        kind = "",
-        find = "written",
-      },
-      opts = { skip = true },
-    },
-    { -- send annoying msgs to mini
-      filter = {
-        event = "msg_show",
-        any = {
-          { find = "; after #%d+" },
-          { find = "; before #%d+" },
-          { find = "fewer lines" },
-        },
-      },
-      view = "mini",
-    },
-  },
+  -- routes = {
+  --   { -- route long messages to split
+  --     filter = {
+  --       event = "msg_show",
+  --       any = { { min_height = 5 }, { min_width = 200 } },
+  --       ["not"] = {
+  --         kind = { "confirm", "confirm_sub", "return_prompt", "quickfix", "search_count" },
+  --       },
+  --       blocking = false,
+  --     },
+  --     view = "messages",
+  --     opts = { stop = true },
+  --   },
+  --   { -- route long messages to split
+  --     filter = {
+  --       event = "msg_show",
+  --       any = { { min_height = 5 }, { min_width = 200 } },
+  --       ["not"] = {
+  --         kind = { "confirm", "confirm_sub", "return_prompt", "quickfix", "search_count" },
+  --       },
+  --       blocking = true,
+  --     },
+  --     view = "mini",
+  --   },
+  --   { -- hide `written` message
+  --     filter = {
+  --       event = "msg_show",
+  --       kind = "",
+  --       find = "written",
+  --     },
+  --     opts = { skip = true },
+  --   },
+  --   { -- send annoying msgs to mini
+  --     filter = {
+  --       event = "msg_show",
+  --       any = {
+  --         { find = "; after #%d+" },
+  --         { find = "; before #%d+" },
+  --         { find = "fewer lines" },
+  --       },
+  --     },
+  --     view = "mini",
+  --   },
+  -- },
   views = {
     split = {
       win_options = { wrap = false },
