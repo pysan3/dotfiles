@@ -26,6 +26,7 @@ local lsp_list = {
   "clangd",
   "cmake",
   "emmet_language_server",
+  "gopls",
   "jsonls",
   -- "tsserver",
   "texlab",
