@@ -47,6 +47,8 @@ local modify_server_capability = {
   ruff = { hoverProvider = false },
   pyright = { documentFormattingProvider = false },
   pylsp = { documentFormattingProvider = false },
+  protols = { semanticTokensProvider = false },
+  gopls = { semanticTokensProvider = false },
 }
 
 local function combine_opts(server_name, global_opts)
@@ -72,7 +74,11 @@ M.config = function()
       lsp_base.lsp_keymaps(bufnr)
       require("lsp-format").on_attach(client)
       for k, v in pairs(modify_server_capability[client.name] or {}) do
-        client.server_capabilities[k] = v
+        if v == false then
+          client.server_capabilities[k] = nil
+        else
+          client.server_capabilities[k] = v
+        end
       end
       if client.server_capabilities.documentSymbolProvider then
         require("nvim-navic").attach(client, bufnr)
