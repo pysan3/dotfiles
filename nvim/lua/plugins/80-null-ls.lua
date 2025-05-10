@@ -27,6 +27,7 @@ M.config = function()
     on_attach = function(client, _)
       require("lsp-format").on_attach(client)
     end,
+    temp_dir = "/tmp",
   })
   require("lsp-config.null-helper").null_register({
     "f.isort",
