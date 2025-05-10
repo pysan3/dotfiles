@@ -48,6 +48,18 @@ local modify_server_capability = {
   pylsp = { documentFormattingProvider = false },
 }
 
+local function combine_opts(server_name, global_opts)
+  if require("neoconf").get("lspconfig." .. server_name .. ".disabled") then
+    return
+  end
+  local opts = global_opts
+  local config_path = "lsp-config.settings." .. server_name
+  if vim.g.personal_module.exists(config_path, true) then
+    opts = vim.tbl_deep_extend("force", opts, require(config_path)) or opts
+  end
+  return opts
+end
+
 M.config = function()
   require("lsp-format").setup({})
 
@@ -71,22 +83,12 @@ M.config = function()
     vim.g.personal_module.null_register({ "f.nimpretty" })
   end
 
+  for _, server_name in ipairs(lsp_base) do
+    vim.lsp.config(server_name, combine_opts(server_name, global_opts))
+  end
   require("mason-lspconfig").setup({
     ensure_installed = lsp_list,
     automatic_installation = true,
-  })
-  require("mason-lspconfig").setup_handlers({
-    function(server_name)
-      if require("neoconf").get("lspconfig." .. server_name .. ".disabled") then
-        return
-      end
-      local opts = global_opts
-      local config_path = "lsp-config.settings." .. server_name
-      if vim.g.personal_module.exists(config_path, true) then
-        opts = vim.tbl_deep_extend("force", opts, require(config_path)) or opts
-      end
-      require("lspconfig")[server_name].setup(opts)
-    end,
   })
 end
 
