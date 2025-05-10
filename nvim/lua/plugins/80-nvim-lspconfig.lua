@@ -31,7 +31,6 @@ local lsp_list = {
   -- "tsserver",
   "texlab",
   "lua_ls",
-  "pylsp",
   "pyright",
   "ruff",
   "rust_analyzer",
@@ -56,7 +55,7 @@ local function combine_opts(server_name, global_opts)
   local opts = global_opts
   local config_path = "lsp-config.settings." .. server_name
   if vim.g.personal_module.exists(config_path, true) then
-    opts = vim.tbl_deep_extend("force", opts, require(config_path)) or opts
+    opts = vim.tbl_deep_extend("force", opts, require(config_path))
   end
   return opts
 end
@@ -84,7 +83,7 @@ M.config = function()
     vim.g.personal_module.null_register({ "f.nimpretty" })
   end
 
-  for _, server_name in ipairs(lsp_base) do
+  for _, server_name in ipairs(lsp_list) do
     vim.lsp.config(server_name, combine_opts(server_name, global_opts))
   end
   require("mason-lspconfig").setup({
