@@ -12,6 +12,7 @@ M.tools = {
   -- "node-debug2-adapter",
 
   -- Linter
+  "buf",
   "cmakelang",
   "cpplint",
   "eslint-lsp",

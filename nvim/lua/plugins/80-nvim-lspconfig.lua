@@ -31,6 +31,7 @@ local lsp_list = {
   -- "tsserver",
   "texlab",
   "lua_ls",
+  "protols",
   "pyright",
   "ruff",
   "rust_analyzer",
@@ -89,6 +90,7 @@ M.config = function()
   require("mason-lspconfig").setup({
     ensure_installed = lsp_list,
     automatic_installation = true,
+    automatic_enable = true,
   })
 end
 

@@ -39,6 +39,8 @@ M.config = function()
     "d.buildifier",
     "f.sqlfluff",
     "d.sqlfluff",
+    "f.buf",
+    "d.buf",
   })
 end
 
