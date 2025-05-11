@@ -47,7 +47,10 @@ local modify_server_capability = {
   ruff = { hoverProvider = false },
   pyright = { documentFormattingProvider = false },
   pylsp = { documentFormattingProvider = false },
-  protols = { semanticTokensProvider = false },
+  protols = {
+    semanticTokensProvider = false,
+    documentFormattingProvider = false,
+  },
   gopls = { semanticTokensProvider = false },
 }
 
