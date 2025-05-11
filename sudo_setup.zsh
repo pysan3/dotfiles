@@ -10,18 +10,17 @@ source "$DOTFILES/.zshenv"
 unset DOTFILES_FUNCTIONS && source "$DOTFILES/functions.zsh"
 setopt sh_word_split
 
-if command -v 'apt-get' &>/dev/null || checkyes 'apt-get available?'; then
-  alias apti="sudo apt-get install -y"
+if command -v 'apt' &>/dev/null || checkyes 'apt available?'; then
   # install_base.zsh dependencies
-  apti moreutils atool
+  sudo apt install -y moreutils atool
   # python build dependencies (for pyenv)
-  apti make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git python3-distutils-extra python-distutils-extra
+  sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git python3-distutils-extra
   # nvim dependencies (build latest on my own)
-  apti ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+  sudo apt install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
   # tmux dependencies (build latest on my own)
-  apti libevent ncurses libevent-dev ncurses-dev build-essential bison pkg-config
+  sudo apt install -y libevent ncurses libevent-dev ncurses-dev build-essential bison pkg-config
   # words (use for spell check)
-  apti wamerican
+  sudo apt install -y wamerican
 fi
 
 if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
