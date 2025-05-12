@@ -340,7 +340,9 @@ function install_lua () {
 
 function install_golang () {
   local tmp_file=$(mktemp)
-  wget -O "$tmp_file" "https://go.dev/dl/$(wget -O- 'https://go.dev/VERSION?m=text' | head -1).linux-amd64.tar.gz" \
+  [ $is_macos ] && target='darwin' || target='linux'
+  [ "$(uname -m)" = "x86_64" ] && target="${target}-amd64" || target="${target}-arm64"
+  wget -O "$tmp_file" "https://go.dev/dl/$(wget -O- 'https://go.dev/VERSION?m=text' | head -1).${target}.tar.gz" \
     && mkdir -p "$GOPATH" && chmod -R 777 "$GOPATH" && rm -rf "$GOPATH" \
     && tar xzf "$tmp_file" -C "$XDG_DATA_HOME" \
     && info "go installed successfully" || err_exit "go install FAILED"
@@ -363,7 +365,7 @@ function install_norganic () {
     && ln -sf "$XDG_DATA_HOME/norganic/build/norganic/bin/norganic" "$XDG_BIN_HOME" \
     && info "norganic installed successfully" || err_exit "norganic install FAILED"
 }
-(t $JULIA || $first_install || ! command -v 'norganic' &>/dev/null) && install_norganic
+# (t $JULIA || $first_install || ! command -v 'norganic' &>/dev/null) && install_norganic
 
 # install nvim from source
 function install_nvim () {
