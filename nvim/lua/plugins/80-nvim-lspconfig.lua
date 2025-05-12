@@ -97,9 +97,9 @@ M.config = function()
     vim.lsp.config(server_name, combine_opts(server_name, global_opts))
   end
   require("mason-lspconfig").setup({
-    ensure_installed = lsp_list,
     automatic_installation = true,
-    automatic_enable = true,
+    ensure_installed = lsp_list,
+    automatic_enable = lsp_list,
   })
 end
 
