@@ -11,6 +11,9 @@ return {
         library = libs,
         checkThirdParty = "Disable",
       },
+      formatting = {
+        enable = false,
+      },
     },
   },
 }
