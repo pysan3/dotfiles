@@ -34,7 +34,6 @@ local lsp_list = {
   "protols",
   "pyright",
   "ruff",
-  "rust_analyzer",
   "taplo",
   "vimls",
   "volar",
