@@ -41,6 +41,19 @@ bind X tabclose
 bind <C-s> mode ignore
 bind --mode=ignore <C-s> mode normal
 
+" More bindings to switch mode
+bind i mode ignore
+bind --mode=ignore jk mode normal
+bind --mode=ignore jk mode normal
+
+" Cross platform way to move between tabs
+bind <C-[> tabprev
+bind <C-]> tabnext
+bind --mode=ignore <C-[> tabprev
+bind --mode=ignore <C-]> tabnext
+bind --mode=input <C-[> tabprev
+bind --mode=input <C-]> tabnext
+
 " Configurations
 set smoothscroll true
 set visualenterauto false
