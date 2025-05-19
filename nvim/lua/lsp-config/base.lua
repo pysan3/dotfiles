@@ -7,7 +7,7 @@ M.lsp_list = {
   "emmet_language_server",
   "gopls",
   "jsonls",
-  -- "tsserver",
+  "ts_ls",
   "texlab",
   "lua_ls",
   "protols",
@@ -19,7 +19,7 @@ M.lsp_list = {
 }
 
 M.modify_server_capability = {
-  tsserver = { documentFormattingProvider = false },
+  ts_ls = { documentFormattingProvider = false },
   vuels = { documentFormattingProvider = false },
   eslint = { documentFormattingProvider = true },
   ruff = { hoverProvider = false },
