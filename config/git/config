@@ -31,6 +31,7 @@
   ri = rebase -i
   rc = rebase --continue
   ra = rebase --abort
+  rs = rebase --skip
   fp = format-patch
   ap = apply -v
   st = status
