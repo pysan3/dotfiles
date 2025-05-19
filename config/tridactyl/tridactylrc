@@ -13,8 +13,8 @@
 bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
 
 " Handy multiwindow/multitasking binds
-bind gd tabdetach
-bind gD composite tabduplicate; tabdetach
+bind W tabdetach
+bind WD composite tabduplicate; tabdetach
 
 " Open right click menu on links
 bind ;C composite hint_focus; !s xdotool key Menu
