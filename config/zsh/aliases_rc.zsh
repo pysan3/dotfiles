@@ -195,6 +195,11 @@ alias ytaudio='yt --extract-audio --audio-format mp3 --audio-quality 0 --write-t
 alias alembic-gen='alembic revision --autogenerate -m'
 alias op='xdg-open'
 
+function px () {
+  HTTPS_PROXY="https://${PROXY_USER}:${PROXY_PASSWORD}@${PROXY_HOST}" \
+    "$@"
+}
+
 alias piplist="pip freeze | grep -v 'pkg-resources' > requirements.txt; cat requirements.txt"
 
 function act! () {
