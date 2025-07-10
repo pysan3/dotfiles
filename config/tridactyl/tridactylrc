@@ -14,7 +14,7 @@ bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//
 
 " Handy multiwindow/multitasking binds
 bind W tabdetach
-bind WD composite tabduplicate; tabdetach
+" bind WD composite tabduplicate; tabdetach
 
 " Open right click menu on links
 bind ;C composite hint_focus; !s xdotool key Menu
@@ -43,8 +43,6 @@ bind --mode=ignore <C-s> mode normal
 
 " More bindings to switch mode
 bind i mode ignore
-bind --mode=ignore jk mode normal
-bind --mode=ignore jk mode normal
 
 " Cross platform way to move between tabs
 bind <C-[> tabprev
@@ -59,4 +57,4 @@ set smoothscroll true
 set visualenterauto false
 
 " Disable on websites
-blacklistadd youtube.com
+" blacklistadd youtube.com
