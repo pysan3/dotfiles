@@ -33,6 +33,7 @@ function pm () { local file="${1:r}" && shift 1 && p -m "$(echo "$file" | sed 's
 alias -s py='pm'
 alias pt='pm pytest'
 alias pts='pt -s'
+alias ptsv='pts -vv'
 alias \$=''
 
 alias rm='rm -i'
@@ -118,6 +119,29 @@ function jwtx () {
 function k () {
   info "kubectl --context=$CONTEXT -n $NAMESPACE $@"
   kubectl --context="$CONTEXT" -n "$NAMESPACE" "$@"
+}
+function klogf () {
+  local pod="$(k get pods -o name | grep "$1" | head -n 1 | cut -d '/' -f 2)"
+  if [ -z "$pod" ]; then
+    error "Pod not found: $1"
+    return 1
+  fi
+  shift 1
+  k logs -f "$pod" "$@"
+}
+function koplogs () {
+  local asset="$1" pod=""
+  for pod in $(k get pods | grep 'Running' | grep "dagster-step-" | cut -d ' ' -f 1); do
+    if k describe pod "$pod" 2>/dev/null | grep -q "dagster/op=$asset"; then
+      info "Found pod: $pod"
+    fi
+  done
+  if [ -z "$pod" ]; then
+    error "Pod not found for asset: $asset"
+    return 1
+  fi
+  shift 1
+  k logs -f "$pod" "$@"
 }
 
 alias ..='cd ..'
