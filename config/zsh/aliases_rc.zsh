@@ -117,8 +117,10 @@ function jwtx () {
 
 # kubectl
 function k () {
-  info "kubectl --context=$CONTEXT -n $NAMESPACE $@"
-  kubectl --context="$CONTEXT" -n "$NAMESPACE" "$@"
+  info "kubectl --context='$CONTEXT' --namespace='$NAMESPACE' $@"
+  if [[ -n "$CONTEXT" && -n "$NAMESPACE" && "$#" -gt 0 ]]; then
+    kubectl --context="$CONTEXT" -n "$NAMESPACE" "$@"
+  fi
 }
 function klogf () {
   local pod="$(k get pods -o name | grep "$1" | head -n 1 | cut -d '/' -f 2)"
