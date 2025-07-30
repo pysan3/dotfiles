@@ -54,7 +54,7 @@ bind --mode=input <C-]> tabnext
 
 " Configurations
 set smoothscroll true
-set visualenterauto false
+set visualenterauto true
 
 " Disable on websites
 " blacklistadd youtube.com
