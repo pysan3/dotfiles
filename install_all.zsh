@@ -119,17 +119,14 @@ done < "$DOTFILES/static/npm/npmrc"
 info "Installed npmrc"
 
 # firefox configurations
-ff_profile_dir=$(command find "$HOME/.mozilla/firefox/" -type d -name '*.default-release*' | head -n 1)
-if [ -n "$ff_profile_dir" ]; then
+for ff_profile_dir in $(command find "$HOME/.mozilla/firefox/" -type d -name '*.default-release*'); do
   userChrome="$ff_profile_dir/chrome/userChrome.css"
   mkdir -p "$ff_profile_dir/chrome" \
     && touch "$userChrome" && rm "$userChrome" \
     && wget 'https://raw.githubusercontent.com/khuedoan/one-line-firefox/refs/heads/master/userChrome.css' -O "$userChrome" \
     && ln -sf "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
-    && info "Installed firefox configurations" || error "Failed to install firefox configurations"
-else
-  info "firefox configurations is invalid or already installed"
-fi
+    && info "Installed firefox configurations: $ff_profile_dir" || error "Failed to install firefox configurations"
+done
 
 touch "$HOME/.gitconfig" # Generate user specific git config.
 if [ $(cat "$HOME/.gitconfig" | grep '[user]' | wc -l) -eq 0 ]; then
