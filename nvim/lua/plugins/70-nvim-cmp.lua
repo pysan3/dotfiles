@@ -17,6 +17,7 @@ local M = {
     { "alexander-born/cmp-bazel" },
     { "L3MON4D3/LuaSnip" },
     { "windwp/nvim-autopairs" },
+    { "MeanderingProgrammer/render-markdown.nvim" },
   },
 }
 
@@ -131,6 +132,7 @@ M.config = function()
       { name = "luasnip" },
       { name = "neorg" },
       { name = "bazel" },
+      { name = "render-markdown" },
       paths,
     }, {
       buffers,
