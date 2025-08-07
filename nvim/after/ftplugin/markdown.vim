@@ -6,3 +6,4 @@ set smartindent " 改行時に前の行の構文をチェックし次の行の�
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 2
 set shiftwidth=2 " smartindentで増減する幅
 set formatoptions-=cro
+set colorcolumn=88
