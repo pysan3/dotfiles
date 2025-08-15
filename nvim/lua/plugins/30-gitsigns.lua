@@ -52,5 +52,10 @@ return {
     }),
     map({ "ih", "<Cmd><C-u>Gitsigns select_hunk<CR>", mode = { "o", "x" } }),
   },
-  opts = {},
+  opts = {
+    current_line_blame = true,
+    current_line_blame_opts = {
+      delay = 500,
+    },
+  },
 }
