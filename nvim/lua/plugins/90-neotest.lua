@@ -44,6 +44,18 @@ return {
       end,
     },
     {
+      map("o"),
+      function()
+        require("neotest").output.open({ enter = false })
+      end,
+    },
+    {
+      map("O"),
+      function()
+        require("neotest").output.open({ enter = true })
+      end,
+    },
+    {
       "[e",
       function()
         require("neotest").jump.prev()
@@ -73,6 +85,9 @@ return {
       adapters = {
         require("neotest-python")({
           dap = { justMyCode = false },
+          args = function()
+            return { "--log-level", "DEBUG", "-s", "-o", string.format([[pythonpath=%s]], vim.loop.cwd()) }
+          end,
         }),
         -- require("neotest-plenary"),
         -- require("neotest-vim-test")({
