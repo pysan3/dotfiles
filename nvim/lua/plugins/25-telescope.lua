@@ -26,6 +26,7 @@ local hide = {
 
 local M = {
   "nvim-telescope/telescope.nvim",
+  version = "*",
   dependencies = {
     { "BurntSushi/ripgrep" },
     { "natecraddock/telescope-zf-native.nvim", build = "make" },

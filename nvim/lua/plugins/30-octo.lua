@@ -4,9 +4,10 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
     -- OR 'ibhagwan/fzf-lua',
-    -- OR 'folke/snacks.nvim',
+    "folke/snacks.nvim",
     "nvim-tree/nvim-web-devicons",
   },
+  version = "*",
   cmd = { "Octo" },
   keys = {
     { "<Leader>or", "<Cmd>Octo search sort:updated-desc is:open is:pr user-review-requested:@me<CR>" },
@@ -21,5 +22,6 @@ return {
   setup = {
     default_merge_method = "squash",
     default_delete_branch = true,
+    users = "mentionable",
   },
 }
