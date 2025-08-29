@@ -61,6 +61,8 @@
 [core]
   excludeFile = ~/.config/git/ignore
   ignorecase = false
+  fsmonitor = true
+  untrackedcache = true
 [init]
   defaultBranch = main
 [rerere]
