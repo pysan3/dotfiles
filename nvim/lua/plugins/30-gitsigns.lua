@@ -25,6 +25,7 @@ return {
   "lewis6991/gitsigns.nvim",
   event = "VeryLazy",
   cond = vim.g.personal_options.use_git_plugins,
+  version = false,
   keys = {
     move_hunk("]g", "next_hunk"),
     move_hunk("[g", "prev_hunk"),
@@ -50,9 +51,17 @@ return {
       end,
       desc = "Gitsigns: blame_line({ full = true })",
     }),
-    map({ "ih", "<Cmd><C-u>Gitsigns select_hunk<CR>", mode = { "o", "x" } }),
+    map({
+      "ih",
+      function()
+        require("gitsigns").select_hunk()
+      end,
+      mode = { "o", "x" },
+      desc = "Gitsigns: select_hunk",
+    }),
   },
   opts = {
+    gh = true,
     current_line_blame = true,
     current_line_blame_opts = {
       delay = 500,
