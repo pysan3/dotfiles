@@ -5,6 +5,7 @@ M.lsp_list = {
   "clangd",
   "cmake",
   "emmet_language_server",
+  "eslint",
   "gopls",
   "jsonls",
   "ts_ls",
