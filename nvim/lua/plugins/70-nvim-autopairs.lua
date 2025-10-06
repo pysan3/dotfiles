@@ -1,5 +1,6 @@
 return {
   "windwp/nvim-autopairs",
+  version = false,
   opts = {
     disable_filetype = { "TelescopePrompt", "vim", "toggleterm" },
     enable_check_bracket_line = false,
