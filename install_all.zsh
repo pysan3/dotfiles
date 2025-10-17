@@ -123,7 +123,9 @@ for ff_profile_dir in $(command find "$HOME/.mozilla/firefox/" -type d -name '*.
   userChrome="$ff_profile_dir/chrome/userChrome.css"
   mkdir -p "$ff_profile_dir/chrome" \
     && touch "$userChrome" && rm "$userChrome" \
-    && wget 'https://raw.githubusercontent.com/khuedoan/one-line-firefox/refs/heads/master/userChrome.css' -O "$userChrome" \
+    && echo '' > "$userChrome" \
+    && wget 'https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/refs/heads/master/chrome/tab_animated_active_border.css' -O- >> "$userChrome" \
+    && wget 'https://raw.githubusercontent.com/khuedoan/one-line-firefox/refs/heads/master/userChrome.css' -O- >> "$userChrome" \
     && ln -sf "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
     && info "Installed firefox configurations: $ff_profile_dir" || error "Failed to install firefox configurations"
 done
