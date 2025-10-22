@@ -34,6 +34,7 @@ return {
       event = "VeryLazy",
       opts = {
         -- recommended settings
+        debug = vim.g.personal_options.debug.avante,
         default = {
           embed_image_as_base64 = false,
           prompt_for_file_name = false,
