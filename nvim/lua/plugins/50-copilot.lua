@@ -38,5 +38,11 @@ return {
       cvs = false,
       ["."] = false,
     },
+    should_attach = function(bufnr, _)
+      if vim.bo[bufnr].buftype ~= "" then
+        return false
+      end
+      return true
+    end,
   },
 }
