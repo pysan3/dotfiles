@@ -309,7 +309,7 @@ function install_nvm () {
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
 export PATH="$(npm config get prefix)/bin:$PNPM_HOME:$PATH"
 # install necessary npm cli commands
-pnpm i -g bun tree-sitter-cli '@11ty/eleventy'
+pnpm i -g --dangerously-allow-all-builds bun tree-sitter-cli '@11ty/eleventy' pnpm
 if ! [ $is_macos ]; then
   pnpm i -g @bitwarden/cli
 fi
