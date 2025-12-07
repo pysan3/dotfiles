@@ -564,7 +564,7 @@ function rebak () {
 alias upgradefp='! command flatpak --help &>/dev/null || ( flatpak update -y && flatpak remove --unused -y )'
 alias upgradepy='pip install --upgrade --user pip pipupgrade && poetry self update && pyenv update && trun python -m pipupgrade --latest --yes'
 alias upgraders='rustup update && trun cargo install-update --all'
-alias upgradejs='npm install -g npm pnpm && pnpm self-update'
+alias upgradejs='nvm install --lts && nvm install-latest-npm && npm update -g && pnpm self-update && pnpm update -g'
 function upgradeall() {
   for lang in fp py rs js; do
     eval "upgrade$lang" \
