@@ -112,7 +112,7 @@ npmrc="$XDG_CONFIG_HOME/npm/npmrc"
 [[ -L "$npmrc" ]] && rm "$npmrc"
 mkdir -p "$(dirname $npmrc)" && touch "$npmrc"
 while IFS= read -r line; do
-  if [[ $(cat "$npmrc" | grep "$line" | wc -l) -eq 0 ]]; then
+  if [[ $(cat "$npmrc" | grep -F "$line" | wc -l) -eq 0 ]]; then
     echo "$line" >> "$npmrc"
   fi
 done < "$DOTFILES/static/npm/npmrc"
