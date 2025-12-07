@@ -27,15 +27,18 @@ alias wcl='wc -l'
 alias e='exit 0'
 alias c='clear'
 alias sc='sudo systemctl'
-alias p='python'
 alias serve='http-server'
+
+# Language specific
+alias p='python'
 function pm () { local file="${1:r}" && shift 1 && p -m "$(echo "$file" | sed 's,/,.,g' | sed 's/\.\.//g')" "$@" }
 alias -s py='pm'
 alias pt='pm pytest'
 alias pts='pt -s'
 alias ptsv='pts -vv'
-alias \$=''
+alias c='cargo'
 
+alias \$=''
 alias rm='rm -i'
 alias rmf='rm -rf'
 alias mv='mv -i'
