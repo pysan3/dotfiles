@@ -27,15 +27,18 @@ alias wcl='wc -l'
 alias e='exit 0'
 alias c='clear'
 alias sc='sudo systemctl'
-alias p='python'
 alias serve='http-server'
+
+# Language specific
+alias p='python'
 function pm () { local file="${1:r}" && shift 1 && p -m "$(echo "$file" | sed 's,/,.,g' | sed 's/\.\.//g')" "$@" }
 alias -s py='pm'
 alias pt='pm pytest'
 alias pts='pt -s'
 alias ptsv='pts -vv'
-alias \$=''
+alias c='cargo'
 
+alias \$=''
 alias rm='rm -i'
 alias rmf='rm -rf'
 alias mv='mv -i'
@@ -561,7 +564,7 @@ function rebak () {
 alias upgradefp='! command flatpak --help &>/dev/null || ( flatpak update -y && flatpak remove --unused -y )'
 alias upgradepy='pip install --upgrade --user pip pipupgrade && poetry self update && pyenv update && trun python -m pipupgrade --latest --yes'
 alias upgraders='rustup update && trun cargo install-update --all'
-alias upgradejs='npm install -g npm pnpm && pnpm self-update'
+alias upgradejs='nvm install --lts && nvm install-latest-npm && npm update -g && pnpm self-update && pnpm update -g'
 function upgradeall() {
   for lang in fp py rs js; do
     eval "upgrade$lang" \
