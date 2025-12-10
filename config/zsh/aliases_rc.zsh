@@ -56,7 +56,7 @@ alias xgs="xargs "
 alias exportenv='while read -r f; do echo "${(q)f}"; done <<(env) > .env'
 alias nowrap='setterm --linewrap off'
 alias wrap='setterm --linewrap on'
-function get_workdir () { echo "${${${PWD:h}:t}/${PWD:t}//[.:]/_}" }
+function get_workdir () { echo "${${PWD:h}:t}/${PWD:t}" | sed 's/[^a-zA-Z0-9/-]/_/g' ; }
 
 # bazel
 function br () {
