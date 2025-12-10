@@ -369,7 +369,7 @@ function install_norganic () {
 
 # install nvim from source
 function install_nvim () {
-  NVIM_INSTLL_DIR="$XDG_DATA_HOME/nvim-git"
+  NVIM_INSTLL_DIR="$XDG_DATA_HOME/neovim"
   update_git_history "$NVIM_INSTLL_DIR" https://github.com/neovim/neovim.git "${NVIM_BUILD_TAG:-stable}" \
     && cd "$NVIM_INSTLL_DIR" \
     && PATH="$(echo "$PATH" | sed 's/::/:/g')" make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX="$XDG_PREFIX_HOME" install  \
