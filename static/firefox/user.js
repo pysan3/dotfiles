@@ -53,7 +53,7 @@ user_pref(
   "privacy.partition.always_partition_third_party_non_cookie_storage.exempt_sessionstorage",
   false
 );
-user_pref("beacon.enabled", false);
+user_pref("beacon.enabled", true);
 
 /** OCSP & CERTS / HPKP ***/
 user_pref("security.OCSP.enabled", 0);
