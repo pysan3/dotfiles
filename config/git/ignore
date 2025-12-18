@@ -3,6 +3,9 @@ tmp*
 *secret*
 *.patch
 /ignore/
+/knowledge/
+/instructions/
+/documents/
 
 ### NeoVim ###
 .neoconf.json
