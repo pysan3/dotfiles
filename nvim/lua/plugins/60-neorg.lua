@@ -23,25 +23,28 @@ local M = {
 }
 
 M.popup = nil
-M.bufnr = nil
+M.popconfig = {
+  size = { width = "80%", height = "90%" },
+  position = { col = "50%", row = "50%" },
+  enter = true,
+  focusable = true,
+  relative = "editor",
+  border = {
+    style = "rounded",
+  },
+  win_options = {
+    winhighlight = "Normal:Normal,FloatBorder:WinSeparator",
+  },
+}
 M.open_index_in_popup = function()
-  if not M.popup then
-    M.popup = require("nui.popup")({
-      bufnr = M.bufnr,
-      size = { width = "80%", height = "90%" },
-      position = { col = "50%", row = "50%" },
-      enter = true,
-      focusable = true,
-      relative = "editor",
-      border = {
-        style = "rounded",
-      },
-      win_options = {
-        winhighlight = "Normal:Normal,FloatBorder:WinSeparator",
-      },
-    })
+  M.popup = M.popup or require("nui.popup")(M.popconfig)
+  M.popup:mount()
+  M.popup:update_layout(M.popconfig)
+  M.popup:show()
+  if vim.bo[vim.api.nvim_win_get_buf(M.popup.winid)].filetype ~= "norg" then
+    vim.cmd.edit("index.norg")
   end
-  vim.api.nvim_create_autocmd("WinEnter", {
+  vim.api.nvim_create_autocmd("BufWinEnter", {
     group = M.aug,
     pattern = "*.norg",
     callback = function()
@@ -57,19 +60,18 @@ M.open_index_in_popup = function()
     group = M.aug,
     callback = function(args)
       if vim.api.nvim_get_current_win() == M.popup.winid then
-        M.bufnr = args.buf
+        M.popconfig.bufnr = args.buf
         M.popup:hide()
       end
     end,
   })
-  if M.bufnr and vim.api.nvim_buf_is_valid(M.bufnr) then
-    M.popup.bufnr = M.bufnr
-  end
-  M.popup:mount()
-  M.popup:show()
-  if vim.bo[vim.api.nvim_win_get_buf(M.popup.winid)].filetype ~= "norg" then
-    vim.cmd.edit("index.norg")
-  end
+  vim.api.nvim_create_autocmd("VimResized", {
+    group = M.aug,
+    buffer = M.popup.bufnr,
+    callback = function()
+      M.popup:update_layout(M.popconfig)
+    end,
+  })
 end
 
 M.keys = {
