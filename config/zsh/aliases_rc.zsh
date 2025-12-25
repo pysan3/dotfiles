@@ -205,6 +205,7 @@ alias ve="NVIM_DISABLE_AUTOSESSION=1 nvim .env"
 alias vh="NVIM_DISABLE_AUTOSESSION=1 vim $XDG_CACHE_HOME/zsh/.zsh_history"
 alias vl="NVIM_DISABLE_AUTOSESSION=1 nvim $ZDOTDIR/local_rc.zsh"
 alias vlocal="vim $XDG_CONFIG_HOME/nvim/local.vim"
+function masonx () { PATH="$PATH:$XDG_DATA_HOME/nvim/mason/bin" "$@" }
 function zk () { cd "$NCPATH/Notes" && cd - && tvim "$NCPATH/Notes" }
 
 alias dc="docker-compose"
