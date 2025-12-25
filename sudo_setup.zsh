@@ -72,7 +72,7 @@ if command -v 'brew' &>/dev/null; then
   xcode-select --install
   brew install ninja cmake gettext curl
   # lua
-  brew install luajit luarocks
+  brew install luajit luarocks the_silver_searcher
   # apps
   brew install tmux htop btop gh lynx
   # protobuf

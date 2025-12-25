@@ -11,7 +11,8 @@ return {
   event = "VeryLazy",
   version = false, -- Never set this value to "*"! Never!
   opts = {
-    provider = "copilot",
+    debug = vim.g.personal_options.debug.avante or false,
+    provider = vim.env.NVIM_AVANTE_PROVIDER or "copilot",
     auto_suggestions_provider = nil,
     providers = {
       copilot = {
@@ -33,15 +34,12 @@ return {
       "HakonHarnes/img-clip.nvim",
       event = "VeryLazy",
       opts = {
-        -- recommended settings
-        debug = vim.g.personal_options.debug.avante,
         default = {
           embed_image_as_base64 = false,
           prompt_for_file_name = false,
           drag_and_drop = {
             insert_mode = true,
           },
-          -- required for Windows users
           use_absolute_path = true,
         },
       },
