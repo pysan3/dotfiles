@@ -19,6 +19,48 @@ return {
         model = "claude-sonnet-4",
       },
     },
+    acp_providers = {
+      ["gemini-cli"] = {
+        command = "gemini",
+        args = { "--experimental-acp" },
+        env = {
+          NODE_NO_WARNINGS = "1",
+        },
+      },
+    },
+    disabled_tools = {
+      "bash",
+      "create_dir",
+      "create_file",
+      "create",
+      "delete_dir",
+      "delete_file",
+      "edit_file",
+      "insert",
+      "list_files", -- Built-in file operations
+      "read_file",
+      "rename_dir",
+      "rename_file",
+      "replace_in_file",
+      "search_files",
+      "str_replace",
+      "undo_edit",
+      "view",
+      "write_to_file",
+    },
+    system_prompt = function()
+      local hub = require("mcphub").get_hub_instance()
+      if hub then
+        vim.print(hub:get_active_servers_prompt())
+      end
+      return hub and hub:get_active_servers_prompt() or ""
+    end,
+    custom_tools = function()
+      vim.print(require("mcphub.extensions.avante").mcp_tool())
+      return {
+        require("mcphub.extensions.avante").mcp_tool(),
+      }
+    end,
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -29,6 +71,7 @@ return {
     "folke/snacks.nvim", -- for input provider snacks
     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
     "zbirenbaum/copilot.lua", -- for providers='copilot'
+    "mcphub.nvim",
     {
       -- support for image pasting
       "HakonHarnes/img-clip.nvim",

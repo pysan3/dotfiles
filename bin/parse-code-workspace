@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+
+set -e
+
+mkdir -p .vscode
+echo '*' > .vscode/.gitignore
+
+echo '{}' > .vscode/settings.json
+echo '{}' > .vscode/mcp.json
+
+if ! command -v json5 >/dev/null 2>&1; then
+  echo "Error: json5 command not found. Please install json5-cli." >&2
+  exit 1
+fi
+if ! command -v jq >/dev/null 2>&1; then
+  echo "Error: jq command not found. Please install jq." >&2
+  exit 1
+fi
+
+function strip_scoped_variables () {
+  # ${workspaceFolder:variable} -> ${workspaceFolder}
+  sed -E 's/\$\{([a-zA-Z0-9_]+):[a-zA-Z0-9_]+\}/\$\{\1\}/g'
+}
+
+for f in "$(command find -name '*.code-workspace' -type f 2>/dev/null)"; do
+  jq -s '.[0] * .[1]' .vscode/settings.json <(json5 "$f" | strip_scoped_variables | jq '.settings') | sponge .vscode/settings.json
+  jq -s '.[0] * .[1]' .vscode/mcp.json <(json5 .vscode/settings.json | jq '.mcp') | sponge .vscode/mcp.json
+done
+

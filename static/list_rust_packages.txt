@@ -14,6 +14,7 @@ objdump:bingrep
 http-server:miniserve --readme --index index.html
 diff:difft:difftastic
 bc:eva
+jq:jaq
 _:tldr:tealdeer
 ggb:git-graph -s round
 ggl:git-graph -s round -f short
