@@ -22,6 +22,6 @@ return {
   setup = {
     default_merge_method = "squash",
     default_delete_branch = true,
-    users = "mentionable",
+    -- users = "mentionable",
   },
 }
