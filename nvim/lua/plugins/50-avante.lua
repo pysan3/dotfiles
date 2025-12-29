@@ -10,10 +10,14 @@ return {
   end,
   event = "VeryLazy",
   version = false, -- Never set this value to "*"! Never!
+  dir = "~/Git/avante.nvim/",
   opts = {
     debug = vim.g.personal_options.debug.avante or false,
     provider = vim.env.NVIM_AVANTE_PROVIDER or "copilot",
     auto_suggestions_provider = nil,
+    behaviour = {
+      allow_access_to_git_ignored_files = true,
+    },
     providers = {
       copilot = {
         model = "claude-sonnet-4",
@@ -56,7 +60,6 @@ return {
       return hub and hub:get_active_servers_prompt() or ""
     end,
     custom_tools = function()
-      vim.print(require("mcphub.extensions.avante").mcp_tool())
       return {
         require("mcphub.extensions.avante").mcp_tool(),
       }
