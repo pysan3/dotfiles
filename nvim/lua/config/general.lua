@@ -22,7 +22,7 @@ vim.g.personal_options = {
     dap = "<Leader>d",
   },
   debug = {
-    avante = true,
+    avante = false,
     lsp = false,
     null = false,
     neotree = (vim.env.NVIM_NEOTREE_DEV or "0") ~= "0",
