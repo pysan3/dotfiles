@@ -1,0 +1,37 @@
+#!/usr/bin/env zsh
+
+# ncsync <folder> <desctination> will upload the contents of <folder> to <destination>
+# using nextcloudcmd to sync the files to a Nextcloud server.
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: ncsync <folder> <destination>"
+    exit 1
+fi
+
+FOLDER="$1"
+DESTINATION="$2"
+
+if [ ! -d "$FOLDER" ]; then
+    echo "Error: Folder '$FOLDER' does not exist."
+    exit 1
+fi
+
+set -a && source ~/.mySecrets.env && set +a
+
+if [ -z "$BW_PASSWORD" ]; then
+    echo "Error: Bitwarden password is not set."
+    exit 1
+fi
+
+export NC_USER="$(echo "${BW_PASSWORD}" | bw get username d8cc83e8-d0bd-45fc-976b-ad3f007ed016)"
+export NC_PASSWORD="$(echo "${BW_PASSWORD}" | bw get password d8cc83e8-d0bd-45fc-976b-ad3f007ed016)"
+
+if [ -z "$NC_USER" ] || [ -z "$NC_PASSWORD" ]; then
+    echo "Error: Nextcloud credentials are not set."
+    exit 1
+fi
+
+nextcloudcmd -h --non-interactive \
+  --path "/$DESTINATION/$(basename "$FOLDER")" \
+  "$FOLDER" \
+  https://nextcloud.pysan3.server-on.net
