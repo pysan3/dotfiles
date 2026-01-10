@@ -4,6 +4,7 @@ return {
     "nvim-lua/plenary.nvim",
   },
   build = "bundled_build.lua", -- Bundles `mcp-hub` binary along with the neovim plugin
+  version = false,
   opts = {
     use_bundled_binary = true, -- Use local `mcp-hub` binary
     ---Chat-plugin related options-----------------
