@@ -240,7 +240,9 @@ function act! () {
   return 0
 }
 
-function act () { [ -z "$TMUX" ] && return 0 || act! }
+function act () {
+  [ -z "$TMUX" ] && return 0 || act!
+}
 
 # depends on local_rc.zsh
 function cbw () {

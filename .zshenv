@@ -14,6 +14,7 @@ export CABAL_DIR="$XDG_CACHE_HOME/cabal"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export FZF_DEFAULT_COMMAND='fd --hidden --type l --type f --type d --exclude .git --exclude .cache';
 export FZF_DEFAULT_OPTS='--height=40% --cycle --info=hidden --tabstop=4 --black'
 export GHCUP_USE_XDG_DIRS=1
 export STACK_ROOT="$XDG_DATA_HOME/stack"

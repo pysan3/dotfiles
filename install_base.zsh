@@ -214,10 +214,12 @@ function install_zsh_shell_utils () {
   update_git_history "$ZSH_SYNTAX_HIGHLIGHTING_INSTALL_DIR" https://github.com/zsh-users/zsh-syntax-highlighting.git
   ZSH_AUTOSUGGESTIONS_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-autosuggestions"
   update_git_history "$ZSH_AUTOSUGGESTIONS_INSTALL_DIR" https://github.com/zsh-users/zsh-autosuggestions.git "master"
-  ZSH_ASYNC_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-async"
-  update_git_history "$ZSH_ASYNC_INSTALL_DIR" https://github.com/mafredri/zsh-async.git
   ZSH_FZF_GIT_INSTALL_DIR="$XDG_DATA_HOME/zsh/fzf-git"
   update_git_history "$ZSH_FZF_GIT_INSTALL_DIR" https://github.com/junegunn/fzf-git.sh.git 'main'
+  ZSH_NVM_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-nvm"
+  update_git_history "$ZSH_NVM_INSTALL_DIR" https://github.com/lukechilds/zsh-nvm.git 'master'
+  ZSH_DEFER_INSTALL_DIR="$XDG_DATA_HOME/zsh/zsh-defer"
+  update_git_history "$ZSH_DEFER_INSTALL_DIR" https://github.com/romkatv/zsh-defer.git 'master'
 }
 install_zsh_shell_utils \
   && info 'Zsh extensions installation done' \

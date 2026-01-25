@@ -9,13 +9,10 @@ function _append() {
 }
 
 # js
-function load_nvm () {
-  [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-  [[ "$PATH" == *"$PNPM_HOME"* ]] || export PATH="$PATH:$PNPM_HOME"
-}
-async_start_worker nvm_worker -n
-async_register_callback nvm_worker load_nvm
-async_job nvm_worker sleep 0.1
+export NVM_COMPLETION=true NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim' 'nvim' 'yarn')
+source "$XDG_DATA_HOME/zsh/zsh-nvm/zsh-nvm.plugin.zsh"
+_append "$PNPM_HOME"
 
 # Python
 _prepend "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin"

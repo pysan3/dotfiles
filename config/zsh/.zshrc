@@ -50,41 +50,6 @@ setopt ALWAYS_TO_END # Always place the cursor to the end of the word completed.
 setopt INTERACTIVE_COMMENTS # allow comments in command line
 setopt NO_FLOW_CONTROL  # Disable Ctrl+S and Ctrl+Q
 
-export TERM="${TERM:-xterm-256color}"
-autoload -Uz colors && colors
-PROMPT="%{${fg_bold[green]}%}@%m%{${fg_bold[yellow]}%}>%{${fg_bold[red]}%}>%{${reset_color}%} "
-
-# Completion for files
-export skip_global_compinit=1
-autoload -Uz compinit
-compinit -d "$XDG_CACHE_HOME/zsh/.zcompdump"
-_comp_options+=(globdots) # Include hidden files.
-export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-zstyle ':completion:*' use-cache true
-zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
-zstyle ':completion:*:default' menu select=2 # move between completions with arrow key
-zstyle ':completion:*' completer _expand _complete _history _prefix # order of completions
-zstyle ':completion:*' matcher-list "m:{a-z}={A-Z}" # suggest upper case as well
-zstyle ':completion:*' verbose true # more verbose completions
-zstyle ':completion:*:messages' format "%{${fg_bold[yellow]}%}%d%{${reset_color}%}"
-zstyle ':completion:*:warnings' format "%{${fg_bold[red]}%}No matches for:%{${fg_bold[yellow]}%} %d%{${reset_color}%}"
-zstyle ':completion:*:descriptions' format "%{${fg_bold[yellow]}%}completing %B%d%b%{${reset_color}%}"
-zstyle ':completion:*:corrections' format "%{${fg_bold[yellow]}%}%B%d ""%{${fg_bold[red]}%}(errors: %e)%b%{${reset_color}%}"
-zstyle ':completion:*:options' description 'yes'
-zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # colorize completions
-# git completions and information
-RPROMPT="%{${fg[cyan]}%}[%~]%{${fg[blue]}%}[%*]%{${reset_color}%}"
-autoload -Uz vcs_info
-setopt prompt_subst
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%{${fg_bold[yellow]}%}!"
-zstyle ':vcs_info:git:*' unstagedstr "%{${fg_bold[red]}%}+"
-zstyle ':vcs_info:*' formats "%{${fg_bold[green]}%}%c%u[%b]%f%{${reset_color}%}"
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
-precmd () { vcs_info }
-RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
-
 # vi mode
 bindkey -v
 export KEYTIMEOUT=100
@@ -130,17 +95,58 @@ stty erase ""
 bindkey "^?" backward-delete-char
 bindkey "^[[3~" delete-char
 
-source "$XDG_DATA_HOME/zsh/zsh-async/async.zsh"
+export TERM="${TERM:-xterm-256color}"
+autoload -Uz colors && colors
+setopt prompt_subst
+PS1="%{${fg_bold[green]}%}@%m%{${fg_bold[yellow]}%}>%{${fg_bold[red]}%}>%{${reset_color}%} "
+RPS1="%{${fg[cyan]}%}[%~]%{${fg[blue]}%}[%*]%{${reset_color}%}"'${vcs_info_msg_0_:-}'
+
+source "$XDG_DATA_HOME/zsh/zsh-defer/zsh-defer.plugin.zsh"
+export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+zsh-defer source "$XDG_CONFIG_HOME/fzf/fzf.zsh"
+zsh-defer source "$XDG_DATA_HOME/zsh/fzf-git/fzf-git.sh"
+zsh-defer source "$XDG_DATA_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+zsh-defer source "$XDG_DATA_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+zsh-defer bindkey '^l' autosuggest-accept
+
+function completion_conf () {
+  # Completion for files
+  export skip_global_compinit=1
+  autoload -Uz compinit
+  compinit -d "$XDG_CACHE_HOME/zsh/.zcompdump"
+  _comp_options+=(globdots) # Include hidden files.
+  export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+  zstyle ':completion:*' use-cache true
+  zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
+  zstyle ':completion:*:default' menu select=2 # move between completions with arrow key
+  zstyle ':completion:*' completer _expand _complete _history _prefix # order of completions
+  zstyle ':completion:*' matcher-list "m:{a-z}={A-Z}" # suggest upper case as well
+  zstyle ':completion:*' verbose true # more verbose completions
+  zstyle ':completion:*:messages' format "%{${fg_bold[yellow]}%}%d%{${reset_color}%}"
+  zstyle ':completion:*:warnings' format "%{${fg_bold[red]}%}No matches for:%{${fg_bold[yellow]}%} %d%{${reset_color}%}"
+  zstyle ':completion:*:descriptions' format "%{${fg_bold[yellow]}%}completing %B%d%b%{${reset_color}%}"
+  zstyle ':completion:*:corrections' format "%{${fg_bold[yellow]}%}%B%d ""%{${fg_bold[red]}%}(errors: %e)%b%{${reset_color}%}"
+  zstyle ':completion:*:options' description 'yes'
+  zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%% [# ]*}//,/ })'
+  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # colorize completions
+}
+zsh-defer completion_conf
+
+function load_vcs_info_deferred() {
+  autoload -Uz vcs_info
+  autoload -Uz add-zsh-hook
+  zstyle ':vcs_info:git:*' check-for-changes true
+  zstyle ':vcs_info:git:*' stagedstr "%{${fg_bold[yellow]}%}!"
+  zstyle ':vcs_info:git:*' unstagedstr "%{${fg_bold[red]}%}+"
+  zstyle ':vcs_info:*' formats "%{${fg_bold[green]}%}%c%u[%b]%f%{${reset_color}%}"
+  zstyle ':vcs_info:*' actionformats '[%b|%a]'
+  add-zsh-hook precmd vcs_info
+}
+zsh-defer load_vcs_info_deferred
+
 [ -f "$ZDOTDIR/local_rc.zsh" ] && source "$ZDOTDIR/local_rc.zsh"
 [ -f "$ZDOTDIR/rust_rc.zsh" ] && source "$ZDOTDIR/rust_rc.zsh"
 [ -f "$ZDOTDIR/aliases_rc.zsh" ] && source "$ZDOTDIR/aliases_rc.zsh"
-
-export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-source "$XDG_DATA_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source "$XDG_DATA_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$XDG_CONFIG_HOME/fzf/fzf.zsh"
-source "$XDG_DATA_HOME/zsh/fzf-git/fzf-git.sh"
-bindkey '^l' autosuggest-accept
 
 [ -f "$ZDOTDIR/scripts_rc.zsh" ] && source "$ZDOTDIR/scripts_rc.zsh"
 [ -f "$HOME/.zprofile" ] && source "$HOME/.zprofile"
