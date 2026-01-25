@@ -33,6 +33,7 @@ local M = {
   "nvim-treesitter/nvim-treesitter",
   dependencies = { "sustech-data/wildfire.nvim" },
   version = false,
+  branch = "master",
   build = ":TSUpdateSync",
   event = "BufReadPre",
   cmd = { "TSUpdate", "TSUpdateSync" },
