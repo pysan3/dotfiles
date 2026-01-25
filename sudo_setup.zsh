@@ -67,7 +67,7 @@ fi
 
 if command -v 'brew' &>/dev/null; then
   # basics
-  brew install wget moreutils
+  brew install wget moreutils automake
   # neovim
   xcode-select --install
   brew install ninja cmake gettext curl
@@ -77,4 +77,8 @@ if command -v 'brew' &>/dev/null; then
   brew install tmux htop btop gh lynx
   # protobuf
   brew install protobuf
+  # fonts
+  brew install --cask font-plemol-jp
+  brew install --cask font-plemol-jp-nf
+  brew install --cask font-plemol-jp-hs
 fi

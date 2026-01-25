@@ -158,7 +158,9 @@ repo="yuru7/PlemolJP"; font_name="$(basename $repo)"
 function install_yuru_fonts () {
   if [ $is_macos ]; then
     warn 'Install plemol with brew'
-    printf 'brew tap homebrew/cask-fonts\nbrew install font-plemol-jp\nbrew install font-plemol-jp-nf\nbrew install font-plemol-jp-hs\n'
+    echo 'brew install --cask font-plemol-jp'
+    echo 'brew install --cask font-plemol-jp-nf'
+    echo 'brew install --cask font-plemol-jp-hs'
     return 0
   fi
   local tmp_dir=$(mktemp -d); mkdir -p "$XDG_DATA_HOME/fonts/$font_name"; trap "rm -v -rf '$tmp_dir'" 1 2 3 15
