@@ -1,6 +1,7 @@
 return {
   "chrisgrieser/nvim-various-textobjs",
   event = "BufReadPre",
+  branch = "main",
   opts = {
     keymaps = {
       useDefaults = true,

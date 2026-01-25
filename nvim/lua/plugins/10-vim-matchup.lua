@@ -12,13 +12,4 @@ return {
     vim.g.matchup_matchparen_timeout = 300
     vim.g.matchup_matchparen_insert_timeout = 60
   end,
-  config = function()
-    require("nvim-treesitter.configs").setup({ ---@diagnostic disable-line
-      matchup = {
-        enable = true,
-        disable_virtual_text = false,
-        include_match_words = true,
-      },
-    })
-  end,
 }
