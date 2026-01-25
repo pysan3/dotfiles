@@ -10,7 +10,6 @@ return {
   end,
   event = "VeryLazy",
   version = false, -- Never set this value to "*"! Never!
-  dir = "~/Git/avante.nvim/",
   opts = {
     debug = vim.g.personal_options.debug.avante or false,
     provider = vim.env.NVIM_AVANTE_PROVIDER or "copilot",
