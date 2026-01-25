@@ -36,7 +36,7 @@ local ts = {
   },
   version = false,
   branch = "main",
-  build = ":TSUpdateSync",
+  build = ":TSUpdate",
   event = "BufReadPre",
   cmd = { "TSUpdate", "TSUpdateSync" },
 }
@@ -44,6 +44,7 @@ local ts = {
 local M = {
   "MeanderingProgrammer/treesitter-modules.nvim",
   dependencies = { ts },
+  event = "BufReadPre",
   opts = {
     modules = {},
     auto_install = true,
