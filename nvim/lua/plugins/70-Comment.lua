@@ -106,6 +106,7 @@ local M = {
     silent({ "gcc", nil, mode = "n", desc = "Comment: toggle" }),
     silent({ "gc", nil, mode = "v", desc = "Comment: toggle visual" }),
     silent({ "gcb", "yyPgccj", mode = "n", desc = "Comment: create backup", remap = true }),
+    silent({ "gcb", "ypgvgcj", mode = "v", desc = "Comment: create backup", remap = true }),
     silent({
       "gC",
       "<Cmd>set operatorfunc=v:lua.__flip_flop_comment<CR>g@",
