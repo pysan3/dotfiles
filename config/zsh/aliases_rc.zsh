@@ -224,6 +224,7 @@ alias yt='yt-dlp --sponsorblock-remove default --part --format "bv*[ext=mp4]+ba[
 alias ytaudio='yt --extract-audio --audio-format mp3 --audio-quality 0 --write-thumbnail'
 alias alembic-gen='alembic revision --autogenerate -m'
 alias op='xdg-open'
+function qr () { qrencode -t ANSIUTF8 -o - "$@" }
 
 function px () {
   HTTPS_PROXY="https://${PROXY_USER}:${PROXY_PASSWORD}@${PROXY_HOST}" \
