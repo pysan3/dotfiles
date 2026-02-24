@@ -20,7 +20,8 @@
   f = fetch --all
   co = checkout
   ci = commit
-  ca = commit -a -m
+  ca = commit -a
+  ce = commit --allow-empty
   name = rev-parse --abbrev-ref HEAD
   root = rev-parse --show-toplevel
   ps = "!git push origin $(git name)"
