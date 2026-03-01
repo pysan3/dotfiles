@@ -80,6 +80,9 @@ for f in $(command find "config" -type f); do
   fi
 done
 
+# Link some specific directories from $XDG_CONFIG_HOME to $HOME
+ln -s "$XDG_CONFIG_HOME/.claude" "$HOME/.claude"
+
 # create local_rc.zsh if not exists
 local_rc_path="$XDG_CONFIG_HOME/zsh/local_rc.zsh"
 if ! [ -f "$local_rc_path" ]; then
