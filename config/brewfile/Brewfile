@@ -53,3 +53,5 @@ cask "slack"
 cask "visual-studio-code"
 # Google Drive
 cask "google-drive"
+# Firefox
+cask "firefox"
