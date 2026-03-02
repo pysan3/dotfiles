@@ -1,8 +1,6 @@
 tap "bufbuild/buf"
 tap "daipeihust/tap"
 tap "derailed/k9s"
-tap "homebrew/bundle"
-tap "homebrew/services"
 tap "koekeishiya/formulae"
 tap "laishulu/homebrew"
 tap "morantron/tmux-fingers"
@@ -53,3 +51,5 @@ cask "session-manager-plugin"
 cask "slack"
 # Open-source code editor
 cask "visual-studio-code"
+# Google Drive
+cask "google-drive"
