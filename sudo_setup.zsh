@@ -68,7 +68,8 @@ fi
 if command -v 'brew' &>/dev/null; then
   brew bundle --file "$DOTFILES/config/brewfile/Brewfile"
   # basics
-  brew install wget moreutils automake git gnupg
+  brew install wget moreutils automake git gnupg \
+    coreutils findutils gnu-indent gnu-sed gnutls grep gnu-tar gawk
   # neovim
   xcode-select --install
   brew install ninja cmake gettext curl tree
