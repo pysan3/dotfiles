@@ -1,0 +1,55 @@
+tap "bufbuild/buf"
+tap "daipeihust/tap"
+tap "derailed/k9s"
+tap "homebrew/bundle"
+tap "homebrew/services"
+tap "koekeishiya/formulae"
+tap "laishulu/homebrew"
+tap "morantron/tmux-fingers"
+tap "sijanc147/formulas"
+tap "snowflakedb/snowflake-cli"
+
+# Utility that provides fast incremental file transfer
+brew "rsync"
+# Intuitive find & replace CLI
+brew "sd"
+# Monitors sleep, wakeup, and idleness of a Mac
+brew "sleepwatcher", restart_service: :changed
+# CLI for snowflake
+brew "snowflake-cli"
+# Code-search similar to ack
+brew "the_silver_searcher"
+# The best way of working with Protocol Buffers.
+brew "bufbuild/buf/buf"
+# Switch your input method through terminal
+brew "daipeihust/tap/im-select"
+# macOS Input Source Manager
+brew "laishulu/homebrew/macism"
+# mouseless terminal interaction
+brew "morantron/tmux-fingers/tmux-fingers"
+# Backup and Restore your Mac System and App Preferences
+brew "sijanc147/formulas/macprefs"
+# Brings the power of Copilot coding agent directly to your terminal
+cask "copilot-cli"
+# Set of tools to manage resources and applications hosted on Google Cloud
+cask "gcloud-cli"
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
+# Open-source keystroke visualiser
+cask "keycastr"
+# Free cross-platform office suite, fresh version
+cask "libreoffice"
+# Clipboard manager
+cask "maccy"
+# File system integration
+cask "macfuse"
+# Shows the next meeting in the menu bar
+cask "meetingbar"
+# Open-source software for live streaming and screen recording
+cask "obs"
+# Plugin for AWS CLI to start and end sessions that connect to managed instances
+cask "session-manager-plugin"
+# Team communication and collaboration software
+cask "slack"
+# Open-source code editor
+cask "visual-studio-code"

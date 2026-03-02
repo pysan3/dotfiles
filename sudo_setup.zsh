@@ -66,19 +66,26 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
 fi
 
 if command -v 'brew' &>/dev/null; then
+  brew bundle --file "$DOTFILES/config/brewfile/Brewfile"
   # basics
-  brew install wget moreutils automake
+  brew install wget moreutils automake git gnupg
   # neovim
   xcode-select --install
-  brew install ninja cmake gettext curl
+  brew install ninja cmake gettext curl tree
   # lua
   brew install luajit luarocks the_silver_searcher
   # apps
-  brew install tmux htop btop gh lynx
+  brew install tmux htop btop gh lynx ffmpeg gemini-cli ghostscript jq imagemagick k9s
+  # database
+  brew install mysql-client mysql-client@8.4 mysql@8.4 snowflake-cli
   # protobuf
-  brew install protobuf
+  brew install protobuf grpcui grpcurl
   # fonts
   brew install --cask font-plemol-jp
   brew install --cask font-plemol-jp-nf
   brew install --cask font-plemol-jp-hs
+  # yabai and skhd
+  brew install koekeishiya/formulae/yabai
+  brew install koekeishiya/formulae/skhd
+  brew install sleepwatcher
 fi
