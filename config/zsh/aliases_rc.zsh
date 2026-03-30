@@ -65,7 +65,10 @@ function br () {
   ([ -z "$p" ] || [ -z "$j" ]) && error "Invalid args: <relpath> <job>: [$# < 2] $@" && return
   shift "$s"
   warning "$ bazel run" "//${p}:${j}" "$@"
-  bazel run "//${p}:${j}" "$@"
+  bazel run \
+    --experimental_remote_cache_lease_extension \
+    --experimental_remote_cache_ttl=168h \
+    "//${p}:${j}" "$@"
 }
 function bt () {
   local p="$(realpath --relative-to="$PWD" "$1")"
