@@ -103,6 +103,7 @@ parser_definition () {
   flag GO    --go    -- "Install go"
   flag GH    --gh    -- "Install gh (GitHub CLI)"
   flag PROTO --proto -- "Install google protobuf (protoc)"
+  flag SLACK --slack -- "Install slack-term (requires go)"
   disp :usage -h --help
 }
 eval "$(getoptions parser_definition - "$0") exit 1"
@@ -476,5 +477,14 @@ if t $PROTO || _checkyes 'Install protoc from source?'; then
   cd "$current_dir"
 fi
 
-info "Everything is done. Thx!!"; true
+# slack-term
+function install_slack_term () {
+  SLACK_TERM_INSTALL_DIR="$XDG_DATA_HOME/slack-term"
+  update_git_history "$SLACK_TERM_INSTALL_DIR" https://github.com/jpbruinsslot/slack-term.git
+  cd "$SLACK_TERM_INSTALL_DIR" \
+    && go install . \
+    && info 'slack-term setup done' || err_exit 'slack-term setup failed'
+}
+(t $SLACK || $first_install || ! command -v 'slack-term' &>/dev/null) && install_slack_term
 
+info "Everything is done. Thx!!"; true
