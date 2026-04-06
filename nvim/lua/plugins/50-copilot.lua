@@ -3,6 +3,7 @@ return {
   cmd = "Copilot",
   event = "InsertEnter",
   opts = {
+    copilot_node_command = vim.env.COPILOT_NODE_COMMAND or "node",
     panel = {
       enabled = false,
       auto_refresh = true,
