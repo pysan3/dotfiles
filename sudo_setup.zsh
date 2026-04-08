@@ -59,6 +59,8 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
   yay -S fontforge
   # wayland stuffs
   yay -S clipboard-sync
+  # yazi
+  yay -S yazi ffmpeg 7zip jq poppler fd ripgrep fzf zoxide resvg imagemagick
   # delete all cache
   pacman -Scc
   yay -Scc
@@ -89,4 +91,7 @@ if command -v 'brew' &>/dev/null; then
   brew install koekeishiya/formulae/yabai
   brew install koekeishiya/formulae/skhd
   brew install sleepwatcher
+  # yazi
+  brew install yazi ffmpeg-full sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick-full font-symbols-only-nerd-font
+  brew link ffmpeg-full imagemagick-full -f --overwrite
 fi
