@@ -365,3 +365,5 @@ TSWLatexianTemp*
 
 ### Zsh ###
 *.zwc
+
+**/.claude/settings.local.json
