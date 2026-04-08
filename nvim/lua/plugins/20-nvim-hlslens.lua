@@ -7,6 +7,7 @@ end
 
 return {
   "kevinhwang91/nvim-hlslens",
+  version = false,
   dependencies = {
     "haya14busa/vim-asterisk",
   },
