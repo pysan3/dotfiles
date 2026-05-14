@@ -2,6 +2,7 @@ local M = {}
 
 M.lsp_list = {
   -- "bashls",
+  "buf_ls",
   "clangd",
   "cmake",
   "emmet_language_server",
