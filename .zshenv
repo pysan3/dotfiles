@@ -13,6 +13,7 @@ export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
 export CABAL_DIR="$XDG_CACHE_HOME/cabal"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git
+export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export FZF_DEFAULT_COMMAND='fd --hidden --type l --type f --type d --exclude .git --exclude .cache';
 export FZF_DEFAULT_OPTS='--height=40% --cycle --info=hidden --tabstop=4 --black'
