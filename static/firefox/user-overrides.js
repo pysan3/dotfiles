@@ -362,3 +362,22 @@ user_pref("onebar.hide-navigation-buttons", false);          // Allow hiding nav
  * Allow GO Links
  ****************************************************************************/
 user_pref("browser.fixup.domainwhitelist.go", true);
+
+/****************************************************************************
+ * Firefox-UI-Fix
+ * https://github.com/black7375/Firefox-UI-Fix/wiki/Options
+ ****************************************************************************/
+user_pref("userChrome.tab.close_button_at_hover",    true);
+user_pref("userChrome.tab.close_button_at_hover.always",    true); // Need close_button_at_hover
+user_pref("userChrome.tab.close_button_at_hover.with_selected", true);  // Need close_button_at_hover
+user_pref("userChrome.padding.first_tab",                   true);
+user_pref("userChrome.padding.first_tab.always",            true);
+user_pref("userChrome.padding.toolbar_button.compact",      true);
+user_pref("userChrome.padding.menu_compact",                true);
+user_pref("userChrome.padding.bookmark_menu.compact",       true);
+user_pref("userChrome.padding.panel_header",                true);
+user_pref("userChrome.urlView.always_show_page_actions",    true);
+user_pref("userChrome.sidebar.overlap",                     true);
+user_pref("userChrome.hidden.sidebar_header",               true);
+user_pref("userChrome.tabbar.one_liner",                    true);
+user_pref("userChrome.autohide.fill_urlbar",                true);

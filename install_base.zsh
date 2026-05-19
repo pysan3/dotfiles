@@ -87,23 +87,24 @@ install_getoptions
 parser_definition () {
   setup REST help:usage -- "Usage: ${2##./} [:Options:]" ''
   msg -- 'Options:'
-  flag YES -y --yes -- "Answer yes to all questions"
-  flag NO  -n --no  -- "Answer no to all questions"
-  flag FIRST --first -- "First time installation"
-  flag FONTS --fonts -- "Install fonts"
-  flag FZF   --fzf   -- "Install fzf"
-  flag ULOG  --ulog  -- "Install ulog / ulog_rotate"
-  flag CARGO --cargo -- "Install missing rust packages"
-  flag NODE  --node  -- "Install node, npm, pnpm"
-  flag NIM   --nim   -- "Install nim from choosenim"
-  flag LUA   --lua   -- "Install lua and luarocks"
-  flag JULIA --julia -- "Install julia (requires cargo)"
-  flag TMUX  --tmux  -- "Install tmux"
-  flag LYNX  --lynx  -- "Install lynx"
-  flag GO    --go    -- "Install go"
-  flag GH    --gh    -- "Install gh (GitHub CLI)"
-  flag PROTO --proto -- "Install google protobuf (protoc)"
-  flag SLACK --slack -- "Install slack-term (requires go)"
+  flag YES     -y --yes  -- "Answer yes to all questions"
+  flag NO      -n --no   -- "Answer no to all questions"
+  flag FIRST   --first   -- "First time installation"
+  flag FONTS   --fonts   -- "Install fonts"
+  flag FZF     --fzf     -- "Install fzf"
+  flag ULOG    --ulog    -- "Install ulog / ulog_rotate"
+  flag CARGO   --cargo   -- "Install missing rust packages"
+  flag NODE    --node    -- "Install node, npm, pnpm"
+  flag NIM     --nim     -- "Install nim from choosenim"
+  flag LUA     --lua     -- "Install lua and luarocks"
+  flag JULIA   --julia   -- "Install julia (requires cargo)"
+  flag TMUX    --tmux    -- "Install tmux"
+  flag LYNX    --lynx    -- "Install lynx"
+  flag GO      --go      -- "Install go"
+  flag GH      --gh      -- "Install gh (GitHub CLI)"
+  flag PROTO   --proto   -- "Install google protobuf (protoc)"
+  flag SLACK   --slack   -- "Install slack-term (requires go)"
+  flag FIREFOX --firefox -- "Install firefox user.js and userChrome.css"
   disp :usage -h --help
 }
 eval "$(getoptions parser_definition - "$0") exit 1"
@@ -478,13 +479,25 @@ if t $PROTO || _checkyes 'Install protoc from source?'; then
 fi
 
 # slack-term
-function install_slack_term () {
+function install_slack_term () (
   SLACK_TERM_INSTALL_DIR="$XDG_DATA_HOME/slack-term"
   update_git_history "$SLACK_TERM_INSTALL_DIR" https://github.com/jpbruinsslot/slack-term.git
   cd "$SLACK_TERM_INSTALL_DIR" \
     && go install . \
     && info 'slack-term setup done' || err_exit 'slack-term setup failed'
-}
+)
 (t $SLACK || $first_install || ! command -v 'slack-term' &>/dev/null) && install_slack_term
+
+# firefox
+function install_firefox_config () (
+  set -e
+  cd "$DOTFILES/static/firefox"
+  wget -O /tmp/firefox-install.sh https://raw.githubusercontent.com/black7375/Firefox-UI-Fix/master/install.sh && chmod +x /tmp/firefox-install.sh
+  for ff_profile_dir in $(command find "$HOME/.mozilla/firefox/" -type d -name '*.default-release*'); do
+    rm -rf "$ff_profile_dir/user.js" "$ff_profile_dir/chrome"
+    /tmp/firefox-install.sh -f "$HOME/.mozilla/firefox" -p "$(basename "$ff_profile_dir")"
+  done
+)
+(t $FIREFOX || $first_install || ! command -v 'firefox' &>/dev/null) && install_firefox_config
 
 info "Everything is done. Thx!!"; true

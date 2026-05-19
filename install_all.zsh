@@ -80,9 +80,6 @@ for f in $(command find "config" -type f); do
   fi
 done
 
-# Link some specific directories from $XDG_CONFIG_HOME to $HOME
-ln -s "$XDG_CONFIG_HOME/.claude" "$HOME/.claude"
-
 # create local_rc.zsh if not exists
 local_rc_path="$XDG_CONFIG_HOME/zsh/local_rc.zsh"
 if ! [ -f "$local_rc_path" ]; then
@@ -120,18 +117,6 @@ while IFS= read -r line; do
   fi
 done < "$DOTFILES/static/npm/npmrc"
 info "Installed npmrc"
-
-# firefox configurations
-for ff_profile_dir in $(command find "$HOME/.mozilla/firefox/" -type d -name '*.default-release*'); do
-  userChrome="$ff_profile_dir/chrome/userChrome.css"
-  mkdir -p "$ff_profile_dir/chrome" \
-    && touch "$userChrome" && rm "$userChrome" \
-    && echo '' > "$userChrome" \
-    && wget 'https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/refs/heads/master/chrome/tab_animated_active_border.css' -O- >> "$userChrome" \
-    && wget 'https://raw.githubusercontent.com/khuedoan/one-line-firefox/refs/heads/master/userChrome.css' -O- >> "$userChrome" \
-    && ln -sf "$DOTFILES/static/firefox/user.js" "$ff_profile_dir/" \
-    && info "Installed firefox configurations: $ff_profile_dir" || error "Failed to install firefox configurations"
-done
 
 touch "$HOME/.gitconfig" # Generate user specific git config.
 if [ $(cat "$HOME/.gitconfig" | grep '[user]' | wc -l) -eq 0 ]; then
