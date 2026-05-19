@@ -3,7 +3,8 @@
   "permissions": {
     "defaultMode": "default",
     "allow": [
-      "Bash(python -m pytest:*)"
+      "Bash(python -m pytest:*)",
+      "Bash(poetry run ruff:*)"
     ]
   }
 }
