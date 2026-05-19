@@ -3,6 +3,7 @@
   "permissions": {
     "defaultMode": "default",
     "allow": [
+      "Bash(bazel run //tools/buildifier:*)",
       "Bash(python -m pytest:*)",
       "Bash(poetry run ruff:*)"
     ]
