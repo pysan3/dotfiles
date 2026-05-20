@@ -27,6 +27,30 @@ return {
       desc = "New Agentic Session",
     },
     {
+      "<Leader>ap",
+      function()
+        require("agentic").switch_provider()
+      end,
+      mode = { "n" },
+      desc = "Agentic Switch Provider",
+    },
+    {
+      "<Leader>aP",
+      function()
+        require("agentic").new_session_with_provider()
+      end,
+      mode = { "n" },
+      desc = "New Agentic Session with Provider",
+    },
+    {
+      "<Leader>as",
+      function()
+        require("agentic").stop_generation()
+      end,
+      mode = { "n" },
+      desc = "Agentic Stop Generation",
+    },
+    {
       "<Leader>ar",
       function()
         require("agentic").restore_session()
@@ -34,6 +58,14 @@ return {
       desc = "Agentic Restore session",
       silent = true,
       mode = { "n", "v" },
+    },
+    {
+      "<Leader>al",
+      function()
+        require("agentic").rotate_layout()
+      end,
+      desc = "Agentic Rotate Layout",
+      mode = { "n" },
     },
     {
       "<leader>ad", -- ai Diagnostics
