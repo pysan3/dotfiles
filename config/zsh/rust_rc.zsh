@@ -12,7 +12,7 @@ function _append() {
 export NVM_COMPLETION=true NVM_LAZY_LOAD=true
 export NVM_LAZY_LOAD_EXTRA_COMMANDS=('vim' 'nvim' 'yarn')
 source "$XDG_DATA_HOME/zsh/zsh-nvm/zsh-nvm.plugin.zsh"
-_append "$PNPM_HOME"
+_append "$PNPM_HOME:$XDG_DATA_HOME/npm/bin"
 
 # Python
 _prepend "$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PYENV_ROOT/versions/global/bin:$POETRY_HOME/bin"

@@ -75,8 +75,10 @@ if command -v 'brew' &>/dev/null; then
   # neovim
   xcode-select --install
   brew install ninja cmake gettext curl tree
+  # neovim plugin dependencies
+  brew install pngpaste the_silver_searcher
   # lua
-  brew install luajit luarocks the_silver_searcher
+  brew install luajit luarocks
   # apps
   brew install tmux htop btop gh lynx ffmpeg gemini-cli ghostscript jq imagemagick k9s
   # database
