@@ -315,7 +315,7 @@ function install_nvm () {
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
 export PATH="$(npm config get prefix)/bin:$PNPM_HOME:$PATH"
 # install necessary npm cli commands
-pnpm i -g --dangerously-allow-all-builds bun tree-sitter-cli '@11ty/eleventy' json5
+pnpm i -g --dangerously-allow-all-builds bun tree-sitter-cli '@11ty/eleventy' json5 '@mermaid-js/mermaid-cli'
 npm install -g '@zed-industries/claude-agent-acp'
 if ! [ $is_macos ]; then
   pnpm i -g @bitwarden/cli
