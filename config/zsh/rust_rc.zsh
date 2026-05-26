@@ -27,6 +27,9 @@ _prepend "$CARGO_HOME/bin"
 # Nim
 _append "$HOME/.nimble/bin"
 
+# Neovim
+_append "$XDG_DATA_HOME/nvim/mason/bin"
+
 [[ "$PATH" == *"$prepends"* ]] || export PATH="$prepends:$PATH"
 [[ "$PATH" == *"$appends"* ]] || export PATH="$PATH:$appends"
 unset -f _prepend
