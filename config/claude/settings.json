@@ -3,8 +3,12 @@
   "permissions": {
     "defaultMode": "default",
     "allow": [
-      "Bash(bazel run //tools/buildifier:*)",
+      "Bash(bazel run //tools/*)",
+      "Bash(bazel test:*)",
+      "Bash(npx markdownlint-cli:*)",
       "Bash(python -m pytest:*)",
+      "Bash(mypy:*)",
+      "Bash(pyright:*)",
       "Bash(poetry run ruff:*)"
     ]
   }
