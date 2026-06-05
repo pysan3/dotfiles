@@ -228,6 +228,14 @@ alias ytaudio='yt --extract-audio --audio-format mp3 --audio-quality 0 --write-t
 alias alembic-gen='alembic revision --autogenerate -m'
 alias op='xdg-open'
 function qr () { qrencode -t ANSIUTF8 -o - "$@" }
+function mmdf () {
+  local file="$1"
+  if [ ! -f "$file" ]; then
+    echo "File $file not found. Abort."
+    exit
+  fi
+  shift 1 && mmdc -e png -w 1970 -H 1080 -i "$file" "$@" && open "$(dirname "$file")"
+}
 
 function px () {
   HTTPS_PROXY="https://${PROXY_USER}:${PROXY_PASSWORD}@${PROXY_HOST}" \
