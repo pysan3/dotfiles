@@ -2,10 +2,10 @@
 tmp*
 *secret*
 *.patch
-/ignore/
-/knowledge/
-/instructions/
-/documents/
+ignore/
+knowledge/
+instructions/
+documents/
 
 ### NeoVim ###
 .neoconf.json
