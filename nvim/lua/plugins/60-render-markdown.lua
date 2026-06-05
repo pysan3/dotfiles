@@ -32,6 +32,12 @@ return {
     quote = {
       repeat_linebreak = true,
     },
+    html = {
+      comment = { conceal = false },
+    },
+    completions = {
+      lsp = { enabled = true },
+    },
     pipe_table = {
       style = "normal",
     },
