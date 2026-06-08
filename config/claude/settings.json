@@ -12,5 +12,6 @@
     ],
     "defaultMode": "default"
   },
-  "theme": "dark"
+  "theme": "dark",
+  "model": "opus[1m]"
 }
