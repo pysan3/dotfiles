@@ -170,6 +170,24 @@ function clone () { cgit && R=$(paste | xargs | sed 's/  *//g') && gh repo clone
 function fork () { cgit && R=$(paste | xargs | sed 's/  *//g') && gh repo fork --clone "$R" && cd "$(basename "$R")" }
 function gh_latest_run () { gh run list -L 1 -b "$(g name)" --json databaseId -q '.[0].databaseId' -w $1 }
 function gpr () { gh pr checkout "$(echo "$1" | cut -d '#' -f 1)" }
+function gsync() {
+  local master="${1:-master}" origin="origin" current=$(git branch --show-current) old="${2}"
+  local target="$origin/$master"
+  git fetch --prune "$origin"
+  local wt=$(git worktree list 2>/dev/null | command grep ' \[$master\]$' | awk '{print $1}')
+  [[ -n "$wt" ]] && git -C "$wt" merge --ff-only "$target"
+  if [[ -z "$old" ]]; then  # Auto detect the old base branch.
+    old=$(git log --simplify-by-decoration --format="%D" HEAD~1 --decorate-refs='refs/heads/*' 2>/dev/null | command grep -m 1 "." | cut -d, -f1 | head -1)
+  fi
+  if [[ -z "$old" || "$old" == "$master" || "$old" == "$target" ]]; then
+    echo "Error: Cannot auto-detect parent branch. Usage: gsync [master] [old]" >&2
+    return 1
+  fi
+  echo "🔍 Auto-detected parent branch: $old"
+  echo "🔄 Rebasing '$current' onto '$target' (leaving behind '$old' commits)..."
+  git rebase --onto "$target" "$old" "$current" --update-refs
+}
+
 function rmcwd () { local _DELETE="$PWD" && cd .. && rm -rf "$_DELETE" }
 function nopy () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v py | grep -v poetry | xargs | sed -e 's/ /:/g') }
 function nojs () { export PATH=$(echo "$PATH" | sed -e 's/:/\n/g' | grep -v npm | grep -v nvm | xargs | sed -e 's/ /:/g') }
