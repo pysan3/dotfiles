@@ -4,6 +4,14 @@
     "allow": [
       "Bash(gh pr view:*)",
       "Bash(gh pr checks:*)",
+      "Bash(gh api *commits*)",
+      "Bash(gh api *comments*)",
+      "Bash(gh api *reviews*)",
+      "Bash(gh api *status*)",
+      "Bash(git log :*)",
+      "Bash(git --no-pager log :*)",
+      "Bash(git show :*)",
+      "Bash(git --no-pager show :*)",
       "Bash(bazel run //tools/*)",
       "Bash(bazel test:*)",
       "Bash(npx markdownlint-cli:*)",
@@ -12,8 +20,15 @@
       "Bash(pyright:*)",
       "Bash(poetry run ruff:*)"
     ],
+    "deny": [
+      "Bash(gh api *-X*)",
+      "Bash(gh api *--method*)",
+      "Bash(gh api *-F*)",
+      "Bash(gh api *--raw-field*)",
+      "Bash(gh api *--input*)"
+    ],
     "defaultMode": "default"
   },
-  "theme": "dark",
-  "model": "opus[1m]"
+  "model": "opus[1m]",
+  "theme": "dark"
 }
