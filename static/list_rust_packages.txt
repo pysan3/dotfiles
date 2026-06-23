@@ -19,3 +19,5 @@ _:tldr:tealdeer
 ggb:git-graph -s round
 ggl:git-graph -s round -f short
 ascii2svg:svgbob_cli
+gs:git stack:git-stack
+gbs:git branch-stash:git-branch-stash-cli
