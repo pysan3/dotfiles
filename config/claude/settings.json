@@ -4,14 +4,19 @@
     "allow": [
       "Bash(gh pr view:*)",
       "Bash(gh pr checks:*)",
+      "Bash(gh api *annotations*)",
       "Bash(gh api *commits*)",
       "Bash(gh api *comments*)",
       "Bash(gh api *reviews*)",
       "Bash(gh api *status*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
       "Bash(git log :*)",
       "Bash(git --no-pager log :*)",
       "Bash(git show :*)",
       "Bash(git --no-pager show :*)",
+      "Bash(git diff :*)",
+      "Bash(git --no-pager diff :*)",
       "Bash(bazel run //tools/*)",
       "Bash(bazel test:*)",
       "Bash(npx markdownlint-cli:*)",
@@ -20,9 +25,11 @@
       "Bash(pyright:*)",
       "Bash(poetry run ruff:*)"
     ],
-    "deny": [
+    "ask": [
       "Bash(gh api *-X*)",
       "Bash(gh api *--method*)",
+      "Bash(gh api *-f*)",
+      "Bash(gh api *--field*)",
       "Bash(gh api *-F*)",
       "Bash(gh api *--raw-field*)",
       "Bash(gh api *--input*)"
@@ -76,5 +83,6 @@
     ]
   },
   "model": "opus[1m]",
-  "theme": "dark"
+  "theme": "dark",
+  "skipWorkflowUsageWarning": true
 }
