@@ -1,0 +1,101 @@
+#!/usr/bin/env zsh
+
+# Load zsh datetime module
+zmodload zsh/datetime
+
+# Use the first argument as the days to cutoff, default to 14
+DAYS=${1:-14}
+
+# Validate that DAYS is a positive integer
+if [[ ! "$DAYS" =~ ^[0-9]+$ ]]; then
+    echo "❌ Error: The cutoff argument must be a positive integer."
+    echo "Usage: ./cleanup.sh [days]"
+    exit 1
+fi
+
+# Calculate cutoff date dynamically in seconds
+CUTOFF_DATE=$(( EPOCHSECONDS - DAYS * 24 * 60 * 60 ))
+
+# Protect core branches from accidental deletion
+PROTECTED_BRANCHES=("main" "master" "dev" "staging")
+
+# 1. Get worktree branch names
+WORKTREE_BRANCHES=( ${(f)"$(git worktree list --porcelain | grep '^branch' | sed 's|^branch refs/heads/||')"} )
+
+# 2. Get worktree folder paths, then use Zsh's :t modifier to extract just the folder names (basenames)
+WORKTREE_PATHS=( ${(f)"$(git worktree list --porcelain | grep '^worktree' | sed 's|^worktree ||')"} )
+WORKTREE_FOLDERS=( ${WORKTREE_PATHS[@]:t} )
+
+# Array to hold branches that need review
+local -a branches_to_review
+
+echo "Scanning for local branches older than $DAYS days..."
+echo "-------------------------------------------------"
+
+# Collect all branches that meet the criteria
+git for-each-ref --format="%(refname:short) %(committerdate:unix)" refs/heads/ | while read -r branch commit_date; do
+
+    # Skip protected branches
+    if (( ${PROTECTED_BRANCHES[(Ie)$branch]} )); then
+        continue
+    fi
+
+    # Check if the branch is older than the cutoff date
+    if (( commit_date < CUTOFF_DATE )); then
+
+        # Check if the branch is actively checked out in a worktree
+        if (( ${WORKTREE_BRANCHES[(Ie)$branch]} )); then
+            echo "⏭️  Skipping: '$branch' (active in a worktree)"
+
+        # Check if the branch name matches any worktree folder name
+        elif (( ${WORKTREE_FOLDERS[(Ie)$branch]} )); then
+            echo "⏭️  Skipping: '$branch' (matches a worktree folder name)"
+
+        else
+            branches_to_review+=("$branch")
+        fi
+    fi
+done
+
+# If there is nothing to review, exit early
+if (( ${#branches_to_review[@]} == 0 )); then
+    echo "✨ Your repository is clean! No branches require deletion."
+    exit 0
+fi
+
+echo "-------------------------------------------------"
+echo "Reviewing ${#branches_to_review[@]} branches for deletion...\n"
+
+# Iterate through the collected branches one by one
+for branch in $branches_to_review; do
+
+    # Fetch the last commit message (subject line only) for this branch
+    local commit_msg
+    commit_msg=$(git log -1 --pretty=format:"%s" "$branch")
+
+    # Automatic YES if the branch name contains a slash '/'
+    if [[ "$branch" == */* ]]; then
+        echo "⚡ Auto-deleting: '$branch' (matched '/' rule)"
+        echo "   └─ Last commit: $commit_msg"
+        git branch -D "$branch"
+        echo "" # Add an empty line for readability
+        continue
+    fi
+
+    # Display the branch and its last commit message
+    echo "🌿 Branch: $branch"
+    echo "   └─ Last commit: $commit_msg"
+
+    # Prompt for branches without a slash
+    read -r "choice?🗑️  Delete '$branch'? [Y/n] "
+
+    # Check if the user pressed Enter (empty) OR typed y/Y
+    if [[ -z "$choice" || "$choice" == [Yy]* ]]; then
+        git branch -D "$branch"
+    else
+        echo "   ⏭️  Skipped."
+    fi
+    echo "" # Add an empty line between prompts
+done
+
+echo "✅ Cleanup complete!"
