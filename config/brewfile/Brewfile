@@ -1,32 +1,100 @@
-tap "bufbuild/buf"
-tap "daipeihust/tap"
-tap "derailed/k9s"
-tap "koekeishiya/formulae"
-tap "laishulu/homebrew"
-tap "morantron/tmux-fingers"
-tap "sijanc147/formulas"
-tap "snowflakedb/snowflake-cli"
-
+# --- Basics ---
+brew "automake"
+brew "coreutils"
+brew "curl"
+brew "findutils"
+brew "gawk"
+brew "git"
+brew "gnu-indent"
+brew "gnu-sed"
+brew "gnu-tar"
+brew "gnupg"
+brew "gnutls"
+brew "grep"
+brew "moreutils"
 # Utility that provides fast incremental file transfer
 brew "rsync"
 # Intuitive find & replace CLI
 brew "sd"
-# Monitors sleep, wakeup, and idleness of a Mac
-brew "sleepwatcher", restart_service: :changed
-# CLI for snowflake
-brew "snowflake-cli"
+brew "tree"
+brew "wget"
+
+# --- Neovim build & plugin dependencies (also run `xcode-select --install`) ---
+brew "cmake"
+brew "gettext"
+brew "ninja"
+brew "pngpaste"
 # Code-search similar to ack
 brew "the_silver_searcher"
+
+# --- Lua ---
+brew "luajit"
+brew "luarocks"
+
+# --- Apps ---
+brew "btop"
+brew "gemini-cli"
+brew "gh"
+brew "ghostscript"
+brew "htop"
+brew "k9s"
+brew "lynx"
+brew "tmux"
+# Monitors sleep, wakeup, and idleness of a Mac
+brew "sleepwatcher", restart_service: :changed
+
+# --- Database ---
+brew "mysql-client"
+brew "mysql-client@8.4"
+brew "mysql@8.4"
+# CLI for snowflake
+brew "snowflake-cli"
+
+# --- Protobuf ---
 # The best way of working with Protocol Buffers.
-brew "bufbuild/buf/buf"
+brew "bufbuild/buf/buf", trusted: true
+brew "grpcui"
+brew "grpcurl"
+brew "protobuf"
+
+# --- Media (the -full variants overwrite the plain ones' links) ---
+brew "ffmpeg"
+brew "imagemagick"
+brew "ffmpeg-full", link: :overwrite
+brew "imagemagick-full", link: :overwrite
+
+# --- Yazi ---
+brew "fd"
+brew "fzf"
+brew "jq"
+brew "poppler"
+brew "resvg"
+brew "ripgrep"
+brew "sevenzip"
+brew "yazi"
+brew "zoxide"
+
+# --- macOS desktop utilities (third-party taps) ---
 # Switch your input method through terminal
-brew "daipeihust/tap/im-select"
+brew "daipeihust/tap/im-select", trusted: true
+# Simple hotkey daemon for macOS
+brew "koekeishiya/formulae/skhd", trusted: true
+# Tiling window manager for macOS
+brew "koekeishiya/formulae/yabai", trusted: true
 # macOS Input Source Manager
-brew "laishulu/homebrew/macism"
+brew "laishulu/homebrew/macism", trusted: true
 # mouseless terminal interaction
-brew "morantron/tmux-fingers/tmux-fingers"
+brew "morantron/tmux-fingers/tmux-fingers", trusted: true
 # Backup and Restore your Mac System and App Preferences
-brew "sijanc147/formulas/macprefs"
+brew "sijanc147/formulas/macprefs", trusted: true
+
+# --- Fonts ---
+cask "font-plemol-jp"
+cask "font-plemol-jp-hs"
+cask "font-plemol-jp-nf"
+cask "font-symbols-only-nerd-font"
+
+# --- Casks ---
 # Brings the power of Copilot coding agent directly to your terminal
 cask "copilot-cli"
 # Set of tools to manage resources and applications hosted on Google Cloud

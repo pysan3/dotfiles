@@ -68,32 +68,7 @@ if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
 fi
 
 if command -v 'brew' &>/dev/null; then
-  brew bundle --file "$DOTFILES/config/brewfile/Brewfile"
-  # basics
-  brew install wget moreutils automake git gnupg \
-    coreutils findutils gnu-indent gnu-sed gnutls grep gnu-tar gawk
-  # neovim
+  # neovim build dependency
   xcode-select --install
-  brew install ninja cmake gettext curl tree
-  # neovim plugin dependencies
-  brew install pngpaste the_silver_searcher
-  # lua
-  brew install luajit luarocks
-  # apps
-  brew install tmux htop btop gh lynx ffmpeg gemini-cli ghostscript jq imagemagick k9s
-  # database
-  brew install mysql-client mysql-client@8.4 mysql@8.4 snowflake-cli
-  # protobuf
-  brew install protobuf grpcui grpcurl
-  # fonts
-  brew install --cask font-plemol-jp
-  brew install --cask font-plemol-jp-nf
-  brew install --cask font-plemol-jp-hs
-  # yabai and skhd
-  brew install koekeishiya/formulae/yabai
-  brew install koekeishiya/formulae/skhd
-  brew install sleepwatcher
-  # yazi
-  brew install yazi ffmpeg-full sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick-full font-symbols-only-nerd-font
-  brew link ffmpeg-full imagemagick-full -f --overwrite
+  brew bundle --file "$DOTFILES/config/brewfile/Brewfile"
 fi
