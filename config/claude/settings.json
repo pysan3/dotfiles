@@ -20,6 +20,7 @@
       "Bash(bazel run //tools/*)",
       "Bash(bazel test:*)",
       "Bash(npx markdownlint-cli:*)",
+      "Bash(NO_UPDATE_NOTIFIER=1 npx markdownlint-cli:*)",
       "Bash(python -m pytest:*)",
       "Bash(mypy:*)",
       "Bash(pyright:*)",
@@ -36,6 +37,7 @@
     ],
     "defaultMode": "default"
   },
+  "model": "claude-fable-5[1m]",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -82,7 +84,6 @@
       }
     ]
   },
-  "model": "opus[1m]",
   "theme": "dark",
   "skipWorkflowUsageWarning": true
 }
