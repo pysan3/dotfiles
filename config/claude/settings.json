@@ -26,6 +26,9 @@
       "Bash(pyright:*)",
       "Bash(poetry run ruff:*)"
     ],
+    "deny": [
+      "Bash(git add -A *)"
+    ],
     "ask": [
       "Bash(gh api *-X*)",
       "Bash(gh api *--method*)",
@@ -84,6 +87,7 @@
       }
     ]
   },
-  "theme": "dark",
-  "skipWorkflowUsageWarning": true
+  "tui": "fullscreen",
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark"
 }
