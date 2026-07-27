@@ -99,6 +99,8 @@ cask "font-symbols-only-nerd-font"
 cask "copilot-cli"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# Ghostty
+cask "ghostty"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Open-source keystroke visualiser
