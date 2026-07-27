@@ -501,4 +501,15 @@ function install_firefox_config () (
 )
 (t $FIREFOX || $first_install || ! command -v 'firefox' &>/dev/null) && install_firefox_config
 
+# karabiner: compile config/karabiner.edn into karabiner.json
+function install_karabiner_config () (
+  if ! command -v 'goku' &>/dev/null; then
+    warning 'goku not found. Skipped generating karabiner.json'
+    return 0
+  fi
+  goku && info 'Compiled karabiner.edn into karabiner.json' \
+    || error 'goku failed. Launch Karabiner-Elements once, then rename its profile to exactly "Default"'
+)
+$is_macos && install_karabiner_config
+
 info "Everything is done. Thx!!"; true

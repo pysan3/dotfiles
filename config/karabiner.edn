@@ -1,0 +1,33 @@
+;; Karabiner-Elements config, compiled to ~/.config/karabiner/karabiner.json by goku.
+;; Run `goku` after editing, or `brew services start goku` to watch this file.
+;; Reference: https://github.com/yqrashawn/GokuRakuJoudo/blob/master/tutorial.md
+;;
+;; `:##key` means {:key_code "key" :modifiers {:optional ["any"]}}, which is what
+;; modifier-to-modifier remaps need so other held modifiers pass through.
+;;
+;; NOTE: karabiner does NOT feed a manipulator's output back into other
+;; manipulators, so every physical key must state its final output in one rule.
+;; That is why caps_lock maps straight to left_command instead of relying on the
+;; global ctrl->cmd swap below.
+
+{;; The only place terminal bundle identifiers are listed.
+ :applications {:terminals ["^com\\.googlecode\\.iterm2$"
+                            "^com\\.mitchellh\\.ghostty$"]}
+
+ ;; The only place the built-in keyboard is described.
+ :devices {:builtin [{:is_built_in_keyboard true}]}
+
+ :main
+ [{:des "Built-in keyboard: caps lock acts as ctrl, ctrl acts as caps lock"
+   :rules [;; caps lock behaves as ctrl, so it sends cmd wherever ctrl is swapped
+           [:##caps_lock :left_command [:builtin :!terminals]]
+           [:##caps_lock :left_control [:builtin :terminals]]
+           ;; the physical ctrl key takes over caps lock, in every app
+           [:##left_control :caps_lock [:builtin]]]}
+
+  {:des "Swap cmd and ctrl everywhere except iTerm2 and Ghostty"
+   :rules [[:##left_command :left_control [:!terminals]]
+           ;; built-in ctrl is already caps lock above, so exclude it here
+           [:##left_control :left_command [:!terminals :!builtin]]
+           [:##right_command :right_control [:!terminals]]
+           [:##right_control :right_command [:!terminals]]]}]}

@@ -87,6 +87,8 @@ brew "laishulu/homebrew/macism", trusted: true
 brew "morantron/tmux-fingers/tmux-fingers", trusted: true
 # Backup and Restore your Mac System and App Preferences
 brew "sijanc147/formulas/macprefs", trusted: true
+# Compiles config/karabiner.edn into karabiner.json (`brew services start goku` to watch)
+brew "yqrashawn/goku/goku", trusted: true
 
 # --- Fonts ---
 cask "font-plemol-jp"
@@ -103,6 +105,8 @@ cask "gcloud-cli"
 cask "ghostty"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
+# Keyboard customiser, configured by config/karabiner.edn via goku
+cask "karabiner-elements"
 # Open-source keystroke visualiser
 cask "keycastr"
 # Free cross-platform office suite, fresh version
