@@ -55,6 +55,7 @@ bind --mode=input <C-]> tabnext
 " Configurations
 set smoothscroll true
 set visualenterauto true
+set hintfiltermode vimperator
 
 " Disable on websites
 " blacklistadd youtube.com
