@@ -10,9 +10,11 @@
 ;; That is why caps_lock maps straight to left_command instead of relying on the
 ;; global ctrl->cmd swap below.
 
-{;; The only place terminal bundle identifiers are listed.
- :applications {:terminals ["^com\\.googlecode\\.iterm2$"
-                            "^com\\.mitchellh\\.ghostty$"]}
+{;; The applications that should NOT receive the global cmd/ctrl swap.
+ ;; The bundle identifier remains com.microsoft.rdc.macos, despite Microsoft rebranding it from Microsoft Remote Desktop to Windows App.
+ :applications {:exceptions ["^com\\.googlecode\\.iterm2$"
+                             "^com\\.mitchellh\\.ghostty$"
+                             "^com\\.microsoft\\.rdc\\.macos$"]}
 
  ;; The only place the built-in keyboard is described.
  :devices {:builtin [{:is_built_in_keyboard true}]}
@@ -20,14 +22,14 @@
  :main
  [{:des "Built-in keyboard: caps lock acts as ctrl, ctrl acts as caps lock"
    :rules [;; caps lock behaves as ctrl, so it sends cmd wherever ctrl is swapped
-           [:##caps_lock :left_command [:builtin :!terminals]]
-           [:##caps_lock :left_control [:builtin :terminals]]
+           [:##caps_lock :left_command [:builtin :!exceptions]]
+           [:##caps_lock :left_control [:builtin :exceptions]]
            ;; the physical ctrl key takes over caps lock, in every app
            [:##left_control :caps_lock [:builtin]]]}
 
-  {:des "Swap cmd and ctrl everywhere except iTerm2 and Ghostty"
-   :rules [[:##left_command :left_control [:!terminals]]
+  {:des "Swap cmd and ctrl everywhere except iTerm2, Ghostty, and Windows App"
+   :rules [[:##left_command :left_control [:!exceptions]]
            ;; built-in ctrl is already caps lock above, so exclude it here
-           [:##left_control :left_command [:!terminals :!builtin]]
-           [:##right_command :right_control [:!terminals]]
-           [:##right_control :right_command [:!terminals]]]}]}
+           [:##left_control :left_command [:!exceptions :!builtin]]
+           [:##right_command :right_control [:!exceptions]]
+           [:##right_control :right_command [:!exceptions]]]}]}
