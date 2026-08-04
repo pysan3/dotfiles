@@ -23,6 +23,40 @@ if command -v 'apt' &>/dev/null || checkyes 'apt available?'; then
   sudo apt install -y wamerican
 fi
 
+if command -v 'dnf' &>/dev/null || checkyes 'dnf (Amazon Linux 2023) available?'; then
+  # base toolchain (gcc, g++, make, patch, autoconf, automake, libtool, bison, ...)
+  sudo dnf groupinstall -y 'Development Tools'
+  # install_base.zsh dependencies
+  # NOTE: `moreutils` and `atool` do NOT exist in the AL2023 repos and EPEL is not
+  # compatible with AL2023 (https://github.com/amazonlinux/amazon-linux-2023/issues/146).
+  # sponge is built from moreutils source below; atool has no substitute here.
+  warning 'atool is unavailable on Amazon Linux 2023.'
+  # --allowerasing: AL2023 ships curl-minimal which conflicts with full curl
+  sudo dnf install -y --allowerasing git curl wget tar gzip unzip
+  # python build dependencies (for pyenv)
+  sudo dnf install -y make gcc patch zlib-devel bzip2 bzip2-devel readline-devel \
+    sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel ncurses-devel gdbm-devel
+  # nvim dependencies (build latest on my own)
+  sudo dnf install -y ninja-build cmake gcc gcc-c++ make gettext glibc-gconv-extra \
+    unzip doxygen libtool autoconf automake pkgconf-pkg-config
+  # tmux dependencies (build latest on my own)
+  sudo dnf install -y ncurses-devel bison pkgconf-pkg-config
+  sudo dnf install -y libevent-devel \
+    || warning 'libevent-devel not found in enabled repos; tmux build will fail without it (base libevent exists in AL2023)'
+  # words (use for spell check)
+  sudo dnf install -y words
+  # sponge (moreutils is not packaged for AL2023; build only sponge from the official
+  # upstream — `make sponge` compiles sponge.c standalone, no docbook/perl needed)
+  if ! command -v 'sponge' &>/dev/null; then
+    moreutils_tmp=$(mktemp -d)
+    git clone --depth 1 --branch 0.70 https://git.joeyh.name/git/moreutils.git "$moreutils_tmp" \
+      && make -C "$moreutils_tmp" sponge \
+      && sudo install -m 755 "$moreutils_tmp/sponge" /usr/local/bin/sponge \
+      || error 'Failed to build sponge from moreutils source'
+    rm -rf "$moreutils_tmp"
+  fi
+fi
+
 if command -v 'pacman' &>/dev/null || checkyes 'pacman available?'; then
   use_yay=false
   if command -v 'yay' &>/dev/null || checkyes 'install yay via pacman?'; then
