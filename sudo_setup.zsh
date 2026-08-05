@@ -18,7 +18,7 @@ if command -v 'apt' &>/dev/null || checkyes 'apt available?'; then
   # nvim dependencies (build latest on my own)
   sudo apt install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
   # tmux dependencies (build latest on my own)
-  sudo apt install -y libevent ncurses libevent-dev ncurses-dev build-essential bison pkg-config
+  sudo apt install -y libevent ncurses libevent-dev ncurses-dev build-essential bison pkg-config libjemalloc-dev
   # words (use for spell check)
   sudo apt install -y wamerican
 fi
@@ -40,7 +40,7 @@ if command -v 'dnf' &>/dev/null || checkyes 'dnf (Amazon Linux 2023) available?'
   sudo dnf install -y ninja-build cmake gcc gcc-c++ make gettext glibc-gconv-extra \
     unzip doxygen libtool autoconf automake pkgconf-pkg-config
   # tmux dependencies (build latest on my own)
-  sudo dnf install -y ncurses-devel bison pkgconf-pkg-config
+  sudo dnf install -y ncurses-devel bison pkgconf-pkg-config jemalloc-devel
   sudo dnf install -y libevent-devel \
     || warning 'libevent-devel not found in enabled repos; tmux build will fail without it (base libevent exists in AL2023)'
   # words (use for spell check)

@@ -399,7 +399,7 @@ install_nvim
 command -v 'tmux' &>/dev/null && info 'tmux found' || warning 'tmux not found.'
 if t $TMUX || _checkyes 'Install tmux from source?'; then
   update_git_history "$XDG_DATA_HOME/tmux-git" https://github.com/tmux/tmux.git 'master'
-  cd "$XDG_DATA_HOME/tmux-git" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" \
+  cd "$XDG_DATA_HOME/tmux-git" && ./autogen.sh && ./configure --prefix="$XDG_PREFIX_HOME" --enable-jemalloc \
     && make -j$(nproc) && make install \
     && info 'tmux setup done' || err_exit 'tmux setup failed'
   cd "$current_dir"

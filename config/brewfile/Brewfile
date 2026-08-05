@@ -11,6 +11,7 @@ brew "gnu-tar"
 brew "gnupg"
 brew "gnutls"
 brew "grep"
+brew "jemalloc"
 brew "moreutils"
 # Utility that provides fast incremental file transfer
 brew "rsync"
