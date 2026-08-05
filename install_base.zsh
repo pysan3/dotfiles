@@ -259,6 +259,7 @@ function cargo_list_line_parse() {
     issudo="sudo "
   fi
   if [[ x"$return_value" = x'alt' ]]; then echo "$alt"; return; fi
+  if [[ x"$return_value" = x'probe' ]]; then [[ x"$alt" == x'git '* ]] && { local s="${alt#git }"; echo "git-${s%% *}"; } || echo "${alt%% *}"; return; fi
   local pkg="${alt%% *}"
   [ ${#cmdArr[@]} -gt 2 ] && pkg=${cmdArr[3]}
   if [[ x"$return_value" = x'pkg' ]]; then echo "$pkg"; return; fi
@@ -270,7 +271,7 @@ CARGO_ALIAS_CACHE="${CARGO_ALIAS_CACHE:-$XDG_CACHE_HOME/cargo/alias_local.zsh}"
 local pkg_list=''; mkdir -p "$(dirname "$CARGO_ALIAS_CACHE")"; touch "$CARGO_ALIAS_CACHE"
 while IFS= read -r line; do
   local cmd=$(cargo_list_line_parse 'cmd' $line)
-  local alt=$(cargo_list_line_parse 'alt' $line | cut -d ' ' -f 1)
+  local alt=$(cargo_list_line_parse 'probe' $line)
   local pkg=$(cargo_list_line_parse 'pkg' $line)
   [ x_ = x$cmd ] || cat "$CARGO_ALIAS_CACHE" | grep -v $cmd | sponge "$CARGO_ALIAS_CACHE"
   [ 'x#' = x${line:0:1} ] && continue
@@ -281,7 +282,7 @@ local uniq_pkg_list=$(echo "$pkg_list" | sed 's/ /\n/g' | uniq | xargs)
   && eval "cargobi $uniq_pkg_list"
 while IFS= read -r line; do
   if [ 'x#' = x${line:0:1} ]; then continue; fi
-  local alt=$(cargo_list_line_parse 'alt' $line | cut -d ' ' -f 1)
+  local alt=$(cargo_list_line_parse 'probe' $line)
   local pkg=$(cargo_list_line_parse 'pkg' $line)
   command -v ${alt} &>/dev/null || (error "Installation $pkg failed" && continue)
   [ x_ = x$(cargo_list_line_parse 'cmd' $line) ] && continue

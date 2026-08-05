@@ -45,7 +45,7 @@ if [ -z "$XDG_BIN_HOME" ]; then
   XDG_BIN_HOME="$HOME/.local/bin"
   info "$(tput setaf 4)XDG_BIN_HOME$(tput sgr0) := $HOME/.local/bin"
 fi
-for f in $(command find "bin" -type f); do
+for f in $(command find "bin" -type f ! -name '*.bak'); do
   file=${f#"bin/"}
   if [ ! -f "$XDG_BIN_HOME/$file" ]; then
     dir_name=$(dirname "$XDG_BIN_HOME/$file")
