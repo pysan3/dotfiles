@@ -80,12 +80,17 @@ for f in $(command find "config" -type f); do
   fi
 done
 
+# symlink AGENTS.md to CLAUDE.md since claude-code does not respect AGENTS.md
+if [ ! -f "$XDG_CONFIG_HOME/claude/CLAUDE.md" ]; then
+  ln -s "$DOTFILES/agents/AGENTS.md" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
+  info "Created a symbolic link of AGENTS.md to CLAUDE.md"
+fi
+
 # create local_rc.zsh if not exists
 local_rc_path="$XDG_CONFIG_HOME/zsh/local_rc.zsh"
 if ! [ -f "$local_rc_path" ]; then
   cp "$(realpath "./config/zsh/local_rc.template.zsh")" "$local_rc_path"
 fi
-
 
 # neovim configs and install extensions
 function link_nvim () {
