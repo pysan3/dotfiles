@@ -50,7 +50,7 @@ in the design or implementation.
 Refs #123"
 ```
 
-A `-m "$(cat <<'EOF' ... EOF)"` heredoc is equally fine — the body still shows in full. What matters is that the whole message is visible in the approval prompt before it becomes public, so never use `-F` or `--body-file`, and never split the message across repeated `-m` flags.
+A `-m "$(cat <<'EOF' ... EOF)"` heredoc works too. Never `-F` or `--body-file`, never repeated `-m` flags.
 
 ## Message rules
 
