@@ -42,7 +42,7 @@
     ],
     "defaultMode": "default"
   },
-  "model": "opus[1m]",
+  "model": "sonnet",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -51,6 +51,11 @@
           {
             "type": "command",
             "command": "$XDG_DATA_HOME/tmux/plugins/tmux-claude-session-manager/scripts/state.sh working"
+          },
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-prompt-submit.sh",
+            "timeout": 5000
           }
         ]
       }
@@ -62,6 +67,31 @@
           {
             "type": "command",
             "command": "$XDG_DATA_HOME/tmux/plugins/tmux-claude-session-manager/scripts/state.sh waiting"
+          },
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-notification.sh",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-notification.sh",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "matcher": "elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-notification.sh",
+            "timeout": 5000
           }
         ]
       }
@@ -75,6 +105,112 @@
             "command": "$XDG_DATA_HOME/tmux/plugins/tmux-claude-session-manager/scripts/state.sh waiting"
           }
         ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-pre-tool-use.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-pre-tool-use.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-pre-tool-use.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-pre-tool-use.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-pre-tool-use.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-pre-tool-use.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-pre-tool-use.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-permission-request.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PermissionDenied": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-permission-denied.sh",
+            "timeout": 5000
+          }
+        ]
       }
     ],
     "Stop": [
@@ -84,6 +220,35 @@
           {
             "type": "command",
             "command": "$XDG_DATA_HOME/tmux/plugins/tmux-claude-session-manager/scripts/state.sh idle"
+          },
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-stop.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-stop.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$XDG_DATA_HOME/tmux/plugins/tmux-ccm/hooks/on-session-end.sh",
+            "timeout": 5000
           }
         ]
       }

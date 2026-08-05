@@ -40,6 +40,7 @@ brew "ghostscript"
 brew "htop"
 brew "k9s"
 brew "lynx"
+brew "terminal-notifier"
 brew "tmux"
 # Monitors sleep, wakeup, and idleness of a Mac
 brew "sleepwatcher", restart_service: :changed

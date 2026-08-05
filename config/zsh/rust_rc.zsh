@@ -30,6 +30,9 @@ _append "$HOME/.nimble/bin"
 # Neovim
 _append "$XDG_DATA_HOME/nvim/mason/bin"
 
+# tmux-ccm CLI (dashboard is bound in tmux; this exposes the `ccm` binary to the shell)
+_append "$XDG_DATA_HOME/tmux/plugins/tmux-ccm"
+
 [[ "$PATH" == *"$prepends"* ]] || export PATH="$prepends:$PATH"
 [[ "$PATH" == *"$appends"* ]] || export PATH="$PATH:$appends"
 unset -f _prepend
