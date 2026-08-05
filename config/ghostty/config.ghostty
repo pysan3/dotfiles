@@ -1,0 +1,24 @@
+theme = iTerm2 Default
+# theme = Builtin Pastel Dark
+
+font-size = 12
+font-family = PlemolJP Console NF
+
+# background-opacity = 0.8
+background-blur = true
+
+scrollbar = never
+fullscreen = false
+maximize = true
+window-decoration = auto
+macos-titlebar-style = hidden
+quit-after-last-window-closed = true
+
+link-url = true
+link-previews = true
+
+clipboard-read = allow
+clipboard-write = allow
+clipboard-trim-trailing-spaces = true
+
+macos-option-as-alt = true
