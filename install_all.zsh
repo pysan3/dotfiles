@@ -82,7 +82,7 @@ done
 
 # symlink AGENTS.md to CLAUDE.md since claude-code does not respect AGENTS.md
 if [ ! -f "$XDG_CONFIG_HOME/claude/CLAUDE.md" ]; then
-  ln -s "$DOTFILES/agents/AGENTS.md" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
+  ln -s "$DOTFILES/config/agents/AGENTS.md" "$CLAUDE_CONFIG_DIR/CLAUDE.md"
   info "Created a symbolic link of AGENTS.md to CLAUDE.md"
 fi
 
