@@ -6,8 +6,11 @@
 
 # Shell
 
+- The priority is builtin tools (read, write, MCP), then coreutils and other dedicated cli tools, then python scripting.
 - Never `cd`. Commands run from the git root, so `git -C` is unnecessary too.
+- All comamnds are executed relative to git root so no absolute path is required.
 - Avoid variable expansion; it is usually blocked for lack of permission. Use it freely in long, complex commands — a human reviews those.
+- Do not rely on python to replace code. Simply make your edit since a false-positive may occur (for example in docstrings).
 - Run shell scripts through shellcheck.
 - To test a CLI with ad-hoc input, write the input to a scratchpad file and pass it by path instead of piping from `cat`/`echo`/heredoc; this avoids permission prompts in sub-agents. Test input is throwaway and local; published content goes inline instead.
 - Commands you want me to run go in one pasteable block:
