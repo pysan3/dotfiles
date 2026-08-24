@@ -33,6 +33,17 @@ alt + cmd + ctrl - 1 : yabai -m window --display 1; yabai -m display --focus 1
 alt + cmd + ctrl - 2 : yabai -m window --display 2; yabai -m display --focus 2
 alt + cmd + ctrl - 3 : yabai -m window --display 3; yabai -m display --focus 3
 
+# send window to exact space (desktop)
+shift + alt - 1 : yabai -m window --space 1
+shift + alt - 2 : yabai -m window --space 2
+shift + alt - 3 : yabai -m window --space 3
+shift + alt - 4 : yabai -m window --space 4
+shift + alt - 5 : yabai -m window --space 5
+shift + alt - 6 : yabai -m window --space 6
+shift + alt - 7 : yabai -m window --space 7
+shift + alt - 8 : yabai -m window --space 8
+shift + alt - 9 : yabai -m window --space 9
+
 # toggle window fullscreen zoom
 alt + shift - z : yabai -m window --toggle zoom-fullscreen
 
