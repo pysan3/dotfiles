@@ -409,6 +409,14 @@ TPM_INSTALL_DIR="$XDG_DATA_HOME/tmux/plugins/tpm"
 update_git_history "$TPM_INSTALL_DIR" https://github.com/tmux-plugins/tpm \
   && info 'tmux plugmngr setup done' || err_exit 'tmux plugmngr setup failed'
 
+# Claude Code skills tracked from upstream. Cloned instead of installed via
+# `/plugin`, since the org's strictKnownMarketplaces blocks other marketplaces.
+YOMIYASU_INSTALL_DIR="$XDG_DATA_HOME/yomiyasu"
+update_git_history "$YOMIYASU_INSTALL_DIR" https://github.com/nanaism/yomiyasu.git \
+  && mkdir -p "$CLAUDE_CONFIG_DIR/skills" \
+  && ln -sfn "$YOMIYASU_INSTALL_DIR/skills/yomiyasu" "$CLAUDE_CONFIG_DIR/skills/yomiyasu" \
+  && info 'yomiyasu skill setup done' || err_exit 'yomiyasu skill setup failed'
+
 # install lynx from source
 command -v 'lynx' &>/dev/null && info 'lynx found' || warning 'lynx not found.'
 if t $LYNX || _checkyes 'Install lynx from source?'; then
